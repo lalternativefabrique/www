@@ -145,10 +145,10 @@ ${articleLines}
  * the build, not the site.
  */
 function assetIntegrityPlugin(): Plugin {
-  return {
-    name: 'lalter-asset-integrity',
-    apply: 'build',
-    closeBundle() {
+  // The prerender pass runs after every closeBundle, so checking there would
+  // inspect a directory that has no prerendered page in it yet. Arming an exit
+  // hook is what gets the check to run once the pages actually exist.
+  const check = () => {
       const outDir = resolve(process.cwd(), 'dist/client')
       if (!existsSync(outDir)) return
 
@@ -173,10 +173,19 @@ function assetIntegrityPlugin(): Plugin {
       }
 
       if (missing.size > 0) {
-        throw new Error(
-          `prerendered pages link stylesheets that were not emitted: ${[...missing].join(', ')}`,
+        console.error(
+          `\n[asset-integrity] prerendered pages link stylesheets that were not emitted: ${[...missing].join(', ')}\n`,
         )
+        process.exitCode = 1
       }
+  }
+
+  return {
+    name: 'lalter-asset-integrity',
+    apply: 'build',
+    closeBundle() {
+      process.removeListener('exit', check)
+      process.once('exit', check)
     },
   }
 }
