@@ -1,16 +1,44 @@
 import { useEffect, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { seo } from '@/lib/seo'
+import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
+
+const outilsSeo = seo({
+  title: "Les outils — L'Alternative Fabrique",
+  description:
+    "Les outils de L'Alternative Fabrique qui tournent aujourd'hui : Synthiz, Techtuel, Spore, Lungor, Skalpai. À chaque organe son outil.",
+  path: '/outils',
+})
 
 export const Route = createFileRoute('/outils')({
   component: OutilsPage,
-  head: () =>
-    seo({
-      title: "Les outils — L'Alternative Fabrique",
-      description:
-        "Les outils de L'Alternative Fabrique qui tournent aujourd'hui : Synthiz, Techtuel, Spore, Lungor, Skalpai. À chaque organe son outil.",
-      path: '/outils',
-    }),
+  head: () => ({
+    ...outilsSeo,
+    meta: [
+      ...outilsSeo.meta,
+      // This page is the only place the product domains and the fabrique are
+      // named together. Declaring each tool as published by the organization
+      // is what lets an answer engine attribute Spore or Synthiz to it.
+      jsonLd({
+        '@context': 'https://schema.org',
+        '@graph': [
+          // sameAs is rebuilt from the tools listed below rather than reusing
+          // the constant, so this page can never advertise a domain list that
+          // disagrees with what it actually renders.
+          { ...ORGANIZATION, sameAs: outils.map((outil) => outil.url) },
+          ...outils.map((outil) => ({
+            '@type': 'SoftwareApplication',
+            '@id': `${outil.url}/#software`,
+            name: outil.name,
+            url: outil.url,
+            applicationCategory: 'BusinessApplication',
+            description: outil.detail,
+            audience: { '@type': 'Audience', audienceType: outil.pour },
+            publisher: { '@id': `${SITE_URL}/#organization` },
+          })),
+        ],
+      }),
+    ],
+  }),
 })
 
 type Outil = {

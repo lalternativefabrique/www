@@ -102,6 +102,22 @@ export function jsonLd(data: unknown) {
   return { 'script:ld+json': data } as unknown as Record<string, string>
 }
 
+/**
+ * Every product domain the fabrique publishes under.
+ *
+ * Each tool ships on its own name, so nothing in the URLs themselves ties them
+ * back here. sameAs is what states the link: answer engines resolve an entity
+ * from consistent co-occurrence, and without it Spore and the fabrique read as
+ * two unrelated things.
+ */
+export const PRODUCT_URLS = [
+  'https://synthiz.com',
+  'https://techtuel.com',
+  'https://sporee.fr',
+  'https://lungor.fr',
+  'https://skalpai.dev',
+] as const
+
 /** Publisher identity, reused as the Article publisher. */
 export const ORGANIZATION = {
   '@type': 'Organization',
@@ -109,6 +125,8 @@ export const ORGANIZATION = {
   name: SITE_NAME,
   url: SITE_URL,
   email: CONTACT_EMAIL,
+  logo: `${SITE_URL}/apple-touch-icon.png`,
+  sameAs: PRODUCT_URLS,
   description:
     "Des outils sobres pour construire une alternative : connaissance, technique, création, financement, communication.",
 } as const
