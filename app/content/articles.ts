@@ -572,7 +572,416 @@ export const articles: Article[] = [
         text: "Gardez n8n pour ce qu'il fait mieux que tout le monde : brancher des SaaS entre eux, vite, sans mobiliser un développeur. Mais votre produit n'est pas une intégration entre SaaS. Ne l'exportez pas dans un canevas.",
       },
     ],
-  }]
+  },
+  {
+    slug: 'reputation-email-google-yahoo-microsoft',
+    titre: "Le jour où Microsoft a bloqué tout notre sous-réseau",
+    chapeau:
+      "Notre réputation d'expéditeur était propre, notre configuration aussi. Pourtant, pendant trois jours, tous nos messages à destination de Microsoft ont été refusés avant même d'entrer. Récit d'un blocage, et surtout du temps perdu à comprendre pourquoi.",
+    organe: 'Communication',
+    outil: 'Spore',
+    outilUrl: 'https://sporee.fr',
+    date: '2026-08-10',
+    lecture: '7 min',
+    blocs: [
+      {
+        type: 'p',
+        text: "Vous avez fait tout ce qu'on attend d'un expéditeur sérieux. Votre domaine indique quels serveurs ont le droit d'envoyer des courriers en son nom. Chaque message est signé. Votre serveur se présente sous une identité cohérente avec celle publiée dans le DNS.",
+      },
+      {
+        type: 'p',
+        text: "En clair : on sait qui vous êtes, et on peut le vérifier.",
+      },
+      {
+        type: 'p',
+        text: "Et malgré cela, vos messages n'arrivent pas chez Outlook.",
+      },
+      {
+        type: 'p',
+        text: "Pas dans les indésirables. Pas avec quelques minutes de retard. Ils sont refusés avant même d'être acceptés.",
+      },
+      {
+        type: 'p',
+        text: "C'est ce qui nous est arrivé les 7 et 8 août 2026 sur l'infrastructure d'envoi de Spore. À chaque tentative vers une adresse Microsoft, le même code revenait : S3140.",
+      },
+      {
+        type: 'h2',
+        text: "Ce que l'authentification garantit — et ce qu'elle ne garantit pas",
+      },
+      {
+        type: 'p',
+        text: "Dès qu'on commence à envoyer un peu sérieusement du courrier électronique, trois sigles reviennent partout : SPF, DKIM et DMARC.",
+      },
+      {
+        type: 'p',
+        text: "Autant les poser clairement.",
+      },
+      {
+        type: 'liste',
+        items: [
+          "SPF indique, dans le DNS du domaine, quels serveurs sont autorisés à envoyer des messages en son nom.",
+          "DKIM ajoute une signature cryptographique à chaque message. Le serveur qui le reçoit peut vérifier cette signature grâce à une clé publique publiée dans le DNS.",
+          "DMARC définit la politique à appliquer lorsque les contrôles précédents échouent ou ne correspondent pas au domaine attendu.",
+        ],
+      },
+      {
+        type: 'p',
+        text: "Ces mécanismes permettent de répondre à une question essentielle : l'expéditeur est-il bien celui qu'il prétend être ?",
+      },
+      {
+        type: 'p',
+        text: "Mais ils ne répondent pas à une autre question, tout aussi importante : est-ce que son courrier mérite d'être accepté ?",
+      },
+      {
+        type: 'p',
+        text: "Un spammeur peut parfaitement avoir un SPF propre, une signature DKIM valide et une politique DMARC correcte.",
+      },
+      {
+        type: 'p',
+        text: "L'authentification ne prouve pas qu'un message est souhaité. Elle prouve seulement que son origine peut être vérifiée.",
+      },
+      {
+        type: 'quote',
+        text: "L'authentification est un préalable, pas un laissez-passer. Elle permet de vous identifier, donc de vous tenir responsable.",
+      },
+      {
+        type: 'p',
+        text: "C'est ensuite que commence le vrai travail des filtres.",
+      },
+      {
+        type: 'p',
+        text: "Google, Yahoo ou Microsoft cherchent à savoir s'ils peuvent faire confiance à ce que vous envoyez. Pour cela, ils observent l'adresse IP d'origine, son ancienneté, le volume de messages envoyé, les plaintes reçues, les erreurs de livraison et parfois la réputation de toute la plage réseau à laquelle elle appartient.",
+      },
+      { type: 'h2', text: 'Le problème du voisinage' },
+      {
+        type: 'p',
+        text: "Notre adresse IP n'avait pas forcément fait quoi que ce soit de répréhensible.",
+      },
+      {
+        type: 'p',
+        text: "Le problème venait de son voisinage.",
+      },
+      {
+        type: 'p',
+        text: "Une adresse IP n'est jamais vraiment isolée. Elle appartient à une plage détenue par un hébergeur et utilisée par de nombreux autres clients.",
+      },
+      {
+        type: 'p',
+        text: "Quand un opérateur estime qu'une partie de cette plage a été trop souvent utilisée pour envoyer du courrier indésirable, il peut décider de se méfier de l'ensemble.",
+      },
+      {
+        type: 'p',
+        text: "Vous pouvez donc avoir une adresse parfaitement propre et subir malgré tout les conséquences de ce qu'ont fait les autres.",
+      },
+      {
+        type: 'p',
+        text: "La logique se comprend.",
+      },
+      {
+        type: 'p',
+        text: "Si les filtres ne sanctionnaient qu'une adresse précise, il suffirait à un expéditeur malveillant d'en changer. Chez la plupart des hébergeurs, cela prend quelques minutes.",
+      },
+      {
+        type: 'p',
+        text: "Bloquer une plage entière rend ce jeu plus coûteux.",
+      },
+      {
+        type: 'p',
+        text: "Mais cette méthode a un effet secondaire évident : elle pénalise aussi les expéditeurs honnêtes qui ont simplement eu le malheur de s'installer au mauvais endroit.",
+      },
+      {
+        type: 'p',
+        text: "Ils n'ont rien fait de particulier, n'ont pratiquement aucun moyen de connaître la réputation de leur voisinage avant d'utiliser l'adresse, et découvrent le problème une fois le service en production.",
+      },
+      { type: 'h2', text: 'Trois opérateurs, trois manières de juger' },
+      {
+        type: 'p',
+        text: "On met souvent Google, Yahoo et Microsoft dans le même panier. En pratique, leurs méthodes diffèrent beaucoup.",
+      },
+      {
+        type: 'tableau',
+        colonnes: ['', 'Google', 'Yahoo', 'Microsoft'],
+        lignes: [
+          [
+            'Signal particulièrement surveillé',
+            'Réputation générale et comportement des destinataires',
+            'Plaintes et réputation',
+            "Réputation de l'adresse IP et du réseau",
+          ],
+          [
+            'Quand quelque chose va mal',
+            'Le message peut finir en spam',
+            'Limitation ou refus',
+            'Refus explicite avec un code',
+          ],
+          [
+            'Outils proposés',
+            'Postmaster Tools',
+            'Boucle de rétroaction',
+            'SNDS et JMRP',
+          ],
+          [
+            'Comment réagir',
+            'Corriger et attendre',
+            'Contacter le support',
+            'Demander une levée de blocage',
+          ],
+        ],
+        note: "Sources : documentation publique des trois opérateurs et observation de nos propres envois.",
+      },
+      {
+        type: 'p',
+        text: "Google est souvent le plus difficile à comprendre.",
+      },
+      {
+        type: 'p',
+        text: "Le serveur peut accepter votre message sans erreur, puis le ranger dans les indésirables. Dans vos journaux, tout semble donc s'être bien passé.",
+      },
+      {
+        type: 'p',
+        text: "Le message a été livré, techniquement.",
+      },
+      {
+        type: 'p',
+        text: "Il n'a simplement presque aucune chance d'être lu.",
+      },
+      {
+        type: 'p',
+        text: "Microsoft est plus brutal, mais aussi plus clair. Lorsque le message est refusé, le refus apparaît immédiatement dans les journaux, accompagné d'un code.",
+      },
+      {
+        type: 'p',
+        text: "Au moins, vous savez qu'il y a un problème.",
+      },
+      { type: 'h2', text: 'Le laissez-passer A38' },
+      {
+        type: 'p',
+        text: "Une fois le blocage compris, encore faut-il savoir à qui parler.",
+      },
+      {
+        type: 'p',
+        text: "Et là, le problème technique devient un problème administratif.",
+      },
+      {
+        type: 'p',
+        text: "Les moteurs de recherche renvoient très vite vers un portail Microsoft destiné aux problèmes de délivrabilité. Seulement, celui que l'on trouve le plus facilement concerne surtout les boîtes professionnelles.",
+      },
+      {
+        type: 'p',
+        text: "Notre problème touchait les adresses grand public : Outlook.com et Hotmail.",
+      },
+      {
+        type: 'p',
+        text: "Ce n'est pas le même service. Ce n'est pas le même formulaire.",
+      },
+      {
+        type: 'p',
+        text: "Et rien ne vous l'explique vraiment.",
+      },
+      {
+        type: 'p',
+        text: "Vous remplissez le mauvais formulaire, vous envoyez votre demande, et il ne se passe rien.",
+      },
+      {
+        type: 'p',
+        text: "Personne ne vous répond pour vous dire que vous vous êtes trompé de porte.",
+      },
+      {
+        type: 'p',
+        text: "Il faut comprendre qu'un autre guichet existe, puis réussir à le trouver.",
+      },
+      {
+        type: 'p',
+        text: "Nous avons finalement déposé la demande auprès du support chargé de la délivrabilité des boîtes grand public, avec les adresses IP concernées, nos journaux d'envoi et les éléments de configuration.",
+      },
+      {
+        type: 'p',
+        text: "Demande envoyée le 9 août. Réponse le lendemain :",
+      },
+      {
+        type: 'quote',
+        text: "Mitigated. These IP(s) have been unblocked but may be subject to low daily email limits until they have established a good reputation.",
+      },
+      {
+        type: 'p',
+        text: "Autrement dit : les adresses ont été débloquées, mais Microsoft continuera à limiter leur volume tant qu'elles n'auront pas suffisamment d'historique.",
+      },
+      {
+        type: 'p',
+        text: "La levée du blocage ne remet donc pas les compteurs à zéro.",
+      },
+      {
+        type: 'p',
+        text: "Il faut ensuite envoyer progressivement, proprement, sans incident, jusqu'à ce que l'adresse inspire davantage confiance.",
+      },
+      {
+        type: 'p',
+        text: "Et la décision ne se propage pas forcément immédiatement à toute l'infrastructure Microsoft. Pendant plusieurs heures, voire davantage, certains serveurs peuvent encore refuser les messages.",
+      },
+      { type: 'h2', text: 'Ce que trois jours de blocage coûtent vraiment' },
+      {
+        type: 'p',
+        text: "Entre le premier refus et la levée du blocage, trois jours se sont écoulés.",
+      },
+      {
+        type: 'p',
+        text: "Le plus frustrant, c'est que nous n'avons pratiquement rien eu à corriger.",
+      },
+      {
+        type: 'p',
+        text: "La configuration était correcte depuis le début. SPF, DKIM, DMARC, reverse DNS : tout était conforme. Vérifier tout cela a pris environ une heure.",
+      },
+      {
+        type: 'p',
+        text: "Le reste du temps a été consacré à comprendre le problème et à trouver la bonne personne.",
+      },
+      {
+        type: 'p',
+        text: 'Il a fallu :',
+      },
+      {
+        type: 'liste',
+        items: [
+          "comprendre qu'un code de rejet inconnu ne désignait pas une erreur de configuration, mais un problème de réputation ;",
+          'éliminer les différentes pistes DNS une par une ;',
+          "comprendre que le premier formulaire trouvé n'était pas le bon ;",
+          "retrouver le service qui s'occupe réellement des boîtes Outlook.com et Hotmail ;",
+          'réunir les adresses IP, les journaux horodatés et les messages d’erreur bruts ;',
+          'attendre la réponse, puis attendre encore que le déblocage se propage.',
+        ],
+      },
+      {
+        type: 'p',
+        text: "Aucune fonctionnalité n'est sortie de ces heures de travail.",
+      },
+      {
+        type: 'p',
+        text: "Rien n'a été amélioré pour les utilisateurs.",
+      },
+      {
+        type: 'p',
+        text: "Nous avons simplement consacré trois jours à rétablir quelque chose qui aurait dû fonctionner dès le départ.",
+      },
+      {
+        type: 'p',
+        text: "C'est exactement le genre de travail qu'on ne veut pas voir surgir au milieu du développement d'un produit.",
+      },
+      { type: 'h2', text: 'Ce que nous avons changé depuis' },
+      {
+        type: 'p',
+        text: "À ce moment-là, une seule adresse IP portait l'essentiel de notre trafic.",
+      },
+      {
+        type: 'p',
+        text: "Quand elle a été bloquée chez Microsoft, tous les messages destinés à Microsoft sont donc tombés avec elle, alors même que 84 autres messages continuaient à être distribués normalement chez les autres opérateurs.",
+      },
+      {
+        type: 'p',
+        text: "Un problème sur une seule adresse pouvait avoir des conséquences pour tous nos clients.",
+      },
+      {
+        type: 'p',
+        text: 'Nous avons changé cela.',
+      },
+      {
+        type: 'p',
+        text: "Les messages sont désormais répartis selon leur nature. Le courrier strictement transactionnel ne partage plus la même adresse que les envois plus volumineux. Un nouveau compte n'est pas immédiatement mélangé au trafic déjà établi.",
+      },
+      {
+        type: 'p',
+        text: "Le but est simple : éviter qu'un incident local se transforme en panne générale.",
+      },
+      {
+        type: 'p',
+        text: "Nous avons également branché la remontée automatique des accusés de livraison et des rejets.",
+      },
+      {
+        type: 'p',
+        text: "Lorsqu'un serveur distant refuse un message, l'information revient maintenant directement dans notre système.",
+      },
+      {
+        type: 'p',
+        text: "Elle ne termine plus dans une boîte électronique que personne ne pense à consulter.",
+      },
+      {
+        type: 'p',
+        text: "Et surtout, nous avons appris quelque chose qu'aucune documentation technique ne vous donne vraiment : comment fonctionne la partie administrative de ces grands opérateurs.",
+      },
+      {
+        type: 'p',
+        text: "Nous savons maintenant où frapper, quoi envoyer et quels éléments préparer.",
+      },
+      {
+        type: 'p',
+        text: "La prochaine fois, le diagnostic ne prendra pas trois jours.",
+      },
+      {
+        type: 'p',
+        text: "C'est aussi cela, le service que nous proposons.",
+      },
+      {
+        type: 'p',
+        text: "Nous exploitons nous-mêmes l'infrastructure d'envoi : les serveurs, les adresses IP, les signatures, les journaux.",
+      },
+      {
+        type: 'p',
+        text: "Et avec cette infrastructure viennent les problèmes de réputation, les demandes de déblocage et les échanges avec les opérateurs.",
+      },
+      {
+        type: 'p',
+        text: 'Nous les prenons en charge.',
+      },
+      {
+        type: 'p',
+        text: "La réputation d'un serveur ne se construit d'ailleurs pas uniquement au moment où un problème apparaît. Elle s'entretient à chaque message envoyé.",
+      },
+      {
+        type: 'p',
+        text: "Cela passe par des domaines vérifiés, des signatures correctes, le retrait automatique des adresses qui n'existent plus, l'analyse des rejets et la conservation d'un historique précis de chaque tentative.",
+      },
+      {
+        type: 'p',
+        text: "Nos serveurs sont en France. Vos domaines restent les vôtres. Et nous facturons les messages envoyés, pas le nombre de contacts stockés dans une base.",
+      },
+      {
+        type: 'p',
+        text: "Un expéditeur qui démarre seul rencontre aussi un autre problème : il n'a presque aucun historique.",
+      },
+      {
+        type: 'p',
+        text: "Avec quelques dizaines de messages par jour, une nouvelle adresse reste longtemps difficile à évaluer pour les filtres. Il faut du trafic régulier et un comportement stable pour construire progressivement une bonne réputation.",
+      },
+      {
+        type: 'p',
+        text: "C'est là que l'histoire se retourne.",
+      },
+      {
+        type: 'p',
+        text: "Un client de Spore n'arrive pas sur une adresse qui vient d'être créée le matin même.",
+      },
+      {
+        type: 'p',
+        text: "Il profite d'une infrastructure déjà en activité, entretenue au quotidien et surveillée.",
+      },
+      {
+        type: 'p',
+        text: 'Chaque message correctement délivré contribue à entretenir cette réputation commune.',
+      },
+      {
+        type: 'p',
+        text: 'Vous, pendant ce temps, vous envoyez votre message.',
+      },
+      {
+        type: 'p',
+        text: 'Une requête.',
+      },
+      {
+        type: 'p',
+        text: 'Et il part.',
+      },
+    ],
+  },
+]
 
 export function articleBySlug(slug: string) {
   return articles.find((a) => a.slug === slug)
