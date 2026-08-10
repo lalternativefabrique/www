@@ -28,6 +28,7 @@ export const Route = createFileRoute('/blog/')({
           '@type': 'BlogPosting',
           headline: a.titre,
           datePublished: a.date,
+          dateModified: a.dateRevision ?? a.date,
           url: absoluteUrl(`/blog/${a.slug}`),
         })),
       }),
@@ -50,8 +51,8 @@ function BlogIndex() {
           <div className="mx-auto max-w-4xl">
             <p className="label opacity-80">Le propos</p>
             <p className="font-heading mt-8 text-4xl uppercase leading-tight sm:text-6xl">
-              « Une revue lente, écrite à plusieurs mains, sur ce que veut
-              dire reprendre la main sur ses outils aujourd'hui. »
+              « Le récit de ce que nous construisons, de nos choix et du
+              chemin parcouru. »
             </p>
           </div>
         </div>
