@@ -172,12 +172,34 @@ function assetIntegrityPlugin(): Plugin {
         }
       }
 
-      if (missing.size > 0) {
+      if (missing.size === 0) return
+
+      // The prerender pass and the client pass emit their own stylesheet, and
+      // inside the build container the two differ: the pages carry one hash
+      // while the file that ships carries another, so every page links a 404
+      // and the site is served unstyled. Repointing the pages at the file that
+      // actually shipped is what makes the output self-consistent.
+      const emitted = readdirSync(resolve(outDir, 'assets')).filter((name) =>
+        name.endsWith('.css'),
+      )
+      if (emitted.length !== 1) {
         console.error(
-          `\n[asset-integrity] prerendered pages link stylesheets that were not emitted: ${[...missing].join(', ')}\n`,
+          `\n[asset-integrity] pages link ${[...missing].join(', ')}, and the build emitted ${emitted.length} stylesheets — cannot repoint unambiguously\n`,
         )
         process.exitCode = 1
+        return
       }
+
+      const target = `/assets/${emitted[0]}`
+      for (const page of pages) {
+        const html = readFileSync(page, 'utf8')
+        let patched = html
+        for (const href of missing) patched = patched.split(href).join(target)
+        if (patched !== html) writeFileSync(page, patched, 'utf8')
+      }
+      console.log(
+        `[asset-integrity] repointed ${[...missing].join(', ')} to ${target}`,
+      )
   }
 
   return {
