@@ -1,6 +1,15 @@
 @import "tailwindcss";
 
 /*
+ * Pin what Tailwind scans instead of letting it infer from the working
+ * directory. The build runs a client pass and a prerender pass; when the two
+ * infer different roots they emit different CSS, so the hash baked into the
+ * prerendered pages stops matching the file that ships, and the site is served
+ * unstyled. That reached production once.
+ */
+@source "../../app";
+
+/*
  * L'Alter — editorial visual identity.
  * Magazine-inspired, calm, never preachy.
  */
