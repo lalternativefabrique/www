@@ -1,4 +1,4 @@
-import { writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import type { Plugin } from 'vite'
@@ -128,6 +128,59 @@ ${articleLines}
   }
 }
 
+/**
+ * Fail the build when a prerendered page links a stylesheet that was not
+ * emitted.
+ *
+ * The build runs twice — a client pass and the prerender pass — and Tailwind
+ * can emit slightly different CSS between them, producing two different content
+ * hashes. The prerender pass bakes its hash into every page, then the client
+ * pass writes the file under its own: every page links a stylesheet that does
+ * not exist and the site is served as raw HTML.
+ *
+ * It reached production once (15 pages pointing at app-ThVqMHFt.css while only
+ * app-vxgttWyx.css shipped) and never reproduced locally, because it depends on
+ * what each pass scans inside the build container. Nothing failed — the build
+ * was green and the site was unstyled. Hence this check: a mismatch must break
+ * the build, not the site.
+ */
+function assetIntegrityPlugin(): Plugin {
+  return {
+    name: 'lalter-asset-integrity',
+    apply: 'build',
+    closeBundle() {
+      const outDir = resolve(process.cwd(), 'dist/client')
+      if (!existsSync(outDir)) return
+
+      const pages: string[] = []
+      const walk = (dir: string) => {
+        for (const entry of readdirSync(dir, { withFileTypes: true })) {
+          const full = resolve(dir, entry.name)
+          if (entry.isDirectory()) walk(full)
+          else if (entry.name.endsWith('.html')) pages.push(full)
+        }
+      }
+      walk(outDir)
+
+      const missing = new Set<string>()
+      for (const page of pages) {
+        const html = readFileSync(page, 'utf8')
+        for (const [, href] of html.matchAll(
+          /<link[^>]+rel="stylesheet"[^>]+href="(\/[^"]+)"/g,
+        )) {
+          if (!existsSync(resolve(outDir, href.slice(1)))) missing.add(href)
+        }
+      }
+
+      if (missing.size > 0) {
+        throw new Error(
+          `prerendered pages link stylesheets that were not emitted: ${[...missing].join(', ')}`,
+        )
+      }
+    },
+  }
+}
+
 export default defineConfig({
   server: {
     watch: {
@@ -152,5 +205,6 @@ export default defineConfig({
     }),
     viteReact(),
     sitemapPlugin(),
+    assetIntegrityPlugin(),
   ],
 })
