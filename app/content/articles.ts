@@ -27,6 +27,8 @@ export type Article = {
   outil: string
   outilUrl: string
   date: string
+  /** Only when the text was actually revised. Absent means never touched. */
+  dateRevision?: string
   lecture: string
   blocs: Bloc[]
 }

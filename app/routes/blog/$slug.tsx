@@ -27,6 +27,7 @@ export const Route = createFileRoute('/blog/$slug')({
       path,
       type: 'article',
       publishedTime: loaderData.date,
+      modifiedTime: loaderData.dateRevision,
       section: loaderData.organe,
     })
 
@@ -43,8 +44,7 @@ export const Route = createFileRoute('/blog/$slug')({
           headline: loaderData.titre,
           description: loaderData.chapeau,
           datePublished: loaderData.date,
-          // No separate revision date is tracked; publication doubles as it.
-          dateModified: loaderData.date,
+          dateModified: loaderData.dateRevision ?? loaderData.date,
           articleSection: loaderData.organe,
           inLanguage: 'fr-FR',
           mainEntityOfPage: { '@type': 'WebPage', '@id': url },

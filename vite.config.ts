@@ -48,10 +48,13 @@ const latestArticleDate = articles
   .at(-1)
 
 /**
- * Emit sitemap.xml into the client build.
+ * Emit sitemap.xml and llms.txt into the client build.
  *
  * Written in closeBundle rather than as an emitted asset: the prerender pass
  * runs its own build, and emitting from there would produce the file twice.
+ *
+ * Both files derive from the same article list as the prerender pass, so a new
+ * article cannot be live and missing from either.
  */
 function sitemapPlugin(): Plugin {
   return {
@@ -65,7 +68,9 @@ function sitemapPlugin(): Plugin {
       const urls = ALL_PATHS.map((path) => {
         const article = articles.find((a) => `/blog/${a.slug}` === path)
         const lastmod =
-          article?.date ?? (path === '/blog' ? latestArticleDate : undefined)
+          article?.dateRevision ??
+          article?.date ??
+          (path === '/blog' ? latestArticleDate : undefined)
         // Home first, then editorial content, then the rest.
         const priority = path === '/' ? '1.0' : article ? '0.8' : '0.6'
 
@@ -86,8 +91,36 @@ ${urls}
 </urlset>
 `
 
+      const articleLines = [...articles]
+        .sort((a, b) => b.date.localeCompare(a.date))
+        .map(
+          (a) =>
+            `- [${a.titre}](${SITE_URL}/blog/${a.slug}) — ${a.chapeau} (${a.organe}, ${a.date})`,
+        )
+        .join('\n')
+
+      const llms = `# L'Alternative Fabrique
+
+> Une revue et un ensemble d'outils sobres pour construire une alternative :
+> connaissance, technique, création, financement, communication. Chaque outil
+> est un organe, chaque article défend une position argumentée et vérifiable.
+
+## Articles
+
+${articleLines}
+
+## Pages
+
+- [Accueil](${SITE_URL}/)
+- [Les organes](${SITE_URL}/outils) — les outils et ce que chacun prend en charge
+- [Le pot commun](${SITE_URL}/pot) — le modèle de financement
+- [À propos](${SITE_URL}/a-propos)
+- [Contact](${SITE_URL}/contact)
+`
+
       try {
         writeFileSync(resolve(outDir, 'sitemap.xml'), xml, 'utf8')
+        writeFileSync(resolve(outDir, 'llms.txt'), llms, 'utf8')
       } catch {
         // dist/client does not exist during the server/prerender build.
       }

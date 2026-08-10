@@ -31,6 +31,7 @@ type SeoInput = {
   /** 'article' switches the OG type and enables the fields below. */
   type?: 'website' | 'article'
   publishedTime?: string
+  modifiedTime?: string
   section?: string
 }
 
@@ -48,6 +49,7 @@ export function seo({
   image = OG_IMAGE,
   type = 'website',
   publishedTime,
+  modifiedTime,
   section,
 }: SeoInput) {
   const url = absoluteUrl(path)
@@ -72,6 +74,9 @@ export function seo({
   if (type === 'article') {
     if (publishedTime) {
       meta.push({ property: 'article:published_time', content: publishedTime })
+    }
+    if (modifiedTime) {
+      meta.push({ property: 'article:modified_time', content: modifiedTime })
     }
     if (section) {
       meta.push({ property: 'article:section', content: section })
