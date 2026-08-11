@@ -44,6 +44,12 @@ const ARTICLE_PATHS = articles.map((a) => `/blog/${a.slug}`)
  * one is never prerendered into a page that would 404 on the static host.
  */
 const EN_PATHS = [
+  '/en',
+  '/en/apps',
+  '/en/outils',
+  '/en/pot',
+  '/en/a-propos',
+  '/en/contact',
   '/en/blog',
   ...articles.flatMap((a) => (a.en ? [`/en/blog/${a.en.slug}`] : [])),
 ]
