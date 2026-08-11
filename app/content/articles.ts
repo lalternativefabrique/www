@@ -168,18 +168,18 @@ export const articles: Article[] = [
     ],
     en: {
       slug: 'what-if-ai-were-a-democratic-tool',
-      titre: 'What if AI were a democratic tool?',
+      titre: 'What if AI were a democratising force?',
       chapeau:
-        'It gives no ideas to those who have none. It lets more people turn an intuition into a project — and that shift runs deeper than any technical revolution.',
+        'It does not create ideas where there are none. It lets more people turn an intuition into a project — and that shift runs deeper than any technical revolution.',
       organe: 'Knowledge',
       blocs: [
         {
           type: 'p',
-          text: 'Artificial intelligence is sold as a technical revolution. It could be something else: a democratic tool.',
+          text: 'Artificial intelligence is sold as a technical revolution. It could be something else: a democratising force.',
         },
         {
           type: 'p',
-          text: 'It gives no ideas to those who have none. It lets more people turn an intuition into a project, an ambition into action, a vague thought into something concrete.',
+          text: 'It does not create ideas where there are none. It lets more people turn an intuition into a project, an ambition into action, a vague thought into something concrete.',
         },
         { type: 'h2', text: 'What used to stand in the way' },
         {
@@ -194,7 +194,7 @@ export const articles: Article[] = [
           type: 'quote',
           text: 'It does not replace the desire to make something. It gives that desire a way through.',
         },
-        { type: 'h2', text: 'What it changes, concretely' },
+        { type: 'h2', text: 'What it changes in practice' },
         {
           type: 'p',
           text: 'The figures are starting to show the scale. According to the half-yearly barometer from Bpifrance Le Lab published in January 2026, 55% of French micro-businesses and SMEs say they use generative AI, against 31% a year earlier and 15% at the end of 2023. Usage has more than tripled in two years.',
@@ -217,7 +217,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'What opens instead is another road. The threshold has dropped and costs with it: what once required a budget can now be attempted for almost nothing. The opportunity is not to do the same thing faster, but to try what you used to forbid yourself.',
+          text: 'What opens up instead is another path. The barrier to entry has fallen, and costs with it: what once required a budget can now be attempted for almost nothing. The opportunity is not to do the same thing faster, but to try what you once ruled out.',
         },
         { type: 'h2', text: 'What it does not change' },
         {
@@ -236,14 +236,14 @@ export const articles: Article[] = [
           type: 'p',
           text: 'AI moves the starting point, not the finish. It gives a handhold to anyone left standing in front of their idea with no idea where to grip it. Everything that comes after remains untouched.',
         },
-        { type: 'h2', text: 'The reservation that counts' },
+        { type: 'h2', text: 'The caveat that matters' },
         {
           type: 'p',
           text: 'None of this is secured, because none of this belongs to us.',
         },
         {
           type: 'p',
-          text: 'Training a foundation model takes capital, compute and electricity that almost nobody can assemble. The result is mechanical: a handful of players decide what these tools can do, what they refuse, what they cost and when they vanish. An instrument of emancipation rented from a third party who can rewrite the rules overnight remains an instrument of dependence.',
+          text: 'Training a foundation model takes capital, computing power and electricity on a scale that almost nobody can muster. The result is inevitable: a handful of players decide what these tools can do, what they refuse to do, what they cost and when they disappear. An instrument of emancipation rented from a third party that can rewrite the rules overnight remains an instrument of dependence.',
         },
         {
           type: 'p',
@@ -272,7 +272,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'Perhaps this is the means that was missing. Not a weapon against anyone — a tool anyone can pick up, provided it stays there to be picked up. That is the whole question, and it will not settle itself.',
+          text: 'Perhaps this is what was missing. Not a weapon against anyone, but a tool anyone can pick up — provided it remains within reach. That is the whole question, and it will not answer itself.',
         },
       ],
     },
@@ -369,7 +369,7 @@ export const articles: Article[] = [
     ],
     en: {
       slug: 'building-ai-in-france-in-2026',
-      titre: 'Building AI in France, in 2026',
+      titre: 'Building AI in France in 2026',
       chapeau:
         'The received wisdom says you need American models to build a serious product. Our tools run in France, from compute to storage — here is what that allows, what it costs, and where it still falls short.',
       organe: 'Technique',
@@ -411,11 +411,11 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'At those levels, the gap between providers decides nothing. What decides is knowing the real cost of a request — and being able to quote it without a safety margin.',
+          text: 'At those levels, the gap between providers is not what decides the matter. What matters is knowing the real cost of a request — and being able to quote it without a safety margin.',
         },
         {
           type: 'p',
-          text: 'This point is underrated. When the infrastructure bill is opaque, the customer price is built blind, with a provision for uncertainty. When it is known to the cent, the price is calculated.',
+          text: 'This point is underrated. When the infrastructure bill is opaque, customer pricing is guesswork, padded to cover uncertainty. When the cost is known to the cent, you can price the product precisely.',
         },
         { type: 'h2', text: 'What it makes possible' },
         {
@@ -437,7 +437,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'One caveat while we are at it: what you use to work and what runs inside your product are two different things. The best coding assistants are American, most developers use them daily, and this article is no exception. That choice binds no one but you and can be changed in an afternoon.',
+          text: 'One caveat while we are at it: what you use in your own work and what runs inside your product are two different things. The best coding assistants are American, most developers use them daily, and this article is no exception. That choice affects only your own workflow and can be changed in an afternoon.',
         },
         {
           type: 'p',
@@ -532,7 +532,7 @@ export const articles: Article[] = [
       slug: 'catching-words-before-they-are-lost',
       titre: 'Catching words before they are lost',
       chapeau:
-        "A two-hour conference, a podcast heard while walking, a report skimmed in a hurry. Everything was said, nothing can be found again. Sound disperses; text stays put.",
+        "A two-hour conference, a podcast listened to while walking, a report skimmed in a hurry. Everything was captured, yet none of it can be found again. Sound disperses; text stays put.",
       organe: 'Knowledge',
       blocs: [
         {
@@ -547,7 +547,7 @@ export const articles: Article[] = [
           type: 'p',
           text: 'This is not a failure of memory. Such content leaves no usable trace. It runs through platforms that keep it, index it for themselves, and hand you back nothing you can reuse.',
         },
-        { type: 'h2', text: 'Sound cannot be searched' },
+        { type: 'h2', text: 'Raw audio cannot be searched' },
         {
           type: 'p',
           text: 'An audio file is an opaque block. You cannot dig through it, quote a passage, cross-check it against another document, or verify who said what. You can only listen again, from start to finish, at the speed it was recorded.',
@@ -558,7 +558,7 @@ export const articles: Article[] = [
         },
         {
           type: 'quote',
-          text: 'Transcribing is not converting a format. It moves speech from the status of memory to that of material.',
+          text: 'Transcription does more than convert a format. It turns speech from something remembered into something you can work with.',
         },
         { type: 'h2', text: 'Catching is not enough' },
         {
@@ -698,7 +698,7 @@ export const articles: Article[] = [
         { type: 'h2', text: 'What the blind spot costs' },
         {
           type: 'p',
-          text: 'An internal agent that ignores recorded meetings will answer beside the point on half the decisions taken. A monitoring setup that only tracks articles will miss what gets said on stage six months before anyone writes it down. A document index that skips video training sends the user back to documentation they have already read.',
+          text: 'An internal agent that ignores recorded meetings will miss the context behind half the decisions made. A monitoring setup that only tracks articles will miss what gets said on stage six months before anyone writes it down. A document index that skips video training sends the user back to documentation they have already read.',
         },
         {
           type: 'p',
@@ -708,7 +708,7 @@ export const articles: Article[] = [
           type: 'quote',
           text: 'A system can only reason about what it can read.',
         },
-        { type: 'h2', text: 'Why this piece is still painful' },
+        { type: 'h2', text: 'Why this is still painful' },
         {
           type: 'p',
           text: 'Technically, the problem is solved: speech recognition models are good and readily available. The difficulty is operational, and that is what wears people down.',
@@ -746,7 +746,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'The API is in production, served by French infrastructure.',
+          text: 'The API is in production, running on infrastructure hosted in France.',
         },
       ],
     },
@@ -854,7 +854,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'What remains is what matters to a service starting out: the message arrives, from infrastructure that is frugal, ethical and under control.',
+          text: 'For a service just starting out, what matters is simple: the message arrives through frugal, ethical infrastructure you control.',
         },
       ],
     },
@@ -1024,7 +1024,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'Both camps use an orchestration layer. The only difference is the mode of access. And that difference costs more than it returns, because the conceptual complexity doesn’t go away: you still have to understand what an agent is, a chain, a memory, a retriever, a vector store. You simply learn them through configuration panels — without types, without the underlying library’s documentation, without being able to read what actually runs. You pay for the abstraction and for what sits beneath it.',
+          text: 'Both camps use an orchestration layer. The only difference is how you access it. And that difference costs more than it delivers, because the conceptual complexity doesn’t go away: you still have to understand what an agent is, a chain, a memory, a retriever, a vector store. You simply learn them through configuration panels — without types, without the underlying library’s documentation, without being able to read what actually runs. You pay for the abstraction and for what sits beneath it.',
         },
         {
           type: 'p',
@@ -1037,7 +1037,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'It’s a very useful admission. It means n8n now considers that the right way to build an agentic system is to describe it to a coding agent and let that agent produce the artefact. On that point: agreed. That has indeed become the right way to work.',
+          text: 'It’s a very useful admission. It means n8n now considers the right way to build an agentic system to be describing it to a coding agent and letting that agent produce the artefact. On that point: agreed. That has indeed become the right way to work.',
         },
         {
           type: 'quote',
@@ -1050,7 +1050,7 @@ export const articles: Article[] = [
         { type: 'h2', text: 'What you can do with a result in code' },
         {
           type: 'p',
-          text: 'Workflow JSON reads badly, is tested by manual execution, and cannot be factored. A code integration inside your application gives you four things back.',
+          text: 'Workflow JSON reads badly, is tested by manual execution, and is difficult to reuse. An integration built in code gives you four things back.',
         },
         {
           type: 'liste',
@@ -1063,7 +1063,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'To which add reuse. An agent layer in a repository serves several products. A workflow cannot be factored across two products: it gets duplicated, and the two copies diverge.',
+          text: 'Then there is reuse. An agent layer in a repository can serve several products. A workflow shared across two products gets duplicated, and the two copies diverge.',
         },
         { type: 'h2', text: 'What n8n does genuinely well' },
         {
@@ -1081,7 +1081,7 @@ export const articles: Article[] = [
         { type: 'h2', text: 'The ceiling, and where it leaves you' },
         {
           type: 'p',
-          text: 'As long as the need maps onto existing nodes, all is well. The moment it steps outside — a particular error-recovery path, a conditional chain of tools, a constrained output format — n8n hands you back the controls. Concretely, it sends you to the Code node, to write LangChain in a browser text field.',
+          text: 'As long as the need maps onto existing nodes, all is well. The moment it does not — a particular error-recovery path, a conditional chain of tools, a constrained output format — n8n hands you back the controls. Concretely, it sends you to the Code node to write LangChain in a browser text field.',
         },
         {
           type: 'p',
@@ -1093,7 +1093,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'That ceiling arrives sooner than you’d think, because an agentic system that reaches production almost always develops those needs. And meanwhile, the cost of writing that layer properly has collapsed: coding agents produce this kind of integration far faster than they did eighteen months ago. It’s assembly code, with a clear contract and explicit types — exactly what those tools do best.',
+          text: 'That ceiling arrives sooner than you’d think, because an agentic system that reaches production almost always develops those needs. Meanwhile, the cost of writing that layer properly has collapsed: coding agents produce this kind of integration far faster than they did eighteen months ago. It’s glue code, with a clear contract and explicit types — exactly what those tools do best.',
         },
         { type: 'h2', text: 'What this changes in your week' },
         {
@@ -1531,7 +1531,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'In short: who you are is known, and it can be verified.',
+          text: 'In short, your identity is known and can be verified.',
         },
         {
           type: 'p',
@@ -1694,7 +1694,7 @@ export const articles: Article[] = [
           type: 'p',
           text: 'At least you know there is a problem.',
         },
-        { type: 'h2', text: 'The A38 form' },
+        { type: 'h2', text: 'The administrative maze' },
         {
           type: 'p',
           text: 'Once the block is understood, you still have to find someone to talk to.',
@@ -1850,7 +1850,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'We now know where to knock, what to send and what to have ready.',
+          text: 'We now know who to contact, what to send and what to have ready.',
         },
         {
           type: 'p',
@@ -1902,7 +1902,7 @@ export const articles: Article[] = [
         },
         {
           type: 'p',
-          text: 'They get an infrastructure already in use, maintained daily and watched.',
+          text: 'They get infrastructure that is already in use, maintained daily and closely monitored.',
         },
         {
           type: 'p',
