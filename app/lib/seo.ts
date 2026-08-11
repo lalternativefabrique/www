@@ -33,6 +33,15 @@ type SeoInput = {
   publishedTime?: string
   modifiedTime?: string
   section?: string
+  /** 'en' switches og:locale and the html lang of the page. */
+  locale?: 'fr' | 'en'
+  /**
+   * The same content in the other language, as a route path.
+   *
+   * Emits the reciprocal hreflang pair. Without it the two versions read as
+   * duplicate content and search engines pick one of them for you.
+   */
+  alternate?: { fr?: string; en?: string }
 }
 
 /**
@@ -51,6 +60,8 @@ export function seo({
   publishedTime,
   modifiedTime,
   section,
+  locale = 'fr',
+  alternate,
 }: SeoInput) {
   const url = absoluteUrl(path)
 
@@ -63,6 +74,8 @@ export function seo({
     { property: 'og:url', content: url },
     { property: 'og:type', content: type },
     { property: 'og:image', content: image },
+    // Overrides the fr_FR declared in __root for pages that are not French.
+    { property: 'og:locale', content: locale === 'en' ? 'en_GB' : 'fr_FR' },
 
     // twitter:card is set to summary_large_image in __root; that promises an
     // image, so one is always emitted here.
@@ -83,12 +96,37 @@ export function seo({
     }
   }
 
-  return {
-    meta,
+  const links: Array<Record<string, string>> = [
     // Canonical resolves the /pot vs /pot/ duplicate: the static host serves
     // both, and without this they read as two pages with identical content.
-    links: [{ rel: 'canonical', href: url }],
+    { rel: 'canonical', href: url },
+  ]
+
+  // A hreflang set must list every version including the page itself, so the
+  // route passes both sides of the pair rather than only the other one.
+  if (alternate?.fr) {
+    links.push({
+      rel: 'alternate',
+      hreflang: 'fr',
+      href: absoluteUrl(alternate.fr),
+    })
+    // x-default points at the French version: it is the site's own language,
+    // and the one that covers every page rather than a subset.
+    links.push({
+      rel: 'alternate',
+      hreflang: 'x-default',
+      href: absoluteUrl(alternate.fr),
+    })
   }
+  if (alternate?.en) {
+    links.push({
+      rel: 'alternate',
+      hreflang: 'en',
+      href: absoluteUrl(alternate.en),
+    })
+  }
+
+  return { meta, links }
 }
 
 /**

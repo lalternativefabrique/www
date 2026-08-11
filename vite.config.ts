@@ -39,7 +39,16 @@ const STATIC_PATHS = [
 
 const ARTICLE_PATHS = articles.map((a) => `/blog/${a.slug}`)
 
-const ALL_PATHS = [...STATIC_PATHS, ...ARTICLE_PATHS]
+/**
+ * The English revue. Only translated articles are listed, so an untranslated
+ * one is never prerendered into a page that would 404 on the static host.
+ */
+const EN_PATHS = [
+  '/en/blog',
+  ...articles.flatMap((a) => (a.en ? [`/en/blog/${a.en.slug}`] : [])),
+]
+
+const ALL_PATHS = [...STATIC_PATHS, ...ARTICLE_PATHS, ...EN_PATHS]
 
 /** Most recent article date, used as lastmod for the blog index. */
 const latestArticleDate = articles
@@ -66,7 +75,11 @@ function sitemapPlugin(): Plugin {
       const outDir = resolve(process.cwd(), 'dist/client')
 
       const urls = ALL_PATHS.map((path) => {
-        const article = articles.find((a) => `/blog/${a.slug}` === path)
+        // An English article carries its French counterpart's dates: they are
+        // the same piece, and only the prose is translated.
+        const article =
+          articles.find((a) => `/blog/${a.slug}` === path) ??
+          articles.find((a) => a.en && `/en/blog/${a.en.slug}` === path)
         const lastmod =
           article?.dateRevision ??
           article?.date ??
@@ -109,7 +122,22 @@ ${urls}
 
 ${articleLines}
 
-## Pages
+${
+        articles.some((a) => a.en)
+          ? `## Articles (English)
+
+${articles
+  .filter((a) => a.en)
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .map(
+    (a) =>
+      `- [${a.en!.titre}](${SITE_URL}/en/blog/${a.en!.slug}) — ${a.en!.chapeau} (${a.en!.organe}, ${a.date})`,
+  )
+  .join('\n')}
+
+`
+          : ''
+      }## Pages
 
 - [Accueil](${SITE_URL}/)
 - [Les organes](${SITE_URL}/outils) — les outils et ce que chacun prend en charge

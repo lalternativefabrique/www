@@ -1,27 +1,36 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
-import { articleBySlug } from '@/content/articles'
+import { articleEnBySlug, articleFrByEnSlug } from '@/content/articles'
 import { Inscription } from '@/components/Inscription'
 import { Blocs } from '@/components/Blocs'
-import {
-  ORGANIZATION,
-  SITE_URL,
-  absoluteUrl,
-  jsonLd,
-  seo,
-} from '@/lib/seo'
+import { ORGANIZATION, SITE_URL, absoluteUrl, jsonLd, seo } from '@/lib/seo'
 
-export const Route = createFileRoute('/blog/$slug')({
-  component: BlogArticle,
+export const Route = createFileRoute('/en/blog/$slug')({
+  component: BlogArticleEn,
   loader: ({ params }) => {
-    const article = articleBySlug(params.slug)
-    if (!article) throw notFound()
-    return article
+    const article = articleEnBySlug(params.slug)
+    const fr = articleFrByEnSlug(params.slug)
+    if (!article || !fr) throw notFound()
+    // Date, tool and reading time are not translated: they are taken from the
+    // French entry so the two versions can never state different facts.
+    return {
+      ...article,
+      date: fr.date,
+      dateRevision: fr.dateRevision,
+      lecture: fr.lecture,
+      outil: fr.outil,
+      outilUrl: fr.outilUrl,
+      frSlug: fr.slug,
+    }
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {}
 
-    const path = `/blog/${loaderData.slug}`
+    const path = `/en/blog/${loaderData.slug}`
     const url = absoluteUrl(path)
+    const alternate = {
+      fr: `/blog/${loaderData.frSlug}`,
+      en: path,
+    }
     const base = seo({
       title: `${loaderData.titre} — L'Alternative Fabrique`,
       description: loaderData.chapeau,
@@ -30,17 +39,14 @@ export const Route = createFileRoute('/blog/$slug')({
       publishedTime: loaderData.date,
       modifiedTime: loaderData.dateRevision,
       section: loaderData.organe,
-      alternate: loaderData.en
-        ? { fr: path, en: `/en/blog/${loaderData.en.slug}` }
-        : undefined,
+      locale: 'en',
+      alternate,
     })
 
     return {
       ...base,
       meta: [
         ...base.meta,
-        // Article markup is what makes an editorial page eligible for the
-        // richer result: it carries the headline, the date and the publisher.
         jsonLd({
           '@context': 'https://schema.org',
           '@type': 'Article',
@@ -50,7 +56,7 @@ export const Route = createFileRoute('/blog/$slug')({
           datePublished: loaderData.date,
           dateModified: loaderData.dateRevision ?? loaderData.date,
           articleSection: loaderData.organe,
-          inLanguage: 'fr-FR',
+          inLanguage: 'en',
           mainEntityOfPage: { '@type': 'WebPage', '@id': url },
           author: { '@id': `${SITE_URL}/#organization` },
           publisher: ORGANIZATION,
@@ -60,30 +66,28 @@ export const Route = createFileRoute('/blog/$slug')({
   },
 })
 
-function BlogArticle() {
+function BlogArticleEn() {
   const article = Route.useLoaderData()
 
   return (
     <article>
       <header className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">Organe {article.organe}</p>
+          <p className="label text-accent-primary">{article.organe}</p>
           <h1 className="font-heading mt-6 text-5xl uppercase leading-tight sm:text-7xl">
             {article.titre}
           </h1>
           <p className="chapeau mt-8 text-text/80">{article.chapeau}</p>
           <p className="label mt-8 text-text/50">
-            {article.date} — {article.lecture} de lecture
+            {article.date} — {article.lecture} read
           </p>
-          {article.en ? (
-            <Link
-              to="/en/blog/$slug"
-              params={{ slug: article.en.slug }}
-              className="label mt-6 inline-flex items-center gap-2 text-text/60 hover:text-accent-primary"
-            >
-              Read in English <span aria-hidden>→</span>
-            </Link>
-          ) : null}
+          <Link
+            to="/blog/$slug"
+            params={{ slug: article.frSlug }}
+            className="label mt-6 inline-flex items-center gap-2 text-text/60 hover:text-accent-primary"
+          >
+            Lire en français <span aria-hidden>→</span>
+          </Link>
         </div>
       </header>
 
@@ -93,10 +97,9 @@ function BlogArticle() {
         </div>
       </section>
 
-      {/* Tool tie-in */}
       <section className="border-t-2 border-text bg-bg">
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-20">
-          <p className="label text-text/60">L'outil de cet organe</p>
+          <p className="label text-text/60">The tool behind this piece</p>
           <h2 className="font-heading mt-4 text-4xl uppercase leading-none sm:text-5xl">
             {article.outil}
           </h2>
@@ -105,19 +108,18 @@ function BlogArticle() {
               href={article.outilUrl}
               className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
             >
-              Ouvrir {article.outil} <span aria-hidden>→</span>
+              Open {article.outil} <span aria-hidden>→</span>
             </a>
             <Link
-              to="/outils"
+              to="/en/blog"
               className="label inline-flex w-fit items-center gap-3 px-2 py-3 text-text/70 hover:text-accent-primary"
             >
-              Tous les outils <span aria-hidden>→</span>
+              All articles <span aria-hidden>→</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Sign-up */}
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-20">
           <Inscription />

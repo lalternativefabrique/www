@@ -19,6 +19,24 @@ export type Bloc =
       note?: string
     }
 
+/**
+ * The English version of an article.
+ *
+ * Optional per article: a piece with no `en` simply does not exist under /en,
+ * so the revue can be translated one text at a time without the site ever
+ * advertising a page that is not written yet.
+ *
+ * Everything else — date, organe, outil, reading time — is shared with the
+ * French version and never duplicated here.
+ */
+export type ArticleEn = {
+  slug: string
+  titre: string
+  chapeau: string
+  organe: string
+  blocs: Bloc[]
+}
+
 export type Article = {
   slug: string
   titre: string
@@ -31,6 +49,7 @@ export type Article = {
   dateRevision?: string
   lecture: string
   blocs: Bloc[]
+  en?: ArticleEn
 }
 
 export const articles: Article[] = [
@@ -987,4 +1006,21 @@ export const articles: Article[] = [
 
 export function articleBySlug(slug: string) {
   return articles.find((a) => a.slug === slug)
+}
+
+/** Only the articles that have been translated. Drives /en/blog and its prerender. */
+export const articlesEn = articles.flatMap((a) => (a.en ? [a.en] : []))
+
+export function articleEnBySlug(slug: string) {
+  return articlesEn.find((a) => a.slug === slug)
+}
+
+/**
+ * The French counterpart of a translated article, for the hreflang pair.
+ *
+ * The English slug is its own — a translated title yields a different URL — so
+ * the link back cannot be derived from the slug and is looked up here.
+ */
+export function articleFrByEnSlug(slug: string) {
+  return articles.find((a) => a.en?.slug === slug)
 }

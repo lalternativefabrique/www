@@ -3,6 +3,7 @@ import {
   Outlet,
   Scripts,
   createRootRoute,
+  useRouterState,
 } from '@tanstack/react-router'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -55,8 +56,13 @@ function NotFound() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  // The /en prefix is what makes a page English, so the pathname is the whole
+  // signal — no context or loader data needed to set the document language.
+  const { pathname } = useRouterState({ select: (s) => s.location })
+  const lang = pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'fr'
+
   return (
-    <html lang="fr">
+    <html lang={lang}>
       <head>
         <HeadContent />
       </head>
