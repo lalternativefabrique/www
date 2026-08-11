@@ -166,6 +166,116 @@ export const articles: Article[] = [
         text: "Peut-être est-ce le moyen qui manquait. Pas une arme contre quelqu'un — un outil que chacun peut prendre, à condition qu'il reste prenable. C'est toute la question, et elle ne se décide pas toute seule.",
       },
     ],
+    en: {
+      slug: 'what-if-ai-were-a-democratic-tool',
+      titre: 'What if AI were a democratic tool?',
+      chapeau:
+        'It gives no ideas to those who have none. It lets more people turn an intuition into a project — and that shift runs deeper than any technical revolution.',
+      organe: 'Knowledge',
+      blocs: [
+        {
+          type: 'p',
+          text: 'Artificial intelligence is sold as a technical revolution. It could be something else: a democratic tool.',
+        },
+        {
+          type: 'p',
+          text: 'It gives no ideas to those who have none. It lets more people turn an intuition into a project, an ambition into action, a vague thought into something concrete.',
+        },
+        { type: 'h2', text: 'What used to stand in the way' },
+        {
+          type: 'p',
+          text: 'For a long time, an idea stalled for want of knowledge, means or confidence. You had to know how to write, code, design, structure, communicate — or simply know the right codes. Many gave up before starting.',
+        },
+        {
+          type: 'p',
+          text: 'AI lowers some of those barriers. It lets someone who cannot code ship a first prototype. It helps someone who doubts their writing put their thinking into words. It supports someone with a vision but no idea how to organise it.',
+        },
+        {
+          type: 'quote',
+          text: 'It does not replace the desire to make something. It gives that desire a way through.',
+        },
+        { type: 'h2', text: 'What it changes, concretely' },
+        {
+          type: 'p',
+          text: 'The figures are starting to show the scale. According to the half-yearly barometer from Bpifrance Le Lab published in January 2026, 55% of French micro-businesses and SMEs say they use generative AI, against 31% a year earlier and 15% at the end of 2023. Usage has more than tripled in two years.',
+        },
+        {
+          type: 'p',
+          text: 'What the headline number hides matters more. Among the micro-businesses and SMEs that do not use it, 65% simply say they see no use for it in their company. Not price, not technique: the obstacle is not seeing what you could do with it. That is precisely the wall in question here — the one that stops people before the attempt.',
+        },
+        {
+          type: 'p',
+          text: 'This shift is not visible in the spectacular cases doing the rounds, but in ordinary gestures. The craftsman who finally presents his trade properly. The freelancer who drafts her own documents. The shopkeeper who handles his own communication instead of farming it out.',
+        },
+        {
+          type: 'p',
+          text: 'None of them acquired the skills they lacked. They went around a wall that used to stop them before they even tried.',
+        },
+        {
+          type: 'p',
+          text: 'Let us not kid ourselves: some work really is disappearing. What cost a lot yesterday — formatting, translating, drafting, producing a first version — now takes minutes. That work is not transformed, it is deleted.',
+        },
+        {
+          type: 'p',
+          text: 'What opens instead is another road. The threshold has dropped and costs with it: what once required a budget can now be attempted for almost nothing. The opportunity is not to do the same thing faster, but to try what you used to forbid yourself.',
+        },
+        { type: 'h2', text: 'What it does not change' },
+        {
+          type: 'p',
+          text: 'What disappears is execution — not judgement. Creating a useful product still takes persistence and a real grasp of the problem. Writing a good text takes thought. Building demands choices, sacrifices, work.',
+        },
+        {
+          type: 'p',
+          text: 'It does not replace skill: it multiplies it. The corollary is harsh. Without real expertise, it quickly produces passable work. The threshold it lowers is the one at the door, not the one at the top.',
+        },
+        {
+          type: 'p',
+          text: 'What it does unlock is something nobody had: a universal capacity to understand and to be understood. Reading a contract, grasping a technical text, framing a request in the expected terms, writing in a language you do not speak. That was never a matter of talent but of access — and access has just changed hands.',
+        },
+        {
+          type: 'p',
+          text: 'AI moves the starting point, not the finish. It gives a handhold to anyone left standing in front of their idea with no idea where to grip it. Everything that comes after remains untouched.',
+        },
+        { type: 'h2', text: 'The reservation that counts' },
+        {
+          type: 'p',
+          text: 'None of this is secured, because none of this belongs to us.',
+        },
+        {
+          type: 'p',
+          text: 'Training a foundation model takes capital, compute and electricity that almost nobody can assemble. The result is mechanical: a handful of players decide what these tools can do, what they refuse, what they cost and when they vanish. An instrument of emancipation rented from a third party who can rewrite the rules overnight remains an instrument of dependence.',
+        },
+        {
+          type: 'p',
+          text: 'We have seen this story before. Free software did not win by building operating systems more powerful than the vendors’ — it won by making its own impossible to confiscate. Nobody can pull Linux off the market, or change its licence retroactively, or decide it will cost twice as much next year.',
+        },
+        {
+          type: 'p',
+          text: 'The same divide is playing out today, and it is not lost. Mistral publishes the weights of Mistral Large 3 under the Apache 2.0 licence — a 675-billion-parameter model, available on Hugging Face, downloadable, runnable at home, modifiable, with no usage fee. These are not demos: they are models you can run on your own infrastructure, and that nobody can take back.',
+        },
+        {
+          type: 'p',
+          text: 'That is the real dividing line. Not between AI and its absence, but between tools you use and tools you own.',
+        },
+        { type: 'h2', text: 'What it gives back' },
+        {
+          type: 'p',
+          text: 'Used as a tool of emancipation, AI widens the circle of people able to produce, to understand and to act. It gives value back to the idea itself.',
+        },
+        {
+          type: 'p',
+          text: 'Not the perfect idea, already mastered and profitable. The fragile, unfinished, clumsy idea — the one its author would never have dared pursue.',
+        },
+        {
+          type: 'p',
+          text: 'AI is then less a machine that replaces than a tool that reveals. It does not make our limits disappear. It helps us stop being defined by them alone.',
+        },
+        {
+          type: 'p',
+          text: 'Perhaps this is the means that was missing. Not a weapon against anyone — a tool anyone can pick up, provided it stays there to be picked up. That is the whole question, and it will not settle itself.',
+        },
+      ],
+    },
   },
   {
     slug: 'faire-de-lia-en-france-en-2026',
@@ -257,6 +367,93 @@ export const articles: Article[] = [
         text: "Si la réponse est « mon confort de travail », le sujet est mineur. Si c'est « mon produit », alors la décision méritait mieux qu'un réflexe. Construire en France n'est plus un sacrifice qu'on consent par principe : c'est un choix qui tient techniquement et économiquement. Encore faut-il l'examiner avant de le déclarer impossible.",
       },
     ],
+    en: {
+      slug: 'building-ai-in-france-in-2026',
+      titre: 'Building AI in France, in 2026',
+      chapeau:
+        'The received wisdom says you need American models to build a serious product. Our tools run in France, from compute to storage — here is what that allows, what it costs, and where it still falls short.',
+      organe: 'Technique',
+      blocs: [
+        {
+          type: 'p',
+          text: 'You start a product that needs AI. You open the documentation of one of the big American providers, you plug in a key, it runs in ten minutes. The hosting question never comes up: it was settled before you thought to ask it.',
+        },
+        {
+          type: 'p',
+          text: 'That is the moment you make an architectural decision without knowing you are making one. It looks reversible. It becomes less and less so as the product grows.',
+        },
+        {
+          type: 'p',
+          text: 'There is an alternative, though, and it works. We use it every day.',
+        },
+        { type: 'h2', text: 'What the French catalogue covers' },
+        {
+          type: 'p',
+          text: 'Here is the full chain our tools run on, without exception:',
+        },
+        {
+          type: 'liste',
+          items: [
+            'Speech recognition — Whisper large-v3-turbo, on OVH AI Endpoints',
+            'Language models — Mistral, hosted in France',
+            'Semantic search — bge-m3 embeddings, same infrastructure',
+            'Storage and compute — OVH (Gravelines) and Scaleway (Paris)',
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Transcription, translation, summarisation, semantic indexing. These four operations make up most of what real products actually do — and all four are covered. No call leaves France, and this is not a roadmap: it is what is running while you read.',
+        },
+        { type: 'h2', text: 'What it costs' },
+        {
+          type: 'p',
+          text: 'The usual objection is price. Our figures, measured in production: transcribing an hour of audio costs €0.046, translating it €0.0047, a summary from a language model a fraction of a cent.',
+        },
+        {
+          type: 'p',
+          text: 'At those levels, the gap between providers decides nothing. What decides is knowing the real cost of a request — and being able to quote it without a safety margin.',
+        },
+        {
+          type: 'p',
+          text: 'This point is underrated. When the infrastructure bill is opaque, the customer price is built blind, with a provision for uncertainty. When it is known to the cent, the price is calculated.',
+        },
+        { type: 'h2', text: 'What it makes possible' },
+        {
+          type: 'p',
+          text: 'The point is not to crown one provider over another. It is that an option exists, here, now: you can host your AI services in France, run your language models on infrastructure you can actually reach, and build a complete product without ever leaving the country.',
+        },
+        {
+          type: 'p',
+          text: 'That was not true three years ago. The catalogue was too thin, the models too far behind, the endpoints too unstable. Today the chain holds end to end, and it holds in production.',
+        },
+        {
+          type: 'p',
+          text: 'That changes what you can decide. A company handling sensitive data no longer has to choose between AI and its compliance. A software vendor who wants to know where its customers’ content goes can answer precisely. An independent developer can build a product without depending on a provider they will never reach.',
+        },
+        { type: 'h2', text: 'Where it is not enough' },
+        {
+          type: 'p',
+          text: 'The catalogue available here is still narrower. The newest models ship elsewhere first. On complex reasoning, code generation or advanced multimodal tasks, the gap is real and we will not pretend otherwise.',
+        },
+        {
+          type: 'p',
+          text: 'One caveat while we are at it: what you use to work and what runs inside your product are two different things. The best coding assistants are American, most developers use them daily, and this article is no exception. That choice binds no one but you and can be changed in an afternoon.',
+        },
+        {
+          type: 'p',
+          text: 'What runs in production, on every request from every user, binds your architecture, your costs and your data. It is the only decision that deserves to be made deliberately.',
+        },
+        { type: 'h2', text: 'The question to ask' },
+        {
+          type: 'p',
+          text: 'Before you plug in a key, one question only: if this provider changes its rules tomorrow, what stops?',
+        },
+        {
+          type: 'p',
+          text: 'If the answer is “my working comfort”, the matter is minor. If it is “my product”, then the decision deserved better than a reflex. Building in France is no longer a sacrifice made on principle: it is a choice that holds up technically and economically. It just has to be examined before being declared impossible.',
+        },
+      ],
+    },
   },
   {
     slug: 'attraper-les-mots-avant-quils-se-perdent',
@@ -331,6 +528,76 @@ export const articles: Article[] = [
         text: "C'est le premier organe parce que c'est le préalable. On ne construit rien sur ce qu'on a oublié.",
       },
     ],
+    en: {
+      slug: 'catching-words-before-they-are-lost',
+      titre: 'Catching words before they are lost',
+      chapeau:
+        "A two-hour conference, a podcast heard while walking, a report skimmed in a hurry. Everything was said, nothing can be found again. Sound disperses; text stays put.",
+      organe: 'Knowledge',
+      blocs: [
+        {
+          type: 'p',
+          text: "Someone said exactly what you needed. It was in a talk, a podcast, a recorded meeting. You remember the idea, roughly. The sentence, no. And you are not going to sit through two hours of audio to recover forty seconds.",
+        },
+        {
+          type: 'p',
+          text: 'The information was produced, broadcast, heard — and it is lost. Not deleted: unreachable, which amounts to the same thing.',
+        },
+        {
+          type: 'p',
+          text: 'This is not a failure of memory. Such content leaves no usable trace. It runs through platforms that keep it, index it for themselves, and hand you back nothing you can reuse.',
+        },
+        { type: 'h2', text: 'Sound cannot be searched' },
+        {
+          type: 'p',
+          text: 'An audio file is an opaque block. You cannot dig through it, quote a passage, cross-check it against another document, or verify who said what. You can only listen again, from start to finish, at the speed it was recorded.',
+        },
+        {
+          type: 'p',
+          text: 'Text does the opposite. It can be searched, annotated, quoted, linked. It fits in an index. It outlives the video it came from.',
+        },
+        {
+          type: 'quote',
+          text: 'Transcribing is not converting a format. It moves speech from the status of memory to that of material.',
+        },
+        { type: 'h2', text: 'Catching is not enough' },
+        {
+          type: 'p',
+          text: 'A transcript on its own is worth little. A thousand pages of raw text pose the same problem as the audio they came from: you do not know where to look.',
+        },
+        {
+          type: 'p',
+          text: 'What makes a source useful is what comes after. Finding a passage again without remembering where you read it. Bringing together two remarks that say the same thing differently. Telling apart what you noted yourself from what you merely skimmed.',
+        },
+        {
+          type: 'p',
+          text: 'That is what Synthiz does: it turns what you consult into material you own. Your sources, your notes, your cross-checks, organised by you rather than by a platform’s algorithm.',
+        },
+        { type: 'h2', text: 'What it changes in practice' },
+        {
+          type: 'liste',
+          items: [
+            'Finding a sentence heard in a podcast six months ago',
+            'Cross-checking three sources that say the same thing differently',
+            'Quoting precisely instead of paraphrasing from memory',
+            'Keeping what matters when the video itself is taken down',
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Nothing spectacular. Simply ideas that no longer get lost.',
+        },
+        { type: 'h2', text: 'What it is not' },
+        {
+          type: 'p',
+          text: 'Not a monitoring tool, not an assistant that reads on your behalf. Reading, sorting and judging remain your work. Synthiz only guarantees that what you have read stays within reach.',
+        },
+        {
+          type: 'p',
+          text: 'It is the first organ because it is the precondition. You build nothing on what you have forgotten.',
+        },
+      ],
+    },
   },
   {
     slug: 'donner-a-vos-systemes-acces-a-ce-qui-se-dit',
@@ -409,6 +676,80 @@ export const articles: Article[] = [
         text: "L'API est en production, servie par une infrastructure française.",
       },
     ],
+    en: {
+      slug: 'give-your-systems-access-to-what-is-being-said',
+      titre: 'Give your systems access to what is being said',
+      chapeau:
+        'Your indexes, your agents and your analytics only read text. Most of what gets published today is audio or video — and stays invisible to them.',
+      organe: 'Knowledge',
+      blocs: [
+        {
+          type: 'p',
+          text: 'You are building a system that runs on information: an internal search engine, a semantic index, an agent answering from your sources, a monitoring tool. All of it works on text.',
+        },
+        {
+          type: 'p',
+          text: "Yet a growing share of what matters in your field is no longer written down. It is spoken — at conferences, in podcasts, in webinars, in recorded meetings. To your systems, that material does not exist.",
+        },
+        {
+          type: 'p',
+          text: 'This is not a volume problem. It is a blind spot. You index what is easy to index, then draw conclusions from that sample.',
+        },
+        { type: 'h2', text: 'What the blind spot costs' },
+        {
+          type: 'p',
+          text: 'An internal agent that ignores recorded meetings will answer beside the point on half the decisions taken. A monitoring setup that only tracks articles will miss what gets said on stage six months before anyone writes it down. A document index that skips video training sends the user back to documentation they have already read.',
+        },
+        {
+          type: 'p',
+          text: 'In each case, the system appears to work. That is what makes the blind spot expensive: it produces no visible error, only incomplete answers.',
+        },
+        {
+          type: 'quote',
+          text: 'A system can only reason about what it can read.',
+        },
+        { type: 'h2', text: 'Why this piece is still painful' },
+        {
+          type: 'p',
+          text: 'Technically, the problem is solved: speech recognition models are good and readily available. The difficulty is operational, and that is what wears people down.',
+        },
+        {
+          type: 'liste',
+          items: [
+            'Fetching the source — multiple formats, shifting platforms, deleted content',
+            'Running the model — machines, queues, recovery after failure',
+            'Absorbing errors — one unavailable source must not block the batch',
+            'Cleaning the output — a raw transcript indexes badly',
+            'Keeping all of it alive over time, when none of it is your job',
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Every step is doable. It is the sum that costs, and above all the upkeep: you do not pay at launch, you pay six months later, when a platform changes its rules.',
+        },
+        { type: 'h2', text: 'What Techtuel does' },
+        {
+          type: 'p',
+          text: 'You send a URL. You get back clean text, ready to chunk, embed or index. Nothing to host, no model to run, no queue to watch.',
+        },
+        {
+          type: 'p',
+          text: 'Translation is included. It costs €0.0047 per hour of content against €0.046 for transcription — ten times less. Billing a line item that marginal would add a meter without adding revenue, and would turn multilingual work into a cost variable at the exact moment you want to widen your sources.',
+        },
+        {
+          type: 'p',
+          text: 'A video that already has subtitles costs a single credit, whether it runs six minutes or three hours. Across a corpus of several hundred sources, that detail is what decides the budget.',
+        },
+        {
+          type: 'p',
+          text: 'An API, so that access to spoken sources stops being a project and becomes a network call.',
+        },
+        {
+          type: 'p',
+          text: 'The API is in production, served by French infrastructure.',
+        },
+      ],
+    },
   },
   {
     slug: 'un-service-demail-sobre-ethique-et-souverain',
@@ -465,6 +806,58 @@ export const articles: Article[] = [
         text: "Reste ce qui compte pour un service qui démarre : que le message arrive, depuis une infrastructure sobre, éthique et maîtrisée.",
       },
     ],
+    en: {
+      slug: 'a-frugal-ethical-sovereign-email-service',
+      titre: 'A frugal, ethical, sovereign email service',
+      chapeau:
+        'Independent developers rarely need a vast marketing platform. They want to send a confirmation, an invoice, a login link — and have it arrive.',
+      organe: 'Communication',
+      blocs: [
+        {
+          type: 'p',
+          text: 'Independent developers rarely need a vast marketing platform. They want to send a signup confirmation, an invoice, an alert or a login link. What they need is a reliable service, simple to integrate, and cheap enough to carry a project through its early days.',
+        },
+        {
+          type: 'p',
+          text: 'Spore was built for that: sending the messages a service needs to function, without bolting a commercial machine onto every user.',
+        },
+        { type: 'h2', text: 'Frugal communication' },
+        {
+          type: 'p',
+          text: 'An email address should not automatically become a marketing opportunity. When someone creates an account, makes a purchase or asks for a password reset, they expect the information they asked for. Nothing else.',
+        },
+        {
+          type: 'p',
+          text: 'Messages go out because they serve a precise purpose. They confirm an action, carry information, keep a service working. They are not a pretext for a stream of follow-ups.',
+        },
+        {
+          type: 'quote',
+          text: 'Spore is not trying to send more messages. It is trying to send the necessary ones better.',
+        },
+        { type: 'h2', text: 'Infrastructure we control' },
+        {
+          type: 'p',
+          text: 'The sending infrastructure is ours: the server, the IP address, the message signing. Your domains stay yours — you attach them, you keep control of them, and you leave with them if you decide to.',
+        },
+        {
+          type: 'p',
+          text: 'This is not a claim to live without any intermediary. It is about taking back control of an essential function — the one without which a service simply stops talking to its users.',
+        },
+        { type: 'h2', text: 'An economic reality' },
+        {
+          type: 'p',
+          text: 'A freelancer or a small software vendor should not pay for a full marketing suite when what they want is sending infrastructure. Spore focuses on the essentials: domains, sending identities, deliverability, and a simple integration into an application.',
+        },
+        {
+          type: 'p',
+          text: 'That is a limit we accept. If you want automated sequences, contact scoring or segmented campaigns, this is not the place. Other tools do that very well, and it is not what we are building.',
+        },
+        {
+          type: 'p',
+          text: 'What remains is what matters to a service starting out: the message arrives, from infrastructure that is frugal, ethical and under control.',
+        },
+      ],
+    },
   },
   {
     slug: 'n8n-cest-langchain-avec-un-formulaire',
@@ -593,6 +986,130 @@ export const articles: Article[] = [
         text: "Gardez n8n pour ce qu'il fait mieux que tout le monde : brancher des SaaS entre eux, vite, sans mobiliser un développeur. Mais votre produit n'est pas une intégration entre SaaS. Ne l'exportez pas dans un canevas.",
       },
     ],
+    en: {
+      slug: 'n8n-is-langchain-with-a-form-on-top',
+      titre: 'n8n is LangChain with a form on top',
+      chapeau:
+        'No-code agents run on the same libraries as code. The question is no longer who writes the system — it’s what you can do with it afterwards.',
+      organe: 'Technique',
+      blocs: [
+        {
+          type: 'p',
+          text: 'A forty-node n8n workflow isn’t simple. It’s unreadable.',
+        },
+        {
+          type: 'p',
+          text: 'Nobody reviews it. Nobody tests it. And the day it breaks in production, there’s nothing to open — just a canvas and an executions tab where you hunt for the red node.',
+        },
+        {
+          type: 'p',
+          text: 'The instinct is understandable all the same. Wiring a language model into your application looks heavy: an SDK to pick, an agent loop to write, tools to describe, errors to handle. The visual interface looks immediate. That was a reasonable trade.',
+        },
+        {
+          type: 'p',
+          text: 'Except it rests on two premises that changed this year, and almost nobody has redone the maths.',
+        },
+        { type: 'h2', text: '“The interface spares me the agent library”' },
+        {
+          type: 'p',
+          text: 'False, and the code’s own naming says so without ambiguity. The package holding every one of n8n’s AI nodes is called @n8n/n8n-nodes-langchain. The AI Agent node, the one the entire agentic documentation revolves around, identifies itself literally as n8n-nodes-langchain.agent.',
+        },
+        {
+          type: 'p',
+          text: 'Its declared dependencies leave no more room for doubt: langchain, @langchain/core, @langchain/langgraph, @langchain/langgraph-checkpoint, then a couple of dozen adapters — Anthropic, OpenAI, Mistral, Ollama, Groq, Pinecone, Qdrant, Weaviate. This is not something you unearth by digging: n8n’s documentation has a section titled “LangChain in n8n”.',
+        },
+        {
+          type: 'quote',
+          text: 'The debate isn’t visual interface versus agent library. It’s an interface on top of a library, versus the library directly.',
+        },
+        {
+          type: 'p',
+          text: 'Both camps use an orchestration layer. The only difference is the mode of access. And that difference costs more than it returns, because the conceptual complexity doesn’t go away: you still have to understand what an agent is, a chain, a memory, a retriever, a vector store. You simply learn them through configuration panels — without types, without the underlying library’s documentation, without being able to read what actually runs. You pay for the abstraction and for what sits beneath it.',
+        },
+        {
+          type: 'p',
+          text: 'That is precisely why a large workflow becomes incomprehensible. Not because the problem is complex — it often legitimately is. But because the interface has stripped away every tool that exists to tame complexity: naming, typing, factoring, tests, code review.',
+        },
+        { type: 'h2', text: '“Writing that code costs too much”' },
+        {
+          type: 'p',
+          text: 'That was no-code’s founding argument, and it was right. But n8n itself has just made it obsolete. Their AI Workflow Builder generates a complete workflow — nodes, logic, structure — from a natural-language description, then refines it through iterations. Each interaction burns a credit.',
+        },
+        {
+          type: 'p',
+          text: 'It’s a very useful admission. It means n8n now considers that the right way to build an agentic system is to describe it to a coding agent and let that agent produce the artefact. On that point: agreed. That has indeed become the right way to work.',
+        },
+        {
+          type: 'quote',
+          text: 'If we accept that an agent writes the system, why have it produce canvas JSON rather than code?',
+        },
+        {
+          type: 'p',
+          text: 'The debate is no longer “visual or hand-written”. Both are generated now. It comes down to one thing: what you can do with the result.',
+        },
+        { type: 'h2', text: 'What you can do with a result in code' },
+        {
+          type: 'p',
+          text: 'Workflow JSON reads badly, is tested by manual execution, and cannot be factored. A code integration inside your application gives you four things back.',
+        },
+        {
+          type: 'liste',
+          items: [
+            'A tiny API surface: a well-designed tool contract fits in four methods — a name, a description, an input schema, an execution. That is everything a developer must learn to expose a capability to the model, against some sixty AI nodes and their respective panels.',
+            'A schema guaranteed by the compiler: in a typed language, the JSON schema sent to the model derives from the tool’s input type, so the description and the executed code cannot drift apart. In an interface, you type it by hand — and n8n’s documentation concedes the weak spot: the quality of tool descriptions directly determines the agent’s reliability.',
+            'Testable prompts: a prompt is business logic. Put in the domain, next to its tests, it is tested like the rest of the code — a known input, an expected output, an assertion that breaks CI when the output drifts.',
+            'Real leverage on cost: behind a common interface, switching provider becomes an environment variable. Moving to DeepSeek, Mistral or an OVH endpoint for the tasks where the quality gap is invisible is configuration, not migration.',
+          ],
+        },
+        {
+          type: 'p',
+          text: 'To which add reuse. An agent layer in a repository serves several products. A workflow cannot be factored across two products: it gets duplicated, and the two copies diverge.',
+        },
+        { type: 'h2', text: 'What n8n does genuinely well' },
+        {
+          type: 'p',
+          text: 'An honest case must name where the other camp wins, and those cases exist. To connect six SaaS products together — a form into a CRM into Slack into a spreadsheet — nothing is faster. The hundreds of ready-made integrations represent a considerable body of work nobody wants to redo. Webhooks, retries, scheduling, execution history: it’s all there, with nothing to install.',
+        },
+        {
+          type: 'p',
+          text: 'Above all, n8n isn’t selling technical quality. It sells independence from a development team. Someone in operations building their own automation alone on a Friday evening has no “better result” available in code — without n8n, they have no result at all. That isn’t a technical argument, it’s an organisational one, and it holds.',
+        },
+        {
+          type: 'p',
+          text: 'So the problem isn’t n8n. The problem is the moment you go past what it’s good for.',
+        },
+        { type: 'h2', text: 'The ceiling, and where it leaves you' },
+        {
+          type: 'p',
+          text: 'As long as the need maps onto existing nodes, all is well. The moment it steps outside — a particular error-recovery path, a conditional chain of tools, a constrained output format — n8n hands you back the controls. Concretely, it sends you to the Code node, to write LangChain in a browser text field.',
+        },
+        {
+          type: 'p',
+          text: 'No compiler. No tests. No autocompletion, no go-to-definition. No code review, no readable diff, no usable history.',
+        },
+        {
+          type: 'quote',
+          text: 'The moment the interface stops paying off is exactly the moment it hands the code back to you, in the worst possible environment for writing it.',
+        },
+        {
+          type: 'p',
+          text: 'That ceiling arrives sooner than you’d think, because an agentic system that reaches production almost always develops those needs. And meanwhile, the cost of writing that layer properly has collapsed: coding agents produce this kind of integration far faster than they did eighteen months ago. It’s assembly code, with a clear contract and explicit types — exactly what those tools do best.',
+        },
+        { type: 'h2', text: 'What this changes in your week' },
+        {
+          type: 'p',
+          text: 'Rather than spending your evenings working out why node 34 isn’t getting the right field, put the AI where your business logic already lives: in your application, in your repository, in your pipeline.',
+        },
+        {
+          type: 'p',
+          text: 'A coding agent writes the plumbing — provider adapters, tool loop, error handling, retries. What’s left to you is what actually carries value, and what nobody can write in your place: the prompts, the tools you expose, and the tests that prove the whole thing does what you think it does.',
+        },
+        {
+          type: 'p',
+          text: 'Keep n8n for what it does better than anyone: wiring SaaS products together, fast, without tying up a developer. But your product is not an integration between SaaS products. Don’t export it into a canvas.',
+        },
+      ],
+    },
   },
   {
     slug: 'reputation-email-google-yahoo-microsoft',
