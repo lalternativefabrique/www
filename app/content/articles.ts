@@ -1001,6 +1001,410 @@ export const articles: Article[] = [
         text: 'Et il part.',
       },
     ],
+    en: {
+      slug: 'the-day-microsoft-blocked-our-whole-subnet',
+      titre: 'The day Microsoft blocked our whole subnet',
+      chapeau:
+        'Our sender reputation was clean, and so was our configuration. Yet for three days every message we sent to Microsoft was refused before it even got in. The story of a block — and of the time lost working out why.',
+      organe: 'Communication',
+      blocs: [
+        {
+          type: 'p',
+          text: 'You have done everything a serious sender is asked to do. Your domain states which servers may send mail on its behalf. Every message is signed. Your server introduces itself under a name that matches what the DNS publishes.',
+        },
+        {
+          type: 'p',
+          text: 'In short: who you are is known, and it can be verified.',
+        },
+        {
+          type: 'p',
+          text: 'And still, your messages do not reach Outlook.',
+        },
+        {
+          type: 'p',
+          text: 'Not in the junk folder. Not a few minutes late. They are refused before they are ever accepted.',
+        },
+        {
+          type: 'p',
+          text: 'That is what happened to us on 7 and 8 August 2026, on the sending infrastructure behind Spore. Every attempt to reach a Microsoft address came back with the same code: S3140.',
+        },
+        {
+          type: 'h2',
+          text: 'What authentication guarantees — and what it does not',
+        },
+        {
+          type: 'p',
+          text: 'Send email in any volume and three acronyms turn up everywhere: SPF, DKIM and DMARC.',
+        },
+        {
+          type: 'p',
+          text: 'They are worth stating plainly.',
+        },
+        {
+          type: 'liste',
+          items: [
+            'SPF lists, in the domain DNS, which servers are allowed to send on its behalf.',
+            'DKIM adds a cryptographic signature to every message. The receiving server checks it against a public key published in the DNS.',
+            'DMARC sets the policy to apply when the two checks above fail, or do not match the expected domain.',
+          ],
+        },
+        {
+          type: 'p',
+          text: 'Together they answer one question: is the sender really who it claims to be?',
+        },
+        {
+          type: 'p',
+          text: 'They leave another one untouched, and it matters just as much: does this mail deserve to be accepted?',
+        },
+        {
+          type: 'p',
+          text: 'A spammer can hold a clean SPF record, a valid DKIM signature and a correct DMARC policy.',
+        },
+        {
+          type: 'p',
+          text: 'Authentication does not prove a message is wanted. It proves its origin can be checked.',
+        },
+        {
+          type: 'quote',
+          text: 'Authentication is a prerequisite, never a pass. It makes you identifiable, and therefore accountable.',
+        },
+        {
+          type: 'p',
+          text: 'The filters only start working after that.',
+        },
+        {
+          type: 'p',
+          text: 'Google, Yahoo and Microsoft are trying to decide whether they can trust what you send. To do it they look at the sending IP address, how long it has existed, how much it sends, the complaints it draws, its delivery failures — and sometimes the reputation of the entire network range it sits in.',
+        },
+        { type: 'h2', text: 'The neighbourhood problem' },
+        {
+          type: 'p',
+          text: 'Our IP address had not necessarily done anything wrong.',
+        },
+        {
+          type: 'p',
+          text: 'The problem was its neighbourhood.',
+        },
+        {
+          type: 'p',
+          text: 'An IP address is never truly on its own. It belongs to a range held by a hosting provider and used by many other customers.',
+        },
+        {
+          type: 'p',
+          text: 'When an operator decides that part of that range has sent unwanted mail too often, it can choose to distrust the whole of it.',
+        },
+        {
+          type: 'p',
+          text: 'So you can hold a perfectly clean address and still carry the consequences of what others did.',
+        },
+        {
+          type: 'p',
+          text: 'The logic makes sense.',
+        },
+        {
+          type: 'p',
+          text: 'If filters only ever punished a single address, a malicious sender would simply move to another one. At most hosting providers that takes a few minutes.',
+        },
+        {
+          type: 'p',
+          text: 'Blocking a whole range makes that game more expensive.',
+        },
+        {
+          type: 'p',
+          text: 'The method has an obvious side effect: it also penalises honest senders who happened to settle in the wrong place.',
+        },
+        {
+          type: 'p',
+          text: 'They did nothing in particular, have almost no way of checking their neighbourhood before using the address, and find out once the service is already in production.',
+        },
+        { type: 'h2', text: 'Three operators, three ways of judging' },
+        {
+          type: 'p',
+          text: 'Google, Yahoo and Microsoft are often lumped together. In practice their methods differ a great deal.',
+        },
+        {
+          type: 'tableau',
+          colonnes: ['', 'Google', 'Yahoo', 'Microsoft'],
+          lignes: [
+            [
+              'Signal watched most closely',
+              'Overall reputation and how recipients behave',
+              'Complaints and reputation',
+              'Reputation of the IP address and its network',
+            ],
+            [
+              'When something goes wrong',
+              'The message may land in spam',
+              'Throttling or refusal',
+              'Explicit refusal, with a code',
+            ],
+            [
+              'Tools offered',
+              'Postmaster Tools',
+              'Feedback loop',
+              'SNDS and JMRP',
+            ],
+            [
+              'How to respond',
+              'Fix it and wait',
+              'Contact support',
+              'Request a block removal',
+            ],
+          ],
+          note: 'Sources: the three operators’ public documentation, and observation of our own sending.',
+        },
+        {
+          type: 'p',
+          text: 'Google is often the hardest to make sense of.',
+        },
+        {
+          type: 'p',
+          text: 'The server can accept your message without error, then file it as junk. As far as your logs are concerned, everything went fine.',
+        },
+        {
+          type: 'p',
+          text: 'The message was delivered, technically.',
+        },
+        {
+          type: 'p',
+          text: 'It simply stands almost no chance of being read.',
+        },
+        {
+          type: 'p',
+          text: 'Microsoft is blunter, and clearer for it. When a message is refused, the refusal shows up in the logs immediately, with a code attached.',
+        },
+        {
+          type: 'p',
+          text: 'At least you know there is a problem.',
+        },
+        { type: 'h2', text: 'The A38 form' },
+        {
+          type: 'p',
+          text: 'Once the block is understood, you still have to find someone to talk to.',
+        },
+        {
+          type: 'p',
+          text: 'And there the technical problem turns into an administrative one.',
+        },
+        {
+          type: 'p',
+          text: 'Search engines point very quickly to a Microsoft portal for deliverability problems. Except the one that surfaces first is mostly about business mailboxes.',
+        },
+        {
+          type: 'p',
+          text: 'Our problem concerned consumer addresses: Outlook.com and Hotmail.',
+        },
+        {
+          type: 'p',
+          text: 'Different service. Different form.',
+        },
+        {
+          type: 'p',
+          text: 'And nothing really tells you so.',
+        },
+        {
+          type: 'p',
+          text: 'You fill in the wrong form, you send your request, and nothing happens.',
+        },
+        {
+          type: 'p',
+          text: 'Nobody replies to say you knocked on the wrong door.',
+        },
+        {
+          type: 'p',
+          text: 'You have to work out that another desk exists, then manage to find it.',
+        },
+        {
+          type: 'p',
+          text: 'We eventually filed with the support team that handles deliverability for consumer mailboxes, with the IP addresses concerned, our sending logs and the configuration details.',
+        },
+        {
+          type: 'p',
+          text: 'Request sent on 9 August. Reply the next day:',
+        },
+        {
+          type: 'quote',
+          text: 'Mitigated. These IP(s) have been unblocked but may be subject to low daily email limits until they have established a good reputation.',
+        },
+        {
+          type: 'p',
+          text: 'In other words: the addresses were unblocked, but Microsoft will keep capping their volume until they have built up enough history.',
+        },
+        {
+          type: 'p',
+          text: 'Lifting the block does not reset the counters.',
+        },
+        {
+          type: 'p',
+          text: 'From there you have to send gradually, cleanly, without incident, until the address earns more trust.',
+        },
+        {
+          type: 'p',
+          text: 'And the decision does not necessarily reach every part of Microsoft’s infrastructure at once. For several hours, sometimes longer, some servers may still refuse your messages.',
+        },
+        { type: 'h2', text: 'What three days of blocking actually cost' },
+        {
+          type: 'p',
+          text: 'Three days passed between the first refusal and the block being lifted.',
+        },
+        {
+          type: 'p',
+          text: 'The galling part is that there was almost nothing to fix.',
+        },
+        {
+          type: 'p',
+          text: 'The configuration had been correct from the start. SPF, DKIM, DMARC, reverse DNS: all of it conformant. Checking took about an hour.',
+        },
+        {
+          type: 'p',
+          text: 'The rest of the time went into understanding the problem and finding the right person.',
+        },
+        {
+          type: 'p',
+          text: 'It took:',
+        },
+        {
+          type: 'liste',
+          items: [
+            'working out that an unfamiliar rejection code pointed at a reputation problem, not a configuration error;',
+            'ruling out the DNS leads one by one;',
+            'realising the first form we found was not the right one;',
+            'tracking down the team that actually handles Outlook.com and Hotmail mailboxes;',
+            'gathering the IP addresses, timestamped logs and raw error messages;',
+            'waiting for the reply, then waiting again for the unblocking to propagate.',
+          ],
+        },
+        {
+          type: 'p',
+          text: 'No feature came out of those hours.',
+        },
+        {
+          type: 'p',
+          text: 'Nothing was made better for anyone using the product.',
+        },
+        {
+          type: 'p',
+          text: 'We simply spent three days restoring something that should have worked from the outset.',
+        },
+        {
+          type: 'p',
+          text: 'That is exactly the kind of work you do not want surfacing in the middle of building a product.',
+        },
+        { type: 'h2', text: 'What we changed afterwards' },
+        {
+          type: 'p',
+          text: 'At the time, a single IP address carried most of our traffic.',
+        },
+        {
+          type: 'p',
+          text: 'When it was blocked at Microsoft, every message bound for Microsoft went down with it — while 84 other messages were still being delivered normally to other operators.',
+        },
+        {
+          type: 'p',
+          text: 'A problem on one address could have consequences for every one of our customers.',
+        },
+        {
+          type: 'p',
+          text: 'We changed that.',
+        },
+        {
+          type: 'p',
+          text: 'Messages are now split by what they are. Strictly transactional mail no longer shares an address with heavier sending. A new account is not mixed straight into established traffic.',
+        },
+        {
+          type: 'p',
+          text: 'The aim is simple: stop a local incident turning into a general outage.',
+        },
+        {
+          type: 'p',
+          text: 'We also wired up automatic reporting of delivery receipts and rejections.',
+        },
+        {
+          type: 'p',
+          text: 'When a remote server refuses a message, that now comes straight back into our own system.',
+        },
+        {
+          type: 'p',
+          text: 'It no longer ends up in a mailbox nobody thinks to open.',
+        },
+        {
+          type: 'p',
+          text: 'Above all, we learned something no technical documentation really gives you: how the administrative side of these large operators works.',
+        },
+        {
+          type: 'p',
+          text: 'We now know where to knock, what to send and what to have ready.',
+        },
+        {
+          type: 'p',
+          text: 'Next time, the diagnosis will not take three days.',
+        },
+        {
+          type: 'p',
+          text: 'That is part of the service too.',
+        },
+        {
+          type: 'p',
+          text: 'We run the sending infrastructure ourselves: the servers, the IP addresses, the signatures, the logs.',
+        },
+        {
+          type: 'p',
+          text: 'And with that infrastructure come the reputation problems, the unblocking requests and the exchanges with operators.',
+        },
+        {
+          type: 'p',
+          text: 'We take those on.',
+        },
+        {
+          type: 'p',
+          text: 'A server’s reputation is not built at the moment something goes wrong, either. It is maintained with every message sent.',
+        },
+        {
+          type: 'p',
+          text: 'That means verified domains, correct signatures, addresses that no longer exist removed automatically, rejections analysed, and a precise history kept of every attempt.',
+        },
+        {
+          type: 'p',
+          text: 'Our servers are in France. Your domains stay yours. And we bill the messages you send, not the number of contacts sitting in a database.',
+        },
+        {
+          type: 'p',
+          text: 'A sender starting out faces another problem: almost no history.',
+        },
+        {
+          type: 'p',
+          text: 'At a few dozen messages a day, a new address stays hard for filters to judge for a long time. Building a good reputation takes steady traffic and stable behaviour.',
+        },
+        {
+          type: 'p',
+          text: 'This is where the story turns around.',
+        },
+        {
+          type: 'p',
+          text: 'A Spore customer does not land on an address created that morning.',
+        },
+        {
+          type: 'p',
+          text: 'They get an infrastructure already in use, maintained daily and watched.',
+        },
+        {
+          type: 'p',
+          text: 'Every message delivered properly helps keep that shared reputation up.',
+        },
+        {
+          type: 'p',
+          text: 'You, meanwhile, send your message.',
+        },
+        {
+          type: 'p',
+          text: 'One request.',
+        },
+        {
+          type: 'p',
+          text: 'And off it goes.',
+        },
+      ],
+    },
   },
 ]
 
