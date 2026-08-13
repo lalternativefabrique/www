@@ -25,6 +25,26 @@ export function Blocs({ blocs }: { blocs: Bloc[] }) {
             </blockquote>
           )
         }
+        if (bloc.type === 'image') {
+          return (
+            <figure key={i} className="my-14 w-full">
+              <img
+                src={bloc.src}
+                alt={bloc.alt}
+                width={bloc.width}
+                height={bloc.height}
+                loading="lazy"
+                decoding="async"
+                className="block h-auto w-full border-2 border-text"
+              />
+              {bloc.caption ? (
+                <figcaption className="mt-3 text-sm leading-relaxed text-text/55">
+                  {bloc.caption}
+                </figcaption>
+              ) : null}
+            </figure>
+          )
+        }
         if (bloc.type === 'tableau') {
           return (
             <figure key={i} className="my-12">

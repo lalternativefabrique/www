@@ -19,6 +19,7 @@ export const Route = createFileRoute('/en/blog/$slug')({
       lecture: fr.lecture,
       outil: fr.outil,
       outilUrl: fr.outilUrl,
+      illustration: fr.illustration,
       frSlug: fr.slug,
     }
   },
@@ -56,6 +57,9 @@ export const Route = createFileRoute('/en/blog/$slug')({
           datePublished: loaderData.date,
           dateModified: loaderData.dateRevision ?? loaderData.date,
           articleSection: loaderData.organe,
+          ...(loaderData.illustration
+            ? { image: absoluteUrl(loaderData.illustration.src) }
+            : {}),
           inLanguage: 'en',
           mainEntityOfPage: { '@type': 'WebPage', '@id': url },
           author: { '@id': `${SITE_URL}/#organization` },
@@ -90,6 +94,19 @@ function BlogArticleEn() {
           </Link>
         </div>
       </header>
+
+      {article.illustration ? (
+        <figure className="mx-auto w-full max-w-5xl px-6 pt-8 sm:pt-12">
+          <img
+            src={article.illustration.src}
+            alt={article.illustration.altEn ?? article.illustration.alt}
+            width="1536"
+            height="1024"
+            decoding="async"
+            className="block h-auto w-full border-2 border-text"
+          />
+        </figure>
+      ) : null}
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">

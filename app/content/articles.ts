@@ -9,6 +9,15 @@ export type Bloc =
   | { type: 'p'; text: string }
   | { type: 'h2'; text: string }
   | { type: 'quote'; text: string }
+  | {
+      type: 'image'
+      src: string
+      alt: string
+      altEn?: string
+      caption?: string
+      width: number
+      height: number
+    }
   | { type: 'liste'; items: string[] }
   /** Figures belong in a table, not in prose. `accent` highlights our column. */
   | {
@@ -48,6 +57,11 @@ export type Article = {
   /** Only when the text was actually revised. Absent means never touched. */
   dateRevision?: string
   lecture: string
+  illustration?: {
+    src: string
+    alt: string
+    altEn?: string
+  }
   blocs: Bloc[]
   en?: ArticleEn
 }
@@ -63,6 +77,12 @@ export const articles: Article[] = [
     outilUrl: 'https://synthiz.com',
     date: '2026-07-30',
     lecture: '5 min',
+    illustration: {
+      src: '/images/articles/ia-outil-democratique.png',
+      alt: "La concentration des moyens informatiques se fragmente progressivement pour devenir un accès partagé entre de nombreuses personnes.",
+      altEn:
+        'Concentrated computing resources gradually break apart to become shared access for many people.',
+    },
     blocs: [
       {
         type: 'p',
@@ -85,6 +105,16 @@ export const articles: Article[] = [
         type: 'quote',
         text: "Elle ne remplace pas le désir de faire. Elle lui donne un passage.",
       },
+      {
+        type: 'image',
+        src: '/images/articles/ia-seuil-vers-prototype.png',
+        alt: "Un mur de machines et de manuels se transforme progressivement en briques simples avec lesquelles plusieurs personnes construisent des prototypes.",
+        altEn:
+          'A wall of machines and manuals gradually becomes simple blocks that several people use to build prototypes.',
+        caption: "Le seuil d'entrée se déplace : les outils deviennent manipulables, mais construire reste un travail.",
+        width: 1536,
+        height: 1024,
+      },
       { type: 'h2', text: 'Ce que ça change, concrètement' },
       {
         type: 'p',
@@ -93,6 +123,16 @@ export const articles: Article[] = [
       {
         type: 'p',
         text: "Reste ce que ce total ne dit pas. Parmi les TPE et PME qui n'y recourent pas, 65 % déclarent simplement n'identifier aucun usage dans leur entreprise. Ni le prix, ni la technique : l'obstacle est de ne pas voir ce qu'on pourrait en faire. C'est exactement le mur dont il est question ici — celui qui arrête avant l'essai.",
+      },
+      {
+        type: 'image',
+        src: '/images/articles/ia-adoption-tpe-pme.svg',
+        alt: "L'usage de l'IA générative dans les TPE et PME françaises passe de 15 % fin 2023 à 31 % en 2025 puis 55 % en janvier 2026. Parmi celles qui ne l'utilisent pas, 65 % disent ne pas identifier d'usage.",
+        altEn:
+          'Generative AI use among French small businesses rises from 15% at the end of 2023 to 31% in 2025 and 55% in January 2026. Among non-users, 65% say they cannot identify a use case.',
+        caption: 'Source : Bpifrance Le Lab, baromètre semestriel, janvier 2026.',
+        width: 1536,
+        height: 900,
       },
       {
         type: 'p',
