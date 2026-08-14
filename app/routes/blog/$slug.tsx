@@ -1,7 +1,7 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
 import { articleBySlug } from '@/content/articles'
 import { Inscription } from '@/components/Inscription'
-import { Blocs } from '@/components/Blocs'
+import { MdxProse } from '@/components/MdxProse'
 import {
   ORGANIZATION,
   SITE_URL,
@@ -108,7 +108,7 @@ function BlogArticle() {
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">
-          <Blocs blocs={article.blocs} />
+          <MdxProse corps={article.corps} />
         </div>
       </section>
 

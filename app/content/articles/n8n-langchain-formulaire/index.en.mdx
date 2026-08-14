@@ -1,0 +1,73 @@
+---
+slug: n8n-is-langchain-with-a-form-on-top
+titre: n8n is LangChain with a form on top
+chapeau: "No-code agents run on the same libraries as code. The question is no longer who writes the system — it’s what you can do with it afterwards."
+organe: Technique
+---
+
+A forty-node n8n workflow isn’t simple. It’s unreadable.
+
+Nobody reviews it. Nobody tests it. And the day it breaks in production, there’s nothing to open — just a canvas and an executions tab where you hunt for the red node.
+
+The instinct is understandable all the same. Wiring a language model into your application looks heavy: an SDK to pick, an agent loop to write, tools to describe, errors to handle. The visual interface looks immediate. That was a reasonable trade.
+
+Except it rests on two premises that changed this year, and almost nobody has redone the maths.
+
+## “The interface spares me the agent library”
+
+False, and the code’s own naming says so without ambiguity. The package holding every one of n8n’s AI nodes is called @n8n/n8n-nodes-langchain. The AI Agent node, the one the entire agentic documentation revolves around, identifies itself literally as n8n-nodes-langchain.agent.
+
+Its declared dependencies leave no more room for doubt: langchain, @langchain/core, @langchain/langgraph, @langchain/langgraph-checkpoint, then a couple of dozen adapters — Anthropic, OpenAI, Mistral, Ollama, Groq, Pinecone, Qdrant, Weaviate. This is not something you unearth by digging: n8n’s documentation has a section titled “LangChain in n8n”.
+
+> The debate isn’t visual interface versus agent library. It’s an interface on top of a library, versus the library directly.
+
+Both camps use an orchestration layer. The only difference is how you access it. And that difference costs more than it delivers, because the conceptual complexity doesn’t go away: you still have to understand what an agent is, a chain, a memory, a retriever, a vector store. You simply learn them through configuration panels — without types, without the underlying library’s documentation, without being able to read what actually runs. You pay for the abstraction and for what sits beneath it.
+
+That is precisely why a large workflow becomes incomprehensible. Not because the problem is complex — it often legitimately is. But because the interface has stripped away every tool that exists to tame complexity: naming, typing, factoring, tests, code review.
+
+## “Writing that code costs too much”
+
+That was no-code’s founding argument, and it was right. But n8n itself has just made it obsolete. Their AI Workflow Builder generates a complete workflow — nodes, logic, structure — from a natural-language description, then refines it through iterations. Each interaction burns a credit.
+
+It’s a very useful admission. It means n8n now considers the right way to build an agentic system to be describing it to a coding agent and letting that agent produce the artefact. On that point: agreed. That has indeed become the right way to work.
+
+> If we accept that an agent writes the system, why have it produce canvas JSON rather than code?
+
+The debate is no longer “visual or hand-written”. Both are generated now. It comes down to one thing: what you can do with the result.
+
+## What you can do with a result in code
+
+Workflow JSON reads badly, is tested by manual execution, and is difficult to reuse. An integration built in code gives you four things back.
+
+- A tiny API surface: a well-designed tool contract fits in four methods — a name, a description, an input schema, an execution. That is everything a developer must learn to expose a capability to the model, against some sixty AI nodes and their respective panels.
+- A schema guaranteed by the compiler: in a typed language, the JSON schema sent to the model derives from the tool’s input type, so the description and the executed code cannot drift apart. In an interface, you type it by hand — and n8n’s documentation concedes the weak spot: the quality of tool descriptions directly determines the agent’s reliability.
+- Testable prompts: a prompt is business logic. Put in the domain, next to its tests, it is tested like the rest of the code — a known input, an expected output, an assertion that breaks CI when the output drifts.
+- Real leverage on cost: behind a common interface, switching provider becomes an environment variable. Moving to DeepSeek, Mistral or an OVH endpoint for the tasks where the quality gap is invisible is configuration, not migration.
+
+Then there is reuse. An agent layer in a repository can serve several products. A workflow shared across two products gets duplicated, and the two copies diverge.
+
+## What n8n does genuinely well
+
+An honest case must name where the other camp wins, and those cases exist. To connect six SaaS products together — a form into a CRM into Slack into a spreadsheet — nothing is faster. The hundreds of ready-made integrations represent a considerable body of work nobody wants to redo. Webhooks, retries, scheduling, execution history: it’s all there, with nothing to install.
+
+Above all, n8n isn’t selling technical quality. It sells independence from a development team. Someone in operations building their own automation alone on a Friday evening has no “better result” available in code — without n8n, they have no result at all. That isn’t a technical argument, it’s an organisational one, and it holds.
+
+So the problem isn’t n8n. The problem is the moment you go past what it’s good for.
+
+## The ceiling, and where it leaves you
+
+As long as the need maps onto existing nodes, all is well. The moment it does not — a particular error-recovery path, a conditional chain of tools, a constrained output format — n8n hands you back the controls. Concretely, it sends you to the Code node to write LangChain in a browser text field.
+
+No compiler. No tests. No autocompletion, no go-to-definition. No code review, no readable diff, no usable history.
+
+> The moment the interface stops paying off is exactly the moment it hands the code back to you, in the worst possible environment for writing it.
+
+That ceiling arrives sooner than you’d think, because an agentic system that reaches production almost always develops those needs. Meanwhile, the cost of writing that layer properly has collapsed: coding agents produce this kind of integration far faster than they did eighteen months ago. It’s glue code, with a clear contract and explicit types — exactly what those tools do best.
+
+## What this changes in your week
+
+Rather than spending your evenings working out why node 34 isn’t getting the right field, put the AI where your business logic already lives: in your application, in your repository, in your pipeline.
+
+A coding agent writes the plumbing — provider adapters, tool loop, error handling, retries. What’s left to you is what actually carries value, and what nobody can write in your place: the prompts, the tools you expose, and the tests that prove the whole thing does what you think it does.
+
+Keep n8n for what it does better than anyone: wiring SaaS products together, fast, without tying up a developer. But your product is not an integration between SaaS products. Don’t export it into a canvas.
