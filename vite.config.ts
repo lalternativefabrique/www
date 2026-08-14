@@ -96,23 +96,42 @@ function assetIntegrityPlugin(): Plugin {
       const emitted = readdirSync(resolve(outDir, 'assets')).filter((name) =>
         name.endsWith('.css'),
       )
-      if (emitted.length !== 1) {
+
+      // Matched by the name in front of the hash — app-*.css to app-*.css,
+      // admin-*.css to admin-*.css. Counting files was enough while the site
+      // emitted one stylesheet; the admin brought a second, and picking either
+      // by position would swap the two.
+      const stem = (name: string) => name.replace(/-[A-Za-z0-9_-]+\.css$/, '')
+      const byStem = new Map(emitted.map((name) => [stem(name), name]))
+
+      const repointed = new Map<string, string>()
+      const unresolved: string[] = []
+      for (const href of missing) {
+        const target = byStem.get(stem(href.split('/').pop() ?? ''))
+        if (target) repointed.set(href, `/assets/${target}`)
+        else unresolved.push(href)
+      }
+
+      if (unresolved.length) {
         console.error(
-          `\n[asset-integrity] pages link ${[...missing].join(', ')}, and the build emitted ${emitted.length} stylesheets — cannot repoint unambiguously\n`,
+          `\n[asset-integrity] pages link ${unresolved.join(', ')}, and the build emitted ${emitted.join(', ') || 'no stylesheet'} — no match by name\n`,
         )
         process.exitCode = 1
         return
       }
 
-      const target = `/assets/${emitted[0]}`
       for (const page of pages) {
         const html = readFileSync(page, 'utf8')
         let patched = html
-        for (const href of missing) patched = patched.split(href).join(target)
+        for (const [href, target] of repointed) {
+          patched = patched.split(href).join(target)
+        }
         if (patched !== html) writeFileSync(page, patched, 'utf8')
       }
       console.log(
-        `[asset-integrity] repointed ${[...missing].join(', ')} to ${target}`,
+        `[asset-integrity] repointed ${[...repointed]
+          .map(([from, to]) => `${from} → ${to}`)
+          .join(', ')}`,
       )
   }
 
