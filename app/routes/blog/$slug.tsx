@@ -26,6 +26,9 @@ export const Route = createFileRoute('/blog/$slug')({
       title: `${loaderData.titre} — L'Alternative Fabrique`,
       description: loaderData.chapeau,
       path,
+      image: loaderData.illustration
+        ? absoluteUrl(loaderData.illustration.src)
+        : undefined,
       type: 'article',
       publishedTime: loaderData.date,
       modifiedTime: loaderData.dateRevision,
