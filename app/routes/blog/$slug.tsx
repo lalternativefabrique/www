@@ -24,7 +24,7 @@ export const Route = createFileRoute('/blog/$slug')({
     const url = absoluteUrl(path)
     const base = seo({
       title: `${loaderData.titre} — L'Alternative Fabrique`,
-      description: loaderData.chapeau,
+      description: loaderData.metaDescription ?? loaderData.chapeau,
       path,
       image: loaderData.illustration
         ? absoluteUrl(loaderData.illustration.src)
