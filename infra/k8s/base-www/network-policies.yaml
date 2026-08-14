@@ -8,9 +8,12 @@ spec:
     - Ingress
 
 ---
-# The only ingress this namespace needs: Traefik reaching the static site.
-# There is no API, no database, and no in-cluster caller, so nothing else in
-# the cluster has a reason to open a connection here.
+# The only ingress this namespace needs: Traefik reaching the site. The app
+# does hold an API and an admin now, but both are reached from outside through
+# Traefik like everything else — no in-cluster caller opens a connection here.
+#
+# Egress is deliberately unrestricted: the pod reaches object storage, Postgres
+# and the mailer, none of which are in this cluster.
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:

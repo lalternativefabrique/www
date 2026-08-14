@@ -48,25 +48,33 @@ spec:
         # `lalternative-prod` must stay in it.
         - name: scw-registry-credentials
       securityContext:
-        # 101 is the nginx user baked into nginxinc/nginx-unprivileged; the
-        # Dockerfile already sets USER 101:101, restated here so the admission
-        # policy can see it without resolving the image.
+        # 1000 is the `node` user baked into the official image; the Dockerfile
+        # already sets USER 1000:1000, restated here so the admission policy can
+        # see it without resolving the image.
         runAsNonRoot: true
-        runAsUser: 101
-        runAsGroup: 101
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
         - name: lalter-www
           image: rg.fr-par.scw.cloud/lalternative/www:SET_BY_KUSTOMIZE
           imagePullPolicy: Always
           ports:
-            # Matches `listen 8080` in nginx.conf. A high port means the
-            # unprivileged user binds it without CAP_NET_BIND_SERVICE.
+            # Matches PORT in the Dockerfile. A high port means the unprivileged
+            # user binds it without CAP_NET_BIND_SERVICE.
             - containerPort: 8080
               name: http
+          envFrom:
+            # Bucket, database and mailer credentials. The site runs without the
+            # secret — it falls back to the .mdx sources in the image — but the
+            # admin cannot: no database means no session, and no bucket means
+            # nothing can be published.
+            - secretRef:
+                name: lalter-www
+                optional: true
           readinessProbe:
             httpGet:
-              # Served by nginx from memory (`return 200`), so a probe never
-              # touches the filesystem or logs.
+              # Answered by server.js before the router, so a probe reports on
+              # the process rather than on the bucket or the database.
               path: /healthz
               port: http
             initialDelaySeconds: 3
@@ -78,14 +86,16 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 20
           resources:
-            # nginx serving ~700KB of prerendered assets: the floor is the
-            # worker pool, not the content.
+            # Node holding the compiled article cache, not nginx serving files:
+            # the floor is the runtime and the corpus it keeps in memory. The
+            # previous 128Mi ceiling was sized for nginx and would OOM-kill this
+            # image on the first cold cache.
             requests:
-              cpu: 10m
-              memory: 32Mi
+              cpu: 50m
+              memory: 192Mi
             limits:
-              cpu: 200m
-              memory: 128Mi
+              cpu: 500m
+              memory: 512Mi
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -93,10 +103,8 @@ spec:
               drop:
                 - ALL
           volumeMounts:
-            # readOnlyRootFilesystem blocks every path nginx writes to. The
-            # config already redirects each temp path plus the pid file under
-            # /tmp (see nginx.conf), so one writable emptyDir there is all the
-            # container needs.
+            # readOnlyRootFilesystem leaves nothing writable, and Node still
+            # wants a temp directory for its own scratch files.
             - name: tmp
               mountPath: /tmp
       volumes:

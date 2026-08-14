@@ -56,6 +56,16 @@ const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`)
 
+    // Answered here rather than through the router: the probes must report on
+    // the process being up, not on the bucket or the database it talks to. A
+    // health check that fails when object storage is slow gets the pod killed
+    // for someone else's outage.
+    if (url.pathname === '/healthz') {
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' })
+      res.end('ok')
+      return
+    }
+
     const file = req.method === 'GET' ? staticFile(url.pathname) : undefined
     if (file) {
       const type = MIME[extname(file)] ?? 'application/octet-stream'
