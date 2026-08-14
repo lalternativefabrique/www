@@ -1,22 +1,20 @@
 # syntax=docker/dockerfile:1.7
 #
-# web image — static nginx bundle (NOT a Node/SSR server).
+# web image — Node server.
 #
-# Unlike the spore and lungor web images, this app has no server-side runtime
-# surface: no createServerFn, no API route, no auth. vite.config.ts prerenders
-# every route to its own index.html, so the build output under dist/client is a
-# complete static site. Serving it with nginx instead of Node drops the runtime
-# image from ~200MB of Node + node_modules to ~60MB of nginx + 700KB of assets,
-# and removes the entire npm dependency tree from what gets scanned and patched.
+# This used to be an nginx image serving a fully prerendered dist/client, with
+# dist/server thrown away. Articles are now published to a bucket and rendered
+# on demand, so the handler is what ships and the runtime needs Node — see
+# docs/adr/0001-articles-from-bucket-ssr-blog-admin.md.
 #
-# dist/server (the SSR handler) is deliberately NOT copied — it is a build
-# artefact of the prerender pass and is dead weight at runtime.
+# The fixed pages are still prerendered into dist/client and served as files by
+# server.js; only /blog, /en/blog, the article routes and the two SEO files are
+# rendered per request.
 
 # ───────────────────────── builder ─────────────────────────
 # Full toolchain (vite, esbuild, all devDeps) lives here; the layer is
-# discarded. Only the prerendered dist/client flows into the runtime stage,
-# keeping build-only tools (the esbuild Go binary, etc.) out of the shipped
-# image.
+# discarded. Only the build output and the production dependencies flow into
+# the runtime stage.
 FROM node:24-bookworm AS builder
 
 WORKDIR /app
@@ -59,26 +57,36 @@ COPY public public
 
 RUN pnpm build
 
+# Resolve the runtime dependency tree on its own, so the image carries what the
+# server imports (@aws-sdk/client-s3, @mdx-js/mdx and the remark chain) without
+# vite, esbuild and the rest of the build toolchain.
+RUN pnpm install --frozen-lockfile --prod --ignore-scripts
+
 # ───────────────────────── runtime ─────────────────────────
-# nginx-unprivileged: the stock nginx image runs its master as root and binds
-# :80. This variant is built to run as a non-root user on a high port, so no
-# capability is needed and USER below is not fighting the entrypoint.
-# Alpine pinned explicitly, not just via `-alpine`: 1.29-alpine still resolves
-# to Alpine 3.23, whose c-ares/curl/openssl/libxml2 carry 11 fixed HIGH CVEs
-# that fail the publish scan. 3.24 ships the patched packages.
-FROM nginxinc/nginx-unprivileged:1.31-alpine3.24
+# -slim rather than the full image: it drops the build toolchain that ships in
+# node:24-bookworm and is dead weight next to a server that only reads files and
+# answers HTTP.
+FROM node:24-bookworm-slim
 
-# Replace the default site entirely rather than dropping a conf.d snippet, so
-# no stock server block survives to answer on an unexpected path.
-COPY nginx.conf /etc/nginx/nginx.conf
+WORKDIR /app
 
-COPY --from=builder /app/dist/client /usr/share/nginx/html
+ENV NODE_ENV=production
+ENV PORT=8080
+ENV HOST=0.0.0.0
 
-# 101 is the nginx user baked into the unprivileged image. Numeric form so the
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./package.json
+COPY server.js ./server.js
+
+# Read at runtime, not bundled: the first query applies whatever is not yet in
+# schema_migrations, so the files have to be in the image.
+COPY migrations ./migrations
+
+# node is the non-root user baked into the official image. Numeric form so the
 # runtime does not need to resolve /etc/passwd.
-USER 101:101
+USER 1000:1000
 
-# Must match the `listen` in nginx.conf.
 EXPOSE 8080
 
-CMD ["nginx", "-c", "/etc/nginx/nginx.conf"]
+CMD ["node", "server.js"]

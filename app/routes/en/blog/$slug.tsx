@@ -1,27 +1,18 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
-import { articleEnBySlug, articleFrByEnSlug } from '@/content/articles'
 import { Inscription } from '@/components/Inscription'
-import { MdxProse } from '@/components/MdxProse'
+import { loadArticle } from '@/server/article-page'
 import { ORGANIZATION, SITE_URL, absoluteUrl, jsonLd, seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/en/blog/$slug')({
   component: BlogArticleEn,
-  loader: ({ params }) => {
-    const article = articleEnBySlug(params.slug)
-    const fr = articleFrByEnSlug(params.slug)
-    if (!article || !fr) throw notFound()
-    // Date, tool and reading time are not translated: they are taken from the
-    // French entry so the two versions can never state different facts.
-    return {
-      ...article,
-      date: fr.date,
-      dateRevision: fr.dateRevision,
-      lecture: fr.lecture,
-      outil: fr.outil,
-      outilUrl: fr.outilUrl,
-      illustration: fr.illustration,
-      frSlug: fr.slug,
-    }
+  loader: async ({ params }) => {
+    // Date, tool and reading time are not translated: loadArticle reads them
+    // off the French entry so the two versions can never state different facts.
+    const article = await loadArticle({
+      data: { slug: params.slug, lang: 'en' },
+    })
+    if (!article) throw notFound()
+    return article
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {}
@@ -29,7 +20,7 @@ export const Route = createFileRoute('/en/blog/$slug')({
     const path = `/en/blog/${loaderData.slug}`
     const url = absoluteUrl(path)
     const alternate = {
-      fr: `/blog/${loaderData.frSlug}`,
+      fr: `/blog/${loaderData.autreSlug}`,
       en: path,
     }
     const base = seo({
@@ -88,13 +79,15 @@ function BlogArticleEn() {
           <p className="label mt-8 text-text/50">
             {article.date} — {article.lecture} read
           </p>
-          <Link
-            to="/blog/$slug"
-            params={{ slug: article.frSlug }}
-            className="label mt-6 inline-flex items-center gap-2 text-text/60 hover:text-accent-primary"
-          >
-            Lire en français <span aria-hidden>→</span>
-          </Link>
+          {article.autreSlug ? (
+            <Link
+              to="/blog/$slug"
+              params={{ slug: article.autreSlug }}
+              className="label mt-6 inline-flex items-center gap-2 text-text/60 hover:text-accent-primary"
+            >
+              Lire en français <span aria-hidden>→</span>
+            </Link>
+          ) : null}
         </div>
       </header>
 
@@ -102,7 +95,7 @@ function BlogArticleEn() {
         <figure className="mx-auto w-full max-w-5xl px-6 pt-8 sm:pt-12">
           <img
             src={article.illustration.src}
-            alt={article.illustration.altEn ?? article.illustration.alt}
+            alt={article.illustration.alt}
             width="1536"
             height="1024"
             decoding="async"
@@ -113,7 +106,7 @@ function BlogArticleEn() {
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">
-          <MdxProse corps={article.corps} lang="en" />
+          <div dangerouslySetInnerHTML={{ __html: article.html }} />
         </div>
       </section>
 

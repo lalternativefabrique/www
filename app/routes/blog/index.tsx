@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { articles } from '@/content/articles'
 import { Inscription } from '@/components/Inscription'
+import { listArticles } from '@/server/article-list'
 import { absoluteUrl, jsonLd, seo } from '@/lib/seo'
 
 const blogSeo = seo({
@@ -12,7 +12,8 @@ const blogSeo = seo({
 
 export const Route = createFileRoute('/blog/')({
   component: BlogIndex,
-  head: () => ({
+  loader: () => listArticles({ data: { lang: 'fr' } }),
+  head: ({ loaderData }) => ({
     ...blogSeo,
     meta: [
       ...blogSeo.meta,
@@ -24,7 +25,7 @@ export const Route = createFileRoute('/blog/')({
         '@id': `${absoluteUrl('/blog')}#blog`,
         name: 'La revue',
         inLanguage: 'fr-FR',
-        blogPost: articles.map((a) => ({
+        blogPost: (loaderData ?? []).map((a) => ({
           '@type': 'BlogPosting',
           headline: a.titre,
           datePublished: a.date,
@@ -37,6 +38,8 @@ export const Route = createFileRoute('/blog/')({
 })
 
 function BlogIndex() {
+  const articles = Route.useLoaderData()
+
   return (
     <div>
       <section className="border-b-2 border-text">

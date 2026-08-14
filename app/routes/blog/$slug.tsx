@@ -1,7 +1,6 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
-import { articleBySlug } from '@/content/articles'
 import { Inscription } from '@/components/Inscription'
-import { MdxProse } from '@/components/MdxProse'
+import { loadArticle } from '@/server/article-page'
 import {
   ORGANIZATION,
   SITE_URL,
@@ -12,8 +11,10 @@ import {
 
 export const Route = createFileRoute('/blog/$slug')({
   component: BlogArticle,
-  loader: ({ params }) => {
-    const article = articleBySlug(params.slug)
+  loader: async ({ params }) => {
+    const article = await loadArticle({
+      data: { slug: params.slug, lang: 'fr' },
+    })
     if (!article) throw notFound()
     return article
   },
@@ -33,8 +34,8 @@ export const Route = createFileRoute('/blog/$slug')({
       publishedTime: loaderData.date,
       modifiedTime: loaderData.dateRevision,
       section: loaderData.organe,
-      alternate: loaderData.en
-        ? { fr: path, en: `/en/blog/${loaderData.en.slug}` }
+      alternate: loaderData.autreSlug
+        ? { fr: path, en: `/en/blog/${loaderData.autreSlug}` }
         : undefined,
     })
 
@@ -81,10 +82,10 @@ function BlogArticle() {
           <p className="label mt-8 text-text/50">
             {article.date} — {article.lecture} de lecture
           </p>
-          {article.en ? (
+          {article.autreSlug ? (
             <Link
               to="/en/blog/$slug"
-              params={{ slug: article.en.slug }}
+              params={{ slug: article.autreSlug }}
               className="label mt-6 inline-flex items-center gap-2 text-text/60 hover:text-accent-primary"
             >
               Read in English <span aria-hidden>→</span>
@@ -108,7 +109,7 @@ function BlogArticle() {
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">
-          <MdxProse corps={article.corps} />
+          <div dangerouslySetInnerHTML={{ __html: article.html }} />
         </div>
       </section>
 

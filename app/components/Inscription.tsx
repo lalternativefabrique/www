@@ -1,38 +1,35 @@
 import { useState } from 'react'
 import { chrome, useLocale } from '@/lib/i18n'
+import { subscribe } from '@/server/submissions'
 
 /**
  * Revue sign-up.
  *
- * The endpoint is injected at build time via VITE_INSCRIPTION_URL so the form
- * can move to Spore (or any provider) without touching this component. Spore
- * currently only sends mail — it has no subscriber list — so a provider that
- * stores addresses is needed until that exists.
+ * Addresses are stored by this app now. It used to POST to whatever
+ * VITE_INSCRIPTION_URL pointed at, which was nothing — the form dropped every
+ * address it collected.
  *
- * With no endpoint configured the form degrades to a mailto: link rather than
- * silently dropping addresses.
+ * A failure falls back to the contact address rather than reporting success,
+ * since the person has no other way to know their sign-up went nowhere.
  */
-const ENDPOINT = import.meta.env.VITE_INSCRIPTION_URL as string | undefined
 const CONTACT = 'contact@lalternativefabrique.org'
 
 type Etat = 'repos' | 'envoi' | 'ok' | 'erreur'
 
 export function Inscription({ compact = false }: { compact?: boolean }) {
-  const t = chrome[useLocale()].signup
+  const locale = useLocale()
+  const t = chrome[locale].signup
   const [email, setEmail] = useState('')
   const [etat, setEtat] = useState<Etat>('repos')
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!ENDPOINT) return
     setEtat('envoi')
     try {
-      const res = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+      const res = await subscribe({
+        data: { email, locale, source: window.location.pathname },
       })
-      if (!res.ok) throw new Error(String(res.status))
+      if (!res.ok) throw new Error(res.reason)
       setEtat('ok')
       setEmail('')
     } catch {
@@ -62,8 +59,7 @@ export function Inscription({ compact = false }: { compact?: boolean }) {
         </>
       ) : null}
 
-      {ENDPOINT ? (
-        <form
+      <form
           onSubmit={onSubmit}
           className={`flex flex-col gap-3 sm:flex-row ${compact ? 'mt-4' : 'mt-8'}`}
         >
@@ -86,17 +82,7 @@ export function Inscription({ compact = false }: { compact?: boolean }) {
           >
             {etat === 'envoi' ? t.sending : t.submit}
           </button>
-        </form>
-      ) : (
-        <a
-          href={`mailto:${CONTACT}?subject=${t.mailSubject}`}
-          className={`label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg ${
-            compact ? 'mt-4' : 'mt-8'
-          }`}
-        >
-          {t.byEmail} <span aria-hidden>→</span>
-        </a>
-      )}
+      </form>
 
       {etat === 'erreur' ? (
         <p className="mt-4 text-base text-accent-primary">
