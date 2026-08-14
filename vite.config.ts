@@ -5,8 +5,16 @@ import type { Plugin } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
+import mdx from '@mdx-js/rollup'
+import remarkGfm from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import tailwindcss from '@tailwindcss/vite'
-import { articles } from './app/content/articles'
+import { readArticles } from './app/content/manifest'
+
+// Read from disk, not imported from ./app/content/articles: that module reaches
+// the .mdx files through import.meta.glob, which only exists inside the bundle.
+const articles = readArticles()
 
 // Kept in sync with SITE_URL in app/lib/seo.ts. Not imported from there: this
 // file is loaded by Node before the '@/' alias exists.
@@ -268,6 +276,17 @@ export default defineConfig({
       },
       pages: ALL_PATHS.map((path) => ({ path })),
     }),
+    // Must precede viteReact: it hands the JSX it compiles to the React plugin.
+    {
+      enforce: 'pre',
+      ...mdx({
+        remarkPlugins: [
+          remarkGfm,
+          remarkFrontmatter,
+          [remarkMdxFrontmatter, { name: 'meta' }],
+        ],
+      }),
+    },
     viteReact(),
     sitemapPlugin(),
     assetIntegrityPlugin(),

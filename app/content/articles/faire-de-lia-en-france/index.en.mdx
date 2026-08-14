@@ -1,0 +1,53 @@
+---
+slug: building-ai-in-france-in-2026
+titre: Building AI in France in 2026
+chapeau: "The received wisdom says you need American models to build a serious product. Our tools run in France, from compute to storage — here is what that allows, what it costs, and where it still falls short."
+organe: Technique
+---
+
+You start a product that needs AI. You open the documentation of one of the big American providers, you plug in a key, it runs in ten minutes. The hosting question never comes up: it was settled before you thought to ask it.
+
+That is the moment you make an architectural decision without knowing you are making one. It looks reversible. It becomes less and less so as the product grows.
+
+There is an alternative, though, and it works. We use it every day.
+
+## What the French catalogue covers
+
+Here is the full chain our tools run on, without exception:
+
+- Speech recognition — Whisper large-v3-turbo, on OVH AI Endpoints
+- Language models — Mistral, hosted in France
+- Semantic search — bge-m3 embeddings, same infrastructure
+- Storage and compute — OVH (Gravelines) and Scaleway (Paris)
+
+Transcription, translation, summarisation, semantic indexing. These four operations make up most of what real products actually do — and all four are covered. No call leaves France, and this is not a roadmap: it is what is running while you read.
+
+## What it costs
+
+The usual objection is price. Our figures, measured in production: transcribing an hour of audio costs €0.046, translating it €0.0047, a summary from a language model a fraction of a cent.
+
+At those levels, the gap between providers is not what decides the matter. What matters is knowing the real cost of a request — and being able to quote it without a safety margin.
+
+This point is underrated. When the infrastructure bill is opaque, customer pricing is guesswork, padded to cover uncertainty. When the cost is known to the cent, you can price the product precisely.
+
+## What it makes possible
+
+The point is not to crown one provider over another. It is that an option exists, here, now: you can host your AI services in France, run your language models on infrastructure you can actually reach, and build a complete product without ever leaving the country.
+
+That was not true three years ago. The catalogue was too thin, the models too far behind, the endpoints too unstable. Today the chain holds end to end, and it holds in production.
+
+That changes what you can decide. A company handling sensitive data no longer has to choose between AI and its compliance. A software vendor who wants to know where its customers’ content goes can answer precisely. An independent developer can build a product without depending on a provider they will never reach.
+
+## Where it is not enough
+
+The catalogue available here is still narrower. The newest models ship elsewhere first. On complex reasoning, code generation or advanced multimodal tasks, the gap is real and we will not pretend otherwise.
+
+One caveat while we are at it: what you use in your own work and what runs inside your product are two different things. The best coding assistants are American, most developers use them daily, and this article is no exception. That choice affects only your own workflow and can be changed in an afternoon.
+
+What runs in production, on every request from every user, binds your architecture, your costs and your data. It is the only decision that deserves to be made deliberately.
+
+## The question to ask
+
+Before you plug in a key, one question only: if this provider changes its rules tomorrow, what stops?
+
+If the answer is “my working comfort”, the matter is minor. If it is “my product”, then the decision deserved better than a reflex. Building in France is no longer a sacrifice made on principle: it is a choice that holds up technically and economically. It just has to be examined before being declared impossible.

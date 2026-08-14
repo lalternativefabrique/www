@@ -1,0 +1,57 @@
+---
+slug: faire-de-lia-en-france-en-2026
+titre: "Faire de l'IA en France, en 2026"
+chapeau: "On répète qu'il faut les modèles américains pour construire un produit sérieux. Nos outils tournent en France, du calcul au stockage — voici ce que ça permet, ce que ça coûte, et où ça bloque encore."
+organe: Technique
+outil: Techtuel
+outilUrl: https://techtuel.com
+date: 2026-07-29
+lecture: 6 min
+---
+
+Vous démarrez un produit qui a besoin d'IA. Vous ouvrez la documentation d'un des grands fournisseurs américains, vous branchez une clé, ça tourne en dix minutes. La question de l'hébergement ne se pose pas : elle a été tranchée avant que vous n'y pensiez.
+
+C'est le moment où l'on prend une décision d'architecture sans savoir qu'on la prend. Elle paraît réversible. Elle l'est de moins en moins à mesure que le produit grandit.
+
+Il y a pourtant une alternative, et elle fonctionne. Nous l'utilisons tous les jours.
+
+## Ce que le catalogue français couvre
+
+Voici la chaîne complète sur laquelle tournent nos outils, sans exception :
+
+- Reconnaissance vocale — Whisper large-v3-turbo, sur OVH AI Endpoints
+- Modèles de langue — Mistral, hébergés en France
+- Recherche sémantique — embeddings bge-m3, même infrastructure
+- Stockage et calcul — OVH (Gravelines) et Scaleway (Paris)
+
+Transcription, traduction, synthèse, indexation sémantique. Ces quatre opérations composent l'essentiel de ce que font les produits réels — et elles sont toutes couvertes. Aucun appel ne sort de France, et ce n'est pas une feuille de route : c'est ce qui tourne pendant que vous lisez.
+
+## Ce que ça coûte
+
+L'objection habituelle est le prix. Nos chiffres, mesurés en production : transcrire une heure d'audio coûte 0,046 €, la traduire 0,0047 €, une synthèse par modèle de langue une fraction de centime.
+
+À ces niveaux, l'écart entre fournisseurs ne décide de rien. Ce qui décide, c'est de connaître le coût réel d'une requête — et de pouvoir l'annoncer sans marge de sécurité.
+
+C'est un point qu'on sous-estime. Quand la facture d'infrastructure est opaque, le prix client se construit à l'aveugle, avec une provision pour l'incertitude. Quand elle est connue au centime, le tarif se calcule.
+
+## Ce que ça rend possible
+
+Le point n'est pas de désigner un fournisseur plutôt qu'un autre. Il est qu'une option existe, ici, maintenant : on peut héberger ses services d'IA en France, faire tourner ses modèles de langue sur une infrastructure joignable, et construire un produit complet sans jamais sortir du pays.
+
+Ce n'était pas vrai il y a trois ans. Le catalogue était trop maigre, les modèles trop en retard, les endpoints trop instables. Aujourd'hui la chaîne tient de bout en bout, et elle tient en production.
+
+Cela change ce qu'on peut décider. Une entreprise qui traite des données sensibles n'a plus à choisir entre l'IA et sa conformité. Un éditeur qui veut savoir où partent les contenus de ses clients peut répondre précisément. Un indépendant peut monter un produit sans dépendre d'un fournisseur qu'il n'atteindra jamais.
+
+## Où ça ne suffit pas
+
+Le catalogue disponible ici reste plus étroit. Les modèles les plus récents sortent ailleurs d'abord. Sur du raisonnement complexe, de la génération de code ou des tâches multimodales avancées, l'écart est réel et nous ne prétendons pas le contraire.
+
+Un bémol, tant qu'on y est : ce que vous utilisez pour travailler et ce qui tourne dans votre produit sont deux choses distinctes. Les meilleurs assistants de code sont américains, la plupart des développeurs les utilisent quotidiennement, et cet article n'y échappe pas. Ce choix-là n'engage que vous et se change en un après-midi.
+
+Ce qui tourne en production, à chaque requête de chaque utilisateur, engage votre architecture, vos coûts et vos données. C'est la seule décision qui mérite d'être prise consciemment.
+
+## La question à se poser
+
+Avant de brancher une clé, une seule question : si ce fournisseur change ses règles demain, qu'est-ce qui s'arrête ?
+
+Si la réponse est « mon confort de travail », le sujet est mineur. Si c'est « mon produit », alors la décision méritait mieux qu'un réflexe. Construire en France n'est plus un sacrifice qu'on consent par principe : c'est un choix qui tient techniquement et économiquement. Encore faut-il l'examiner avant de le déclarer impossible.

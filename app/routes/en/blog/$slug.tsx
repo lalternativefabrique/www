@@ -1,7 +1,7 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
 import { articleEnBySlug, articleFrByEnSlug } from '@/content/articles'
 import { Inscription } from '@/components/Inscription'
-import { Blocs } from '@/components/Blocs'
+import { MdxProse } from '@/components/MdxProse'
 import { ORGANIZATION, SITE_URL, absoluteUrl, jsonLd, seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/en/blog/$slug')({
@@ -113,7 +113,7 @@ function BlogArticleEn() {
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">
-          <Blocs blocs={article.blocs} />
+          <MdxProse corps={article.corps} lang="en" />
         </div>
       </section>
 
