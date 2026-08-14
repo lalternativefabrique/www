@@ -15,6 +15,7 @@ scopes:
     - "pnpm-lock.yaml"
     - "tsconfig.json"
     - "server.js"
+    - "migrations/**"
 
 steps:
   # Typecheck first: it fails in seconds on what the build would only surface

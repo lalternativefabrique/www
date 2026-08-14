@@ -89,6 +89,11 @@ The article loader in `app/content/articles.ts` was written with this move in
 mind: it is the single place that knows where articles come from, and the two
 `import.meta.glob` calls at its top are what change.
 
+Sign-in requires a verified email address, which `createPlatformAuth` imposes
+and does not make optional. Until `SPORE_API_KEY` is set and the sending domain
+is verified, nobody can sign in — the first admin included. The admin is
+unreachable before mail works.
+
 ## Alternatives considered
 
 **Keep everything static, trigger a rebuild on publish.** Preserves the nginx

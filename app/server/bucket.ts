@@ -66,7 +66,7 @@ export async function getObject(key: string): Promise<string | undefined> {
 
 export async function putObject(
   key: string,
-  body: string,
+  body: string | Uint8Array,
   contentType = 'text/markdown; charset=utf-8',
 ) {
   await s3().send(
