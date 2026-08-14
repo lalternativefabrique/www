@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { articles, articlesEn } from '@/content/articles'
 import { Inscription } from '@/components/Inscription'
+import { listArticles } from '@/server/article-list'
 import { absoluteUrl, jsonLd, seo } from '@/lib/seo'
 
 const blogEnSeo = seo({
@@ -14,7 +14,8 @@ const blogEnSeo = seo({
 
 export const Route = createFileRoute('/en/blog/')({
   component: BlogIndexEn,
-  head: () => ({
+  loader: () => listArticles({ data: { lang: 'en' } }),
+  head: ({ loaderData }) => ({
     ...blogEnSeo,
     meta: [
       ...blogEnSeo.meta,
@@ -24,22 +25,21 @@ export const Route = createFileRoute('/en/blog/')({
         '@id': `${absoluteUrl('/en/blog')}#blog`,
         name: 'The review',
         inLanguage: 'en',
-        blogPost: articlesEn.map((a) => {
-          const fr = articles.find((f) => f.en?.slug === a.slug)
-          return {
-            '@type': 'BlogPosting',
-            headline: a.titre,
-            datePublished: fr?.date,
-            dateModified: fr?.dateRevision ?? fr?.date,
-            url: absoluteUrl(`/en/blog/${a.slug}`),
-          }
-        }),
+        blogPost: (loaderData ?? []).map((a) => ({
+          '@type': 'BlogPosting',
+          headline: a.titre,
+          datePublished: a.date,
+          dateModified: a.dateRevision ?? a.date,
+          url: absoluteUrl(`/en/blog/${a.slug}`),
+        })),
       }),
     ],
   }),
 })
 
 function BlogIndexEn() {
+  const articlesEn = Route.useLoaderData()
+
   return (
     <div>
       <section className="border-b-2 border-text">
@@ -79,9 +79,7 @@ function BlogIndexEn() {
             </p>
           ) : (
             <ul className="border-t-2 border-text">
-              {articlesEn.map((article) => {
-                const fr = articles.find((f) => f.en?.slug === article.slug)
-                return (
+              {articlesEn.map((article) => (
                   <li
                     key={article.slug}
                     className="border-b-2 border-text last:border-b-0"
@@ -95,7 +93,7 @@ function BlogIndexEn() {
                         <p className="label text-accent-primary">
                           {article.organe}
                         </p>
-                        <p className="label mt-2 text-text/50">{fr?.lecture}</p>
+                        <p className="label mt-2 text-text/50">{article.lecture}</p>
                       </div>
                       <div className="sm:col-span-9">
                         <h2 className="font-heading text-3xl uppercase leading-tight group-hover:text-accent-primary sm:text-5xl">
@@ -110,8 +108,7 @@ function BlogIndexEn() {
                       </div>
                     </Link>
                   </li>
-                )
-              })}
+              ))}
             </ul>
           )}
         </div>

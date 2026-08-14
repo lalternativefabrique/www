@@ -14,8 +14,16 @@ scopes:
     - "package.json"
     - "pnpm-lock.yaml"
     - "tsconfig.json"
+    - "server.js"
 
 steps:
+  # Typecheck first: it fails in seconds on what the build would only surface
+  # minutes later, and the build does not typecheck on its own.
+  - name: web-typecheck
+    scope: [web]
+    tools: [node, pnpm]
+    run: pnpm typecheck
+
   - name: web-build
     scope: [web]
     tools: [node, pnpm]

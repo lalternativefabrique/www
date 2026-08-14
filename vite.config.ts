@@ -10,29 +10,16 @@ import remarkGfm from 'remark-gfm'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import tailwindcss from '@tailwindcss/vite'
-import { readArticles } from './app/content/manifest'
-
-// Read from disk, not imported from ./app/content/articles: that module reaches
-// the .mdx files through import.meta.glob, which only exists inside the bundle.
-const articles = readArticles()
-
-// Kept in sync with SITE_URL in app/lib/seo.ts. Not imported from there: this
-// file is loaded by Node before the '@/' alias exists.
-//
-// Nothing enforces that sync, and it has already drifted once: the domain was
-// updated everywhere else while this copy still emitted the old one into
-// sitemap.xml, advertising URLs on a domain that did not resolve. When you
-// change it, change it in both files — and check the built sitemap, not just
-// the rendered canonical tag, since they come from different sources.
-const SITE_URL = 'https://lalternativefabrique.org'
 
 /**
- * Every route to prerender. This is the single source of truth: the same list
- * drives the prerender pass and the sitemap, so the two cannot drift.
+ * The routes prerendered into static HTML.
  *
- * Articles are listed explicitly rather than left to crawlLinks. Relying on the
- * crawler means an article that is not linked from /blog silently never gets
- * built — and on a static host an unbuilt route is a 404.
+ * Articles are absent on purpose: they are published to the bucket and rendered
+ * on demand, so baking them into the image would freeze the corpus at build
+ * time — see docs/adr/0001-articles-from-bucket-ssr-blog-admin.md. The two blog
+ * indexes are excluded for the same reason: they list what the bucket holds.
+ *
+ * sitemap.xml and llms.txt are server routes now, for the same reason again.
  */
 const STATIC_PATHS = [
   '/',
@@ -40,17 +27,10 @@ const STATIC_PATHS = [
   '/outils',
   '/pot',
   '/paiement',
-  '/blog',
   '/a-propos',
   '/contact',
 ]
 
-const ARTICLE_PATHS = articles.map((a) => `/blog/${a.slug}`)
-
-/**
- * The English revue. Only translated articles are listed, so an untranslated
- * one is never prerendered into a page that would 404 on the static host.
- */
 const EN_PATHS = [
   '/en',
   '/en/apps',
@@ -58,117 +38,9 @@ const EN_PATHS = [
   '/en/pot',
   '/en/a-propos',
   '/en/contact',
-  '/en/blog',
-  ...articles.flatMap((a) => (a.en ? [`/en/blog/${a.en.slug}`] : [])),
 ]
 
-const ALL_PATHS = [...STATIC_PATHS, ...ARTICLE_PATHS, ...EN_PATHS]
-
-/** Most recent article date, used as lastmod for the blog index. */
-const latestArticleDate = articles
-  .map((a) => a.date)
-  .sort()
-  .at(-1)
-
-/**
- * Emit sitemap.xml and llms.txt into the client build.
- *
- * Written in closeBundle rather than as an emitted asset: the prerender pass
- * runs its own build, and emitting from there would produce the file twice.
- *
- * Both files derive from the same article list as the prerender pass, so a new
- * article cannot be live and missing from either.
- */
-function sitemapPlugin(): Plugin {
-  return {
-    name: 'lalter-sitemap',
-    apply: 'build',
-    closeBundle() {
-      // The prerender pass reuses this config; only write from the client
-      // build, whose outDir is dist/client.
-      const outDir = resolve(process.cwd(), 'dist/client')
-
-      const urls = ALL_PATHS.map((path) => {
-        // An English article carries its French counterpart's dates: they are
-        // the same piece, and only the prose is translated.
-        const article =
-          articles.find((a) => `/blog/${a.slug}` === path) ??
-          articles.find((a) => a.en && `/en/blog/${a.en.slug}` === path)
-        const lastmod =
-          article?.dateRevision ??
-          article?.date ??
-          (path === '/blog' ? latestArticleDate : undefined)
-        // Home first, then editorial content, then the rest.
-        const priority = path === '/' ? '1.0' : article ? '0.8' : '0.6'
-
-        return [
-          '  <url>',
-          `    <loc>${SITE_URL}${path === '/' ? '/' : path}</loc>`,
-          lastmod ? `    <lastmod>${lastmod}</lastmod>` : null,
-          `    <priority>${priority}</priority>`,
-          '  </url>',
-        ]
-          .filter(Boolean)
-          .join('\n')
-      }).join('\n')
-
-      const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
-</urlset>
-`
-
-      const articleLines = [...articles]
-        .sort((a, b) => b.date.localeCompare(a.date))
-        .map(
-          (a) =>
-            `- [${a.titre}](${SITE_URL}/blog/${a.slug}) — ${a.chapeau} (${a.organe}, ${a.date})`,
-        )
-        .join('\n')
-
-      const llms = `# L'Alternative Fabrique
-
-> Une revue et un ensemble d'outils sobres pour construire une alternative :
-> connaissance, technique, création, financement, communication. Chaque outil
-> est un organe, chaque article défend une position argumentée et vérifiable.
-
-## Articles
-
-${articleLines}
-
-${
-        articles.some((a) => a.en)
-          ? `## Articles (English)
-
-${articles
-  .filter((a) => a.en)
-  .sort((a, b) => b.date.localeCompare(a.date))
-  .map(
-    (a) =>
-      `- [${a.en!.titre}](${SITE_URL}/en/blog/${a.en!.slug}) — ${a.en!.chapeau} (${a.en!.organe}, ${a.date})`,
-  )
-  .join('\n')}
-
-`
-          : ''
-      }## Pages
-
-- [Accueil](${SITE_URL}/)
-- [Les organes](${SITE_URL}/outils) — les outils et ce que chacun prend en charge
-- [Le pot commun](${SITE_URL}/pot) — le modèle de financement
-- [À propos](${SITE_URL}/a-propos)
-- [Contact](${SITE_URL}/contact)
-`
-
-      try {
-        writeFileSync(resolve(outDir, 'sitemap.xml'), xml, 'utf8')
-        writeFileSync(resolve(outDir, 'llms.txt'), llms, 'utf8')
-      } catch {
-        // dist/client does not exist during the server/prerender build.
-      }
-    },
-  }
-}
+const ALL_PATHS = [...STATIC_PATHS, ...EN_PATHS]
 
 /**
  * Fail the build when a prerendered page links a stylesheet that was not
@@ -267,11 +139,17 @@ export default defineConfig({
     tailwindcss(),
     tanstackStart({
       srcDirectory: 'app',
-      // Static output: prerender all known routes.
+      // Hybrid output: the pages listed below are prerendered, everything else
+      // is rendered on demand.
       prerender: {
         enabled: true,
-        // Kept as a safety net for links added without updating ALL_PATHS.
-        crawlLinks: true,
+        // Off deliberately. The crawler would follow the links on /blog and
+        // bake every article into the image, which is exactly what publishing
+        // to a bucket is meant to avoid.
+        crawlLinks: false,
+        // Same reason: discovery picks up the blog indexes and freezes the
+        // article list they render into the build.
+        autoStaticPathsDiscovery: false,
         retryCount: 2,
       },
       pages: ALL_PATHS.map((path) => ({ path })),
@@ -288,7 +166,6 @@ export default defineConfig({
       }),
     },
     viteReact(),
-    sitemapPlugin(),
     assetIntegrityPlugin(),
   ],
 })
