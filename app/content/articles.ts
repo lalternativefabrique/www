@@ -235,16 +235,6 @@ export const articles: Article[] = [
         type: 'p',
         text: "Il ne s'agit pas forcément de faire disparaître ceux qui accumulent. Il s'agit de réduire le pouvoir que cette accumulation leur donne sur ceux qui produisent.",
       },
-      {
-        type: 'image',
-        src: '/images/articles/force-du-nombre-coordonne.png',
-        alt: "« Seuls, petits. Ensemble, une force. » À gauche, une tour sombre étiquetée capital concentré, propriété centralisée, information contrôlée, règles du jeu fixées d'en haut, plateformes détenues et marchés verrouillés, où des silhouettes font la queue. À droite, un paysage clair où des dizaines d'artisans, cultivateurs, développeurs et créateurs travaillent chacun dans leur atelier, tous reliés entre eux par un réseau lumineux.",
-        altEn:
-          "'Alone, small. Together, a force.' On the left, a dark tower labelled concentrated capital, centralised ownership, controlled information, rules set from above, owned platforms and locked markets, with silhouettes queueing at its gate. On the right, a bright landscape where dozens of craftspeople, growers, developers and creators each work in their own workshop, all linked by a glowing network.",
-        caption: "Chacun reste petit, mais le réseau qui les relie change le rapport de force.",
-        width: 1536,
-        height: 1024,
-      },
       { type: 'h2', text: "De l'ubérisation à l'indépendance productive" },
       {
         type: 'p',
@@ -494,14 +484,6 @@ export const articles: Article[] = [
         {
           type: 'p',
           text: 'The point is not necessarily to make those who accumulate disappear. It is to reduce the power that accumulation gives them over those who produce.',
-        },
-        {
-          type: 'image',
-          src: '/images/articles/force-du-nombre-coordonne.png',
-          alt: "'Alone, small. Together, a force.' On the left, a dark tower labelled concentrated capital, centralised ownership, controlled information, rules set from above, owned platforms and locked markets, with silhouettes queueing at its gate. On the right, a bright landscape where dozens of craftspeople, growers, developers and creators each work in their own workshop, all linked by a glowing network.",
-          caption: 'Each one stays small, but the network between them changes the balance of power.',
-          width: 1536,
-          height: 1024,
         },
         {
           type: 'h2',
