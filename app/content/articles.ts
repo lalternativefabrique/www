@@ -42,6 +42,8 @@ export type ArticleEn = {
   slug: string
   titre: string
   chapeau: string
+  /** Same role as on the French article: a chapeau too long to be a meta. */
+  metaDescription?: string
   organe: string
   blocs: Bloc[]
 }
@@ -50,6 +52,11 @@ export type Article = {
   slug: string
   titre: string
   chapeau: string
+  /**
+   * Meta description, when the chapeau runs past the ~160 chars search engines
+   * display. Absent means the chapeau is short enough to serve as both.
+   */
+  metaDescription?: string
   organe: string
   outil: string
   outilUrl: string
@@ -71,17 +78,19 @@ export const articles: Article[] = [
     slug: 'lindependance-productive-la-fin-du-capitalisme',
     titre: "L'indépendance productive : la fin du capitalisme ?",
     chapeau:
-      "Produire, apprendre, se financer, trouver des clients et se coordonner deviennent accessibles à beaucoup plus de monde. Une fissure s'est ouverte dans la séparation entre ceux qui possèdent les moyens de production et ceux qui produisent.",
+      "L'indépendance productive, c'est disposer d'assez de moyens pour produire sans vendre sa force de travail. Une fissure s'est ouverte dans la séparation décrite par Marx — voici ce qui l'a ouverte, et ce qui pourrait l'élargir.",
+    metaDescription:
+      "L'indépendance productive : disposer d'assez de moyens pour produire sans vendre sa force de travail. Ce qui a fissuré la séparation décrite par Marx.",
     organe: 'Financement',
     outil: 'Lungor',
     outilUrl: 'https://lungor.fr',
     date: '2026-08-14',
     lecture: '8 min',
     illustration: {
-      src: '/images/articles/independance-productive.png',
-      alt: "À gauche, une usine sombre et enchaînée où des rangées de salariés travaillent sous le capital concentré ; à droite, des ateliers ouverts et verdoyants où des producteurs indépendants disposent de logiciels libres, de fabrication numérique, de financement participatif et de réseaux. Entre les deux, une personne face à un panneau indiquant connaissance, outils, réseaux, capital, production et distribution.",
+      src: '/images/articles/carrefour-concentration-independance.png',
+      alt: "Une personne se tient à un carrefour, devant un panneau à deux flèches. À gauche, « Concentration » mène vers un quartier de tours de verre, une cheminée d'usine et un écran affichant investir, produire, croître. À droite, « Indépendance » mène vers une rue basse d'ateliers et de commerces où passent des cyclistes, avec une enseigne « Atelier bois » et une ardoise annonçant local, durable, artisanal, coopératif, responsable.",
       altEn:
-        'On the left, a dark chained factory where rows of employees work under concentrated capital; on the right, open green workshops where independent producers use free software, digital fabrication, crowdfunding and networks. Between them, a person faces a signpost pointing to knowledge, tools, networks, capital, production and distribution.',
+        "A person stands at a crossroads before a two-armed signpost. To the left, 'Concentration' leads towards a district of glass towers, a factory chimney and a screen reading invest, produce, grow. To the right, 'Independence' leads down a low street of workshops and small shops with cyclists passing, a 'wood workshop' sign and a chalkboard reading local, sustainable, artisanal, cooperative, responsible.",
     },
     blocs: [
       {
@@ -100,7 +109,7 @@ export const articles: Article[] = [
         type: 'p',
         text: "Et si cette fissure permettait progressivement de réduire la séparation entre ceux qui possèdent les moyens de production et ceux qui produisent ?",
       },
-      { type: 'h2', text: 'Ce que Marx avait vu' },
+      { type: 'h2', text: "Ce que Marx avait vu : la séparation d'avec les moyens de production" },
       {
         type: 'p',
         text: "Marx avait notamment identifié la séparation entre la force de travail et les moyens de travail. Celui qui ne possède pas les moyens nécessaires pour produire doit vendre sa force de travail à celui qui les possède. Les moyens de production finissent ainsi, selon Marx, par « commander les producteurs ».",
@@ -117,7 +126,7 @@ export const articles: Article[] = [
         type: 'p',
         text: "Il ne s'agit pas ici d'en refaire l'histoire. La question est plutôt de regarder ce qui a changé depuis.",
       },
-      { type: 'h2', text: "Une fissure s'est ouverte" },
+      { type: 'h2', text: "Une fissure s'est ouverte : pourquoi produire coûte moins cher qu'avant" },
       {
         type: 'p',
         text: "Prenons le logiciel. Il y a quelques décennies, créer et distribuer un produit informatique à des milliers de personnes nécessitait une entreprise, des serveurs, plusieurs métiers et des moyens financiers importants.",
@@ -146,7 +155,11 @@ export const articles: Article[] = [
         type: 'p',
         text: "C'est cette fissure qui m'intéresse.",
       },
-      { type: 'h2', text: "L'indépendance productive" },
+      { type: 'h2', text: "L'indépendance productive, qu'est-ce que c'est ?" },
+      {
+        type: 'p',
+        text: "L'indépendance productive est le fait de disposer de suffisamment de moyens pour produire sans devoir vendre sa force de travail à celui qui les possède. Elle ne suppose ni de tout posséder, ni de tout fabriquer, ni de travailler seul : elle peut être individuelle comme collective, et elle se mesure au pouvoir dont on dispose sur ce que l'on produit.",
+      },
       {
         type: 'p',
         text: "On pourrait regarder le retour des indépendants, des artisans et des petites structures comme une régression vers le petit patron. Ce serait oublier que le petit producteur d'aujourd'hui ne dispose plus des moyens du petit producteur du XIXe siècle.",
@@ -161,7 +174,7 @@ export const articles: Article[] = [
       },
       {
         type: 'p',
-        text: "C'est ce que j'appellerais l'indépendance productive : non pas tout posséder, tout fabriquer ou travailler seul, mais disposer de suffisamment de moyens pour pouvoir produire sans devoir nécessairement vendre sa force de travail à celui qui les possède.",
+        text: "C'est ce que j'appellerais l'indépendance productive.",
       },
       {
         type: 'p',
@@ -171,7 +184,7 @@ export const articles: Article[] = [
         type: 'p',
         text: "Une objection apparaît immédiatement : ces productions coûtent souvent plus cher. Un objet fabriqué par un artisan est rarement vendu au prix de son équivalent industriel. Mais cette comparaison suppose que les revenus restent organisés comme aujourd'hui. Si davantage de producteurs récupèrent directement une plus grande part de la valeur de leur travail, la question du prix se pose autrement. Il faut alors regarder non seulement combien coûte ce que nous achetons, mais aussi où va la valeur que nous produisons.",
       },
-      { type: 'h2', text: 'La force du nombre coordonné' },
+      { type: 'h2', text: 'La force du nombre coordonné : quand des moyens faibles font masse' },
       {
         type: 'p',
         text: "Les acteurs les plus puissants n'ont jamais disposé uniquement d'argent. Leur force vient aussi de leurs réseaux, de leur connaissance, de l'information et de leur capacité à se coordonner.",
@@ -250,6 +263,16 @@ export const articles: Article[] = [
         text: "On a distribué le travail sans distribuer le contrôle de l'infrastructure qui l'organise.",
       },
       {
+        type: 'image',
+        src: '/images/articles/uberisation-independance-productive.png',
+        alt: "Diptyque. À gauche, « De l'ubérisation… » : un livreur à scooter sous la pluie face à un téléphone géant affichant une plateforme, entouré de panneaux règles imposées, commissions, dépendance, aucun contrôle. À droite, « …à l'indépendance productive » : un maroquinier travaille le cuir dans son atelier lumineux, un téléphone sur trépied présentant son sac en vente directe.",
+        altEn:
+          "Diptych. On the left, 'From platform capture…': a delivery rider on a scooter in the rain facing a giant phone showing a platform, surrounded by signs reading imposed rules, commissions, dependence, no control. On the right, '…to productive independence': a leatherworker crafts a bag in a bright workshop, a phone on a tripod showing the bag for direct sale.",
+        caption: "Même technologie, deux répartitions du contrôle : la plateforme capte la mise en relation, ou le producteur atteint directement ses clients.",
+        width: 1774,
+        height: 887,
+      },
+      {
         type: 'p',
         text: "Mais le mouvement inverse existe déjà. Un maroquinier, un artisan ou un petit fabricant peut utiliser une place de marché ou les réseaux sociaux pour trouver suffisamment de clients pour vivre de sa production, sans posséder son propre réseau de distribution.",
       },
@@ -311,6 +334,269 @@ export const articles: Article[] = [
         text: "La fissure existe, à nous de nous y engouffrer.",
       },
     ],
+    en: {
+      slug: 'productive-independence-the-end-of-capitalism',
+      titre: 'Productive independence: the end of capitalism?',
+      chapeau:
+        'Productive independence means holding enough means of production to work without selling your labour to whoever owns them. A crack has opened in the separation Marx described — here is what opened it, and what could widen it.',
+      metaDescription:
+        'Productive independence: holding enough means to produce without selling your labour. What cracked the separation Marx described.',
+      organe: 'Funding',
+      blocs: [
+        {
+          type: 'p',
+          text: 'Two great answers are usually offered to the question of ownership. On one side, capitalism: whoever owns the capital owns the means of production, and employs those who do not. On the other, communism: those means become collective, historically most often through the state.',
+        },
+        {
+          type: 'p',
+          text: 'But that opposition was conceived in a world that has changed profoundly. The means to produce, to learn, to raise money, to find customers and to coordinate are becoming available to far more people.',
+        },
+        {
+          type: 'p',
+          text: 'A crack has opened.',
+        },
+        {
+          type: 'p',
+          text: 'What if that crack were gradually narrowing the separation between those who own the means of production and those who produce?',
+        },
+        {
+          type: 'h2',
+          text: 'What Marx saw: the separation from the means of production',
+        },
+        {
+          type: 'p',
+          text: 'Marx identified, among other things, the separation between labour power and the means of labour. Whoever does not own what is needed to produce must sell their labour power to whoever does. The means of production, in his account, end up "commanding the producers".',
+        },
+        {
+          type: 'p',
+          text: 'In the industrial era, producing required factories, machines, capital, raw materials and access to markets — which concentrated the means of production in very few hands: those who owned them employed those who did not.',
+        },
+        {
+          type: 'p',
+          text: 'Capitalism grew in a context of capital accumulation and unequal access to resources and markets, shaped too by empires, colonisation and economic networks long reserved for a minority.',
+        },
+        {
+          type: 'p',
+          text: 'The point here is not to retell that history. It is to look at what has changed since.',
+        },
+        {
+          type: 'h2',
+          text: 'A crack has opened: why producing costs less than it used to',
+        },
+        {
+          type: 'p',
+          text: 'Take software. A few decades ago, building and distributing a computer product to thousands of people required a company, servers, several trades and serious money.',
+        },
+        {
+          type: 'p',
+          text: 'Today one person can draw on free software, rent global infrastructure for a few dozen euros a month, and use artificial intelligence to do part of the work once split between several people.',
+        },
+        {
+          type: 'p',
+          text: 'The shift goes beyond software. 3D printing and digital machining bring certain industrial capabilities within reach of small workshops. The internet opens access to an immense body of knowledge. Social networks make it possible to reach an audience directly. Crowdfunding and pre-orders make it possible to raise capital before producing anything at all.',
+        },
+        {
+          type: 'quote',
+          text: 'It is no longer only the tool of production that is becoming available. It is, step by step, everything that makes producing possible.',
+        },
+        {
+          type: 'p',
+          text: 'None of this covers everything, of course. You do not build a train, a power station or a semiconductor plant on your own. Some production will always demand large organisations and considerable investment.',
+        },
+        {
+          type: 'p',
+          text: 'But elsewhere, the cost of entry is falling.',
+        },
+        {
+          type: 'p',
+          text: 'That crack is what interests me.',
+        },
+        {
+          type: 'h2',
+          text: 'What is productive independence?',
+        },
+        {
+          type: 'p',
+          text: 'Productive independence is having enough means at your disposal to produce without having to sell your labour power to whoever owns them. It does not require owning everything, making everything, or working alone: it can be individual or collective, and it is measured by the power you hold over what you produce.',
+        },
+        {
+          type: 'p',
+          text: 'The return of freelancers, craftspeople and small outfits could be read as a regression towards the small proprietor. That would forget that today’s small producer no longer works with the means of their nineteenth-century counterpart.',
+        },
+        {
+          type: 'p',
+          text: 'A leatherworker can make goods in their workshop and sell them in several countries. A creator can reach thousands of people directly. One person can build software used all over the world. A small team can run infrastructure once reserved for large companies.',
+        },
+        {
+          type: 'quote',
+          text: 'They remain small in size, but no longer necessarily in what they can produce.',
+        },
+        {
+          type: 'p',
+          text: 'That is what I would call productive independence.',
+        },
+        {
+          type: 'p',
+          text: 'This independence can be individual or collective. Infrastructure, a machine, a network or funding can be pooled when their scale exceeds that of one person. Autonomy does not mean solitude.',
+        },
+        {
+          type: 'p',
+          text: 'One objection comes immediately: this kind of production often costs more. An object made by a craftsperson rarely sells at the price of its industrial equivalent. But that comparison assumes incomes stay organised as they are today. If more producers capture a greater share of the value of their own work directly, the question of price looks different. What matters then is not only what we pay for what we buy, but where the value we produce ends up.',
+        },
+        {
+          type: 'h2',
+          text: 'The strength of coordinated numbers: when small means add up',
+        },
+        {
+          type: 'p',
+          text: 'The most powerful players have never held money alone. Their strength also comes from their networks, their knowledge, their information and their capacity to coordinate.',
+        },
+        {
+          type: 'p',
+          text: 'Part of that advantage is becoming more widely available too. The internet makes it possible to learn, to meet people, to publish, to find customers and to join communities that your background would not necessarily have opened to you.',
+        },
+        {
+          type: 'p',
+          text: 'Even funding is shifting. Crowdfunding, pre-orders and community financing make it possible to add up small sums into capital that no single participant held.',
+        },
+        {
+          type: 'p',
+          text: 'GameStop gave a spectacular demonstration of this in 2021. Thousands of retail investors, each holding relatively little, coordinated online and managed to weigh against funds with vastly greater resources.',
+        },
+        {
+          type: 'image',
+          src: '/images/articles/gamestop-janvier-2021.png',
+          alt: 'GameStop Corp. share price between 30 December 2020 and 29 January 2021: flat below 50 dollars for weeks, then surging from 19 January to above 480 dollars before falling back to 193.60 dollars at the 29 January close, up 387.74% on the day.',
+          caption: 'GameStop, January 2021. Source: Yahoo Finance.',
+          width: 1746,
+          height: 901,
+        },
+        {
+          type: 'p',
+          text: 'This is not a revolution. But the episode illustrates an essential mechanism:',
+        },
+        {
+          type: 'quote',
+          text: 'Small means, when they are numerous and coordinated, can become a force.',
+        },
+        {
+          type: 'p',
+          text: 'Blockchain, for all its speculative excesses, is also experimenting with forms of exchange, funding and ownership that depend less on a central actor.',
+        },
+        {
+          type: 'p',
+          text: 'So the crack is no longer only about tools. It runs through funding, knowledge, networks and coordination.',
+        },
+        {
+          type: 'p',
+          text: 'One might object that some people will always seek to accumulate more wealth and more power. That is precisely where the balance can shift. If the capacity to produce is spread across far more people, those who concentrate capital face a mass of producers who depend on them less.',
+        },
+        {
+          type: 'p',
+          text: 'The point is not necessarily to make those who accumulate disappear. It is to reduce the power that accumulation gives them over those who produce.',
+        },
+        {
+          type: 'image',
+          src: '/images/articles/force-du-nombre-coordonne.png',
+          alt: "'Alone, small. Together, a force.' On the left, a dark tower labelled concentrated capital, centralised ownership, controlled information, rules set from above, owned platforms and locked markets, with silhouettes queueing at its gate. On the right, a bright landscape where dozens of craftspeople, growers, developers and creators each work in their own workshop, all linked by a glowing network.",
+          caption: 'Each one stays small, but the network between them changes the balance of power.',
+          width: 1536,
+          height: 1024,
+        },
+        {
+          type: 'h2',
+          text: 'From platform capture to productive independence',
+        },
+        {
+          type: 'p',
+          text: 'The gig economy looks like the obvious objection. In some sectors it has produced a social disaster: workers who are legally independent but economically dependent on a platform that controls their access to customers, sets the rules and takes its cut.',
+        },
+        {
+          type: 'p',
+          text: 'And yet the idea could have carried a very different promise: letting people offer their work directly and easily find those who need it.',
+        },
+        {
+          type: 'p',
+          text: 'The problem appears when whoever makes that meeting easier gradually takes control of it.',
+        },
+        {
+          type: 'quote',
+          text: 'We distributed the work without distributing control of the infrastructure that organises it.',
+        },
+        {
+          type: 'image',
+          src: '/images/articles/uberisation-independance-productive.png',
+          alt: "Diptych. On the left, 'From platform capture…': a delivery rider on a scooter in the rain facing a giant phone showing a platform, surrounded by signs reading imposed rules, commissions, dependence, no control. On the right, '…to productive independence': a leatherworker crafts a bag in a bright workshop, a phone on a tripod showing the bag for direct sale.",
+          caption: 'The same technology, two distributions of control: the platform captures the introduction, or the producer reaches their customers directly.',
+          width: 1774,
+          height: 887,
+        },
+        {
+          type: 'p',
+          text: 'But the opposite movement already exists. A leatherworker, a craftsperson or a small manufacturer can use a marketplace or social networks to find enough customers to live on what they make, without owning a distribution network of their own.',
+        },
+        {
+          type: 'p',
+          text: 'That infrastructure still often belongs to some of the most powerful groups in the world economy. Which is exactly the next step: building more diverse and more sovereign alternatives, at a scale still to be defined.',
+        },
+        {
+          type: 'quote',
+          text: 'They have nonetheless already proved something essential: a small producer can now reach a market that was once out of reach.',
+        },
+        {
+          type: 'h2',
+          text: 'Stepping into the breach',
+        },
+        {
+          type: 'p',
+          text: 'None of this will overturn two centuries of economic organisation overnight. The concentration of capital and the balance of power remain immense.',
+        },
+        {
+          type: 'p',
+          text: 'But a crack has opened.',
+        },
+        {
+          type: 'p',
+          text: 'Producing with less capital, reaching knowledge, finding a market directly, gathering a community, funding a project and coordinating people are becoming possible at a scale they were not before.',
+        },
+        {
+          type: 'p',
+          text: 'We talk a great deal about what this shift will destroy: automation replacing workers, AI wiping out jobs, the internet creating new monopolies.',
+        },
+        {
+          type: 'p',
+          text: 'But perhaps we are only looking at half of the movement.',
+        },
+        {
+          type: 'quote',
+          text: 'The capacity to produce is also being distributed.',
+        },
+        {
+          type: 'p',
+          text: 'This means neither the disappearance of large companies nor a world made only of freelancers. Some production will continue to require large organisations. Other production can be carried by individuals, companies, cooperatives, communities, or forms we have not invented yet.',
+        },
+        {
+          type: 'p',
+          text: 'Marx described the separation between labour power and the means to put it to work. We have obviously not abolished that separation.',
+        },
+        {
+          type: 'quote',
+          text: 'But we may have begun to crack it.',
+        },
+        {
+          type: 'p',
+          text: 'This breach can be captured. Platform capture is already a warning. But it can also be widened, by building and pooling means that give more power to those who produce.',
+        },
+        {
+          type: 'p',
+          text: 'Productive independence is not yet an alternative to capitalism.',
+        },
+        {
+          type: 'p',
+          text: 'The crack is there. It is up to us to step into it.',
+        },
+      ],
+    },
   },
   {
     slug: 'et-si-lia-etait-un-outil-democratique',
