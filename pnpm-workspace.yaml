@@ -13,3 +13,6 @@ allowBuilds:
 # drop-in. Drop this once the dependency chain ships it on its own.
 overrides:
   undici: '>=7.28.0'
+  # Reached through xmlbuilder2, pulled by the build plugin. Same story as
+  # undici: never executed here, but on disk where the scan reads it.
+  js-yaml: '>=4.3.1'
