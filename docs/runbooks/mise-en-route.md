@@ -40,9 +40,23 @@ node scripts/seed-bucket.mjs
 
 ## 3. Créer la base
 
-Le mot de passe est lu dans l'entrée SCW `lalternative-production`, clé
-`POSTGRES_PASSWORD` — à créer avant de synchroniser, sinon l'`ExternalSecret`
-reste en erreur et CNPG ne peut pas bootstrapper.
+Tout ce que le pod lit vient de l'entrée SCW
+`/lalternative/lalternative-production`, en clé/valeur :
+
+| Clé | Ce que c'est |
+|---|---|
+| `POSTGRES_PASSWORD` | le rôle `lalter`, dont CNPG se sert pour bootstrapper |
+| `BETTER_AUTH_SECRET` | signature des sessions ; une valeur aléatoire longue |
+| `BETTER_AUTH_URL` | `https://lalternativefabrique.org` — les liens de connexion en sont dérivés |
+| `SPORE_API_KEY` | voir l'étape 4 |
+| `SPORE_FROM` | `contact@lalternativefabrique.org` |
+
+Elles arrivent dans le pod telles quelles ; seul `DATABASE_URL` est composé à
+partir de `POSTGRES_PASSWORD`. Ajouter une variable plus tard ne demande donc
+aucun changement de manifeste.
+
+`POSTGRES_PASSWORD` doit exister avant la synchronisation, sinon
+l'`ExternalSecret` reste en erreur et CNPG ne peut pas bootstrapper.
 
 L'Application ArgoCD `lalter-data` est en **synchronisation manuelle** : elle
 possède un volume, et un prune automatique emporterait la base. Il faut donc la
