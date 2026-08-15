@@ -64,10 +64,15 @@ spec:
             - containerPort: 8080
               name: http
           envFrom:
-            # Bucket, database and mailer credentials. The site runs without the
-            # secret — it falls back to the .mdx sources in the image — but the
-            # admin cannot: no database means no session, and no bucket means
-            # nothing can be published.
+            # Bucket credentials, from the ExternalSecret that mirrors what the
+            # kube-infra buckets stack provisions. Not optional: without it the
+            # site serves the .mdx sources baked into the image and every
+            # article published since the last build is missing.
+            - secretRef:
+                name: lalter-www-s3
+            # Database, auth secret and mailer key. Optional so a cluster
+            # without it still serves the public site — but the admin cannot
+            # run: no database means no session, and no mailer means no sign-in.
             - secretRef:
                 name: lalter-www
                 optional: true

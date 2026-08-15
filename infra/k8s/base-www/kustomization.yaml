@@ -5,6 +5,7 @@ namespace: lalternative-prod
 
 resources:
   - namespace.yaml
+  - s3-external-secret.yaml
   - www.yaml
   - ingress.yaml
   - network-policies.yaml

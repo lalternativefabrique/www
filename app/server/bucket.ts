@@ -18,7 +18,7 @@ import {
  */
 
 const endpoint = process.env.S3_ENDPOINT
-const region = process.env.S3_REGION ?? 'fr-par'
+const region = process.env.S3_REGION ?? 'gra'
 const accessKeyId = process.env.S3_ACCESS_KEY
 const secretAccessKey = process.env.S3_SECRET_KEY
 
@@ -41,7 +41,7 @@ function s3(): S3Client {
       'Object storage is not configured: set S3_ENDPOINT, S3_ACCESS_KEY, S3_SECRET_KEY and S3_BUCKET.',
     )
   }
-  // Scaleway is S3-compatible but not AWS: the bucket has to stay in the path
+  // OVH is S3-compatible but not AWS: the bucket has to stay in the path
   // rather than become a subdomain of the endpoint.
   client ??= new S3Client({
     endpoint,
