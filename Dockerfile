@@ -57,10 +57,16 @@ COPY public public
 
 RUN pnpm build
 
-# Resolve the runtime dependency tree on its own, so the image carries what the
-# server imports (@aws-sdk/client-s3, @mdx-js/mdx and the remark chain) without
-# vite, esbuild and the rest of the build toolchain.
-RUN pnpm install --frozen-lockfile --prod --ignore-scripts
+# Resolve the runtime tree in a directory of its own.
+#
+# Running --prod over the build install would not do: pnpm unlinks the packages
+# from node_modules but leaves them in the .pnpm store beside it, so vite,
+# esbuild and the rest of the toolchain still ship — and the image scan reads
+# every package.json it finds, not the ones actually reachable.
+RUN mkdir /runtime \
+    && cp package.json pnpm-lock.yaml pnpm-workspace.yaml /runtime/ \
+    && cd /runtime \
+    && pnpm install --frozen-lockfile --prod --ignore-scripts
 
 # ───────────────────────── runtime ─────────────────────────
 # -slim rather than the full image: it drops the build toolchain that ships in
@@ -74,7 +80,7 @@ ENV NODE_ENV=production
 ENV PORT=8080
 ENV HOST=0.0.0.0
 
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /runtime/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./package.json
 COPY server.js ./server.js
