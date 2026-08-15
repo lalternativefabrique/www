@@ -169,10 +169,12 @@ export default defineConfig({
         // Same reason: discovery picks up the blog indexes and freezes the
         // article list they render into the build.
         autoStaticPathsDiscovery: false,
-        // Nothing behind a session or a database can be rendered at build time,
-        // and a prerendered /admin would ship an empty shell of one.
+        // Nothing behind a session, a database or the bucket can be rendered at
+        // build time, and a prerendered /admin would ship an empty shell of one.
         filter: (page: { path: string }) =>
-          !page.path.startsWith('/admin') && !page.path.startsWith('/api/'),
+          !page.path.startsWith('/admin') &&
+          !page.path.startsWith('/api/') &&
+          !page.path.startsWith('/images/'),
         retryCount: 2,
       },
       pages: ALL_PATHS.map((path) => ({ path })),

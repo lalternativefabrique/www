@@ -64,6 +64,24 @@ export async function getObject(key: string): Promise<string | undefined> {
   }
 }
 
+/**
+ * Raw bytes, for objects that are not text. Reading an image through
+ * getObject would decode it as UTF-8 and corrupt it.
+ */
+export async function getObjectBytes(
+  key: string,
+): Promise<Uint8Array | undefined> {
+  try {
+    const out = await s3().send(
+      new GetObjectCommand({ Bucket: BUCKET, Key: key }),
+    )
+    return await out.Body?.transformToByteArray()
+  } catch (err) {
+    if (isNotFound(err)) return undefined
+    throw err
+  }
+}
+
 export async function putObject(
   key: string,
   body: string | Uint8Array,
