@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lalter-data
+  namespace: argocd
+  annotations:
+    # Before the app: the www pod reads DATABASE_URL out of a secret this
+    # Application creates, and the admin cannot hold a session without it.
+    argocd.argoproj.io/sync-wave: "0"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: lalter
+  source:
+    repoURL: https://github.com/lalternativefabrique/www.git
+    targetRevision: main
+    path: infra/k8s/overlays/production-data
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lalternative-prod
+  # Deliberately manual, unlike the app. This owns a Postgres cluster and its
+  # volume: an automated sync that prunes would take the database with it, and
+  # a schema change is worth looking at before it lands.
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 3
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

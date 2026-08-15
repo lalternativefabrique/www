@@ -1,0 +1,48 @@
+# The www pod reaching Postgres. Egress is unrestricted in this namespace, so
+# only the database side needs a rule.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-www-to-postgres
+spec:
+  podSelector:
+    matchLabels:
+      cnpg.io/cluster: postgres
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: lalter-www
+      ports:
+        - protocol: TCP
+          port: 5432
+
+---
+# The operator reaching its own instance. Without this the Cluster never leaves
+# "Instance Status Extraction Error": the namespace denies ingress by default,
+# and CNPG polls the instance manager over 8000 to know whether the pod is
+# healthy — 9187 is the metrics port it scrapes alongside.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-cnpg-system-to-postgres
+spec:
+  podSelector:
+    matchLabels:
+      cnpg.io/cluster: postgres
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: cnpg-system
+      ports:
+        - protocol: TCP
+          port: 5432
+        - protocol: TCP
+          port: 8000
+        - protocol: TCP
+          port: 9187

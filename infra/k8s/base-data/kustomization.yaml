@@ -1,0 +1,54 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: lalternative-prod
+
+# The namespace is not declared here: base-www already owns it, and two ArgoCD
+# Applications claiming the same object fight over it on every sync.
+resources:
+  - external-secret.yaml
+  - network-policies.yaml
+  - https://github.com/digstack/kube-infra//assets/k8s-modules/postgres-cnpg?ref=postgres-cnpg-v5
+
+patches:
+  - target:
+      kind: ObjectStore
+      name: postgres-backup
+    patch: |-
+      - op: replace
+        path: /spec/configuration/destinationPath
+        value: s3://lalternative-prod-backups/cnpg
+      - op: replace
+        path: /spec/configuration/endpointURL
+        value: https://s3.gra.io.cloud.ovh.net
+  - target:
+      kind: Cluster
+      name: postgres
+    patch: |-
+      - op: replace
+        path: /spec/bootstrap/initdb/database
+        value: lalter
+      - op: replace
+        path: /spec/bootstrap/initdb/owner
+        value: lalter
+      # Applications, subscribers and an article index: a few thousand rows at
+      # most. The module's defaults are sized for a busier database.
+      - op: replace
+        path: /spec/storage/size
+        value: 5Gi
+      - op: replace
+        path: /spec/resources/requests/cpu
+        value: 50m
+      - op: replace
+        path: /spec/resources/requests/memory
+        value: 256Mi
+      - op: replace
+        path: /spec/postgresql/parameters/max_connections
+        value: "50"
+
+labels:
+  - pairs:
+      app.kubernetes.io/part-of: lalter
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/component: data
+    includeSelectors: false
