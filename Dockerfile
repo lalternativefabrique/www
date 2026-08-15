@@ -76,6 +76,13 @@ FROM node:24-bookworm-slim
 
 WORKDIR /app
 
+# npm ships inside the base image and the server never invokes it — `node
+# server.js` is the whole entrypoint. It brings its own vendored tar,
+# brace-expansion and ip-address, which the image scan counts against this
+# image even though nothing can reach them. Removing it drops those advisories
+# and a few MB with them.
+RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
+
 ENV NODE_ENV=production
 ENV PORT=8080
 ENV HOST=0.0.0.0
