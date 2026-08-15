@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
+import { apply } from '@/server/submissions'
 import { seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/en/contact')({
@@ -16,12 +17,10 @@ export const Route = createFileRoute('/en/contact')({
 })
 
 /**
- * The endpoint is injected at build time via VITE_CONTACT_URL so the form can
- * move to Spore (or any provider) without touching this component. With no
- * endpoint configured it degrades to a mailto: link rather than silently
- * dropping messages.
+ * Two motives, two destinations. Wanting to take part is an application: it is
+ * stored, and read from the admin. A question is not — nothing here holds one,
+ * so it goes to the mailbox rather than into a form that pretends to keep it.
  */
-const ENDPOINT = import.meta.env.VITE_CONTACT_URL as string | undefined
 const CONTACT = 'contact@lalternativefabrique.org'
 
 const motifs = [
@@ -39,9 +38,9 @@ function ContactPageEn() {
   const [etat, setEtat] = useState<Etat>('repos')
 
   /**
-   * With no endpoint configured, hand the filled-in message to the visitor's
-   * mail client rather than hiding the form: nothing is silently dropped, and
-   * setting VITE_CONTACT_URL later switches this to a direct POST.
+   * Hands the filled-in message to the visitor's mail client. Used for
+   * questions, and as the fallback when storing an application fails — nothing
+   * typed here is dropped without the person being able to send it themselves.
    */
   function envoyerParMail() {
     const libelle =
@@ -55,18 +54,18 @@ function ContactPageEn() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!ENDPOINT) {
+
+    if (motif !== 'participer') {
       envoyerParMail()
       return
     }
+
     setEtat('envoi')
     try {
-      const res = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ motif, nom, email, message }),
+      const res = await apply({
+        data: { email, name: nom, message, locale: 'en' },
       })
-      if (!res.ok) throw new Error(String(res.status))
+      if (!res.ok) throw new Error(res.reason)
       setEtat('ok')
       setNom('')
       setEmail('')
@@ -102,7 +101,7 @@ function ContactPageEn() {
                 Message received.
               </p>
               <p className="chapeau mt-6 text-text/80">
-                {ENDPOINT
+                {motif === 'participer'
                   ? `We reply from ${CONTACT}. If nothing arrives within a few days, check your spam folder — then chase us.`
                   : `Your mail client has opened with the message ready. You still have to send it — otherwise it never reaches us.`}
               </p>
