@@ -7,3 +7,9 @@ onlyBuiltDependencies:
 
 allowBuilds:
   esbuild: true
+
+# Reached only through cheerio, itself pulled by the build plugin and never run
+# in production — but the image scan sees it on disk, and the fixed release is a
+# drop-in. Drop this once the dependency chain ships it on its own.
+overrides:
+  undici: '>=7.28.0'
