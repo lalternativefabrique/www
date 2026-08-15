@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { listSubscribers } from '@/server/admin-data'
 
-export const Route = createFileRoute('/admin/inscriptions')({
+export const Route = createFileRoute('/admin/_authed/inscriptions')({
   component: Inscriptions,
   loader: () => listSubscribers(),
 })

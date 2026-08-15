@@ -75,6 +75,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 }
 
 function RootContent() {
+  const { pathname } = useRouterState({ select: (s) => s.location })
+
+  // The back-office brings its own chrome. Wrapping it in the site's header
+  // would put the public navigation above an admin screen, and its footer
+  // below a login form.
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    return <Outlet />
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />

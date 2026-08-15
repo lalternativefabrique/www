@@ -3,7 +3,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { listApplications, reviewApplication } from '@/server/admin-data'
 import type { Application } from '@/server/admin-data'
 
-export const Route = createFileRoute('/admin/candidatures')({
+export const Route = createFileRoute('/admin/_authed/candidatures')({
   component: Candidatures,
   loader: () => listApplications(),
 })

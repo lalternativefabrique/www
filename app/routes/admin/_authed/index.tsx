@@ -3,7 +3,7 @@ import { AdminKpi } from '@lalternative/admin'
 import { listApplications, listSubscribers } from '@/server/admin-data'
 import { listArticleRows } from '@/server/admin-data'
 
-export const Route = createFileRoute('/admin/')({
+export const Route = createFileRoute('/admin/_authed/')({
   component: Dashboard,
   loader: async () => {
     const [applications, subscribers, articles] = await Promise.all([

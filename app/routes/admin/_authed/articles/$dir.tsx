@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { EditeurArticle } from '@/components/admin/EditeurArticle'
 import { readArticleSources } from '@/server/admin-data'
 
-export const Route = createFileRoute('/admin/articles/$dir')({
+export const Route = createFileRoute('/admin/_authed/articles/$dir')({
   component: Modifier,
   loader: ({ params }) => readArticleSources({ data: { dir: params.dir } }),
 })
