@@ -41,7 +41,7 @@ function Login() {
         footer={
           <Link
             to="/admin/setup"
-            className="text-sm text-white/50 underline hover:text-white"
+            className="text-sm text-muted-foreground underline hover:text-foreground"
           >
             Créer le premier compte
           </Link>

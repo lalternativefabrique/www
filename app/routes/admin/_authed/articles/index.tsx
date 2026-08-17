@@ -13,26 +13,26 @@ function Articles() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Articles</h1>
-          <p className="mt-1 text-sm text-white/50">
+          <h1 className="text-2xl font-semibold text-foreground">Articles</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             Ce que le site sert en ce moment. Publier écrit dans le bucket : pas
             de build, pas de déploiement.
           </p>
         </div>
         <Link
           to="/admin/articles/nouveau"
-          className="rounded-md bg-white px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-white/90"
+          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
           Publier un article
         </Link>
       </div>
 
       {articles.length === 0 ? (
-        <p className="text-sm text-white/50">Aucun article publié.</p>
+        <p className="text-sm text-muted-foreground">Aucun article publié.</p>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-white/10">
+        <div className="overflow-x-auto rounded-lg border border-border">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-white/10 bg-white/5 text-white/60">
+            <thead className="border-b border-border bg-muted text-muted-foreground">
               <tr>
                 <th className="px-4 py-2.5 font-medium">Titre</th>
                 <th className="px-4 py-2.5 font-medium">Organe</th>
@@ -45,7 +45,7 @@ function Articles() {
               {articles.map((a) => (
                 <tr
                   key={a.slug}
-                  className="border-b border-white/5 text-white/85 last:border-b-0"
+                  className="border-b border-border text-foreground last:border-b-0"
                 >
                   <td className="px-4 py-2.5">
                     <a
@@ -57,16 +57,16 @@ function Articles() {
                       {a.titre}
                     </a>
                   </td>
-                  <td className="px-4 py-2.5 text-white/60">{a.organe}</td>
-                  <td className="px-4 py-2.5 text-white/60">{a.date}</td>
-                  <td className="px-4 py-2.5 text-white/60">
+                  <td className="px-4 py-2.5 text-muted-foreground">{a.organe}</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">{a.date}</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">
                     {a.hasEn ? 'oui' : '—'}
                   </td>
                   <td className="px-4 py-2.5 text-right">
                     <Link
                       to="/admin/articles/$dir"
                       params={{ dir: a.dir }}
-                      className="text-white/60 underline hover:text-white"
+                      className="text-muted-foreground underline hover:text-foreground"
                     >
                       Modifier
                     </Link>

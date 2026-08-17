@@ -77,10 +77,10 @@ export function EditeurArticle({ dir: dirInitial, fr: frInitial = '', en: enInit
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-white">
+          <h1 className="text-2xl font-semibold text-foreground">
             {dirInitial ? 'Modifier un article' : 'Publier un article'}
           </h1>
-          <p className="mt-1 text-sm text-white/50">
+          <p className="mt-1 text-sm text-muted-foreground">
             Collez du markdown ou chargez un fichier. Le frontmatter en tête est
             lu tel quel.
           </p>
@@ -96,8 +96,8 @@ export function EditeurArticle({ dir: dirInitial, fr: frInitial = '', en: enInit
               }}
               className={`rounded-md px-3 py-1.5 text-sm ${
                 langue === l
-                  ? 'bg-white text-neutral-900'
-                  : 'border border-white/20 text-white/70 hover:bg-white/10'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'border border-border text-muted-foreground hover:bg-muted'
               }`}
             >
               {l.toUpperCase()}
@@ -108,21 +108,21 @@ export function EditeurArticle({ dir: dirInitial, fr: frInitial = '', en: enInit
       </div>
 
       <label className="block">
-        <span className="text-sm text-white/60">Dossier dans le bucket</span>
+        <span className="text-sm text-muted-foreground">Dossier dans le bucket</span>
         <input
           value={dir}
           onChange={(e) => setDir(e.target.value)}
           disabled={Boolean(dirInitial)}
           placeholder="independance-productive"
-          className="mt-1 w-full max-w-sm rounded-md border border-white/20 bg-transparent px-3 py-2 text-sm text-white placeholder:text-white/30 disabled:opacity-50"
+          className="mt-1 w-full max-w-sm rounded-md border border-border bg-transparent px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground disabled:opacity-50"
         />
-        <span className="mt-1 block text-xs text-white/40">
+        <span className="mt-1 block text-xs text-muted-foreground">
           Minuscules et tirets. Reste stable si le titre change.
         </span>
       </label>
 
       <div className="flex flex-wrap items-center gap-3">
-        <label className="cursor-pointer rounded-md border border-white/20 px-3 py-1.5 text-sm text-white hover:bg-white/10">
+        <label className="cursor-pointer rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted">
           Charger un fichier
           <input
             type="file"
@@ -138,7 +138,7 @@ export function EditeurArticle({ dir: dirInitial, fr: frInitial = '', en: enInit
           type="button"
           onClick={voirApercu}
           disabled={busy || !source.trim()}
-          className="rounded-md border border-white/20 px-3 py-1.5 text-sm text-white hover:bg-white/10 disabled:opacity-50"
+          className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted disabled:opacity-50"
         >
           Aperçu
         </button>
@@ -146,11 +146,11 @@ export function EditeurArticle({ dir: dirInitial, fr: frInitial = '', en: enInit
           type="button"
           onClick={publier}
           disabled={busy || !fr.trim() || !dir.trim()}
-          className="rounded-md bg-white px-4 py-1.5 text-sm font-medium text-neutral-900 hover:bg-white/90 disabled:opacity-50"
+          className="rounded-md bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
         >
           {busy ? 'Publication…' : 'Publier'}
         </button>
-        <span className="text-xs text-white/40">
+        <span className="text-xs text-muted-foreground">
           Organes : {ORGANES.join(', ')}
         </span>
       </div>
@@ -170,14 +170,14 @@ export function EditeurArticle({ dir: dirInitial, fr: frInitial = '', en: enInit
           }}
           spellCheck={false}
           placeholder={`---\nslug: mon-article\ntitre: "Le titre"\nchapeau: "Le résumé."\norgane: Technique\noutil: Spore\noutilUrl: https://sporee.fr\ndate: 2026-08-14\nlecture: 5 min\n---\n\nLe premier paragraphe.`}
-          className="h-[32rem] w-full rounded-lg border border-white/15 bg-neutral-950/60 p-4 font-mono text-sm leading-relaxed text-white/90 placeholder:text-white/25"
+          className="h-[32rem] w-full rounded-lg border border-border bg-card p-4 font-mono text-sm leading-relaxed text-foreground placeholder:text-muted-foreground"
         />
 
-        <div className="h-[32rem] overflow-y-auto rounded-lg border border-white/15 bg-white p-6">
+        <div className="h-[32rem] overflow-y-auto rounded-lg border border-border bg-bg p-6">
           {apercu ? (
             <div dangerouslySetInnerHTML={{ __html: apercu }} />
           ) : (
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-muted-foreground">
               L'aperçu s'affiche ici. Il compile la source exactement comme le
               site le fera.
             </p>

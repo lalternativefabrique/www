@@ -45,8 +45,8 @@ function AdminShell() {
               key={item.to}
               to={item.to}
               activeOptions={{ exact: item.exact }}
-              className="px-3 py-2 text-sm text-white/60 hover:text-white"
-              activeProps={{ className: 'px-3 py-2 text-sm text-white' }}
+              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground"
+              activeProps={{ className: 'px-3 py-2 text-sm text-foreground' }}
             >
               {item.label}
             </Link>
@@ -54,7 +54,7 @@ function AdminShell() {
         </>
       }
       backToApp={
-        <Link to="/" className="text-sm text-white/60 hover:text-white">
+        <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
           Retour au site
         </Link>
       }

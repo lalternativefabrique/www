@@ -73,7 +73,7 @@ function Setup() {
         footer={
           <Link
             to="/admin/login"
-            className="text-sm text-white/50 underline hover:text-white"
+            className="text-sm text-muted-foreground underline hover:text-foreground"
           >
             Se connecter
           </Link>
