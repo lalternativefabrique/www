@@ -80,8 +80,12 @@ spec:
             # The address the verification and sign-in mails come from. A
             # different domain from the site, and the one that has to be
             # verified in Spore for any of them to be delivered.
+            #
+            # noreply, because nothing reads what is sent back to it. The
+            # address a reader should write to is on /contact, and it is not
+            # this one.
             - name: SPORE_FROM
-              value: contact@lalter.org
+              value: noreply@lalter.org
             # The voice the admin narrates articles with — the Piper container
             # in the ai namespace, which costs nothing per article and keeps the
             # audio on infrastructure we run. Not a secret: it is a cluster
