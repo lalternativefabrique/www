@@ -23,8 +23,8 @@ function Inscriptions() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Inscriptions</h1>
-          <p className="mt-1 text-sm text-white/50">
+          <h1 className="text-2xl font-semibold text-foreground">Inscriptions</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             {actifs.length} inscrit{actifs.length > 1 ? 's' : ''} à la revue,{' '}
             {subscribers.length - actifs.length} désinscrit
             {subscribers.length - actifs.length > 1 ? 's' : ''}.
@@ -34,7 +34,7 @@ function Inscriptions() {
           <button
             type="button"
             onClick={copier}
-            className="rounded-md border border-white/20 px-3 py-1.5 text-sm text-white hover:bg-white/10"
+            className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted"
           >
             Copier les adresses
           </button>
@@ -42,11 +42,11 @@ function Inscriptions() {
       </div>
 
       {subscribers.length === 0 ? (
-        <p className="text-sm text-white/50">Personne pour l'instant.</p>
+        <p className="text-sm text-muted-foreground">Personne pour l'instant.</p>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-white/10">
+        <div className="overflow-x-auto rounded-lg border border-border">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-white/10 bg-white/5 text-white/60">
+            <thead className="border-b border-border bg-muted text-muted-foreground">
               <tr>
                 <th className="px-4 py-2.5 font-medium">Adresse</th>
                 <th className="px-4 py-2.5 font-medium">Langue</th>
@@ -58,14 +58,14 @@ function Inscriptions() {
               {subscribers.map((s) => (
                 <tr
                   key={s.id}
-                  className={`border-b border-white/5 last:border-b-0 ${
-                    s.unsubscribedAt ? 'text-white/35' : 'text-white/85'
+                  className={`border-b border-border last:border-b-0 ${
+                    s.unsubscribedAt ? 'text-muted-foreground' : 'text-foreground'
                   }`}
                 >
                   <td className="px-4 py-2.5">
                     {s.email}
                     {s.unsubscribedAt ? (
-                      <span className="ml-2 text-xs text-white/40">
+                      <span className="ml-2 text-xs text-muted-foreground">
                         désinscrit
                       </span>
                     ) : null}
@@ -74,7 +74,7 @@ function Inscriptions() {
                   <td className="px-4 py-2.5">
                     {new Date(s.createdAt).toLocaleDateString('fr-FR')}
                   </td>
-                  <td className="px-4 py-2.5 text-white/50">{s.source}</td>
+                  <td className="px-4 py-2.5 text-muted-foreground">{s.source}</td>
                 </tr>
               ))}
             </tbody>

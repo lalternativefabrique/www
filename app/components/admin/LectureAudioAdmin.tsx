@@ -75,25 +75,25 @@ export function LectureAudioAdmin({ dir }: { dir: string }) {
   const lisibles = states.filter((s) => s.exists)
 
   return (
-    <section className="rounded-lg border border-white/15 p-4">
+    <section className="rounded-lg border border-border p-4">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="text-sm font-medium text-white">Lecture audio</h2>
-        <p className="text-xs text-white/40">
+        <h2 className="text-sm font-medium text-foreground">Lecture audio</h2>
+        <p className="text-xs text-muted-foreground">
           Quelques minutes par langue. La publication n'attend pas.
         </p>
       </div>
 
       {chargement ? (
-        <p className="mt-3 text-sm text-white/40">Chargement…</p>
+        <p className="mt-3 text-sm text-muted-foreground">Chargement…</p>
       ) : lisibles.length === 0 ? (
-        <p className="mt-3 text-sm text-white/40">
+        <p className="mt-3 text-sm text-muted-foreground">
           Publiez l'article pour pouvoir le faire lire.
         </p>
       ) : (
         <ul className="mt-3 space-y-3">
           {lisibles.map((s) => (
             <li key={s.lang} className="flex flex-wrap items-center gap-3">
-              <span className="w-8 text-sm font-medium text-white/80">
+              <span className="w-8 text-sm font-medium text-foreground">
                 {s.lang.toUpperCase()}
               </span>
 
@@ -103,7 +103,7 @@ export function LectureAudioAdmin({ dir }: { dir: string }) {
                 type="button"
                 onClick={() => lancer(s.lang)}
                 disabled={s.running}
-                className="rounded-md border border-white/20 px-3 py-1.5 text-sm text-white/80 hover:bg-white/10 disabled:opacity-40"
+                className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted disabled:opacity-40"
               >
                 {s.src ? 'Refaire' : 'Générer'}
               </button>
@@ -129,7 +129,7 @@ function Etat({ state }: { state: NarrationState }) {
     return <span className="text-sm text-red-400">échec : {state.error}</span>
   }
   if (!state.src) {
-    return <span className="text-sm text-white/40">absente</span>
+    return <span className="text-sm text-muted-foreground">absente</span>
   }
   if (!state.current) {
     // The text moved on since it was read: what is in the bucket is a reading

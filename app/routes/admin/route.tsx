@@ -14,8 +14,13 @@ import adminCss from '@lalternative/admin/styles.css?url'
  */
 export const Route = createFileRoute('/admin')({
   head: () => ({ links: [{ rel: 'stylesheet', href: adminCss }] }),
+  // lalt-admin is where the package reads its palette from, and where this app
+  // overrides it with the revue's own — see app/styles/app.css. The package
+  // sets the class on the components it renders itself; putting it here extends
+  // the same tokens to the screens this app draws, so the dashboard and the
+  // editor are not a different theme from the login form above them.
   component: () => (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="lalt-admin min-h-screen">
       <Outlet />
     </div>
   ),

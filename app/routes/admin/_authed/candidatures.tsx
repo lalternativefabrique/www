@@ -25,8 +25,8 @@ function Candidatures() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-white">Candidatures</h1>
-        <p className="mt-1 text-sm text-white/50">
+        <h1 className="text-2xl font-semibold text-foreground">Candidatures</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           Les personnes qui demandent à rejoindre le collectif.
         </p>
       </div>
@@ -39,8 +39,8 @@ function Candidatures() {
             onClick={() => setFiltre(key)}
             className={`rounded-md px-3 py-1.5 text-sm ${
               filtre === key
-                ? 'bg-white text-neutral-900'
-                : 'border border-white/20 text-white/70 hover:bg-white/10'
+                ? 'bg-primary text-primary-foreground'
+                : 'border border-border text-muted-foreground hover:bg-muted'
             }`}
           >
             {key === 'all' ? 'Toutes' : STATUS_LABEL[key]}
@@ -49,7 +49,7 @@ function Candidatures() {
       </div>
 
       {visibles.length === 0 ? (
-        <p className="text-sm text-white/50">Aucune candidature ici.</p>
+        <p className="text-sm text-muted-foreground">Aucune candidature ici.</p>
       ) : (
         <ul className="space-y-4">
           {visibles.map((application) => (
@@ -81,22 +81,22 @@ function Carte({ application }: { application: Application }) {
   }
 
   return (
-    <li className="rounded-lg border border-white/10 bg-white/5 p-5">
+    <li className="rounded-lg border border-border bg-muted p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
-          <p className="font-medium text-white">{application.name}</p>
+          <p className="font-medium text-foreground">{application.name}</p>
           <a
             href={`mailto:${application.email}`}
-            className="text-sm text-white/60 underline hover:text-white"
+            className="text-sm text-muted-foreground underline hover:text-foreground"
           >
             {application.email}
           </a>
         </div>
         <div className="text-right">
-          <span className="rounded-full border border-white/20 px-2.5 py-0.5 text-xs text-white/70">
+          <span className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
             {STATUS_LABEL[application.status] ?? application.status}
           </span>
-          <p className="mt-1 text-xs text-white/40">
+          <p className="mt-1 text-xs text-muted-foreground">
             {new Date(application.createdAt).toLocaleDateString('fr-FR')} —{' '}
             {application.locale.toUpperCase()}
           </p>
@@ -104,13 +104,13 @@ function Carte({ application }: { application: Application }) {
       </div>
 
       {application.message ? (
-        <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-white/80">
+        <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-foreground">
           {application.message}
         </p>
       ) : null}
 
       {application.links ? (
-        <p className="mt-3 whitespace-pre-wrap text-sm text-white/60">
+        <p className="mt-3 whitespace-pre-wrap text-sm text-muted-foreground">
           {application.links}
         </p>
       ) : null}
@@ -120,13 +120,13 @@ function Carte({ application }: { application: Application }) {
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder="Note interne"
-          className="flex-1 rounded-md border border-white/20 bg-transparent px-3 py-1.5 text-sm text-white placeholder:text-white/30"
+          className="flex-1 rounded-md border border-border bg-transparent px-3 py-1.5 text-sm text-foreground placeholder:text-muted-foreground"
         />
         <button
           type="button"
           disabled={busy}
           onClick={() => decide('accepted')}
-          className="rounded-md bg-emerald-500/90 px-3 py-1.5 text-sm font-medium text-neutral-900 hover:bg-emerald-400 disabled:opacity-50"
+          className="rounded-md bg-emerald-500/90 px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-emerald-400 disabled:opacity-50"
         >
           Accepter
         </button>
@@ -134,7 +134,7 @@ function Carte({ application }: { application: Application }) {
           type="button"
           disabled={busy}
           onClick={() => decide('declined')}
-          className="rounded-md border border-white/20 px-3 py-1.5 text-sm text-white/80 hover:bg-white/10 disabled:opacity-50"
+          className="rounded-md border border-border px-3 py-1.5 text-sm text-foreground hover:bg-muted disabled:opacity-50"
         >
           Décliner
         </button>
@@ -143,7 +143,7 @@ function Carte({ application }: { application: Application }) {
             type="button"
             disabled={busy}
             onClick={() => decide('pending')}
-            className="text-sm text-white/50 underline hover:text-white disabled:opacity-50"
+            className="text-sm text-muted-foreground underline hover:text-foreground disabled:opacity-50"
           >
             Remettre à lire
           </button>

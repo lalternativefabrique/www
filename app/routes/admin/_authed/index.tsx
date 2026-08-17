@@ -27,8 +27,8 @@ function Dashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-white">Tableau de bord</h1>
-        <p className="mt-1 text-sm text-white/50">
+        <h1 className="text-2xl font-semibold text-foreground">Tableau de bord</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           La revue, les candidatures et les inscriptions.
         </p>
       </div>
@@ -43,13 +43,13 @@ function Dashboard() {
       <div className="flex flex-wrap gap-3">
         <Link
           to="/admin/articles/nouveau"
-          className="rounded-md bg-white px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-white/90"
+          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
           Publier un article
         </Link>
         <Link
           to="/admin/candidatures"
-          className="rounded-md border border-white/20 px-4 py-2 text-sm text-white hover:bg-white/10"
+          className="rounded-md border border-border px-4 py-2 text-sm text-foreground hover:bg-muted"
         >
           Lire les candidatures
         </Link>
