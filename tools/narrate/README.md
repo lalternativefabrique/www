@@ -4,6 +4,14 @@ Reads the revue's articles aloud and files the audio in the bucket, beside the
 prose it came from. The site then serves whatever is there: an article has a
 player when a recording exists for it, and nothing when it does not.
 
+**There is a button for this in the admin**, on the article screen, which is
+where a single piece is normally narrated and listened to before anyone relies
+on it. This command is the bulk form of the same work: a backfill, a scheduled
+sweep, or a re-reading of the whole corpus after the extraction rules change.
+Both write the same key — the name is a hash of the narrated text — so audio
+made by either is recognised by the other, and neither redoes what the other
+already did.
+
 This runs against the bucket, not against the site. Nothing in the running image
 speaks to a TTS service — the Node server only reads object storage, as it does
 for the prose — so a reading that fails, or a voice that is down, cannot hold up

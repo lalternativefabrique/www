@@ -63,6 +63,17 @@ spec:
             # user binds it without CAP_NET_BIND_SERVICE.
             - containerPort: 8080
               name: http
+          env:
+            # The voice the admin narrates articles with — the Piper container
+            # in the ai namespace, which costs nothing per article and keeps the
+            # audio on infrastructure we run. Not a secret: it is a cluster
+            # address, and the service takes no key.
+            #
+            # Unset, the narration button reports that no voice is configured
+            # and nothing else changes: the audio a reader hears is served from
+            # the bucket, and no request path touches this.
+            - name: TTS_URL
+              value: http://piper.ai.svc.cluster.local:5000
           envFrom:
             # Bucket credentials, from the ExternalSecret that mirrors what the
             # kube-infra buckets stack provisions. Not optional: without it the
