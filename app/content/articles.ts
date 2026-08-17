@@ -58,6 +58,12 @@ type MetaEn = {
 export type ArticleEn = MetaEn & { corps: MdxCorps }
 
 export type Article = MetaFr & {
+  /**
+   * The directory holding the sources, in the repo and in the bucket alike.
+   * Stable across a title change, unlike the slug, which is why anything filed
+   * beside an article — its narration — is filed under this.
+   */
+  dir: string
   corps: MdxCorps
   /**
    * Optional per article: a piece with no `en` simply does not exist under /en,
@@ -95,6 +101,7 @@ const enByDir = new Map<string, ArticleEn>(
 export const articles: Article[] = Object.entries(FR)
   .map(([path, mod]) => ({
     ...(mod.meta as MetaFr),
+    dir: dirOf(path),
     corps: mod.default,
     en: enByDir.get(dirOf(path)),
   }))

@@ -19,3 +19,6 @@ app/routeTree.gen.ts
 
 # scratch space
 tmp/
+
+# Compiled tools.
+tools/narrate/narrate

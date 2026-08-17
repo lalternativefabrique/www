@@ -92,9 +92,9 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./package.json
 COPY server.js ./server.js
 
-# Read at runtime, not bundled: the first query applies whatever is not yet in
-# schema_migrations, so the files have to be in the image.
-COPY migrations ./migrations
+# No migrations here. The schema is applied out of band by the golang-migrate
+# Job, whose own image carries the SQL — see apps/migrations/. This server
+# assumes the database it connects to is already migrated.
 
 # node is the non-root user baked into the official image. Numeric form so the
 # runtime does not need to resolve /etc/passwd.

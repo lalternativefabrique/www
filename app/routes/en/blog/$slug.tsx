@@ -1,5 +1,6 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
 import { Inscription } from '@/components/Inscription'
+import { LectureAudio } from '@/components/LectureAudio'
 import { loadArticle } from '@/server/article-page'
 import { ORGANIZATION, SITE_URL, absoluteUrl, jsonLd, seo } from '@/lib/seo'
 
@@ -79,6 +80,9 @@ function BlogArticleEn() {
           <p className="label mt-8 text-text/50">
             {article.date} — {article.lecture} read
           </p>
+          {article.audioSrc ? (
+            <LectureAudio src={article.audioSrc} lang="en" />
+          ) : null}
           {article.autreSlug ? (
             <Link
               to="/blog/$slug"

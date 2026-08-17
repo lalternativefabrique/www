@@ -1,0 +1,5 @@
+# /migrations is read by golang-migrate, which reads every file it finds there.
+# Only the SQL belongs in the image.
+Dockerfile
+.dockerignore
+README.md
