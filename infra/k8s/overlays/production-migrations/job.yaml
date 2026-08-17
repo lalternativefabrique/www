@@ -1,0 +1,105 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-migration
+  annotations:
+    # Not a Sync hook. A hook Job is deleted after it runs, so ArgoCD has no
+    # live resource to diff and the app reports Synced whatever the schema
+    # state. As a plain resource the Job is what the image-updater rewrites,
+    # and a new migrate tag is itself the diff that triggers the sync. In
+    # lungor the hook version cost a production incident: a table missing from
+    # a schema the app reported as fully deployed.
+    #
+    # Replace, because a Job's spec is immutable: a patch is rejected outright.
+    # Force too, because Replace alone still issues an in-place replace, and the
+    # API refuses that as well — the controller stamps controller-uid/job-name
+    # onto spec.template.labels, and those are immutable. Force is what turns it
+    # into delete-then-create, the only sequence the API accepts.
+    argocd.argoproj.io/sync-options: Replace=true,Force=true
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 300
+  # No ttlSecondsAfterFinished: the Job is a tracked resource, so letting the
+  # TTL controller reap it would make the app OutOfSync and selfHeal would
+  # recreate it on a loop. It lives until the next migrate tag replaces it.
+  template:
+    metadata:
+      labels:
+        app: db-migration
+    spec:
+      # Never, not OnFailure: a restart reuses the pod and overwrites the failed
+      # attempt's logs. One pod per attempt keeps every failure inspectable with
+      # `kubectl -n lalternative-prod logs -l app=db-migration --tail=-1`.
+      restartPolicy: Never
+      # 65532 matches the user the migrate image creates. busybox ships no
+      # default user, so the uid is pinned at the pod level to satisfy
+      # runAsNonRoot for both containers.
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+      imagePullSecrets:
+        - name: scw-registry-credentials
+      initContainers:
+        - name: wait-postgres
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z postgres-rw 5432; do sleep 2; done
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+      containers:
+        - name: migrate
+          image: rg.fr-par.scw.cloud/lalternative/migrate:SET_BY_KUSTOMIZE
+          # Overrides the image ENTRYPOINT to bracket the `up` with a version
+          # read on each side: golang-migrate prints nothing when there is no
+          # migration to apply, so without this the logs of a successful no-op
+          # run are empty and indistinguishable from a run that never happened.
+          # The trailing marker is what tells you the run finished rather than
+          # timed out.
+          #
+          # The cutover runs first and is a no-op on every database that has
+          # already been through it — it is what hands the migration history
+          # over from the TypeScript runner that used to migrate at boot. It can
+          # be dropped from here, and from the image, once every environment has
+          # been through it once.
+          command:
+            - sh
+            - -c
+            - |
+              set -eu
+              m() { migrate -path /migrations -database "$DATABASE_URL" "$@"; }
+              echo "=== cutover from the in-app runner ==="
+              psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -f /migrations/_cutover_to_golang_migrate.sql
+              echo "=== schema version before ==="
+              m version || echo "no migration applied yet"
+              echo "=== applying migrations ==="
+              m up
+              echo "=== schema version after ==="
+              m version
+              echo "=== migration job done ==="
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: lalter-www
+                  key: DATABASE_URL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

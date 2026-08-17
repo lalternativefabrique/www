@@ -1,5 +1,9 @@
-# The www pod reaching Postgres. Egress is unrestricted in this namespace, so
-# only the database side needs a rule.
+# The www pod and the migration Job reaching Postgres. Egress is unrestricted
+# in this namespace, so only the database side needs a rule.
+#
+# The Job is listed here rather than in its own policy because it is the same
+# permission: without it the namespace's default-deny drops the connection and
+# the Job fails on a timeout that reads as a database outage.
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -15,6 +19,9 @@ spec:
         - podSelector:
             matchLabels:
               app: lalter-www
+        - podSelector:
+            matchLabels:
+              app: db-migration
       ports:
         - protocol: TCP
           port: 5432

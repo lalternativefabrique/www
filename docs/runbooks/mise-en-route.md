@@ -66,8 +66,19 @@ synchroniser explicitement depuis l'interface ArgoCD, ou :
 argocd app sync lalter-data
 ```
 
-Les migrations SQL s'appliquent seules à la première requête, sous verrou
-consultatif — rien à lancer.
+Les migrations SQL sont appliquées par le Job `db-migration`, que synchronise
+l'application ArgoCD `lalter-migrations` (vague 1, avant le site) — voir
+`docs/adr/0002-migrations-run-as-a-job-not-at-boot.md`. Publier une image
+`migrate` est ce qui déclenche la migration ; il n'y a rien à lancer à la main.
+
+Le Job survit à son exécution, donc ses journaux restent lisibles :
+
+```bash
+kubectl -n lalternative-prod logs -l app=db-migration --tail=-1
+```
+
+Sans la ligne finale `=== migration job done ===`, l'exécution n'est pas allée
+à son terme.
 
 ## 4. Vérifier le domaine dans Spore
 

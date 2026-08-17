@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lalter-migrations
+  namespace: argocd
+  annotations:
+    # Between the database (wave 0) and the site (wave 2): the schema lands
+    # before the pods that read it roll.
+    argocd.argoproj.io/sync-wave: "1"
+    argocd-image-updater.argoproj.io/image-list: "migrate=rg.fr-par.scw.cloud/lalternative/migrate"
+    # alphabetical (not newest-build): tags are YYYYMMDD-HHMM-<sha>, so lexical
+    # order == chronological. newest-build sorts by the image config .created
+    # field, which `sklp image push` writes as 0001-01-01 — making every fresh
+    # build look older than the current one, so it is never rolled out. In
+    # lungor that left the migrations Job pinned to a July tag for two weeks.
+    argocd-image-updater.argoproj.io/migrate.update-strategy: alphabetical
+    argocd-image-updater.argoproj.io/migrate.allow-tags: regexp:^[0-9]{8}-[0-9]{4}-[0-9a-f]+$
+    argocd-image-updater.argoproj.io/migrate.force-update: "true"
+    argocd-image-updater.argoproj.io/migrate.kustomize.image-name: rg.fr-par.scw.cloud/lalternative/migrate
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: lalter
+  source:
+    repoURL: https://github.com/lalternativefabrique/www.git
+    targetRevision: main
+    path: infra/k8s/overlays/production-migrations
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lalternative-prod
+  syncPolicy:
+    automated:
+      selfHeal: true
+      # The only resource here is the migration Job, and pruning is never how it
+      # should be removed.
+      prune: false
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+    retry:
+      limit: 3
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+  ignoreDifferences:
+    # The Job controller stamps its own selector and pod-template labels;
+    # without this ArgoCD reports the Job permanently OutOfSync.
+    - group: batch
+      kind: Job
+      jsonPointers:
+        - /spec/template/metadata/labels
+        - /spec/selector
