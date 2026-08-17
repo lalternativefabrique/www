@@ -98,6 +98,7 @@ async function loadOne(dir: string): Promise<Article | undefined> {
 
   return {
     ...(french.meta as Article),
+    dir,
     corps: french.corps,
     en:
       english?.meta.slug

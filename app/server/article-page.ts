@@ -34,6 +34,12 @@ export type ArticlePage = {
   autreSlug?: string
   /** The body, server-rendered. */
   html: string
+  /**
+   * The spoken version, when the bucket holds one. Absent for an article
+   * published before it was narrated, or whose reading failed — the page then
+   * offers no player rather than a broken one.
+   */
+  audioSrc?: string
 }
 
 export const loadArticle = createServerFn({ method: 'GET' })
@@ -61,6 +67,9 @@ export const loadArticle = createServerFn({ method: 'GET' })
       createElement(MdxProse, { corps, lang: data.lang }),
     )
 
+    const { findAudio, audioUrl } = await import('./article-audio')
+    const audio = await findAudio(fr.dir, data.lang)
+
     return {
       slug: data.lang === 'en' ? traduit!.slug : fr.slug,
       titre: traduit?.titre ?? fr.titre,
@@ -83,5 +92,6 @@ export const loadArticle = createServerFn({ method: 'GET' })
         : undefined,
       autreSlug: data.lang === 'en' ? fr.slug : fr.en?.slug,
       html,
+      audioSrc: audio ? audioUrl(audio) : undefined,
     }
   })
