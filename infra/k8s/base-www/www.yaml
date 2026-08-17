@@ -64,6 +64,24 @@ spec:
             - containerPort: 8080
               name: http
           env:
+            # The origin Better Auth accepts requests from. It compares this to
+            # the request's own origin and answers "Invalid origin" on a
+            # mismatch, so an unset value means nobody can sign in: the default
+            # in auth.ts is localhost:3000, which no browser reaching this pod
+            # will ever send.
+            #
+            # Declared here rather than in the secret, next to the ingress that
+            # serves the same host: this is the site's public address, already in
+            # ingress.yaml and in every page it serves, so a vault round-trip
+            # would guard a value the HTML publishes. The apex, not www — that
+            # host redirects here.
+            - name: BETTER_AUTH_URL
+              value: https://lalternativefabrique.org
+            # The address the verification and sign-in mails come from. A
+            # different domain from the site, and the one that has to be
+            # verified in Spore for any of them to be delivered.
+            - name: SPORE_FROM
+              value: contact@lalter.org
             # The voice the admin narrates articles with — the Piper container
             # in the ai namespace, which costs nothing per article and keeps the
             # audio on infrastructure we run. Not a secret: it is a cluster
