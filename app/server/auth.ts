@@ -14,7 +14,7 @@ import { db } from './db'
  * the sending domain is verified.
  */
 
-const SPORE_FROM = process.env.SPORE_FROM ?? 'contact@lalter.org'
+const SPORE_FROM = process.env.SPORE_FROM ?? 'noreply@lalter.org'
 
 let sporeReady = false
 
