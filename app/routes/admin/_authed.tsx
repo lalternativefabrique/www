@@ -30,8 +30,7 @@ const NAV = [
   // would otherwise stay highlighted on all of them.
   { to: '/admin', label: 'Tableau de bord', exact: true },
   { to: '/admin/articles', label: 'Articles', exact: false },
-  { to: '/admin/candidatures', label: 'Candidatures', exact: false },
-  { to: '/admin/inscriptions', label: 'Inscriptions', exact: false },
+  { to: '/admin/personnes', label: 'Personnes', exact: false },
 ] as const
 
 function AdminShell() {

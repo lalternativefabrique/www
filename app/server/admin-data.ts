@@ -42,6 +42,55 @@ export type ArticleRow = {
 
 const FORBIDDEN = 'forbidden'
 
+/**
+ * The dashboard's four figures, counted where they live.
+ *
+ * The screen used to call the three list functions and count their length,
+ * which meant shipping every application, every subscriber and every article
+ * across the wire to render four numbers.
+ */
+export const adminCounts = createServerFn({ method: 'GET' }).handler(
+  async (): Promise<{
+    pending: number
+    applications: number
+    subscribers: number
+    articles: number
+  }> => {
+    const { requireAdmin } = await import('./admin-guard')
+    if (!(await requireAdmin())) throw new Error(FORBIDDEN)
+
+    const { loadArticles } = await import('./articles-store')
+    const { query, dbConfigured } = await import('./db')
+
+    // The article count comes from the bucket, not the table: the bucket is
+    // what the site serves, and a piece published before the table existed has
+    // no row.
+    const articles = (await loadArticles()).length
+
+    if (!dbConfigured) {
+      return { pending: 0, applications: 0, subscribers: 0, articles }
+    }
+
+    const rows = await query<{
+      pending: string
+      applications: string
+      subscribers: string
+    }>(
+      `SELECT
+         (SELECT count(*) FROM applications WHERE status = 'pending')::text AS pending,
+         (SELECT count(*) FROM applications)::text AS applications,
+         (SELECT count(*) FROM subscribers WHERE unsubscribed_at IS NULL)::text AS subscribers`,
+    )
+
+    return {
+      pending: Number(rows[0]?.pending ?? 0),
+      applications: Number(rows[0]?.applications ?? 0),
+      subscribers: Number(rows[0]?.subscribers ?? 0),
+      articles,
+    }
+  },
+)
+
 export const listApplications = createServerFn({ method: 'GET' }).handler(
   async (): Promise<Application[]> => {
     const { requireAdmin } = await import('./admin-guard')

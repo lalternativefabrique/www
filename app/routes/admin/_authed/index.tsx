@@ -1,24 +1,10 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { AdminKpi } from '@lalternative/admin'
-import { listApplications, listSubscribers } from '@/server/admin-data'
-import { listArticleRows } from '@/server/admin-data'
+import { adminCounts } from '@/server/admin-data'
 
 export const Route = createFileRoute('/admin/_authed/')({
   component: Dashboard,
-  loader: async () => {
-    const [applications, subscribers, articles] = await Promise.all([
-      listApplications(),
-      listSubscribers(),
-      listArticleRows(),
-    ])
-
-    return {
-      pending: applications.filter((a) => a.status === 'pending').length,
-      applications: applications.length,
-      subscribers: subscribers.filter((s) => !s.unsubscribedAt).length,
-      articles: articles.length,
-    }
-  },
+  loader: () => adminCounts(),
 })
 
 function Dashboard() {
@@ -48,7 +34,7 @@ function Dashboard() {
           Publier un article
         </Link>
         <Link
-          to="/admin/candidatures"
+          to="/admin/personnes"
           className="rounded-md border border-border px-4 py-2 text-sm text-foreground hover:bg-muted"
         >
           Lire les candidatures

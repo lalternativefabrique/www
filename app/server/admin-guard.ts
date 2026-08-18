@@ -10,12 +10,38 @@ import { getRequest } from '@tanstack/react-start/server'
 
 export type Admin = { id: string; email: string }
 
+/**
+ * One session read per request, however many server functions ask for it.
+ *
+ * Reading a session hits the database, and a screen that loads two lists asks
+ * twice for the same answer — the dashboard asks three times. Keyed on the
+ * Request object so the memo cannot outlive the request it belongs to, and a
+ * WeakMap so it is collected with it.
+ */
+const perRequest = new WeakMap<Request, Promise<Admin | undefined>>()
+
 export async function requireAdmin(): Promise<Admin | undefined> {
+  let request: Request
+  try {
+    request = getRequest()
+  } catch {
+    // Outside a request there is nothing to memoise against, and nothing to
+    // authenticate either.
+    return undefined
+  }
+
+  const cached = perRequest.get(request)
+  if (cached) return cached
+
+  const pending = read(request)
+  perRequest.set(request, pending)
+  return pending
+}
+
+async function read(request: Request): Promise<Admin | undefined> {
   try {
     const { auth } = await import('./auth')
-    const session = await auth().api.getSession({
-      headers: getRequest().headers,
-    })
+    const session = await auth().api.getSession({ headers: request.headers })
 
     if (!session?.user) return undefined
 
