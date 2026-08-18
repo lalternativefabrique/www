@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - rg.fr-par.scw.cloud/lalternative/migrate=rg.fr-par.scw.cloud/lalternative/migrate:20260817-1107-bcafd9d
+  - rg.fr-par.scw.cloud/lalternative/migrate=rg.fr-par.scw.cloud/lalternative/migrate:20260818-0331-d205d58
