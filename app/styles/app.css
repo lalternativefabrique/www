@@ -79,6 +79,20 @@
   --shadow-color: rgba(26, 26, 26, 0.1);
 }
 
+/*
+ * The nav bar is paper, not frosted glass.
+ *
+ * The package renders it at bg-background/75 with a backdrop blur, so the same
+ * cream reads grey against the opaque page below it and the seam shows as a
+ * change of colour rather than as a rule. That translucency is a SaaS habit;
+ * here it fights the identity, where a page is a sheet and a separation is a
+ * drawn line.
+ */
+.lalt-admin header {
+  background-color: hsl(var(--background));
+  backdrop-filter: none;
+}
+
 /* Headings in the admin read as the revue's, not as an app's. */
 .lalt-admin h1,
 .lalt-admin h2 {
