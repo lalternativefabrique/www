@@ -64,10 +64,16 @@ async function fetchAll(): Promise<Article[]> {
   }
 
   const loaded = await Promise.all([...dirs].map(loadOne))
+  const articles = loaded.filter((a): a is Article => a !== undefined)
 
-  return loaded
-    .filter((a): a is Article => a !== undefined)
-    .sort((a, b) => b.date.localeCompare(a.date))
+  // A configured bucket holding no article is a bucket that was never seeded,
+  // or one whose credentials now point at a fresh one: serving the sources
+  // committed here beats serving an empty revue. Anything else is the bucket's
+  // word — a partial corpus is a deliberate one, so the repo never adds to it,
+  // and an article unpublished from the admin stays unpublished.
+  if (articles.length === 0) return localArticles
+
+  return articles.sort((a, b) => b.date.localeCompare(a.date))
 }
 
 export async function findBySlug(slug: string) {
