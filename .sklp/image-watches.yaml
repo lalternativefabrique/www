@@ -1,0 +1,9 @@
+# Declares the image watches Skalpai reconciles into Postgres on every push
+# to this repo (see skalpai's imageupdate/application/reconcile_from_git).
+#
+# This repo has no .sklp/**/deploy.yaml yet (it only publishes the
+# rg.fr-par.scw.cloud/lalternative/www and .../lalternative/migrate images —
+# see .sklp/pipelines/publish.yaml). A watch needs a `service:` name that
+# exists on a deployed node, which does not exist until a deploy.yaml is
+# written and applied. Left empty on purpose rather than guessing one.
+watches: []
