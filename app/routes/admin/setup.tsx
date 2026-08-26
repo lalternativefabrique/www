@@ -15,6 +15,9 @@ import {
  * server function refuses on its own, which is what actually protects it.
  */
 export const Route = createFileRoute('/admin/setup')({
+  validateSearch: (search: Record<string, unknown>): { token?: string } => ({
+    token: typeof search.token === 'string' ? search.token : undefined,
+  }),
   beforeLoad: async () => {
     if (await adminExists()) {
       throw redirect({ to: '/admin/login' })
@@ -25,6 +28,7 @@ export const Route = createFileRoute('/admin/setup')({
 
 function Setup() {
   const router = useRouter()
+  const { token } = Route.useSearch()
   // The form hands onRequestCode the address alone, but creating the account is
   // what makes Better Auth send the code — and that needs the name and the
   // password too. They are read off the form's own inputs as they are typed,
@@ -57,6 +61,7 @@ function Setup() {
               name: details.current.name,
               email,
               password: details.current.password,
+              setupToken: token,
             },
           })
           if (!res.ok) throw new Error(res.error)

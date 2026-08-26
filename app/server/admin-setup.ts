@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
+import { checkAdminSetupGate } from './admin-setup-gate'
 
 /**
  * Creating the first administrator.
@@ -59,7 +60,7 @@ export const adminExists = createServerFn({ method: 'GET' }).handler(
  */
 export const startSetup = createServerFn({ method: 'POST' })
   .inputValidator(
-    (d: { name: string; email: string; password: string }) => d,
+    (d: { name: string; email: string; password: string; setupToken?: string }) => d,
   )
   .handler(
     async ({ data }): Promise<{ ok: true } | { ok: false; error: string }> => {
@@ -73,6 +74,11 @@ export const startSetup = createServerFn({ method: 'POST' })
           ok: false,
           error: 'Un administrateur existe déjà. Utilisez la connexion.',
         }
+      }
+
+      const gateError = checkAdminSetupGate(data.email, data.setupToken)
+      if (gateError) {
+        return { ok: false, error: gateError }
       }
 
       if (data.password.length < 12) {
