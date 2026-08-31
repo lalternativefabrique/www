@@ -48,9 +48,9 @@ spaces:
   www-production:
     gateway:
       routes:
+        # Pre-cutover: the apex still points at the cluster; prod.* points
+        # here, so ACME validates. The apex route returns at cutover.
         - service: www
-          host: lalternativefabrique.org
-        - service: www
-          host: staging.lalternativefabrique.org
+          host: prod.lalternativefabrique.org
         - service: www
           host: www.lalternativefabrique.org
