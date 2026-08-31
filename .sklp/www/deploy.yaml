@@ -45,7 +45,7 @@ gateway:
   email: contact@lalter.org
 
 spaces:
-  production:
+  www-production:
     gateway:
       routes:
         - service: www
