@@ -17,16 +17,14 @@ services:
       timeout: 120s
 
   www:
-    depends_on: [migrate]
+    depends_on: [postgres, migrate]
     image: rg.fr-par.scw.cloud/lalternative/www:20260826-1209-a003b64eb784
     port: 8080
-    depends_on:
-      - postgres
     env:
       NODE_ENV: production
       PORT: "8080"
       HOST: 0.0.0.0
-      BETTER_AUTH_URL: https://prod.lalternativefabrique.org
+      BETTER_AUTH_URL: https://lalternativefabrique.org
       # Staging's own secret, not production's: copying that one would make the
       # sessions copied alongside the data valid here too, which is exactly the
       # reach a preproduction environment should not have.
