@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    port: 5432
+    env:
+      POSTGRES_DB: lalter
+      POSTGRES_USER: lalter
+      POSTGRES_PASSWORD: ${LALTER_DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - lalter-pgdata:/var/lib/postgresql/data
+    backup:
+      schedule: "0 3 * * *"
+      command: ["sh", "-c", "apk add --no-cache aws-cli >/dev/null && pg_dump -U lalter lalter | gzip > /tmp/lalter-$(date +%F).sql.gz && AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY} AWS_SECRET_ACCESS_KEY=${S3_SECRET_KEY} aws --endpoint-url https://s3.gra.io.cloud.ovh.net s3 cp /tmp/lalter-$(date +%F).sql.gz s3://lalternative-prod-backups/sklp/lalter-$(date +%F).sql.gz"]
+    ready:
+      tcp: "5432"
+      timeout: 120s
+
+  www:
+    image: rg.fr-par.scw.cloud/lalternative/www:20260826-1209-a003b64eb784
+    port: 8080
+    depends_on:
+      - postgres
+    env:
+      NODE_ENV: production
+      PORT: "8080"
+      HOST: 0.0.0.0
+      BETTER_AUTH_URL: https://prod.lalternativefabrique.org
+      # Staging's own secret, not production's: copying that one would make the
+      # sessions copied alongside the data valid here too, which is exactly the
+      # reach a preproduction environment should not have.
+      BETTER_AUTH_SECRET: ${LALTER_AUTH_SECRET}
+      SPORE_FROM: noreply@lalter.org
+      DATABASE_URL: postgres://lalter:${LALTER_DB_PASSWORD}@postgres:5432/lalter
+    ready:
+      http: http://localhost:8080/healthz
+      timeout: 90s
+
+registries:
+  rg.fr-par.scw.cloud:
+    username: nologin
+    password: ${SCW_SECRET_KEY}
+
+gateway:
+  email: contact@lalter.org
+
+spaces:
+  production:
+    gateway:
+      routes:
+        - service: www
+          host: lalternativefabrique.org
+        - service: www
+          host: staging.lalternativefabrique.org
+        - service: www
+          host: www.lalternativefabrique.org
