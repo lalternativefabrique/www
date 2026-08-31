@@ -53,8 +53,6 @@ spaces:
           host: www.lalternativefabrique.org
         - service: www
           host: prod.lalternativefabrique.org
-        - service: www
-          host: www.lalternativefabrique.org
 
 jobs:
   migrate:
