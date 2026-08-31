@@ -1,0 +1,21 @@
+encryptionsalt: rwxTerHXdTQSkPnD1zibYQ==
+encryptioniters: 600000
+config:
+    LALTER_AUTH_SECRET:
+        secure: kR8cBXsO+9v43O/sgpGenkY4T9R4hco6OXGE3qPb2nqh3vQZH1CA8Ld2OOx+wuhY/qoWZzebyorP/HwsyVmtTLIZvgZn1ussflX29w==
+    LALTER_DB_PASSWORD:
+        secure: SLaSp7woAQtUQyFuDtszTZS+BI+khlAe/vQn51+3Yvk2WCIYKdKaZysSMzyIKAuOayDlAEzF4xvdSdGsndblxl6fv2xYT3jTlcLEBg==
+    OVH_APPLICATION_KEY:
+        secure: xEH4fc0HNyIA2Ec69EkVfAuX+VFJrAeG9mCNSSRapzg1/ciGzP7S3ABsBuE=
+    OVH_APPLICATION_SECRET:
+        secure: Ww3pGbstBBGPuQmzyMxykd03qUpWPtJWcUgkRXJ+rml2xBxG+IHNjthj3Kvbz7PIkbVow0tsMdiIyo2e
+    OVH_CONSUMER_KEY:
+        secure: SeF414r8VfobjxQvI2i8LwXWcHjXZcn+o6r0YwJjybxTvvKTi5Y9kv/B38mVPTJVOWg5/kcsYemkWhyW
+    OVH_ENDPOINT:
+        secure: eciU7/Rf5H4QNDNsyQmza+7atVZngMSKp8DPS7dmDMEWsw==
+    S3_ACCESS_KEY:
+        secure: jiQxatpy8UN0Q1D7Vm1PX6GRgBMb1ja/Ael/8RteMMQEsNb9vrdUOrS0kjXLy3JP4md9pmtiQYvmCbto
+    S3_SECRET_KEY:
+        secure: ZcqJtBxp++HWmdLNBvpsINC38WF2W59arbbXmjoth2Cjee+V+WmsKi1Yb1RzJqlqDspQB/fZHM0r6tHp
+    SCW_SECRET_KEY:
+        secure: 0Kpduy8ES2ju45tHQyh371HVA/S0cafi/5EcoYobJYlLvJZBgYXIMVRsBk5vF4pdd9uqjiIwCwRqB3g4sE3oyA==
