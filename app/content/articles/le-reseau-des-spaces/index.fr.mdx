@@ -1,0 +1,67 @@
+---
+slug: le-reseau-des-spaces
+titre: "Interdit par défaut : le réseau de nos conteneurs"
+chapeau: "Dans nos conteneurs, tout le réseau privé mène à un trou noir — sauf deux routes. Voici comment deux machines font dialoguer leurs services avec un DNS, un tunnel, et aucun orchestrateur."
+organe: Technique
+outil: Skalpai
+outilUrl: https://skalpai.dev
+date: 2026-08-31
+lecture: 7 min
+---
+
+Ouvrez un shell dans un de nos conteneurs et affichez sa table de routage. Voici ce qu'elle dit, en entier :
+
+```
+default via 10.88.0.1 dev eth0
+blackhole 10.0.0.0/8
+10.71.0.11 via 10.88.0.1 dev eth0
+10.88.0.0/24 dev eth0 scope link
+10.90.0.0/24 via 10.88.0.1 dev eth0
+blackhole 169.254.0.0/16
+blackhole 172.16.0.0/12
+blackhole 192.168.0.0/16
+```
+
+Quatre lignes `blackhole` : tout l'espace d'adressage privé — le LAN de la machine, le réseau interne du cloud, les autres conteneurs — est jeté dans le vide. Un paquet qui part vers une IP privée meurt sur place. Internet public passe ; le monde privé, non.
+
+Puis deux exceptions, chirurgicales. Une route `/32` vers une seule adresse. Une route vers un sous-réseau `10.90.0.0/24`. Ces deux lignes sont tout le modèle. Le reste de cet article explique pourquoi elles suffisent.
+
+## Le problème qu'on refusait de résoudre par un annuaire de plus
+
+sklp fait tourner des applications dans des « Spaces » : des environnements isolés, sans démon Docker, sans root. Tôt ou tard, deux Spaces doivent se parler — l'API a besoin de sa base, le worker de son API. La réponse classique est connue : un orchestrateur, un plan de contrôle, des sidecars, une base de données pour tenir l'état du réseau. Kubernetes résout ce problème magnifiquement, au prix d'une machinerie qu'un développeur seul n'a aucune envie d'opérer.
+
+Nous voulions l'inverse : que le mécanisme entier tienne dans une table de routage qu'on peut lire à voix haute.
+
+## La première exception : le contrôleur
+
+La route `/32` pointe vers le Network Controller — un composant du superviseur de la machine, extérieur à tous les Spaces, qui fait trois choses : il répond au DNS, il proxifie l'HTTP, il épissure le TCP brut.
+
+Un service qui déclare un port dans son manifeste devient joignable à `service.space.internal`. C'est tout : pas d'enregistrement, pas de configuration réseau, pas d'ACL à écrire. Le contrôleur lit les manifestes et l'état réel des conteneurs toutes les cinq secondes, et maintient son annuaire tout seul. Le port déclaré est l'autorisation ; un service sans port n'existe pas sur le réseau.
+
+Le point d'architecture qui nous importait : les Spaces ne connaissent pas le contrôleur. Aucun code du Space n'appelle le contrôleur, aucun événement n'est poussé. Le contrôleur observe et se reconcilie — si on l'éteint, les Spaces tournent toujours ; ils perdent seulement la résolution des noms internes.
+
+Et si le nom demandé n'existe pas ? NXDOMAIN, immédiatement. Un nom en `.internal` n'est jamais transmis à un résolveur public : une faute de frappe ne fuit pas sur Internet.
+
+## La deuxième exception : le mesh
+
+La route `10.90.0.0/24` répond à la question suivante : et quand la base tourne sur une autre machine ?
+
+Chaque machine du parc rejoint un tunnel WireGuard et reçoit une adresse dans `10.90.0.0/24`. Un annuaire minuscule — un binaire de neuf mégaoctets, dont l'état complet tient dans un fichier JSON qu'on inspecte avec `cat` — enregistre qui est là : identité, clé publique, adresse, et la liste des services que chaque machine sert localement. Toutes les cinq secondes, chaque machine y réécrit son état complet et relit celui des autres.
+
+La résolution devient alors une simple cascade. Le DNS du contrôleur cherche d'abord dans son annuaire local : trouvé, il répond sa propre adresse et le trafic reste sur la machine. Sinon, il cherche dans la liste des pairs : trouvé, il répond **directement l'adresse mesh de la machine distante**. Le `wget http://web.alpha.internal/` lancé depuis un conteneur traverse alors le tunnel et atterrit sur le contrôleur d'en face — le même code, la même logique de routage, juste écoutée sur une interface de plus.
+
+Aucun relais intermédiaire, aucun composant nouveau sur le chemin du trafic. La machine appelante ne proxifie rien : elle a résolu un nom, elle dialogue.
+
+## Ce que l'annuaire refuse d'être
+
+La tentation, à ce stade, est d'en faire un chef d'orchestre : qu'il décide des placements, pousse des configurations, arbitre les conflits. Nous avons refusé. L'annuaire est passif — les machines écrivent, les machines lisent, il ne décide de rien. Placer un Space sur une machine reste une décision d'opérateur, pas une inférence du système.
+
+Cette passivité a une conséquence agréable en cas de panne : si l'annuaire tombe, le trafic continue. Les tunnels restent montés, chaque contrôleur garde en cache le dernier état connu, le DNS continue de répondre. Seuls les changements — une machine qui arrive, un service qui bouge — cessent de se propager jusqu'à son retour. Et comme chaque machine réécrit son état complet toutes les cinq secondes, l'annuaire se reconstruit tout seul après un redémarrage : la seule chose qu'il doit vraiment retenir, ce sont les adresses mesh attribuées.
+
+Deux détails qu'on a payés pour apprendre. Une machine morte ne doit pas être résolue éternellement : chaque contrôleur ignore désormais les pairs muets depuis plus de trente secondes — l'éviction se fait côté lecteur, l'annuaire reste bête. Et le jeu de pairs WireGuard ne doit pas être figé au démarrage : une machine qui rejoint le parc plus tard était résolue par le DNS des autres mais rejetée par leurs tunnels, jusqu'à ce que la synchronisation devienne périodique elle aussi.
+
+## Ce que ça ne fait pas
+
+L'honnêteté d'une architecture se mesure à ce qu'elle avoue. Le TCP brut entre machines n'est pas encore déterministe : l'HTTP passe partout parce que le port 80 est fixe des deux côtés, mais un Postgres distant exigerait d'annoncer le port d'épissure alloué, ce qu'on ne fait pas encore. Un même service déclaré sur deux machines n'est pas arbitré : le dernier enregistré gagne. Et l'annuaire est un point unique — assumé à cette échelle, précisément parce que sa panne n'interrompt pas le trafic.
+
+Rien de tout cela n'est caché dans une couche d'abstraction. C'est une table de routage, un DNS, un proxy, un tunnel, un fichier JSON. Quand quelque chose se comporte mal, `ip route`, `dig` et `cat` suffisent à voir quoi — et c'est exactement comme ça que nous avons débogué chaque étape de sa construction.

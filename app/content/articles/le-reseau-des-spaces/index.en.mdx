@@ -1,0 +1,63 @@
+---
+slug: the-spaces-network
+titre: "Deny by default: how our containers talk"
+chapeau: "Inside our containers, every private network leads to a black hole — except two routes. Here is how two machines get their services talking with a DNS, a tunnel, and no orchestrator."
+organe: Technique
+---
+
+Open a shell inside one of our containers and print its routing table. Here it is, in full:
+
+```
+default via 10.88.0.1 dev eth0
+blackhole 10.0.0.0/8
+10.71.0.11 via 10.88.0.1 dev eth0
+10.88.0.0/24 dev eth0 scope link
+10.90.0.0/24 via 10.88.0.1 dev eth0
+blackhole 169.254.0.0/16
+blackhole 172.16.0.0/12
+blackhole 192.168.0.0/16
+```
+
+Four `blackhole` lines: the entire private address space — the host's LAN, the cloud's internal network, the other containers — is dropped into the void. A packet headed for a private IP dies on the spot. The public internet gets through; the private world does not.
+
+Then two exceptions, surgical ones. A `/32` route to a single address. A route to one subnet, `10.90.0.0/24`. Those two lines are the whole model. The rest of this article explains why they are enough.
+
+## The problem we refused to solve with yet another registry
+
+sklp runs applications in "Spaces": isolated environments, no Docker daemon, no root. Sooner or later two Spaces need to talk — the API needs its database, the worker needs its API. The classic answer is well known: an orchestrator, a control plane, sidecars, a database to hold the network's state. Kubernetes solves this beautifully, at the price of machinery no solo developer wants to operate.
+
+We wanted the opposite: the entire mechanism should fit in a routing table you can read out loud.
+
+## The first exception: the controller
+
+The `/32` route points at the Network Controller — a component of the machine's supervisor, external to every Space, that does three things: it answers DNS, it proxies HTTP, it splices raw TCP.
+
+A service that declares a port in its manifest becomes reachable at `service.space.internal`. That is all: no registration, no network configuration, no ACLs to write. The controller reads the manifests and the containers' actual state every five seconds and keeps its registry current by itself. The declared port is the authorization; a service without one does not exist on the network.
+
+The architectural point we cared about most: Spaces do not know the controller exists. No Space code calls it, no events are pushed. The controller observes and reconciles — switch it off and the Spaces keep running; they only lose internal name resolution.
+
+And when the requested name does not exist? NXDOMAIN, immediately. A `.internal` name is never forwarded to a public resolver: a typo does not leak onto the internet.
+
+## The second exception: the mesh
+
+The `10.90.0.0/24` route answers the next question: what about when the database runs on another machine?
+
+Every machine in the fleet joins a WireGuard tunnel and gets an address in `10.90.0.0/24`. A tiny directory — a nine-megabyte binary whose entire state fits in a JSON file you can inspect with `cat` — records who is there: identity, public key, address, and the list of services each machine serves locally. Every five seconds, each machine rewrites its full state there and reads back everyone else's.
+
+Resolution then becomes a simple cascade. The controller's DNS checks its local registry first: on a hit, it answers its own address and traffic stays on the machine. Otherwise it checks the peer list: on a hit, it answers **the remote machine's mesh address directly**. The `wget http://web.alpha.internal/` fired from a container then crosses the tunnel and lands on the controller on the other side — the same code, the same routing logic, just listening on one more interface.
+
+No intermediate relay, no new component on the traffic path. The calling machine proxies nothing: it resolved a name, it talks.
+
+## What the directory refuses to be
+
+The temptation at this point is to make it a conductor: let it decide placements, push configuration, arbitrate conflicts. We refused. The directory is passive — machines write, machines read, it decides nothing. Placing a Space on a machine remains an operator's decision, not something the system infers.
+
+That passivity has a pleasant consequence when things fail: if the directory goes down, traffic keeps flowing. The tunnels stay up, each controller keeps its last known state cached, DNS keeps answering. Only changes — a machine arriving, a service moving — stop propagating until it returns. And since every machine rewrites its full state every five seconds, the directory rebuilds itself after a restart: the only thing it genuinely has to remember is which mesh addresses it handed out.
+
+Two details we paid to learn. A dead machine must not be resolved forever: each controller now ignores peers silent for more than thirty seconds — eviction happens on the reader's side, and the directory stays dumb. And the WireGuard peer set must not be frozen at boot: a machine joining the fleet later was resolved by everyone's DNS but rejected by their tunnels, until that synchronisation became periodic too.
+
+## What it does not do
+
+An architecture's honesty is measured by what it admits. Raw TCP between machines is not deterministic yet: HTTP works everywhere because port 80 is fixed on both ends, but a remote Postgres would require advertising the allocated splice port, which we do not do yet. The same service declared on two machines is not arbitrated: last write wins. And the directory is a single point — accepted at this scale, precisely because its failure does not interrupt traffic.
+
+None of this hides behind an abstraction layer. It is a routing table, a DNS, a proxy, a tunnel, a JSON file. When something misbehaves, `ip route`, `dig` and `cat` are enough to see what — and that is exactly how we debugged every step of building it.
