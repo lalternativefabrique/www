@@ -1,0 +1,104 @@
+---
+slug: scanned-before-the-registry
+titre: "Six critical flaws, stopped before the registry"
+chapeau: "An ordinary deployment refused three times by its own scanner. What those refusals found, and why the only useful moment to stop a vulnerable image is while it still exists nowhere else."
+organe: Technique
+outil: Skalpai
+outilUrl: https://skalpai.dev
+date: 2026-09-01
+lecture: 6 min
+---
+
+`scan failed — push aborted`.
+
+Four words to say that an image had just been built, examined, judged, and would go no further. It existed on the build machine. It never reached the registry.
+
+This was an ordinary service on an ordinary day: an HTTP facade that queries a search engine, extracts a page's text, renders it in a headless browser, and reads an article aloud. Nothing exotic. The kind of component you deploy without thinking about it.
+
+Publishing it took three attempts. Here is what the two refusals found.
+
+## The first refusal: a flaw with no fix
+
+```
+gstreamer1.0-plugins-bad  CVE-2025-3887  HIGH
+  Installed Version: 1.24.2-1ubuntu4
+  Fixed Version:
+```
+
+The `Fixed Version` column is empty. That is not a display glitch: Ubuntu has published no patch. A buffer overflow in GStreamer's H265 parser, reachable as remote code execution, and nothing to install that closes it.
+
+The usual reflex at this point is an exception. Add the reference to an ignore file, write a line of justification, the scan passes, you publish. The flaw stays in the image, but it now has paperwork.
+
+A more interesting question was available though: what is GStreamer doing in this service?
+
+GStreamer is the browser's video decoding path. This service renders HTML to extract text from it. It plays no video, ever. The dependency was there because it ships with the base image — not because anything uses it.
+
+```dockerfile
+RUN apt-get remove -y --purge \
+      gstreamer1.0-plugins-bad \
+      libgstreamer-plugins-bad1.0-0 \
+    && apt-get autoremove -y
+```
+
+The browser still starts, still renders pages. The flaw is gone — not ignored, removed.
+
+> An exception documents a vulnerability. A removal eliminates it. These are not two degrees of the same answer.
+
+## The second refusal: our own dependencies
+
+Image rebuilt, GStreamer gone. New scan, new refusal. This time the findings were not in the operating system but in the binary itself:
+
+| Library | Flaw | Fixed in |
+|---|---|---|
+| `golang.org/x/net` | code execution via XSS (html) | 0.55.0 |
+| `golang.org/x/net` | HTML parsing bypass | 0.55.0 |
+| `golang.org/x/net` | HTTP/2 denial of service | 0.53.0 |
+| `golang.org/x/net` | privilege escalation (punycode) | 0.55.0 |
+| `golang.org/x/net` | DNS denial of service | 0.56.0 |
+| `golang.org/x/text` | denial of service on invalid UTF-8 | 0.39.0 |
+
+Six HIGH advisories. None appeared in the service's own code: these are indirect dependencies, pulled by a text extraction library, itself pulled by a search library. Nobody had chosen them. Nobody had seen them.
+
+All of them had a published fix.
+
+```
+go get golang.org/x/net@v0.56.0 golang.org/x/text@v0.39.0
+```
+
+Two commands. `Total: 0 (HIGH: 0, CRITICAL: 0)`. The image went to the registry.
+
+The asymmetry is what stays with you. Those six flaws had been sitting for weeks in a dependency tree nobody reads — and fixing them took thirty seconds. What was missing was not skill, not tooling, not an available patch. It was the moment where someone looks.
+
+## Why the order of the steps decides everything
+
+A vulnerability scanner is not rare. Most delivery pipelines have one. The difference comes down to a detail that is not one: **where it sits in the sequence**.
+
+```
+build  →  scan  →  publish
+```
+
+The scan is between the two, and it blocks. An image judged vulnerable does not reach the registry — no warning, no report to triage later, no dashboard turning red. It simply exists nowhere anyone could deploy it from.
+
+The common arrangement is the reverse: publish, then scan what was published. The report arrives afterwards. It joins a queue. Meanwhile the image is available, referenced, sometimes already in production. The fix becomes a recovery operation — with its exposure window, its coordination, its urgency.
+
+> An image that was never pushed needs no rollback, no announcement, no maintenance window. It needs one `apt-get remove` and two `go get`.
+
+This is not about how strict the tool is. It is about where the cost lands. Before the registry, a flaw costs a developer a few minutes while the context is still in their head. After it, a flaw costs an incident.
+
+## What makes a refusal bearable
+
+A blocking scan is only acceptable if you can act on it. Three conditions make it livable.
+
+- **An explicit threshold.** Here, HIGH and CRITICAL. Lower levels are reported, not blocking. A scanner that refuses everything is a scanner someone disables within a week.
+- **A fix or a way out.** Of the eight findings encountered, six were closed by an update and two by a removal. The block was never a dead end — it was a question that could be answered.
+- **Immutable tags.** Every image carries a date-digest tag, never `latest`. A scanned image is an identified image: what was examined is exactly what runs.
+
+Without those three, a block becomes a nuisance people work around. With them, it becomes what it should be: the last place where a mistake is still cheap.
+
+## What the third attempt actually produced
+
+The image published that day carried neither the video decoder the service had no use for, nor the six flaws in its indirect dependencies. It required no emergency patch, no rollback, no incident note.
+
+Nothing happened. That is exactly the intended result.
+
+A delivery pipeline's security is not measured by the vulnerabilities it reports. It is measured by the ones that never reached a place they would have had to be pulled back from.

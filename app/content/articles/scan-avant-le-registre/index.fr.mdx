@@ -1,0 +1,104 @@
+---
+slug: scan-avant-le-registre
+titre: "Six failles critiques, arrêtées avant le registre"
+chapeau: "Un déploiement ordinaire refusé trois fois de suite par son propre scanner. Ce que ces refus ont trouvé, et pourquoi le seul moment utile pour arrêter une image vulnérable est celui où elle n'existe pas encore ailleurs."
+organe: Technique
+outil: Skalpai
+outilUrl: https://skalpai.dev
+date: 2026-09-01
+lecture: 6 min
+---
+
+`scan failed — push aborted`.
+
+Trois mots pour dire qu'une image venait d'être construite, examinée, jugée, et qu'elle n'irait pas plus loin. Elle existait sur la machine de build. Elle n'a jamais atteint le registre.
+
+C'était un service ordinaire, un jour ordinaire : une passerelle HTTP qui interroge un moteur de recherche, extrait le texte d'une page, la rend dans un navigateur sans affichage, et lit un article à voix haute. Rien d'exotique. Le genre de brique qu'on déploie sans y penser.
+
+Il a fallu trois tentatives pour la publier. Voici ce que les deux refus ont trouvé.
+
+## Le premier refus : une faille sans correctif
+
+```
+gstreamer1.0-plugins-bad  CVE-2025-3887  HIGH
+  Installed Version: 1.24.2-1ubuntu4
+  Fixed Version:
+```
+
+La colonne `Fixed Version` est vide. Ce n'est pas un oubli de l'affichage : Ubuntu n'a publié aucun correctif. Un dépassement de tampon dans l'analyseur H265 de GStreamer, exploitable en exécution de code à distance, et rien à installer pour le refermer.
+
+Le réflexe habituel, à ce stade, est l'exception. On ajoute la référence à une liste d'exclusions, on écrit une ligne de justification, le scan passe, on publie. La faille reste dans l'image, mais elle a désormais un dossier administratif.
+
+Sauf qu'une question plus intéressante se posait : à quoi sert GStreamer dans ce service ?
+
+GStreamer, c'est le décodage vidéo du navigateur. Or ce service rend du HTML pour en extraire du texte. Il ne lit aucune vidéo, jamais. La dépendance était là parce qu'elle vient avec l'image de base — pas parce que quoi que ce soit l'utilise.
+
+```dockerfile
+RUN apt-get remove -y --purge \
+      gstreamer1.0-plugins-bad \
+      libgstreamer-plugins-bad1.0-0 \
+    && apt-get autoremove -y
+```
+
+Le navigateur démarre toujours, rend toujours les pages. La faille, elle, n'est plus là — pas ignorée, retirée.
+
+> Une exception documente une vulnérabilité. Une suppression l'élimine. Ce ne sont pas deux degrés d'une même réponse.
+
+## Le deuxième refus : nos propres dépendances
+
+Image reconstruite, GStreamer parti. Nouveau scan, nouveau refus. Cette fois les failles ne venaient plus du système, mais du binaire lui-même :
+
+| Bibliothèque | Faille | Corrigé dans |
+|---|---|---|
+| `golang.org/x/net` | exécution de code via XSS (html) | 0.55.0 |
+| `golang.org/x/net` | contournement d'analyse HTML | 0.55.0 |
+| `golang.org/x/net` | déni de service HTTP/2 | 0.53.0 |
+| `golang.org/x/net` | élévation de privilèges (punycode) | 0.55.0 |
+| `golang.org/x/net` | déni de service DNS | 0.56.0 |
+| `golang.org/x/text` | déni de service sur UTF-8 invalide | 0.39.0 |
+
+Six failles classées HIGH. Aucune n'apparaissait dans le code du service : ce sont des dépendances indirectes, tirées par une bibliothèque d'extraction de texte, elle-même tirée par une bibliothèque de recherche. Personne ne les avait choisies. Personne ne les avait vues.
+
+Et toutes avaient un correctif publié.
+
+```
+go get golang.org/x/net@v0.56.0 golang.org/x/text@v0.39.0
+```
+
+Deux commandes. `Total: 0 (HIGH: 0, CRITICAL: 0)`. L'image est partie au registre.
+
+C'est l'asymétrie qui frappe. Ces six failles traînaient depuis des semaines dans un arbre de dépendances que personne ne lit — et leur correction a pris trente secondes. Ce qui manquait n'était ni la compétence, ni l'outil, ni le correctif. C'était le moment où quelqu'un regarde.
+
+## Pourquoi l'ordre des étapes décide de tout
+
+Un scanner de vulnérabilités n'a rien de rare. La plupart des chaînes de livraison en ont un. La différence tient à un détail qui n'en est pas un : **où il se trouve dans la séquence**.
+
+```
+construire  →  scanner  →  publier
+```
+
+Le scan est entre les deux, et il est bloquant. Une image jugée vulnérable n'atteint pas le registre — pas d'avertissement, pas de rapport à traiter plus tard, pas de tableau de bord qui s'allume en rouge. Elle n'existe simplement nulle part où quelqu'un pourrait la déployer.
+
+L'arrangement courant est l'inverse : on publie, puis on scanne ce qui est publié. Le rapport arrive après. Il rejoint une file d'attente. Pendant ce temps l'image est disponible, référencée, parfois déjà en production. Le correctif devient une opération de rattrapage — avec sa fenêtre d'exposition, sa coordination, son urgence.
+
+> Une image qui n'a jamais été poussée ne demande ni rollback, ni communication, ni fenêtre de maintenance. Elle demande un `apt-get remove` et deux `go get`.
+
+Ce n'est pas une question de sévérité de l'outil. C'est une question d'endroit où le coût atterrit. Avant le registre, une faille coûte quelques minutes à un développeur qui a encore le contexte en tête. Après, elle coûte un incident.
+
+## Ce qui rend le refus supportable
+
+Un scan bloquant n'est acceptable que si l'on peut agir. Trois conditions le rendent vivable.
+
+- **Un seuil explicite.** Ici, HIGH et CRITICAL. Les niveaux inférieurs sont signalés, pas bloquants. Un scanner qui refuse tout est un scanner qu'on désactive au bout d'une semaine.
+- **Un correctif ou une porte de sortie.** Sur les huit failles rencontrées, six se corrigeaient par une mise à jour et deux par une suppression. Le blocage n'était jamais une impasse — il était une question à laquelle on pouvait répondre.
+- **Un étiquetage immuable.** Chaque image porte un tag date-empreinte, jamais `latest`. Une image scannée est une image identifiée : ce qui a été examiné est exactement ce qui tourne.
+
+Ces trois conditions manquantes, le blocage devient une nuisance qu'on contourne. Réunies, il devient ce qu'il doit être : le dernier endroit où une erreur coûte encore peu.
+
+## Ce que le troisième essai a réellement produit
+
+L'image publiée ce jour-là ne contenait ni le décodeur vidéo dont le service n'avait pas l'usage, ni les six failles de ses dépendances indirectes. Elle n'a demandé aucun correctif d'urgence, aucun rollback, aucune note d'incident.
+
+Il ne s'est rien passé. C'est exactement le résultat recherché.
+
+La sécurité d'une chaîne de livraison ne se mesure pas aux vulnérabilités qu'elle signale. Elle se mesure à celles qui n'ont jamais atteint un endroit d'où il aurait fallu les retirer.
