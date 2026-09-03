@@ -1,12 +1,7 @@
 kind: deploy-root
 
-# What this repo deploys, and where each manifest lives. Core reads exactly
-# this file and reconciles every deployment listed.
-#
-# The space is laltfabrique-production, not www-production: "www" says which
-# service it is, not whose site it serves, and the node hosts several.
 node_id: 192940ec-2d7e-45b3-b07d-06cff65fd05b
 
 deployments:
-  - space: laltfabrique-production
+  - space: www-production
     path: .sklp/www/deploy.yaml
