@@ -2,28 +2,83 @@ version: 1
 kind: deploy
 name: www
 
+registries:
+  rg.fr-par.scw.cloud:
+    username: nologin
+    password: ${SCW_SECRET_KEY}
+
+gateway:
+  email: contact@lalter.org
+
 services:
   postgres:
-    image: postgres:17-alpine
+    image: rg.fr-par.scw.cloud/platform-ops/postgres-pgbackrest:20260904-0223-41e7d4bef231
     port: 5432
     env:
       POSTGRES_DB: lalter
       POSTGRES_USER: lalter
       POSTGRES_PASSWORD: ${LALTER_DB_PASSWORD}
       PGDATA: /var/lib/postgresql/data
-    volumes:
-      - lalter-pgdata:/var/lib/postgresql/data
+      PGBACKREST_STANZA: www
+      # archive_command runs as the postgres user with this environment, so the
+      # repo credentials never touch the config file on disk.
+      PGBACKREST_REPO1_S3_BUCKET: lalternative-prod-backups
+      PGBACKREST_REPO1_S3_KEY: ${S3_ACCESS_KEY}
+      PGBACKREST_REPO1_S3_KEY_SECRET: ${S3_SECRET_KEY}
+      AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY}
+      AWS_DEFAULT_REGION: gra
+    resources:
+      cpu: "1"
+      memory: 1G
     backup:
       schedule: "0 3 * * *"
-      command: ["sh", "-c", "apk add --no-cache aws-cli >/dev/null && pg_dump -U lalter lalter | gzip > /tmp/lalter-$(date +%F).sql.gz && AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY} AWS_SECRET_ACCESS_KEY=${S3_SECRET_KEY} aws --endpoint-url https://s3.gra.io.cloud.ovh.net s3 cp /tmp/lalter-$(date +%F).sql.gz s3://lalternative-prod-backups/sklp/lalter-$(date +%F).sql.gz"]
+      command:
+        [
+          "sh",
+          "-c",
+          "apk add --no-cache aws-cli >/dev/null && pg_dump -U lalter lalter | gzip > /backup/www-$(date +%F).sql.gz && aws --endpoint-url https://s3.gra.io.cloud.ovh.net s3 cp /backup/www-$(date +%F).sql.gz s3://lalternative-prod-backups/sklp/www-$(date +%F).sql.gz",
+        ]
+    volumes:
+      - lalter-pgdata:/var/lib/postgresql/data
+      - backup:/backup
+      - wal-spool:/var/spool/pgbackrest
+    # An existing cluster never runs /docker-entrypoint-initdb.d, so archiving
+    # is switched on here, with the values 10-archive.sh writes for a new one.
+    command:
+      [
+        "postgres",
+        "-c", "archive_mode=on",
+        "-c", "archive_command=pgbackrest --stanza=www archive-push %p",
+        "-c", "wal_level=replica",
+        "-c", "archive_timeout=60",
+      ]
     ready:
-      tcp: "5432"
+      log: "database system is ready to accept connections"
       timeout: 120s
 
+  pgbackrest:
+    image: rg.fr-par.scw.cloud/platform-ops/pgbackrest-sidecar:20260904-0223-41e7d4bef231
+    depends_on: [postgres]
+    volumes:
+      - lalter-pgdata:/var/lib/postgresql/data
+      - wal-spool:/var/spool/pgbackrest
+    env:
+      PGBACKREST_STANZA: www
+      PGHOST: postgres
+      PGUSER: lalter
+      PGDATABASE: lalter
+      PGPASSWORD: ${LALTER_DB_PASSWORD}
+      PGBACKREST_REPO1_S3_ENDPOINT: s3.gra.io.cloud.ovh.net
+      PGBACKREST_REPO1_S3_REGION: gra
+      PGBACKREST_REPO1_S3_BUCKET: lalternative-prod-backups
+      PGBACKREST_REPO1_S3_KEY: ${S3_ACCESS_KEY}
+      PGBACKREST_REPO1_S3_KEY_SECRET: ${S3_SECRET_KEY}
+
   www:
-    depends_on: [postgres, migrate]
     image: rg.fr-par.scw.cloud/lalternative/www:20260826-1209-a003b64eb784
     port: 8080
+    depends_on: [postgres, migrate]
     env:
       NODE_ENV: production
       PORT: "8080"
@@ -35,17 +90,24 @@ services:
       BETTER_AUTH_SECRET: ${LALTER_AUTH_SECRET}
       SPORE_FROM: noreply@lalter.org
       DATABASE_URL: postgres://lalter:${LALTER_DB_PASSWORD}@postgres:5432/lalter
+    resources:
+      cpu: "1"
+      memory: 1G
     ready:
-      http: http://localhost:8080/healthz
+      http: /healthz
       timeout: 90s
 
-registries:
-  rg.fr-par.scw.cloud:
-    username: nologin
-    password: ${SCW_SECRET_KEY}
-
-gateway:
-  email: contact@lalter.org
+jobs:
+  migrate:
+    image: rg.fr-par.scw.cloud/lalternative/migrate:20260818-0331-d205d58
+    # The image's entrypoint is `migrate -path /migrations -database`, so the
+    # connection string is an ARGUMENT, not an environment variable.
+    command:
+      [
+        "postgres://lalter:${LALTER_DB_PASSWORD}@postgres:5432/lalter?sslmode=disable",
+        "up",
+      ]
+    depends_on: [postgres]
 
 spaces:
   www-production:
@@ -53,15 +115,9 @@ spaces:
       routes:
         - service: www
           host: lalternativefabrique.org
+          security_headers: true
+          compress: true
         - service: www
           host: www.lalternativefabrique.org
         - service: www
           host: prod.lalternativefabrique.org
-
-jobs:
-  migrate:
-    image: rg.fr-par.scw.cloud/lalternative/migrate:20260818-0331-d205d58
-    # The image's entrypoint is `migrate -path /migrations -database`; the
-    # connection string is an ARGUMENT (same convention as lungor's job).
-    command: ["postgres://lalter:${LALTER_DB_PASSWORD}@postgres:5432/lalter?sslmode=disable", "up"]
-    depends_on: [postgres]
