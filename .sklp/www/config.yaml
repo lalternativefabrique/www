@@ -2,6 +2,7 @@ encryptionsalt: rwxTerHXdTQSkPnD1zibYQ==
 encryptioniters: 600000
 config:
     SKALPAI_ENDPOINT: https://api.skalpai.dev
+secrets:
     LALTER_AUTH_SECRET:
         secure: kR8cBXsO+9v43O/sgpGenkY4T9R4hco6OXGE3qPb2nqh3vQZH1CA8Ld2OOx+wuhY/qoWZzebyorP/HwsyVmtTLIZvgZn1ussflX29w==
     LALTER_DB_PASSWORD:
