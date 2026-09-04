@@ -16,3 +16,12 @@ overrides:
   # Reached through xmlbuilder2, pulled by the build plugin. Same story as
   # undici: never executed here, but on disk where the scan reads it.
   js-yaml: '>=4.3.1'
+  # Reached through Babel, itself pulled by the TanStack router plugin — build
+  # tooling that never runs in the served image, but ships inside it.
+  browserslist: '>=4.28.7'
+  # Reached through remark-mdx-frontmatter. The 3.x line is unmaintained and
+  # carries the fix in 4.x, so this crosses a major — safe here because the
+  # articles' frontmatter is YAML and remarkFrontmatter is left at its default,
+  # so nothing in this repo ever hands TOML to it. Pinned to the 5.x line
+  # rather than left open, so a later major lands in a commit that tests it.
+  toml: '^5.0.0'
