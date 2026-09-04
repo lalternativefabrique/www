@@ -153,8 +153,3 @@ spaces:
           kind: web
           rate: 100
           burst: 200
-        - service: www
-          host: prod.lalternativefabrique.org
-          kind: web
-          rate: 100
-          burst: 200
