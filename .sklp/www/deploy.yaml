@@ -137,19 +137,13 @@ spaces:
         - service: www
           host: lalternativefabrique.org
           kind: web
-          rate: 100
-          burst: 200
           security_headers: true
           compress: true
         - service: www
           host: lalternativefabrique.org
           path: /api/auth
           kind: auth
-          rate: 5
-          burst: 10
           security_headers: true
         - service: www
           host: www.lalternativefabrique.org
           kind: web
-          rate: 100
-          burst: 200
