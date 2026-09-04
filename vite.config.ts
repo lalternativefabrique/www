@@ -26,6 +26,8 @@ const STATIC_PATHS = [
   '/apps',
   '/outils',
   '/pot',
+  '/pot/merci',
+  '/pot/annule',
   '/paiement',
   '/a-propos',
   '/contact',
@@ -36,6 +38,8 @@ const EN_PATHS = [
   '/en/apps',
   '/en/outils',
   '/en/pot',
+  '/en/pot/merci',
+  '/en/pot/annule',
   '/en/a-propos',
   '/en/contact',
 ]

@@ -42,6 +42,12 @@ type SeoInput = {
    * duplicate content and search engines pick one of them for you.
    */
   alternate?: { fr?: string; en?: string }
+  /**
+   * Keeps the page out of search results. For pages that exist only as the
+   * end of a flow — a payment return carries nothing a searcher is looking
+   * for, and indexing one puts it in front of people who never paid.
+   */
+  noindex?: boolean
 }
 
 /**
@@ -62,6 +68,7 @@ export function seo({
   section,
   locale = 'fr',
   alternate,
+  noindex = false,
 }: SeoInput) {
   const url = absoluteUrl(path)
 
@@ -83,6 +90,10 @@ export function seo({
     { name: 'twitter:description', content: description },
     { name: 'twitter:image', content: image },
   ]
+
+  if (noindex) {
+    meta.push({ name: 'robots', content: 'noindex, follow' })
+  }
 
   if (type === 'article') {
     if (publishedTime) {
