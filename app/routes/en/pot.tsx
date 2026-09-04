@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { Participation } from '@/components/Participation'
 import { seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/en/pot')({
@@ -111,10 +112,18 @@ function PotPageEn() {
               mine, tapped daily, on everyone. It cannot keep escaping us.
             </p>
             <p>
-              The common pot is the tool of that recovery. It collects no
-              donations: it reinvests a share of what our tools earn into the
-              means we still lack — starting with the one that commands all the
-              others, taking payment.
+              The common pot is the tool of that recovery. Its normal source is
+              what the tools earn: every subscription paid reinvests a share
+              into the means we still lack — starting with the one that
+              commands all the others, taking payment.
+            </p>
+            <p>
+              It is also open. Anyone who wants to can put in directly, without
+              buying a tool they have no use for. This is not a donation to a
+              cause: it is an advance on the same mechanism, and it simply
+              makes it move faster. The pot does not change nature according to
+              where the money comes from — it pays the same list, in the same
+              order.
             </p>
           </div>
         </div>
@@ -215,16 +224,33 @@ function PotPageEn() {
             </p>
           </div>
 
-          <div className="mt-12 flex flex-wrap gap-4">
+        </div>
+      </section>
+
+      <section
+        id="chip-in"
+        className="border-t-2 border-text bg-accent-secondary text-bg"
+      >
+        <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
+          <p className="label opacity-70">Chip in</p>
+          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+            Put something in.
+          </h2>
+
+          <div className="mt-12">
+            <Participation />
+          </div>
+
+          <div className="mt-16 flex flex-wrap gap-4 border-t-2 border-current pt-10">
             <Link
               to="/en/paiement"
-              className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
+              className="label inline-flex w-fit items-center gap-3 border-2 border-current px-6 py-3 hover:bg-bg hover:text-accent-secondary"
             >
               The payment work, in detail <span aria-hidden>→</span>
             </Link>
             <Link
               to="/en/outils"
-              className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-text pb-1 hover:opacity-70"
+              className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-current pb-1 hover:opacity-70"
             >
               The tools that fund it <span aria-hidden>→</span>
             </Link>
