@@ -89,6 +89,7 @@ services:
       # reach a preproduction environment should not have.
       BETTER_AUTH_SECRET: ${LALTER_AUTH_SECRET}
       SPORE_FROM: noreply@lalter.org
+      TTS_URL: http://piper.piper-production.internal
       DATABASE_URL: postgres://lalter:${LALTER_DB_PASSWORD}@postgres:5432/lalter
     resources:
       cpu: "1"
