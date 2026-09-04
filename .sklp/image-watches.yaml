@@ -1,0 +1,7 @@
+watches:
+  - name: lalternative-www
+    service: www
+    space: www-production
+    image_repo: rg.fr-par.scw.cloud/lalternative/www
+    node: sklet-prod-v2
+    registry_user: nologin
