@@ -91,6 +91,16 @@ services:
       SPORE_FROM: noreply@lalter.org
       TTS_URL: http://piper.piper-production.internal
       DATABASE_URL: postgres://lalter:${LALTER_DB_PASSWORD}@postgres:5432/lalter
+      # Contributions to the pot. Server-to-server, so the internal Space
+      # address rather than the gateway; the visitor only ever follows the
+      # redirect_url the checkout hands back.
+      # No TypeScript SDK exists, so don.ts concatenates paths onto this value
+      # as-is and the version segment belongs here — the opposite of sdk-go,
+      # which appends /api/v1 to a bare root.
+      LUNGOR_API_URL: http://core.lungor-production.internal/api/v1
+      LUNGOR_API_KEY: ${LUNGOR_API_KEY}
+      LUNGOR_DON_PLAN_ID: ${LUNGOR_DON_PLAN_ID}
+      PUBLIC_SITE_URL: https://lalternativefabrique.org
     resources:
       cpu: "1"
       memory: 1G
