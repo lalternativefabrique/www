@@ -25,3 +25,6 @@ overrides:
   # so nothing in this repo ever hands TOML to it. Pinned to the 5.x line
   # rather than left open, so a later major lands in a commit that tests it.
   toml: '^5.0.0'
+
+minimumReleaseAgeExclude:
+  - '@lalternative/legal@0.1.0'

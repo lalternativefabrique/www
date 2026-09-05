@@ -22,6 +22,8 @@ const STATIC_PATHS = [
   '/blog',
   '/a-propos',
   '/contact',
+  '/mentions-legales',
+  '/cookies',
 ]
 
 const EN_STATIC_PATHS = [
@@ -32,6 +34,8 @@ const EN_STATIC_PATHS = [
   '/en/a-propos',
   '/en/contact',
   '/en/blog',
+  '/en/mentions-legales',
+  '/en/cookies',
 ]
 
 export function buildSitemap(fr: ArticleCard[], en: ArticleCard[]): string {

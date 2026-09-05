@@ -31,6 +31,8 @@ const STATIC_PATHS = [
   '/paiement',
   '/a-propos',
   '/contact',
+  '/mentions-legales',
+  '/cookies',
 ]
 
 const EN_PATHS = [
@@ -42,6 +44,8 @@ const EN_PATHS = [
   '/en/pot/annule',
   '/en/a-propos',
   '/en/contact',
+  '/en/mentions-legales',
+  '/en/cookies',
 ]
 
 const ALL_PATHS = [...STATIC_PATHS, ...EN_PATHS]

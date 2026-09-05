@@ -38,6 +38,10 @@ export const chrome = {
     motto: 'Nos outils, nos règles',
     switchTo: 'English',
     switchPath: '/en',
+    legal: [
+      { to: '/mentions-legales', label: 'Mentions légales' },
+      { to: '/cookies', label: 'Politique cookies' },
+    ],
     signup: {
       done: "C'est noté. Vous recevrez le prochain numéro.",
       kicker: 'La revue',
@@ -68,6 +72,10 @@ export const chrome = {
     motto: 'Our tools, our rules',
     switchTo: 'Français',
     switchPath: '/',
+    legal: [
+      { to: '/en/mentions-legales', label: 'Legal notice' },
+      { to: '/en/cookies', label: 'Cookie policy' },
+    ],
     signup: {
       done: 'Noted. You will get the next issue.',
       kicker: 'The review',

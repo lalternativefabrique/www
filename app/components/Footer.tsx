@@ -45,8 +45,20 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-text/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-text/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="label text-text/60">№ 01 — {year}</p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {t.legal.map((link) => (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  className="label text-text/60 hover:text-accent-primary"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
           <p className="label text-text/60">{t.motto}</p>
         </div>
       </div>
