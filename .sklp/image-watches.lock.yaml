@@ -3,6 +3,6 @@
 # file records what actually shipped, so a redeploy from Git can
 # reproduce the running version and `git log` answers what was live
 # when. Editing it changes nothing: the next roll overwrites it.
-# last updated: 2026-09-04T12:47:23Z
+# last updated: 2026-09-06T04:22:07Z
 tags:
-  lalternative-www: "20260904-1237-ae1c3b67ae75"
+  lalternative-www: "20260906-0418-f0f1ef4ccb34"
