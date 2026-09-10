@@ -76,7 +76,7 @@ services:
       PGBACKREST_REPO1_S3_KEY_SECRET: ${S3_SECRET_KEY}
 
   www:
-    image: rg.fr-par.scw.cloud/lalternative/www:20260826-1209-a003b64eb784
+    image: rg.fr-par.scw.cloud/lalternative/www:20260906-0418-f0f1ef4ccb34
     port: 8080
     depends_on: [postgres, migrate]
     env:
@@ -98,7 +98,7 @@ services:
       # as-is and the version segment belongs here — the opposite of sdk-go,
       # which appends /api/v1 to a bare root.
       LUNGOR_API_URL: http://core.lungor-production.internal/api/v1
-      LUNGOR_API_KEY: ${LUNGOR_API_KEY}
+      LUNGOR_API_KEY: ${LUNGOR_APP_KEY}
       LUNGOR_DON_PLAN_ID: ${LUNGOR_DON_PLAN_ID}
       PUBLIC_SITE_URL: https://lalternativefabrique.org
     resources:
