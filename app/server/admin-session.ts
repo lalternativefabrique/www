@@ -13,3 +13,10 @@ export const currentAdmin = createServerFn({ method: 'GET' }).handler(
     return requireAdmin()
   },
 )
+
+export const ssoEnabled = createServerFn({ method: 'GET' }).handler(
+  async (): Promise<boolean> => {
+    const { ssoConfig } = await import('./auth')
+    return ssoConfig !== undefined
+  },
+)

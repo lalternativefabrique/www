@@ -1,7 +1,7 @@
 import { Link, createFileRoute, useRouter } from '@tanstack/react-router'
 import { AdminLoginForm } from '@lalternative/admin'
 import { authClient } from '@/lib/auth-client'
-import { currentAdmin } from '@/server/admin-session'
+import { currentAdmin, ssoEnabled } from '@/server/admin-session'
 
 /**
  * Sign-in. A sibling of the _authed layout rather than a child, so the guard
@@ -14,11 +14,13 @@ export const Route = createFileRoute('/admin/login')({
   ): { redirect?: string } => ({
     redirect: typeof search.redirect === 'string' ? search.redirect : undefined,
   }),
+  loader: () => ssoEnabled(),
 })
 
 function Login() {
   const router = useRouter()
   const { redirect } = Route.useSearch()
+  const sso = Route.useLoaderData()
 
   return (
     <div className="flex min-h-screen items-center justify-center px-6">
@@ -36,15 +38,30 @@ function Login() {
           }
         }}
         onSuccess={() => router.navigate({ to: redirect ?? '/admin' })}
+        sso={
+          sso
+            ? {
+                only: true,
+                signIn: async () => {
+                  await authClient.signIn.oauth2({
+                    providerId: 'urbangate',
+                    callbackURL: redirect ?? '/admin',
+                  })
+                },
+              }
+            : undefined
+        }
         title="L'Alternative Fabrique"
         subtitle="Administration"
         footer={
-          <Link
-            to="/admin/setup"
-            className="text-sm text-muted-foreground underline hover:text-foreground"
-          >
-            Créer le premier compte
-          </Link>
+          sso ? undefined : (
+            <Link
+              to="/admin/setup"
+              className="text-sm text-muted-foreground underline hover:text-foreground"
+            >
+              Créer le premier compte
+            </Link>
+          )
         }
       />
     </div>

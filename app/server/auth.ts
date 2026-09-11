@@ -57,6 +57,20 @@ async function mailer(args: { to: string; subject: string; html: string }) {
 
 let instance: ReturnType<typeof createPlatformAuth> | undefined
 
+/**
+ * The suite's identity provider (urbangate). Set, the admin console signs in
+ * there and the admin role comes from the www:admin claim; unset, the local
+ * password login stays.
+ */
+export const ssoConfig = process.env.OIDC_CLIENT_SECRET
+  ? {
+      issuer: process.env.OIDC_ISSUER_URL ?? 'https://id.urbangate.dev',
+      clientId: process.env.OIDC_CLIENT_ID ?? 'www-admin',
+      clientSecret: process.env.OIDC_CLIENT_SECRET,
+      adminRole: 'www:admin',
+    }
+  : undefined
+
 export function auth() {
   if (!process.env.BETTER_AUTH_SECRET) {
     throw new Error('BETTER_AUTH_SECRET is not set.')
@@ -69,6 +83,7 @@ export function auth() {
     baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:3000',
     appName: "L'Alternative Fabrique",
     mailer,
+    sso: ssoConfig,
   })
 
   return instance
