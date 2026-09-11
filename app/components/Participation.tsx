@@ -31,14 +31,14 @@ function euros(cents: number, locale: 'fr' | 'en'): string {
 
 const copy = {
   fr: {
-    kicker: 'Participer',
-    titre: 'Mettre au pot.',
+    kicker: 'Contribution directe',
+    titre: 'Financer un projet.',
     chapeau:
-      "Le pot est ouvert. On peut y mettre directement, sans acheter un outil dont on n'a pas l'usage. Ce n'est pas un don à une cause : c'est une avance sur le mécanisme, qui le fait aller plus vite.",
+      "Vous pouvez contribuer sans acheter une solution dont vous n'avez pas l'usage. Ce n'est pas un don à une cause : votre contribution accélère directement les projets annoncés.",
     entrees: [
       {
         dt: 'Ce que ça paie',
-        dd: "La même liste que le reste du pot, dans le même ordre. Aujourd'hui : le dossier d'agrément du chantier 01.",
+        dd: "Les projets publiés, dans l'ordre annoncé. Aujourd'hui : le dossier d'agrément du projet paiement.",
       },
       {
         dt: 'Ce que vous recevez',
@@ -58,7 +58,7 @@ const copy = {
     nomLabel: 'Nom (facultatif)',
     nomPlaceholder: 'Pour la facture',
     nomAide: 'Personne ou société, tel que ça doit apparaître sur la facture.',
-    soumettre: (m: string) => `Mettre ${m} au pot`,
+    soumettre: (m: string) => `Contribuer à hauteur de ${m}`,
     redirection: 'Redirection…',
     redirectionAnnonce: 'Redirection vers la page de paiement.',
     mentionPsp:
@@ -77,14 +77,14 @@ const copy = {
     },
   },
   en: {
-    kicker: 'Chip in',
-    titre: 'Put something in.',
+    kicker: 'Direct contribution',
+    titre: 'Fund a project.',
     chapeau:
-      'The pot is open. You can put in directly, without buying a tool you have no use for. This is not a donation to a cause: it is an advance on the mechanism, and it makes it move faster.',
+      'You can contribute without buying a solution you do not need. This is not a donation to a cause: your contribution directly accelerates the announced projects.',
     entrees: [
       {
         dt: 'What it pays for',
-        dd: 'The same list as the rest of the pot, in the same order. Today: the authorisation dossier for work 01.',
+        dd: 'The published projects, in the announced order. Today: the authorisation dossier for the payment project.',
       },
       {
         dt: 'What you get',
@@ -104,7 +104,7 @@ const copy = {
     nomLabel: 'Name (optional)',
     nomPlaceholder: 'For the invoice',
     nomAide: 'Person or company, as it should appear on the invoice.',
-    soumettre: (m: string) => `Put in ${m}`,
+    soumettre: (m: string) => `Contribute ${m}`,
     redirection: 'Redirecting…',
     redirectionAnnonce: 'Redirecting to the payment page.',
     mentionPsp:

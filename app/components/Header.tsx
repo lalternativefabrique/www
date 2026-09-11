@@ -32,6 +32,13 @@ export function Header() {
             </Link>
           ))}
           <Link
+            to={t.action.to}
+            hash={t.action.hash}
+            className="label border-2 border-accent-primary bg-accent-primary px-3 py-2 text-bg transition-colors hover:bg-transparent hover:text-accent-primary"
+          >
+            {t.action.label}
+          </Link>
+          <Link
             to={t.switchPath}
             className="label border-2 border-text/30 px-2 py-1 text-text/70 transition-colors hover:border-accent-primary hover:text-accent-primary"
           >

@@ -72,7 +72,7 @@ function BlogArticleEn() {
     <article>
       <header className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">{article.organe}</p>
+          <p className="label text-accent-primary">{article.organe} pillar</p>
           <h1 className="font-heading mt-6 text-5xl uppercase leading-tight sm:text-7xl">
             {article.titre}
           </h1>
@@ -116,7 +116,7 @@ function BlogArticleEn() {
 
       <section className="border-t-2 border-text bg-bg">
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-20">
-          <p className="label text-text/60">The tool behind this piece</p>
+          <p className="label text-text/60">The solution linked to this pillar</p>
           <h2 className="font-heading mt-4 text-4xl uppercase leading-none sm:text-5xl">
             {article.outil}
           </h2>

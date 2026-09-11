@@ -22,17 +22,16 @@ export function useLocale(): Locale {
 export const chrome = {
   fr: {
     nav: [
-      { to: '/apps', label: 'Organes' },
-      { to: '/outils', label: 'Outils' },
-      { to: '/pot', label: 'Pot commun' },
+      { to: '/outils', label: 'Réalisations' },
+      { to: '/apps', label: 'Piliers' },
       { to: '/blog', label: 'Revue' },
       { to: '/a-propos', label: 'À propos' },
-      { to: '/contact', label: 'Contact' },
     ],
+    action: { to: '/pot', hash: 'participer', label: 'Financer' },
     home: "L'Alternative Fabrique — accueil",
     mainNav: 'Navigation principale',
     footerTagline:
-      "Des outils sobres pour construire une alternative. Un organe après l'autre.",
+      "L'alternative est possible. Cinq solutions la rendent déjà concrète.",
     navHeading: 'Navigation',
     contactHeading: 'Contact',
     motto: 'Nos outils, nos règles',
@@ -56,17 +55,16 @@ export const chrome = {
   },
   en: {
     nav: [
-      { to: '/en/apps', label: 'Organs' },
-      { to: '/en/outils', label: 'Tools' },
-      { to: '/en/pot', label: 'Common pot' },
+      { to: '/en/outils', label: 'What we built' },
+      { to: '/en/apps', label: 'Pillars' },
       { to: '/en/blog', label: 'Review' },
       { to: '/en/a-propos', label: 'About' },
-      { to: '/en/contact', label: 'Contact' },
     ],
+    action: { to: '/en/pot', hash: 'chip-in', label: 'Fund' },
     home: "L'Alternative Fabrique — home",
     mainNav: 'Main navigation',
     footerTagline:
-      'Frugal tools for building an alternative. One organ at a time.',
+      'The alternative is possible. Five working solutions already make it real.',
     navHeading: 'Navigation',
     contactHeading: 'Contact',
     motto: 'Our tools, our rules',

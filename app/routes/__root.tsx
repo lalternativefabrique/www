@@ -18,7 +18,7 @@ export const Route = createRootRoute({
       {
         name: 'description',
         content:
-          "L'Alternative Fabrique — construire une alternative en reprenant les moyens techniques, économiques et de gouvernance. Un organe après l'autre.",
+          "L'Alternative Fabrique — l'alternative est possible, et cinq solutions la rendent déjà concrète.",
       },
       // Social previews. Per-route head() overrides title/description above.
       { property: 'og:site_name', content: "L'Alternative Fabrique" },

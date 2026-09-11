@@ -23,8 +23,8 @@ function AnnulePage() {
         <div className="prose-editorial mt-10 text-text/85">
           <p>
             Le paiement s'est arrêté avant d'aboutir. Aucun montant n'a été
-            débité, aucune donnée n'a été conservée. Le pot reste ouvert si vous
-            revenez.
+            débité, aucune donnée n'a été conservée. Vous pouvez revenir aux
+            projets si vous souhaitez réessayer.
           </p>
         </div>
         <div className="mt-12">
@@ -33,7 +33,7 @@ function AnnulePage() {
             hash="participer"
             className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
           >
-            Revenir au pot <span aria-hidden>→</span>
+            Revenir aux projets <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

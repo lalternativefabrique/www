@@ -24,7 +24,8 @@ function CancelledPage() {
         <div className="prose-editorial mt-10 text-text/85">
           <p>
             The payment stopped before completing. No amount was charged, no
-            data was kept. The pot stays open if you come back.
+            data was kept. You can return to the projects if you want to try
+            again.
           </p>
         </div>
         <div className="mt-12">
@@ -33,7 +34,7 @@ function CancelledPage() {
             hash="chip-in"
             className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
           >
-            Back to the pot <span aria-hidden>→</span>
+            Back to the projects <span aria-hidden>→</span>
           </Link>
         </div>
       </div>

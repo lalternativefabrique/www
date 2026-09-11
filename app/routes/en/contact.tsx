@@ -228,7 +228,7 @@ function ContactPageEn() {
                     —
                   </span>
                   <span>
-                    You use one of the tools and something grates: say so, we
+                    You use one of our solutions and something grates: say so, we
                     want to hear it
                   </span>
                 </li>
@@ -246,7 +246,7 @@ function ContactPageEn() {
                     —
                   </span>
                   <span>
-                    An organ is missing, and you know how to build it or want
+                    A pillar is missing, and you know how to build it or want
                     to learn: come along
                   </span>
                 </li>

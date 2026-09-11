@@ -3,9 +3,9 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
 
 const outilsSeo = seo({
-  title: "Les outils — L'Alternative Fabrique",
+  title: "Nos réalisations — L'Alternative Fabrique",
   description:
-    "Les outils de L'Alternative Fabrique qui tournent aujourd'hui : Synthiz, Techtuel, Spore, Lungor, Skalpai. À chaque organe son outil.",
+    "Cinq solutions de L'Alternative Fabrique fonctionnent déjà : Synthiz, Techtuel, Spore, Lungor et Skalpai.",
   path: '/outils',
 })
 
@@ -278,18 +278,17 @@ function OutilsPage() {
       {/* Title block */}
       <section className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label text-text/60">Les outils — № 01</p>
-          <h1 className="display-xl mt-6">Les outils</h1>
+          <p className="label text-text/60">Ce qui existe déjà</p>
+          <h1 className="display-xl mt-6">Nos réalisations</h1>
           <p className="chapeau mt-8 max-w-2xl">
-            À chaque organe son outil. Ceux-ci tournent aujourd'hui — vous
-            pouvez les utiliser maintenant. Les autres organes attendent encore
-            le leur.
+            Cinq solutions fonctionnent déjà. Pas des concepts ni des annonces :
+            vous pouvez les ouvrir et les utiliser maintenant.
           </p>
           <Link
             to="/apps"
             className="label mt-8 inline-flex w-fit items-center gap-2 text-accent-primary hover:underline"
           >
-            Voir les organes <span aria-hidden>→</span>
+            Comprendre les 5 piliers <span aria-hidden>→</span>
           </Link>
         </div>
       </section>
@@ -301,7 +300,7 @@ function OutilsPage() {
             <div className="grid gap-10 sm:grid-cols-12">
               <div className="sm:col-span-5">
                 <p className="label opacity-70">
-                  {String(i + 1).padStart(2, '0')} — Organe {outil.organe}
+                  {String(i + 1).padStart(2, '0')} — Pilier {outil.organe}
                 </p>
                 <h2 className="display-card mt-6 sm:text-8xl">
                   {outil.name}
@@ -355,26 +354,25 @@ function OutilsPage() {
         </section>
       ))}
 
-      {/* Pot commun tie-back */}
+      {/* Reinvestment tie-back */}
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Ce qui les relie</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
-            Une part revient au pot commun.
+            Ce qui existe finance la suite.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Chacun de ces outils reverse une fraction de ses revenus dans un
-              pot commun, qui sert à reforger nos propres moyens — en
-              commençant par celui qui commande tous les autres : encaisser
-              sans intermédiaire.
+              Une part des revenus de chaque solution finance les projets
+              suivants. Le disponible paie ce qui se construit, en commençant
+              par le paiement sans intermédiaire.
             </p>
           </div>
           <Link
             to="/pot"
             className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
           >
-            Voir le pot <span aria-hidden>→</span>
+            Voir les projets <span aria-hidden>→</span>
           </Link>
         </div>
       </section>

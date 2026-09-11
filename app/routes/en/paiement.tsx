@@ -5,7 +5,7 @@ export const Route = createFileRoute('/en/paiement')({
   component: PaiementPageEn,
   head: () =>
     seo({
-      title: "The payments build — L'Alternative Fabrique",
+      title: "The payments project — L'Alternative Fabrique",
       description:
         'Taking money requires authorisation. The four regulatory steps that lead to running your own payments, and what each one costs.',
       path: '/en/paiement',
@@ -250,7 +250,7 @@ function PaiementPageEn() {
                 to="/en/pot"
                 className="label mt-10 inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
               >
-                <span aria-hidden>←</span> The common pot
+                <span aria-hidden>←</span> The projects
               </Link>
             </div>
 
@@ -399,7 +399,7 @@ function PaiementPageEn() {
       {/* Lawyers, not capital */}
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">What the pot funds</p>
+          <p className="label text-accent-primary">What reinvestment funds</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
             Lawyers, not capital.
           </h2>
@@ -431,7 +431,7 @@ function PaiementPageEn() {
           </h2>
           <p className="chapeau mt-8 max-w-2xl">
             The contents of an authorisation dossier, as the regulator examines
-            it. This list is what the common pot pays for.
+            it. This list is what our reinvestment pays for.
           </p>
 
           <div className="mt-16 grid grid-cols-1 gap-px bg-text sm:grid-cols-2">
@@ -489,13 +489,13 @@ function PaiementPageEn() {
               to="/en/pot"
               className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
             >
-              The common pot <span aria-hidden>→</span>
+              The projects <span aria-hidden>→</span>
             </Link>
             <Link
               to="/en/outils"
               className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-text pb-1 hover:opacity-70"
             >
-              The tools that fund it <span aria-hidden>→</span>
+              What we have built <span aria-hidden>→</span>
             </Link>
           </div>
         </div>

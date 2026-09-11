@@ -226,7 +226,7 @@ function ContactPage() {
                     —
                   </span>
                   <span>
-                    Vous utilisez un des outils et quelque chose vous gêne :
+                    Vous utilisez une de nos solutions et quelque chose vous gêne :
                     dites-le, on veut l'entendre
                   </span>
                 </li>
@@ -244,7 +244,7 @@ function ContactPage() {
                     —
                   </span>
                   <span>
-                    Il manque un organe, vous savez le construire ou vous
+                    Il manque un pilier, vous savez le construire ou vous
                     voulez apprendre : venez
                   </span>
                 </li>

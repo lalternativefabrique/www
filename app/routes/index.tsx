@@ -2,9 +2,9 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
 
 const homeSeo = seo({
-  title: "L'Alternative Fabrique — des outils sobres pour construire une alternative",
+  title: "L'Alternative Fabrique — l'alternative existe déjà",
   description:
-    "Cinq organes — connaissance, technique, création, financement, communication — et un outil sobre pour chacun. Un organe après l'autre.",
+    "Cinq solutions sont déjà disponibles. Découvrez ce que nous avons construit, les projets en cours et les piliers de l'alternative.",
   path: '/',
 })
 
@@ -44,19 +44,6 @@ type Capacite = {
   beta?: boolean
 }
 
-/** Shared "Disponible →" / "En cours" state line for an organ tile. */
-function OrganeStatus({ shipped, beta }: { shipped?: boolean; beta?: boolean }) {
-  if (!shipped && !beta) return <p className="label mt-6 opacity-50">En cours</p>
-  return (
-    <Link
-      to="/outils"
-      className="label mt-6 inline-flex w-fit items-center gap-2 border-b-2 border-current pb-1 hover:opacity-70"
-    >
-      {beta ? 'Sur invitation' : 'Disponible'} <span aria-hidden>→</span>
-    </Link>
-  )
-}
-
 const capacites: Capacite[] = [
   {
     name: 'Connaissance',
@@ -88,6 +75,27 @@ const capacites: Capacite[] = [
     shipped: true,
   },
 ]
+
+const realisations = [
+  ['Synthiz', 'Retrouver et relier ses sources.'],
+  ['Techtuel', 'Transformer la parole en texte.'],
+  ['Spore', 'Envoyer ses emails depuis une infrastructure indépendante.'],
+  ['Lungor', 'Piloter les revenus de son logiciel.'],
+  ['Skalpai', 'Faire tourner et observer ses applications.'],
+] as const
+
+const projets = [
+  {
+    statut: 'En cours',
+    nom: 'Le paiement',
+    detail: 'Encaisser sans laisser un intermédiaire décider des règles.',
+  },
+  {
+    statut: 'Ensuite',
+    nom: "L'investissement",
+    detail: 'Permettre à chacun de financer directement ce qui se construit.',
+  },
+] as const
 
 function LandingPage() {
   return (
@@ -123,114 +131,116 @@ function LandingPage() {
 
           <div className="mt-10 grid gap-10 sm:mt-14 sm:grid-cols-12">
             <p className="chapeau sm:col-span-7 sm:col-start-1">
-              Reprendre les moyens de production. Techniques, économiques et
-              de gouvernance : les organes nécessaires pour qu'une alternative
-              existe réellement. Nous les construisons un par un.
+              L'alternative est possible. Elle existe déjà. Nous construisons
+              des solutions concrètes pour reprendre la main sur nos moyens de
+              produire, de financer et de communiquer.
             </p>
             <div className="sm:col-span-4 sm:col-start-9 sm:self-end">
               <p className="label text-text/60">Au sommaire</p>
               <ul className="mt-3 space-y-1 text-base">
-                <li>— Cinq organes à reprendre</li>
-                <li>— Un pot commun, transparent</li>
-                <li>— Une revue à venir</li>
+                <li>— 5 solutions disponibles</li>
+                <li>— 2 projets à suivre</li>
+                <li>— 5 piliers à maîtriser</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ORGANES — asymmetric editorial cards */}
+      {/* WHAT ALREADY EXISTS */}
       <section className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <div className="flex items-baseline justify-between gap-6">
-            <h2 className="display-lg">Les organes</h2>
-            <Link
-              to="/apps"
-              className="label text-accent-primary hover:underline"
-            >
-              Voir toutes →
-            </Link>
+          <p className="label text-accent-primary">Ce qui existe déjà</p>
+          <div className="mt-6 grid gap-8 sm:grid-cols-12">
+            <h2 className="display-lg sm:col-span-7">
+              5 solutions.<br />Disponibles maintenant.
+            </h2>
+            <p className="chapeau sm:col-span-5 sm:self-end">
+              Pas une promesse pour plus tard. Des produits qui tournent, que
+              vous pouvez essayer et utiliser aujourd'hui.
+            </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-px bg-text sm:grid-cols-12">
-            {/* big tile */}
-            <article className="col-span-1 bg-accent-primary p-8 text-bg sm:col-span-7 sm:p-12">
-              <p className="label opacity-80">{capacites[0].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-8xl">
-                {capacites[0].name}
-              </h3>
-              <p className="chapeau mt-6 max-w-md">{capacites[0].tagline}</p>
-              <OrganeStatus shipped={capacites[0].shipped} />
-            </article>
-
-            <article className="col-span-1 bg-bg p-8 sm:col-span-5 sm:p-12">
-              <p className="label text-text/60">{capacites[1].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-7xl">
-                {capacites[1].name}
-              </h3>
-              <p className="mt-6 text-base text-text/80">{capacites[1].tagline}</p>
-              <OrganeStatus shipped={capacites[1].shipped} />
-            </article>
-
-            <article className="col-span-1 bg-accent-secondary p-8 text-bg sm:col-span-5 sm:p-12">
-              <p className="label opacity-70">{capacites[2].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-7xl">
-                {capacites[2].name}
-              </h3>
-              <p className="mt-6 text-base opacity-90">{capacites[2].tagline}</p>
-              <OrganeStatus shipped={capacites[2].shipped} />
-            </article>
-
-            <article className="col-span-1 bg-warm p-8 sm:col-span-7 sm:p-12">
-              <p className="label text-text/70">{capacites[3].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-8xl">
-                {capacites[3].name}
-              </h3>
-              <p className="chapeau mt-6 max-w-md">{capacites[3].tagline}</p>
-              <OrganeStatus shipped={capacites[3].shipped} beta={capacites[3].beta} />
-            </article>
-
-            <article className="col-span-1 bg-text p-8 text-bg sm:col-span-12 sm:p-12">
-              <p className="label opacity-70">{capacites[4].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-8xl">
-                {capacites[4].name}
-              </h3>
-              <p className="chapeau mt-6 max-w-xl opacity-90">
-                {capacites[4].tagline}
-              </p>
-              <OrganeStatus shipped={capacites[4].shipped} />
-            </article>
+          <div className="mt-14 grid gap-px bg-text sm:grid-cols-2">
+            {realisations.map(([nom, detail], index) => (
+              <article key={nom} className="bg-bg p-8 sm:p-10">
+                <p className="label text-text/50">
+                  {String(index + 1).padStart(2, '0')} — Disponible
+                </p>
+                <h3 className="font-heading mt-5 text-4xl uppercase leading-none sm:text-5xl">
+                  {nom}
+                </h3>
+                <p className="mt-5 text-base text-text/75">{detail}</p>
+              </article>
+            ))}
           </div>
+
+          <Link
+            to="/outils"
+            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
+          >
+            Découvrir les 5 solutions <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
 
-      {/* POT COMMUN — full bleed colored block */}
+      {/* CURRENT PROJECTS */}
       <section className="bg-accent-secondary text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
-          <div className="grid gap-12 sm:grid-cols-12">
-            <div className="sm:col-span-7">
-              <p className="label opacity-70">Le pot commun</p>
-              <h2 className="display-xl mt-6">
-                Chaque centime <br />
-                revient ici.
-              </h2>
-            </div>
-            <div className="flex flex-col justify-end sm:col-span-5">
-              <p className="chapeau opacity-90">
-                Une part des revenus de chaque outil alimente un pot commun,
-                qui sert à reforger nos propres moyens numériques. Une idée ne
-                se concrétise qu'en la finançant : plutôt que de lever des
-                fonds, on reprend la main sur des revenus qui nous échappent
-                déjà.
-              </p>
-              <Link
-                to="/pot"
-                className="mt-10 inline-flex w-fit items-center gap-3 border-2 border-bg px-6 py-3 label hover:bg-bg hover:text-accent-secondary"
-              >
-                Voir le pot <span aria-hidden>→</span>
-              </Link>
-            </div>
+          <p className="label opacity-70">Ce que nous construisons</p>
+          <h2 className="display-xl mt-6">Les projets en cours.</h2>
+          <div className="mt-14 grid gap-px bg-bg/40 sm:grid-cols-2">
+            {projets.map((projet) => (
+              <article key={projet.nom} className="bg-accent-secondary p-8 sm:p-10">
+                <p className="label opacity-70">{projet.statut}</p>
+                <h3 className="font-heading mt-5 text-4xl uppercase leading-none sm:text-5xl">
+                  {projet.nom}
+                </h3>
+                <p className="mt-5 text-base opacity-90">{projet.detail}</p>
+              </article>
+            ))}
           </div>
+          <p className="chapeau mt-12 max-w-3xl opacity-90">
+            Une part des revenus de nos solutions finance directement la suite.
+            Le disponible paie ce qui se construit.
+          </p>
+          <Link
+            to="/pot"
+            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-bg px-6 py-3 hover:bg-bg hover:text-accent-secondary"
+          >
+            Voir les projets et leur financement <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* PILLARS */}
+      <section className="border-b-2 border-text">
+        <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
+          <p className="label text-accent-primary">La vision d'ensemble</p>
+          <h2 className="display-lg mt-6">5 piliers à maîtriser.</h2>
+          <p className="chapeau mt-8 max-w-2xl">
+            Connaissance, technique, création, financement et communication :
+            les cinq capacités nécessaires pour qu'une alternative tienne.
+          </p>
+          <div className="mt-12 grid gap-px bg-text sm:grid-cols-5">
+            {capacites.map((capacite, index) => (
+              <article key={capacite.name} className="bg-bg p-6">
+                <p className="label text-text/45">
+                  {String(index + 1).padStart(2, '0')}
+                </p>
+                <h3 className="font-heading mt-5 text-2xl uppercase leading-none">
+                  {capacite.name}
+                </h3>
+                <p className="mt-4 text-sm text-text/70">{capacite.tagline}</p>
+              </article>
+            ))}
+          </div>
+          <Link
+            to="/apps"
+            className="label mt-10 inline-flex w-fit items-center gap-2 text-accent-primary hover:underline"
+          >
+            Comprendre les 5 piliers <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
 

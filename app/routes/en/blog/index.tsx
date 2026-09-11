@@ -91,7 +91,7 @@ function BlogIndexEn() {
                     >
                       <div className="sm:col-span-3">
                         <p className="label text-accent-primary">
-                          {article.organe}
+                          {article.organe} pillar
                         </p>
                         <p className="label mt-2 text-text/50">{article.lecture}</p>
                       </div>

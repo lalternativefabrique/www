@@ -5,9 +5,9 @@ export const Route = createFileRoute('/apps')({
   component: AppsPage,
   head: () =>
     seo({
-      title: "Les organes — L'Alternative Fabrique",
+      title: "Les piliers — L'Alternative Fabrique",
       description:
-        "Les cinq organes d'une alternative : connaissance, technique, création, financement, communication. Un outil sobre pour chacun.",
+        "Les cinq piliers d'une alternative qui tient : connaissance, technique, création, financement et communication.",
       path: '/apps',
     }),
 })
@@ -18,7 +18,7 @@ type Capacite = {
   kicker: string
   detail: string
   accent: 'primary' | 'secondary' | 'warm' | 'paper'
-  /** True once an organ has a shipped tool. Tools are named on /outils, not here. */
+  /** True once a pillar has a shipped solution. Solutions are named on /outils. */
   shipped?: boolean
   /** Shipped but invite-only: shown as "Sur invitation", not "Disponible". */
   beta?: boolean
@@ -84,13 +84,12 @@ function AppsPage() {
       {/* Title block */}
       <section className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label text-text/60">Les organes — № 01</p>
-          <h1 className="display-xl mt-6">Les organes</h1>
+          <p className="label text-text/60">La vision d'ensemble</p>
+          <h1 className="display-xl mt-6">Les piliers</h1>
           <p className="chapeau mt-8 max-w-2xl">
             De la connaissance au financement, de la construction à la
-            diffusion : les organes nécessaires pour faire exister une
-            alternative. Nous les construisons un à un, puis nous les relions
-            pour former un système cohérent.
+            diffusion : cinq capacités à maîtriser pour qu'une alternative
+            existe et tienne dans le temps.
           </p>
         </div>
       </section>
@@ -130,7 +129,7 @@ function AppsPage() {
                       to="/outils"
                       className="label mt-8 inline-flex w-fit items-center gap-2 border-b-2 border-current pb-1 hover:opacity-70"
                     >
-                      {capacite.beta ? 'Sur invitation' : 'Disponible'}{' '}
+                      {capacite.beta ? 'Sur invitation' : 'Voir la solution'}{' '}
                       <span aria-hidden>→</span>
                     </Link>
                   ) : (

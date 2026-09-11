@@ -3,9 +3,9 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
 
 const outilsSeo = seo({
-  title: "The tools — L'Alternative Fabrique",
+  title: "What we have built — L'Alternative Fabrique",
   description:
-    "The tools of L'Alternative Fabrique running today: Synthiz, Techtuel, Spore, Lungor, Skalpai. To each organ its tool.",
+    'Five solutions by L\'Alternative Fabrique are already working: Synthiz, Techtuel, Spore, Lungor and Skalpai.',
   path: '/en/outils',
   locale: 'en',
   alternate: { fr: '/outils', en: '/en/outils' },
@@ -284,17 +284,17 @@ function OutilsPageEn() {
       {/* Title block */}
       <section className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label text-text/60">The tools — № 01</p>
-          <h1 className="display-xl mt-6">The tools</h1>
+          <p className="label text-text/60">What already exists</p>
+          <h1 className="display-xl mt-6">What we have built</h1>
           <p className="chapeau mt-8 max-w-2xl">
-            To each organ its tool. These are running today — you can use them
-            now. The other organs are still waiting for theirs.
+            Five solutions are already working. Not concepts or announcements:
+            you can open and use them now.
           </p>
           <Link
             to="/en/apps"
             className="label mt-8 inline-flex w-fit items-center gap-2 text-accent-primary hover:underline"
           >
-            See the organs <span aria-hidden>→</span>
+            Understand the 5 pillars <span aria-hidden>→</span>
           </Link>
         </div>
       </section>
@@ -306,7 +306,7 @@ function OutilsPageEn() {
             <div className="grid gap-10 sm:grid-cols-12">
               <div className="sm:col-span-5">
                 <p className="label opacity-70">
-                  {String(i + 1).padStart(2, '0')} — {outil.organe} organ
+                  {String(i + 1).padStart(2, '0')} — {outil.organe} pillar
                 </p>
                 <h2 className="display-card mt-6 sm:text-8xl">
                   {outil.name}
@@ -360,26 +360,25 @@ function OutilsPageEn() {
         </section>
       ))}
 
-      {/* Pot commun tie-back */}
+      {/* Reinvestment tie-back */}
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What binds them</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
-            A share goes back to the common pot.
+            What exists funds what comes next.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Each of these tools pays a fraction of its revenue into a common
-              pot, which serves to forge our own means anew — starting with the
-              one that governs all the others: getting paid without an
-              intermediary.
+              A share of each solution's revenue funds the next projects. What
+              is available pays for what is being built, starting with payments
+              without a middleman.
             </p>
           </div>
           <Link
             to="/en/pot"
             className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
           >
-            See the pot <span aria-hidden>→</span>
+            See the projects <span aria-hidden>→</span>
           </Link>
         </div>
       </section>

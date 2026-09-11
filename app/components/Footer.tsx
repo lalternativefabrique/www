@@ -27,6 +27,15 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to={t.action.to}
+                  hash={t.action.hash}
+                  className="hover:text-accent-primary"
+                >
+                  {t.action.label}
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -75,7 +75,7 @@ function BlogArticle() {
     <article>
       <header className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">Organe {article.organe}</p>
+          <p className="label text-accent-primary">Pilier {article.organe}</p>
           <h1 className="font-heading mt-6 text-5xl uppercase leading-tight sm:text-7xl">
             {article.titre}
           </h1>
@@ -120,7 +120,7 @@ function BlogArticle() {
       {/* Tool tie-in */}
       <section className="border-t-2 border-text bg-bg">
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-20">
-          <p className="label text-text/60">L'outil de cet organe</p>
+          <p className="label text-text/60">La solution liée à ce pilier</p>
           <h2 className="font-heading mt-4 text-4xl uppercase leading-none sm:text-5xl">
             {article.outil}
           </h2>
@@ -129,13 +129,13 @@ function BlogArticle() {
               href={article.outilUrl}
               className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
             >
-              Ouvrir {article.outil} <span aria-hidden>→</span>
+              Découvrir {article.outil} <span aria-hidden>→</span>
             </a>
             <Link
               to="/outils"
               className="label inline-flex w-fit items-center gap-3 px-2 py-3 text-text/70 hover:text-accent-primary"
             >
-              Tous les outils <span aria-hidden>→</span>
+              Toutes les réalisations <span aria-hidden>→</span>
             </Link>
           </div>
         </div>

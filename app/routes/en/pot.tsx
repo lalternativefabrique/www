@@ -6,16 +6,16 @@ export const Route = createFileRoute('/en/pot')({
   component: PotPageEn,
   head: () =>
     seo({
-      title: "The common pot — L'Alternative Fabrique",
+      title: "Funding — L'Alternative Fabrique",
       description:
-        'Every penny spent on our tools goes into reforging our own digital means. Season after season, the common pot funds what still escapes us today.',
+        'See the projects of L\'Alternative Fabrique, their progress and how the solutions already available fund what comes next.',
       path: '/en/pot',
       locale: 'en',
       alternate: { fr: '/pot', en: '/en/pot' },
     }),
 })
 
-/** A season: an audience served, a set of tools shipped, a goal funded. */
+/** A step: an audience served, a set of solutions shipped, a goal funded. */
 type Saison = {
   rang: string
   etat: 'under way' | 'next' | 'open'
@@ -40,7 +40,7 @@ const saisons: Saison[] = [
     detail:
       'Transcribe, connect, recover what we pile up — and write to your readers from your own infrastructure. This revenue funds the brick that makes every other one possible: taking payment without a middleman.',
     accent: 'primary',
-    chantier: { to: '/en/paiement', label: 'The work in detail' },
+    chantier: { to: '/en/paiement', label: 'The project in detail' },
   },
   {
     rang: '02',
@@ -51,7 +51,7 @@ const saisons: Saison[] = [
     detail:
       'Development tooling, observability, event handling between services. The code is already largely written: what gets funded here is the infrastructure that runs it — compute, servers, the bill that lands every month.',
     accent: 'secondary',
-    chantierEnAttente: 'Work still to be written',
+    chantierEnAttente: 'Project to be defined',
   },
   {
     rang: '03',
@@ -78,25 +78,68 @@ function PotPageEn() {
       {/* Header */}
       <section className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label text-text/60">The direction</p>
+          <p className="label text-text/60">Funding</p>
           <h1 className="display-xl mt-6">
-            The common
-            <br />
-            <span className="text-accent-primary">pot</span>
+            Fund <span className="text-accent-primary">what comes next</span>
           </h1>
           <p className="chapeau mt-10 max-w-2xl">
-            Every penny spent on our tools goes into reforging our own digital
-            means. Not a cause to support: a mechanism, season after season.
+            A share of the revenue from our solutions funds the projects that
+            follow. You can also contribute directly.
           </p>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <a
+              href="#chip-in"
+              className="label inline-flex w-fit items-center gap-3 border-2 border-text bg-text px-6 py-3 text-bg hover:bg-accent-primary"
+            >
+              Contribute now <span aria-hidden>↓</span>
+            </a>
+            <a
+              href="#projects"
+              className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:text-accent-primary"
+            >
+              See the projects <span aria-hidden>↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="chip-in"
+        className="scroll-mt-6 border-b-2 border-text bg-accent-secondary text-bg"
+      >
+        <div className="mx-auto min-h-[calc(100svh-7rem)] w-full max-w-7xl px-6 py-16 sm:py-24">
+          <p className="label opacity-70">Direct contribution</p>
+          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+            Fund what comes next.
+          </h2>
+
+          <div className="mt-12">
+            <Participation />
+          </div>
+
+          <div className="mt-16 flex flex-wrap gap-4 border-t-2 border-current pt-10">
+            <Link
+              to="/en/paiement"
+              className="label inline-flex w-fit items-center gap-3 border-2 border-current px-6 py-3 hover:bg-bg hover:text-accent-secondary"
+            >
+              The payment project, in detail <span aria-hidden>→</span>
+            </Link>
+            <Link
+              to="/en/outils"
+              className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-current pb-1 hover:opacity-70"
+            >
+              What we have built <span aria-hidden>→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* The thesis — why any of this exists */}
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">The thesis</p>
+          <p className="label text-accent-primary">Funding</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
-            An idea only becomes real once it is funded.
+            What exists funds what comes next.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
@@ -112,35 +155,31 @@ function PotPageEn() {
               mine, tapped daily, on everyone. It cannot keep escaping us.
             </p>
             <p>
-              The common pot is the tool of that recovery. Its normal source is
-              what the tools earn: every subscription paid reinvests a share
-              into the means we still lack — starting with the one that
-              commands all the others, taking payment.
+              We reinvest a share of each solution's revenue in the projects
+              that follow. The first concerns the means that governs all the
+              others: taking payments.
             </p>
             <p>
-              It is also open. Anyone who wants to can put in directly, without
-              buying a tool they have no use for. This is not a donation to a
-              cause: it is an advance on the same mechanism, and it simply
-              makes it move faster. The pot does not change nature according to
-              where the money comes from — it pays the same list, in the same
-              order.
+              You can also contribute directly without buying a solution you
+              do not need. This is not a donation to a cause: it is a
+              contribution to development, assigned to the same projects in
+              the same order.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Seasons */}
-      <section className="border-t-2 border-text">
+      {/* Roadmap */}
+      <section id="projects" className="scroll-mt-6 border-t-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
-          <p className="label text-accent-primary">The seasons</p>
+          <p className="label text-accent-primary">The roadmap</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
-            Each season pays for the next.
+            Now. Next. Later.
           </h2>
           <p className="chapeau mt-8 max-w-2xl">
-            A season serves an audience, ships its tools, and funds a means we
-            did not have. It lasts as long as it takes to fund the next one —
-            and once its goal is met it does not stop: it keeps producing, and
-            prefunds everything that follows.
+            Each step ships useful solutions for an audience and funds the next
+            project. Once available, it keeps producing and funding what comes
+            after it.
           </p>
         </div>
       </section>
@@ -150,14 +189,14 @@ function PotPageEn() {
           <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
             <div className="grid gap-10 sm:grid-cols-12">
               <div className="sm:col-span-5">
-                <p className="label opacity-70">Season — {saison.etat}</p>
+                <p className="label opacity-70">Project — {saison.etat}</p>
                 <p className="font-heading mt-6 text-7xl leading-none sm:text-8xl">
                   {saison.rang}
                 </p>
                 <p className="mt-6 text-lg font-medium">{saison.public}</p>
                 {saison.chantier ? (
                   <p className="label mt-4 opacity-60">
-                    Work — № {saison.rang}
+                    Project — № {saison.rang}
                   </p>
                 ) : null}
               </div>
@@ -166,7 +205,7 @@ function PotPageEn() {
                 <p className="chapeau">{saison.detail}</p>
                 <dl className="mt-10 space-y-6">
                   <div>
-                    <dt className="label opacity-60">The tools</dt>
+                    <dt className="label opacity-60">Available solutions</dt>
                     <dd className="mt-2 text-base opacity-90">
                       {saison.outils}
                     </dd>
@@ -196,10 +235,10 @@ function PotPageEn() {
         </section>
       ))}
 
-      {/* The first chantier — teaser toward /paiement */}
+      {/* The first project — teaser toward /paiement */}
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">The first piece of work</p>
+          <p className="label text-accent-primary">The first project</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
             Taking payment requires permission.
           </h2>
@@ -220,43 +259,13 @@ function PotPageEn() {
             </p>
             <p>
               Every means we want to take back is guarded by a permission. That
-              is what the common pot funds.
+              is what our reinvestment funds.
             </p>
           </div>
 
         </div>
       </section>
 
-      <section
-        id="chip-in"
-        className="border-t-2 border-text bg-accent-secondary text-bg"
-      >
-        <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
-          <p className="label opacity-70">Chip in</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
-            Put something in.
-          </h2>
-
-          <div className="mt-12">
-            <Participation />
-          </div>
-
-          <div className="mt-16 flex flex-wrap gap-4 border-t-2 border-current pt-10">
-            <Link
-              to="/en/paiement"
-              className="label inline-flex w-fit items-center gap-3 border-2 border-current px-6 py-3 hover:bg-bg hover:text-accent-secondary"
-            >
-              The payment work, in detail <span aria-hidden>→</span>
-            </Link>
-            <Link
-              to="/en/outils"
-              className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-current pb-1 hover:opacity-70"
-            >
-              The tools that fund it <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }

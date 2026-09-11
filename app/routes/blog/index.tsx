@@ -77,7 +77,7 @@ function BlogIndex() {
                 >
                   <div className="sm:col-span-3">
                     <p className="label text-accent-primary">
-                      Organe {article.organe}
+                      Pilier {article.organe}
                     </p>
                     <p className="label mt-2 text-text/50">{article.lecture}</p>
                   </div>

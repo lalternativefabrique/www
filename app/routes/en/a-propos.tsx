@@ -7,7 +7,7 @@ export const Route = createFileRoute('/en/a-propos')({
     seo({
       title: "About — L'Alternative Fabrique",
       description:
-        "L'Alternative Fabrique builds the technical, economic and governance means of an alternative, one organ at a time.",
+        "L'Alternative Fabrique proves an alternative is possible through available solutions, concrete projects and five pillars.",
       path: '/en/a-propos',
       locale: 'en',
       alternate: { fr: '/a-propos', en: '/en/a-propos' },
@@ -22,10 +22,9 @@ function AProposPageEn() {
           <p className="label text-text/60">The collective</p>
           <h1 className="display-xl mt-6">About</h1>
           <p className="chapeau mt-10 max-w-2xl">
-            L'Alternative Fabrique builds the means of an alternative —
-            technical, economic, governmental — and pools part of the revenue
-            of every tool into a common pot, to fund the organs that are still
-            missing.
+            L'Alternative Fabrique shows that an alternative is possible by
+            building its own solutions. A share of their revenue is reinvested
+            in the projects that follow.
           </p>
         </div>
       </section>
@@ -46,11 +45,11 @@ function AProposPageEn() {
               technical, economic, cultural, and of governance.
             </p>
             <p>
-              L'Alternative Fabrique builds those means, one organ at a time.
+              L'Alternative Fabrique builds those means, one pillar at a time.
             </p>
             <p>
-              Every published tool holds a precise place. Some answer an
-              immediate need. Others produce the resources the next organs
+              Every published solution holds a precise place. Some answer an
+              immediate need. Others produce the resources the next projects
               require.
             </p>
             <p>This order owes nothing to chance. It is an architecture.</p>

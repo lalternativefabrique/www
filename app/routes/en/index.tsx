@@ -2,9 +2,9 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { seo } from '@/lib/seo'
 
 const homeSeo = seo({
-  title: "L'Alternative Fabrique — frugal tools to build an alternative",
+  title: "L'Alternative Fabrique — the alternative already exists",
   description:
-    'Five organs — knowledge, technique, creation, funding, communication — and one frugal tool for each. One organ at a time.',
+    'Five solutions are already available. See what we have built, the projects under way and the pillars of the alternative.',
   path: '/en',
   locale: 'en',
   alternate: { fr: '/', en: '/en' },
@@ -26,19 +26,6 @@ type Capacite = {
   shipped?: boolean
   /** Shipped but invite-only: shown as "By invitation", not "Available". */
   beta?: boolean
-}
-
-/** Shared "Available →" / "In progress" state line for an organ tile. */
-function OrganeStatus({ shipped, beta }: { shipped?: boolean; beta?: boolean }) {
-  if (!shipped && !beta) return <p className="label mt-6 opacity-50">In progress</p>
-  return (
-    <Link
-      to="/en/outils"
-      className="label mt-6 inline-flex w-fit items-center gap-2 border-b-2 border-current pb-1 hover:opacity-70"
-    >
-      {beta ? 'By invitation' : 'Available'} <span aria-hidden>→</span>
-    </Link>
-  )
 }
 
 const capacites: Capacite[] = [
@@ -72,6 +59,27 @@ const capacites: Capacite[] = [
     shipped: true,
   },
 ]
+
+const solutions = [
+  ['Synthiz', 'Find and connect your sources.'],
+  ['Techtuel', 'Turn spoken content into text.'],
+  ['Spore', 'Send email from independent infrastructure.'],
+  ['Lungor', 'Steer the revenue of your software.'],
+  ['Skalpai', 'Run and observe your applications.'],
+] as const
+
+const projects = [
+  {
+    status: 'Under way',
+    name: 'Payments',
+    detail: 'Take payments without letting a middleman write the rules.',
+  },
+  {
+    status: 'Next',
+    name: 'Investment',
+    detail: 'Let anyone directly fund what is being built.',
+  },
+] as const
 
 function LandingPageEn() {
   return (
@@ -107,113 +115,116 @@ function LandingPageEn() {
 
           <div className="mt-10 grid gap-10 sm:mt-14 sm:grid-cols-12">
             <p className="chapeau sm:col-span-7 sm:col-start-1">
-              Taking back the means of production. Technical, economic and
-              governance: the organs an alternative needs to actually exist. We
-              are building them one by one.
+              The alternative is possible. It already exists. We build concrete
+              solutions to take back control of how we produce, fund and
+              communicate.
             </p>
             <div className="sm:col-span-4 sm:col-start-9 sm:self-end">
               <p className="label text-text/60">In this issue</p>
               <ul className="mt-3 space-y-1 text-base">
-                <li>— Five organs to take back</li>
-                <li>— A common pot, in the open</li>
-                <li>— A review to come</li>
+                <li>— 5 solutions available</li>
+                <li>— 2 projects to follow</li>
+                <li>— 5 pillars to master</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ORGANES — asymmetric editorial cards */}
+      {/* WHAT ALREADY EXISTS */}
       <section className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <div className="flex items-baseline justify-between gap-6">
-            <h2 className="display-lg">The organs</h2>
-            <Link
-              to="/en/apps"
-              className="label text-accent-primary hover:underline"
-            >
-              See them all →
-            </Link>
+          <p className="label text-accent-primary">What already exists</p>
+          <div className="mt-6 grid gap-8 sm:grid-cols-12">
+            <h2 className="display-lg sm:col-span-7">
+              5 solutions.<br />Available now.
+            </h2>
+            <p className="chapeau sm:col-span-5 sm:self-end">
+              Not a promise for later. Working products you can try and use
+              today.
+            </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-px bg-text sm:grid-cols-12">
-            {/* big tile */}
-            <article className="col-span-1 bg-accent-primary p-8 text-bg sm:col-span-7 sm:p-12">
-              <p className="label opacity-80">{capacites[0].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-8xl">
-                {capacites[0].name}
-              </h3>
-              <p className="chapeau mt-6 max-w-md">{capacites[0].tagline}</p>
-              <OrganeStatus shipped={capacites[0].shipped} />
-            </article>
-
-            <article className="col-span-1 bg-bg p-8 sm:col-span-5 sm:p-12">
-              <p className="label text-text/60">{capacites[1].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-7xl">
-                {capacites[1].name}
-              </h3>
-              <p className="mt-6 text-base text-text/80">{capacites[1].tagline}</p>
-              <OrganeStatus shipped={capacites[1].shipped} />
-            </article>
-
-            <article className="col-span-1 bg-accent-secondary p-8 text-bg sm:col-span-5 sm:p-12">
-              <p className="label opacity-70">{capacites[2].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-7xl">
-                {capacites[2].name}
-              </h3>
-              <p className="mt-6 text-base opacity-90">{capacites[2].tagline}</p>
-              <OrganeStatus shipped={capacites[2].shipped} />
-            </article>
-
-            <article className="col-span-1 bg-warm p-8 sm:col-span-7 sm:p-12">
-              <p className="label text-text/70">{capacites[3].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-8xl">
-                {capacites[3].name}
-              </h3>
-              <p className="chapeau mt-6 max-w-md">{capacites[3].tagline}</p>
-              <OrganeStatus shipped={capacites[3].shipped} beta={capacites[3].beta} />
-            </article>
-
-            <article className="col-span-1 bg-text p-8 text-bg sm:col-span-12 sm:p-12">
-              <p className="label opacity-70">{capacites[4].kicker}</p>
-              <h3 className="display-card mt-6 sm:text-8xl">
-                {capacites[4].name}
-              </h3>
-              <p className="chapeau mt-6 max-w-xl opacity-90">
-                {capacites[4].tagline}
-              </p>
-              <OrganeStatus shipped={capacites[4].shipped} />
-            </article>
+          <div className="mt-14 grid gap-px bg-text sm:grid-cols-2">
+            {solutions.map(([name, detail], index) => (
+              <article key={name} className="bg-bg p-8 sm:p-10">
+                <p className="label text-text/50">
+                  {String(index + 1).padStart(2, '0')} — Available
+                </p>
+                <h3 className="font-heading mt-5 text-4xl uppercase leading-none sm:text-5xl">
+                  {name}
+                </h3>
+                <p className="mt-5 text-base text-text/75">{detail}</p>
+              </article>
+            ))}
           </div>
+
+          <Link
+            to="/en/outils"
+            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
+          >
+            Discover the 5 solutions <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
 
-      {/* POT COMMUN — full bleed colored block */}
+      {/* CURRENT PROJECTS */}
       <section className="bg-accent-secondary text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
-          <div className="grid gap-12 sm:grid-cols-12">
-            <div className="sm:col-span-7">
-              <p className="label opacity-70">The common pot</p>
-              <h2 className="display-xl mt-6">
-                Every penny <br />
-                comes back here.
-              </h2>
-            </div>
-            <div className="flex flex-col justify-end sm:col-span-5">
-              <p className="chapeau opacity-90">
-                A share of what each tool earns feeds a common pot, spent on
-                reforging our own digital means. An idea only becomes real once
-                it is funded: rather than raise money, we take back revenue that
-                already slips through our hands.
-              </p>
-              <Link
-                to="/en/pot"
-                className="mt-10 inline-flex w-fit items-center gap-3 border-2 border-bg px-6 py-3 label hover:bg-bg hover:text-accent-secondary"
-              >
-                See the pot <span aria-hidden>→</span>
-              </Link>
-            </div>
+          <p className="label opacity-70">What we are building</p>
+          <h2 className="display-xl mt-6">Projects under way.</h2>
+          <div className="mt-14 grid gap-px bg-bg/40 sm:grid-cols-2">
+            {projects.map((project) => (
+              <article key={project.name} className="bg-accent-secondary p-8 sm:p-10">
+                <p className="label opacity-70">{project.status}</p>
+                <h3 className="font-heading mt-5 text-4xl uppercase leading-none sm:text-5xl">
+                  {project.name}
+                </h3>
+                <p className="mt-5 text-base opacity-90">{project.detail}</p>
+              </article>
+            ))}
           </div>
+          <p className="chapeau mt-12 max-w-3xl opacity-90">
+            A share of the revenue from our solutions directly funds what comes
+            next. What is available pays for what is being built.
+          </p>
+          <Link
+            to="/en/pot"
+            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-bg px-6 py-3 hover:bg-bg hover:text-accent-secondary"
+          >
+            See the projects and their funding <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* PILLARS */}
+      <section className="border-b-2 border-text">
+        <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
+          <p className="label text-accent-primary">The whole picture</p>
+          <h2 className="display-lg mt-6">5 pillars to master.</h2>
+          <p className="chapeau mt-8 max-w-2xl">
+            Knowledge, technique, creation, funding and communication: the five
+            capabilities an alternative needs to last.
+          </p>
+          <div className="mt-12 grid gap-px bg-text sm:grid-cols-5">
+            {capacites.map((capacite, index) => (
+              <article key={capacite.name} className="bg-bg p-6">
+                <p className="label text-text/45">
+                  {String(index + 1).padStart(2, '0')}
+                </p>
+                <h3 className="font-heading mt-5 text-2xl uppercase leading-none">
+                  {capacite.name}
+                </h3>
+                <p className="mt-4 text-sm text-text/70">{capacite.tagline}</p>
+              </article>
+            ))}
+          </div>
+          <Link
+            to="/en/apps"
+            className="label mt-10 inline-flex w-fit items-center gap-2 text-accent-primary hover:underline"
+          >
+            Understand the 5 pillars <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
 

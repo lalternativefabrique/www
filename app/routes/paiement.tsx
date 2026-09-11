@@ -5,7 +5,7 @@ export const Route = createFileRoute('/paiement')({
   component: PaiementPage,
   head: () =>
     seo({
-      title: "Le chantier du paiement — L'Alternative Fabrique",
+      title: "Le projet du paiement — L'Alternative Fabrique",
       description:
         "Encaisser demande une autorisation. Les quatre marches réglementaires qui mènent à opérer ses propres paiements, et ce que chacune coûte.",
       path: '/paiement',
@@ -237,7 +237,7 @@ function PaiementPage() {
           <div className="grid gap-12 sm:grid-cols-12">
             <div className="sm:col-span-7">
               <p className="label text-text/60">
-                Chantier — № 01 · Saison 01
+                Projet — № 01
               </p>
               <h1 className="display-xl mt-6">Le paiement</h1>
               <p className="chapeau mt-10 max-w-2xl">
@@ -248,7 +248,7 @@ function PaiementPage() {
                 to="/pot"
                 className="label mt-10 inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
               >
-                <span aria-hidden>←</span> Le pot commun
+                <span aria-hidden>←</span> Les projets
               </Link>
             </div>
 
@@ -301,7 +301,7 @@ function PaiementPage() {
       {/* The staircase, seen from afar */}
       <section className="border-t-2 border-text bg-text text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label opacity-70">Chantier — le paiement</p>
+          <p className="label opacity-70">Projet — le paiement</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
             Quatre marches,
             <br />
@@ -398,7 +398,7 @@ function PaiementPage() {
       {/* Lawyers, not capital */}
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">Ce que finance le pot</p>
+          <p className="label text-accent-primary">Ce que finance le réinvestissement</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
             Des juristes, pas du capital.
           </h2>
@@ -431,7 +431,7 @@ function PaiementPage() {
           </h2>
           <p className="chapeau mt-8 max-w-2xl">
             Le détail d'un dossier d'agrément, tel que le régulateur l'examine.
-            C'est cette liste que le pot commun paie.
+            C'est cette liste que notre réinvestissement paie.
           </p>
 
           <div className="mt-16 grid grid-cols-1 gap-px bg-text sm:grid-cols-2">
@@ -492,13 +492,13 @@ function PaiementPage() {
               to="/pot"
               className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
             >
-              Le pot commun <span aria-hidden>→</span>
+              Les projets <span aria-hidden>→</span>
             </Link>
             <Link
               to="/outils"
               className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-text pb-1 hover:opacity-70"
             >
-              Les outils qui financent <span aria-hidden>→</span>
+              Les réalisations qui financent <span aria-hidden>→</span>
             </Link>
           </div>
         </div>

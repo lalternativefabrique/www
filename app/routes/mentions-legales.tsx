@@ -42,11 +42,11 @@ function MentionsLegalesPage() {
       </Section>
 
       <Section
-        title="Contributions au pot commun"
+        title="Contributions aux projets"
         classNames={LEGAL_CLASSNAMES}
       >
         <p>
-          La page « Pot commun » permet de verser une contribution unique, d'un
+          La page « Projets » permet de verser une contribution unique, d'un
           montant compris entre 1&nbsp;€ et 5&nbsp;000&nbsp;€. Il ne s'agit pas
           d'un don à une association et aucun reçu fiscal n'est délivré&nbsp;:
           l'éditeur est une entreprise individuelle. Une facture est adressée

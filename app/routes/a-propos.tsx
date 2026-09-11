@@ -7,7 +7,7 @@ export const Route = createFileRoute('/a-propos')({
     seo({
       title: "À propos — L'Alternative Fabrique",
       description:
-        "L'Alternative Fabrique construit les moyens techniques, économiques et de gouvernance d'une alternative, organe après organe.",
+        "L'Alternative Fabrique prouve qu'une alternative est possible avec des solutions disponibles, des projets concrets et cinq piliers.",
       path: '/a-propos',
     }),
 })
@@ -20,10 +20,9 @@ function AProposPage() {
           <p className="label text-text/60">Le collectif</p>
           <h1 className="display-xl mt-6">À propos</h1>
           <p className="chapeau mt-10 max-w-2xl">
-            L'Alternative Fabrique construit les moyens d'une alternative —
-            techniques, économiques, de gouvernance — et mutualise une partie
-            des revenus de chaque outil dans un pot commun pour financer les
-            organes qui manquent encore.
+            L'Alternative Fabrique montre qu'une alternative est possible en
+            construisant ses propres solutions. Une part de leurs revenus est
+            réinvestie dans les projets suivants.
           </p>
         </div>
       </section>
@@ -45,12 +44,12 @@ function AProposPage() {
               techniques, économiques, culturels et de gouvernance.
             </p>
             <p>
-              L'Alternative Fabrique construit ces moyens, organe après organe.
+              L'Alternative Fabrique construit ces moyens, pilier après pilier.
             </p>
             <p>
-              Chaque outil publié occupe une place précise. Certains répondent
+              Chaque solution publiée occupe une place précise. Certaines répondent
               à un besoin immédiat. D'autres produisent les ressources
-              nécessaires à la construction des organes suivants.
+              nécessaires aux projets suivants.
             </p>
             <p>
               Cet ordre n'est pas le fruit du hasard. C'est une architecture.

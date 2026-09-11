@@ -41,9 +41,9 @@ function LegalNoticePageEn() {
         </p>
       </Section>
 
-      <Section title="Contributions to the common pot" classNames={LEGAL_CLASSNAMES}>
+      <Section title="Contributions to projects" classNames={LEGAL_CLASSNAMES}>
         <p>
-          The "Common pot" page accepts a one-off contribution between €1 and
+          The "Projects" page accepts a one-off contribution between €1 and
           €5,000. It is not a donation to a charity and no tax receipt is
           issued: the publisher is a sole trader. An invoice is sent by email.
           The payment happens once, never recurs and opens no subscription.
