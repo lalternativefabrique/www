@@ -1,5 +1,6 @@
 import { Link, createFileRoute, useRouter } from '@tanstack/react-router'
 import { AdminLoginForm } from '@lalternative/admin'
+import { startSso } from '@lalternative/auth'
 import { authClient } from '@/lib/auth-client'
 import { currentAdmin, ssoEnabled } from '@/server/admin-session'
 
@@ -43,10 +44,7 @@ function Login() {
             ? {
                 only: true,
                 signIn: async () => {
-                  await authClient.signIn.oauth2({
-                    providerId: 'urbangate',
-                    callbackURL: redirect ?? '/admin',
-                  })
+                  await startSso(authClient, { callbackURL: redirect ?? '/admin' })
                 },
               }
             : undefined
