@@ -83,6 +83,14 @@ WORKDIR /app
 # and a few MB with them.
 RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 
+# node:24-bookworm-slim ships libpcre2-8-0 10.42-1, which bookworm-security
+# supersedes with 10.42-1+deb12u1. The publish scan runs with --ignore-unfixed,
+# so this pair is the only thing it can hold against the image — the rest of
+# bookworm's open advisories carry no fix and are filtered out.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libpcre2-8-0 \
+    && rm -rf /var/lib/apt/lists/*
+
 ENV NODE_ENV=production
 ENV PORT=8080
 ENV HOST=0.0.0.0
