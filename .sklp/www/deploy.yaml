@@ -48,10 +48,14 @@ services:
     command:
       [
         "postgres",
-        "-c", "archive_mode=on",
-        "-c", "archive_command=pgbackrest --stanza=www archive-push %p",
-        "-c", "wal_level=replica",
-        "-c", "archive_timeout=60",
+        "-c",
+        "archive_mode=on",
+        "-c",
+        "archive_command=pgbackrest --stanza=www archive-push %p",
+        "-c",
+        "wal_level=replica",
+        "-c",
+        "archive_timeout=60",
       ]
     ready:
       log: "database system is ready to accept connections"
@@ -101,7 +105,7 @@ services:
       # as-is and the version segment belongs here — the opposite of sdk-go,
       # which appends /api/v1 to a bare root.
       LUNGOR_API_URL: http://core.lungor-production.internal/api/v1
-      LUNGOR_API_KEY: ${LUNGOR_API_KEY}
+      LUNGOR_APP_KEY: ${LUNGOR_APP_KEY}
       LUNGOR_DON_PLAN_ID: ${LUNGOR_DON_PLAN_ID}
       PUBLIC_SITE_URL: https://lalternativefabrique.org
     resources:
