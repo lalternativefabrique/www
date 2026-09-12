@@ -113,7 +113,7 @@ services:
 
 jobs:
   migrate:
-    image: rg.fr-par.scw.cloud/lalternative/migrate:20260912-1523-3a962ab60a33
+    image: rg.fr-par.scw.cloud/lalternative/migrate:20260912-1533-2840dc1d16ff
     # The image's entrypoint is `migrate -path /migrations -database`, so the
     # connection string is an ARGUMENT, not an environment variable.
     command:
