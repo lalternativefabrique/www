@@ -52,7 +52,7 @@ nothing else.**
 `app/server/db.ts` no longer migrates. It connects and queries, and assumes the
 database it reaches is already migrated.
 
-**The SQL lives in `apps/migrations/` and is the migration image.** `COPY .
+**The SQL lives in `migrations/` and is the migration image.** `COPY .
 /migrations` is the whole of it, so a new migration is a new image is a new tag
 — and the tag is what ArgoCD diffs. Publishing is scoped to that directory, so a
 deploy that changes no schema does not restate one.
@@ -91,7 +91,7 @@ and the missing `.up`/`.down` suffix keep it out of the migration set.
 
 Publishing an image is no longer sufficient to deploy a schema change: the
 migrate image has to be published too. Both come out of the same `sklp run
-publish`, but a change under `apps/migrations/` and a change under `app/` now
+publish`, but a change under `migrations/` and a change under `app/` now
 produce two images with independent scopes.
 
 The site can boot against a database whose schema is older than the code
@@ -102,7 +102,8 @@ failed migration should not take the public site down — but it means the Job's
 status is worth watching, which is why the Job survives its run and its logs
 stay readable until the next tag replaces it.
 
-`migrations/` moved to `apps/migrations/` and the files were renumbered to six
+`migrations/` moved to `apps/migrations/` (renumbered to six digits) and back to
+`migrations/` on 2026-09-12: one app, one tree. The files were renumbered to six
 digits. Anyone with the old path in muscle memory will find nothing there.
 
 The site image no longer carries the SQL, which is the correct blast radius: the
