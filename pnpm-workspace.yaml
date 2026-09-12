@@ -28,4 +28,4 @@ overrides:
 
 minimumReleaseAgeExclude:
   - '@lalternative/legal@0.1.0'
-  - '@lalternative/auth@0.13.1'
+  - '@lalternative/auth'

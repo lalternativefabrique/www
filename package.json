@@ -13,7 +13,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1109.0",
     "@lalternative/admin": "^0.10.0",
-    "@lalternative/auth": "^0.13.1",
+    "@lalternative/auth": "^0.13.2",
     "@lalternative/legal": "^0.1.0",
     "@lalternative/spore-sdk": "^0.3.0",
     "@mdx-js/mdx": "^3.1.1",
