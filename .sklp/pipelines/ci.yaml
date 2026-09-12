@@ -16,7 +16,7 @@ scopes:
     - "tsconfig.json"
     - "server.js"
   migrations:
-    - "apps/migrations/**"
+    - "migrations/**"
 
 steps:
   # Checked here rather than discovered in the cluster: golang-migrate reads the
@@ -25,7 +25,7 @@ steps:
     scope: [migrations]
     tools: []
     run: |
-      cd apps/migrations
+      cd migrations
       fail=0
       for up in *.up.sql; do
         [ -e "$up" ] || { echo "no .up.sql files found"; exit 1; }

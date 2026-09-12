@@ -101,7 +101,7 @@ COPY --from=builder /app/package.json ./package.json
 COPY server.js ./server.js
 
 # No migrations here. The schema is applied out of band by the golang-migrate
-# Job, whose own image carries the SQL — see apps/migrations/. This server
+# Job, whose own image carries the SQL — see migrations/. This server
 # assumes the database it connects to is already migrated.
 
 # node is the non-root user baked into the official image. Numeric form so the

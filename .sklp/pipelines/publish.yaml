@@ -33,7 +33,7 @@ scopes:
     - "Dockerfile"
     - "server.js"
   migrate:
-    - "apps/migrations/**"
+    - "migrations/**"
   shared:
     - ".sklp/**"
 
@@ -47,12 +47,12 @@ steps:
     tag: "{{ publish_tag }}"
 
   # The SQL is the image, so a new migration is a new tag — and that tag is what
-  # ArgoCD diffs to decide the Job must run again. Scoped to apps/migrations so
+  # ArgoCD diffs to decide the Job must run again. Scoped to migrations so
   # a deploy that changes no schema does not restate one.
   - name: migrate
     kind: publish
     scope: [migrate, shared]
-    context: apps/migrations
-    dockerfile: apps/migrations/Dockerfile
+    context: migrations
+    dockerfile: migrations/Dockerfile
     image: rg.fr-par.scw.cloud/lalternative/migrate
     tag: "{{ publish_tag }}"
