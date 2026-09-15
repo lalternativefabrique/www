@@ -1,4 +1,4 @@
-import { Link, createFileRoute, useRouter } from '@tanstack/react-router'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { AdminLoginForm } from '@lalternative/admin'
 import { startSso } from '@lalternative/auth'
 import { authClient } from '@/lib/auth-client'
@@ -51,16 +51,6 @@ function Login() {
         }
         title="L'Alternative Fabrique"
         subtitle="Administration"
-        footer={
-          sso ? undefined : (
-            <Link
-              to="/admin/setup"
-              className="text-sm text-muted-foreground underline hover:text-foreground"
-            >
-              Créer le premier compte
-            </Link>
-          )
-        }
       />
     </div>
   )
