@@ -21,6 +21,14 @@ tools:
 # Single service: the whole repo builds one image. The scope mirrors ci.yaml's
 # `web`, plus the files that only affect packaging (Dockerfile, server.js,
 # pnpm-workspace.yaml) and would otherwise not trigger a rebuild.
+secrets:
+  - SCW_SECRET_KEY
+
+registries:
+  rg.fr-par.scw.cloud:
+    username: nologin
+    password: ${SCW_SECRET_KEY}
+
 scopes:
   web:
     - "app/**"
