@@ -12,7 +12,7 @@ gateway:
 
 services:
   postgres:
-    image: rg.fr-par.scw.cloud/platform-ops/postgres-pgbackrest:20260904-0223-41e7d4bef231
+    image: rg.fr-par.scw.cloud/platform-ops/postgres-pgbackrest:20260923-0744-052cb8cc8525
     port: 5432
     env:
       POSTGRES_DB: lalter
@@ -62,7 +62,7 @@ services:
       timeout: 120s
 
   pgbackrest:
-    image: rg.fr-par.scw.cloud/platform-ops/pgbackrest-sidecar:20260904-0223-41e7d4bef231
+    image: rg.fr-par.scw.cloud/platform-ops/pgbackrest-sidecar:20260923-0744-052cb8cc8525
     depends_on: [postgres]
     volumes:
       - lalter-pgdata:/var/lib/postgresql/data
@@ -128,7 +128,7 @@ jobs:
     depends_on: [postgres]
 
   restore-check:
-    image: rg.fr-par.scw.cloud/platform-ops/postgres-pgbackrest:20260904-0310-a42c83475840
+    image: rg.fr-par.scw.cloud/platform-ops/postgres-pgbackrest:20260923-0744-052cb8cc8525
     command: ["pgbackrest-restore-check"]
     schedule: "30 4 * * *"
     depends_on: [postgres]
