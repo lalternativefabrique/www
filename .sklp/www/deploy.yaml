@@ -80,7 +80,7 @@ services:
       PGBACKREST_REPO1_S3_KEY_SECRET: ${S3_SECRET_KEY}
 
   www:
-    image: rg.fr-par.scw.cloud/lalternative/www:20260912-1028-ecdd9536306e
+    image: rg.fr-par.scw.cloud/lalternative/www:20260912-1551-1d64905ad9b4
     port: 8080
     depends_on: [postgres, migrate]
     env:
