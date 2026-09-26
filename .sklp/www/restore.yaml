@@ -1,0 +1,32 @@
+version: 1
+kind: deploy
+name: restore
+
+registries:
+  rg.fr-par.scw.cloud:
+    username: nologin
+    password: ${SCW_SECRET_KEY}
+
+jobs:
+  drill-postgres:
+    image: rg.fr-par.scw.cloud/platform-ops/restore-drill-pg17:20260927-0416-94f470a035ef
+    schedule: "40 5 * * *"
+    volumes: ["drill-postgres:/scratch"]
+    resources:
+      cpu: "1"
+      memory: 1G
+    env:
+      DRILL_ENGINE: postgres
+      DRILL_SPACE: www-production
+      PG_STANZA: www
+      PG_USER: lalter
+      S3_ENDPOINT: https://s3.gra.io.cloud.ovh.net
+      S3_REGION: gra
+      S3_BUCKET: lalternative-prod-backups
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${S3_SECRET_KEY}
+      SKALPAI_ENDPOINT: https://api.skalpai.dev
+      SKALPAI_API_KEY: ${SKALPAI_API_KEY}
+
+spaces:
+  www-restore: {}

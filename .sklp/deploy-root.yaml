@@ -5,3 +5,5 @@ node: sklet-prod-v2
 deployments:
   - space: www-production
     path: .sklp/www/deploy.yaml
+  - space: www-restore
+    path: .sklp/www/restore.yaml
