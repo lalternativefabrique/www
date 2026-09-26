@@ -62,11 +62,11 @@ let instance: ReturnType<typeof createPlatformAuth> | undefined
  * there and the admin role comes from the www:admin claim; unset, the local
  * password login stays.
  */
-export const ssoConfig = process.env.OIDC_CLIENT_SECRET
+export const ssoConfig = process.env.URBANGATE_CLIENT_SECRET
   ? {
-      issuer: process.env.OIDC_ISSUER_URL ?? 'https://id.urbangate.dev',
-      clientId: process.env.OIDC_CLIENT_ID ?? 'www-admin',
-      clientSecret: process.env.OIDC_CLIENT_SECRET,
+      issuer: process.env.URBANGATE_ISSUER_URL ?? 'https://id.urbangate.dev',
+      clientId: process.env.URBANGATE_CLIENT_ID ?? 'www-admin',
+      clientSecret: process.env.URBANGATE_CLIENT_SECRET,
       adminRole: 'www:admin',
     }
   : undefined
