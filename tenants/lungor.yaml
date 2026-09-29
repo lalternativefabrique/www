@@ -1,0 +1,25 @@
+# The pot's Lungor catalogue, as declared. Apply with:
+#   LUNGOR_API_URL=https://api.lungor.fr LUNGOR_TENANT_ID=<uuid> \
+#     lungor provision tenants/lungor.yaml --dry-run
+#
+# Re-running is safe: every object is matched on its business key (app slug,
+# plan code), so nothing is duplicated. A plan removed from this file is NOT
+# deleted — payments point at it — only reported.
+apps:
+  - slug: www
+    name: La Fabrique
+    credentials:
+      - provider: mollie
+        secret_ref: env:FABRIQUE_MOLLIE_API_KEY
+
+    # One plan, no subscription: a contribution is a single payment whose
+    # amount the contributor states. app/server/don.ts opens the checkout on
+    # this plan's id (LUNGOR_DON_PLAN_ID) and clamps to the same bounds.
+    plans:
+      - code: contribution
+        name: Contribution
+        category: one_off
+        interval: none
+        amount_open_ended: true
+        min_amount_cents: 100
+        max_amount_cents: 500000
