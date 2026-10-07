@@ -11,9 +11,6 @@ require:
 tag:
   strategy: date-sha
 
-registry:
-  provider: scaleway
-
 tools:
   node: "24.16.0"
   pnpm: "11.3.0"
