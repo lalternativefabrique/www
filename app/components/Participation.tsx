@@ -38,11 +38,11 @@ const copy = {
     entrees: [
       {
         dt: 'Ce que ça paie',
-        dd: "Les projets publiés, dans l'ordre annoncé. Aujourd'hui : le dossier d'agrément du projet paiement.",
+        dd: "Les projets publiés, dans l'ordre annoncé. Aujourd'hui : le dossier d'agrément pour encaisser sans intermédiaire.",
       },
       {
         dt: 'Ce que vous recevez',
-        dd: "Une facture, envoyée par email. Ce n'est pas un reçu fiscal : nous sommes une société, pas une association.",
+        dd: "Une facture, disponible sur demande. Ce n'est pas un reçu fiscal.",
       },
       {
         dt: 'Paiement unique',
@@ -54,7 +54,7 @@ const copy = {
     montantAide: 'De 1 € à 5 000 €. Modifiable librement.',
     emailLabel: 'Votre adresse email',
     emailPlaceholder: 'vous@exemple.fr',
-    emailAide: "Pour la facture, et rien d'autre.",
+    emailAide: "Pour vous recontacter au sujet de cette contribution, et rien d'autre.",
     nomLabel: 'Nom (facultatif)',
     nomPlaceholder: 'Pour la facture',
     nomAide: 'Personne ou société, tel que ça doit apparaître sur la facture.',
@@ -69,7 +69,7 @@ const copy = {
         'Ce montant ne se lit pas. Des chiffres, avec une virgule si besoin.',
       montantMin: 'Le minimum est de 1 €.',
       montantMax: `Le maximum en ligne est de 5 000 €. Au-delà, écrivez-nous à ${CONTACT}.`,
-      emailVide: 'Indiquez une adresse email : la facture y sera envoyée.',
+      emailVide: 'Indiquez une adresse email : elle nous permet de vous retrouver.',
       emailInvalide: 'Cette adresse ne semble pas valide.',
       serveur: `Le paiement n'est pas joignable pour le moment. Réessayez dans un instant, ou écrivez-nous à ${CONTACT}.`,
       refuse:
@@ -88,7 +88,7 @@ const copy = {
       },
       {
         dt: 'What you get',
-        dd: 'An invoice, sent by email. It is not a tax receipt: we are a company, not a charity.',
+        dd: 'An invoice, available on request. It is not a tax receipt.',
       },
       {
         dt: 'One-off payment',
@@ -100,7 +100,7 @@ const copy = {
     montantAide: 'From €1 to €5,000. Change it freely.',
     emailLabel: 'Your email address',
     emailPlaceholder: 'you@example.com',
-    emailAide: 'For the invoice, and nothing else.',
+    emailAide: 'To reach you about this contribution, and nothing else.',
     nomLabel: 'Name (optional)',
     nomPlaceholder: 'For the invoice',
     nomAide: 'Person or company, as it should appear on the invoice.',
@@ -115,7 +115,7 @@ const copy = {
         'That amount cannot be read. Digits only, with a decimal point if needed.',
       montantMin: 'The minimum is €1.',
       montantMax: `The online maximum is €5,000. Above that, write to us at ${CONTACT}.`,
-      emailVide: 'Enter an email address: the invoice goes there.',
+      emailVide: 'Enter an email address: it lets us find your contribution.',
       emailInvalide: 'That address does not look valid.',
       serveur: `Payment is unreachable right now. Try again in a moment, or write to us at ${CONTACT}.`,
       refuse: 'That amount was refused. It must be between €1 and €5,000.',

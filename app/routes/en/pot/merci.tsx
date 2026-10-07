@@ -23,9 +23,8 @@ function ThanksPage() {
         </h1>
         <div className="prose-editorial mt-10 opacity-90">
           <p>
-            Your contribution is recorded. The invoice goes out by email within
-            minutes — if it does not arrive, check your spam folder, then write
-            to us.
+            Your contribution is recorded. An invoice is issued: write to us
+            if you would like to receive it.
           </p>
           <p>
             It will fund the published projects in the announced order. What is

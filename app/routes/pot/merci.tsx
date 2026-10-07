@@ -22,9 +22,8 @@ function MerciPage() {
         </h1>
         <div className="prose-editorial mt-10 opacity-90">
           <p>
-            Votre participation est enregistrée. La facture part par email dans
-            les minutes qui viennent — si elle n'arrive pas, regardez les
-            indésirables, puis écrivez-nous.
+            Votre participation est enregistrée. Une facture est établie :
+            écrivez-nous si vous souhaitez la recevoir.
           </p>
           <p>
             Elle financera les projets publiés, dans l'ordre annoncé. Ce qui

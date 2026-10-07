@@ -45,7 +45,7 @@ function LegalNoticePageEn() {
         <p>
           The "Projects" page accepts a one-off contribution between €1 and
           €5,000. It is not a donation to a charity and no tax receipt is
-          issued: the publisher is a sole trader. An invoice is sent by email.
+          issued: the publisher is a sole trader. An invoice is issued and sent on request.
           The payment happens once, never recurs and opens no subscription.
         </p>
         <p>

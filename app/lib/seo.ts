@@ -161,10 +161,11 @@ export function jsonLd(data: unknown) {
  */
 export const PRODUCT_URLS = [
   'https://synthiz.com',
-  'https://techtuel.com',
   'https://sporee.fr',
+  'https://partagg.fr',
   'https://lungor.fr',
   'https://skalpai.dev',
+  'https://lalter.fr',
 ] as const
 
 /** Publisher identity, reused as the Article publisher. */
@@ -177,5 +178,5 @@ export const ORGANIZATION = {
   logo: `${SITE_URL}/apple-touch-icon.png`,
   sameAs: PRODUCT_URLS,
   description:
-    "Des outils sobres pour construire une alternative : connaissance, technique, création, financement, communication.",
+    "Des applications pour reprendre nos moyens de produire en ligne : connaissance, technique, communication, financement.",
 } as const

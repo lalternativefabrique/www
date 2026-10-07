@@ -22,16 +22,16 @@ export function useLocale(): Locale {
 export const chrome = {
   fr: {
     nav: [
-      { to: '/outils', label: 'Réalisations' },
-      { to: '/apps', label: 'Piliers' },
+      { to: '/projets', label: 'Projets' },
+      { to: '/pot', label: 'Financement' },
       { to: '/blog', label: 'Revue' },
       { to: '/a-propos', label: 'À propos' },
     ],
-    action: { to: '/pot', hash: 'participer', label: 'Financer' },
+    action: { to: '/outils', hash: undefined, label: 'Applications' },
     home: "L'Alternative Fabrique — accueil",
     mainNav: 'Navigation principale',
     footerTagline:
-      "L'alternative est possible. Cinq solutions la rendent déjà concrète.",
+      "Nous reprenons nos moyens de produire en ligne. Utiliser une application finance la suivante.",
     navHeading: 'Navigation',
     contactHeading: 'Contact',
     motto: 'Nos outils, nos règles',

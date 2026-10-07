@@ -46,11 +46,11 @@ function MentionsLegalesPage() {
         classNames={LEGAL_CLASSNAMES}
       >
         <p>
-          La page « Projets » permet de verser une contribution unique, d'un
+          La page « Financement » permet de verser une contribution unique, d'un
           montant compris entre 1&nbsp;€ et 5&nbsp;000&nbsp;€. Il ne s'agit pas
           d'un don à une association et aucun reçu fiscal n'est délivré&nbsp;:
-          l'éditeur est une entreprise individuelle. Une facture est adressée
-          par courriel. Le versement est unique, ne se reconduit pas et
+          l'éditeur est une entreprise individuelle. Une facture est établie
+          et transmise sur demande. Le versement est unique, ne se reconduit pas et
           n'ouvre aucun abonnement.
         </p>
         <p>
