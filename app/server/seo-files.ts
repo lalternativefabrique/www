@@ -28,8 +28,9 @@ const STATIC_PATHS = [
 
 const EN_STATIC_PATHS = [
   '/en',
-  '/en/apps',
   '/en/outils',
+  '/en/projets',
+  '/en/paiement',
   '/en/pot',
   '/en/a-propos',
   '/en/contact',

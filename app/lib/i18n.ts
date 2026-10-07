@@ -55,16 +55,16 @@ export const chrome = {
   },
   en: {
     nav: [
-      { to: '/en/outils', label: 'What we built' },
-      { to: '/en/apps', label: 'Pillars' },
+      { to: '/en/projets', label: 'Projects' },
+      { to: '/en/pot', label: 'Funding' },
       { to: '/en/blog', label: 'Review' },
       { to: '/en/a-propos', label: 'About' },
     ],
-    action: { to: '/en/pot', hash: 'chip-in', label: 'Fund' },
+    action: { to: '/en/outils', hash: undefined, label: 'Applications' },
     home: "L'Alternative Fabrique — home",
     mainNav: 'Main navigation',
     footerTagline:
-      'The alternative is possible. Five working solutions already make it real.',
+      'We are taking back our means of producing online. Using one application funds the next.',
     navHeading: 'Navigation',
     contactHeading: 'Contact',
     motto: 'Our tools, our rules',
