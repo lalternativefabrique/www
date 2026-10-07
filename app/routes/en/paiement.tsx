@@ -5,27 +5,23 @@ export const Route = createFileRoute('/en/paiement')({
   component: PaiementPageEn,
   head: () =>
     seo({
-      title: "The payments project — L'Alternative Fabrique",
+      title: "Collecting payments without a middleman — L'Alternative Fabrique",
       description:
-        'Taking money requires authorisation. The four regulatory steps that lead to running your own payments, and what each one costs.',
+        'Taking payment requires permission. The four regulatory steps that lead to running your own payments, and what each one costs.',
       path: '/en/paiement',
       locale: 'en',
       alternate: { fr: '/paiement', en: '/en/paiement' },
     }),
 })
 
-/** A regulatory step on the way to running payments without a licensed third party. */
 type Marche = {
   rang: string
   statut: string
   capital: string
   capitalHint: string
   etat: 'actuel' | 'suivant' | 'ensuite'
-  /** Share of the operation still owned by someone else, in percent. */
   dependance: number
-  /** Column height in the overview chart. */
   hauteur: string
-  /** Rank type scale — grows as the staircase climbs. */
   rangClass: string
   quoi: string
   ceQuOnGagne: string
@@ -36,70 +32,70 @@ type Marche = {
 const marches: Marche[] = [
   {
     rang: '00',
-    statut: 'Under a third party\'s licence',
-    capital: '0 €',
+    statut: "Under a third party's licence",
+    capital: '€0',
     capitalHint: 'No regulatory capital',
     etat: 'actuel',
     dependance: 100,
     hauteur: 'h-40 sm:h-56 md:h-64',
     rangClass: 'text-6xl sm:text-7xl',
     quoi:
-      'Payments run through a payment service provider that already holds a licence. We hold neither the bank details nor the customer identities: everything stays with them.',
+      'This is Lungor today. Payments go through an already licensed payment provider: we hold neither bank details nor customer identities, everything stays with it.',
     ceQuOnGagne:
-      'The product runs, takes money and funds itself right now. Nothing waits on an authorisation.',
+      'The product runs, collects and funds itself right now. Nothing waits for an authorisation.',
     ceQueCaCoute:
-      'Total dependence. The provider takes its cut, sets its rules, and can shut off the tap.',
+      'Complete dependency. The provider takes its cut, sets its rules and can turn off the tap.',
     accent: 'paper',
   },
   {
     rang: '01',
     statut: 'Agent of a payment service provider',
-    capital: '0 €',
+    capital: '€0',
     capitalHint: 'Registration, not authorisation',
     etat: 'suivant',
     dependance: 60,
     hauteur: 'h-56 sm:h-72 md:h-80',
     rangClass: 'text-7xl sm:text-8xl',
     quoi:
-      'A licensed institution mandates us and enters us in the ACPR register. We run the payments ourselves, under its licence and its responsibility.',
+      'A licensed institution appoints us and registers us with the ACPR. We operate payments ourselves, under its licence and its responsibility.',
     ceQuOnGagne:
-      'Genuinely running payments, building volume and compliance expertise in real conditions — without tying up a single penny.',
+      'Actually operate payments, build volume and compliance expertise in real conditions, without tying up a cent.',
     ceQueCaCoute:
-      'We have to convince an institution to mandate us: it files the application, not us. Good repute, competence and internal control all have to be demonstrated.',
+      'An institution has to be convinced to appoint us: it files the application, not us. Good repute, competence and internal controls to demonstrate.',
     accent: 'warm',
   },
   {
     rang: '02',
     statut: 'Simplified payment institution authorisation',
     capital: 'Reduced capital',
-    capitalHint: 'Up to 3 M€/month in volume',
+    capitalHint: 'Up to €3M/month in volume',
     etat: 'ensuite',
     dependance: 15,
     hauteur: 'h-72 sm:h-88 md:h-96',
     rangClass: 'text-8xl sm:text-9xl',
     quoi:
-      'Our own authorisation, granted by the ACPR. A tailored prudential regime: lower initial capital, and no minimum own funds requirement under article L. 522-11-1 of the French monetary and financial code.',
+      'Our own authorisation, granted by the ACPR. A lighter prudential regime: reduced initial capital, and no minimum own-funds requirement under article L. 522-11-1 of the French Monetary and Financial Code.',
     ceQuOnGagne:
-      'The licence is ours. No principal, no cut taken by a middleman, no rules written by someone else.',
+      'The licence is ours. No more principal, no more cut taken by a middleman, no more rules written by someone else.',
     ceQueCaCoute:
-      'A full authorisation dossier, and that is where the legal work concentrates. The regime is capped and gives no access to the European passport.',
+      'A complete authorisation file, and that is where the legal work concentrates. The regime is capped and gives no access to the European passport.',
     accent: 'secondary',
   },
   {
     rang: '03',
-    statut: 'Full payment institution authorisation',
-    capital: '125 000 €',
+    statut: 'Payment institution authorisation',
+    capital: '€125,000',
     capitalHint: 'Minimum initial capital',
     etat: 'ensuite',
-    dependance: 0,
+    dependance: 5,
     hauteur: 'h-88 sm:h-[26rem] md:h-[30rem]',
     rangClass: 'text-8xl sm:text-[10rem]',
     quoi:
-      'The full regime, with no volume cap. The capital is not an expense: it sits frozen on the balance sheet, required by the regulator, and there it stays.',
+      'The full regime, with no volume cap. The capital is not an expense: it sits on the balance sheet, required by the regulator, and stays there.',
     ceQuOnGagne:
-      'No volume limit left, and a complete setup that holds at scale.',
+      "No volume limit at all, and the possibility of applying for direct access to the European Central Bank's transfer network, without an intermediary bank.",
     ceQueCaCoute:
-      'Full internal control, permanent compliance functions, continuous reporting to the regulator.',
+      'Full internal controls, permanent compliance functions, continuous reporting to the regulator. And a banking link that does not go away: a payment institution is not a bank, so customer funds must stay in a separate account at a credit institution.',
     accent: 'primary',
   },
 ]
@@ -107,7 +103,7 @@ const marches: Marche[] = [
 const etatLabel: Record<Marche['etat'], string> = {
   actuel: 'Where we stand',
   suivant: 'The next step',
-  ensuite: 'Later on',
+  ensuite: 'Later',
 }
 
 const accentClass: Record<Marche['accent'], string> = {
@@ -117,66 +113,117 @@ const accentClass: Record<Marche['accent'], string> = {
   paper: 'bg-bg text-text border-y-2 border-text',
 }
 
-/** What the money actually buys: the paperwork the regulator requires. */
 const livrables: { titre: string; detail: string }[] = [
   {
     titre: 'Programme of operations',
     detail:
-      'A precise description of the services provided, how they work and how they are delivered. It is the piece the regulator reads first.',
+      'The precise description of the services provided, how they work and how they are delivered. It is the piece the regulator reads first.',
   },
   {
     titre: 'Prudential business plan',
     detail:
-      'Financial projections showing that the prudential requirements will be met over time, not merely on the day the file is submitted.',
+      'Financial projections showing that prudential requirements will be met over time, not only at filing.',
   },
   {
-    titre: 'AML-CFT framework',
+    titre: 'AML/CFT framework',
     detail:
-      'Anti-money laundering and counter-terrorist financing: procedures, controls, and a named officer. It is not a document, it is a permanent function.',
+      'Anti-money laundering and counter-terrorist financing: procedures, controls, and a designated officer. Not a document, a permanent function.',
   },
   {
-    titre: 'Internal control',
+    titre: 'Internal controls',
     detail:
-      'Two levels of control, with the governance that comes with them. The simplified regime lightens it; it does not remove it.',
+      'Two levels of control, with the governance that goes with them. The simplified regime lightens it, it does not remove it.',
   },
   {
     titre: 'Security and sensitive data',
     detail:
-      'Access procedures for payment data, security arrangements, fraud prevention.',
+      'Procedures for access to payment data, security measures, fraud prevention.',
   },
   {
     titre: 'Business continuity',
     detail:
-      'What happens when it falls over. The regulator wants the plan written before the incident.',
+      'What happens when it goes down. The regulator wants the plan written before the incident.',
   },
   {
     titre: 'Safeguarding of funds',
     detail:
-      'How users\' funds are protected and ring-fenced. They are never ours.',
+      'How user funds are protected and ring-fenced. They never belong to us.',
   },
   {
     titre: 'Directors and shareholders',
     detail:
-      'Good repute, competence, experience — assessed person by person. The authority can summon them for a hearing.',
+      'Good repute, competence, experience, assessed person by person. The authority may hold hearings.',
   },
 ]
 
-const sommaire = [
-  'The obstacle: an authorisation',
-  'Four steps',
-  'Eight pieces to write',
-  "What we don't know",
+type Prelevement = {
+  qui: string
+  moyen: string
+  tarif: string
+  pourcentage: number
+  fixeCents: number
+}
+
+const prelevements: Prelevement[] = [
+  {
+    qui: 'Stripe',
+    moyen: 'Standard European card',
+    tarif: '1.5% + €0.25',
+    pourcentage: 1.5,
+    fixeCents: 25,
+  },
+  {
+    qui: 'Stripe',
+    moyen: 'Premium European card',
+    tarif: '2.8% + €0.25',
+    pourcentage: 2.8,
+    fixeCents: 25,
+  },
+  {
+    qui: 'Stripe',
+    moyen: 'International card',
+    tarif: '3.15% + €0.25',
+    pourcentage: 3.15,
+    fixeCents: 25,
+  },
+  {
+    qui: 'Wero',
+    moyen: 'Account to account, via Mollie',
+    tarif: '0.90% + €0.25',
+    pourcentage: 0.9,
+    fixeCents: 25,
+  },
+  {
+    qui: 'SEPA transfer',
+    moyen: 'Bank to bank, via Mollie',
+    tarif: '€0.25',
+    pourcentage: 0,
+    fixeCents: 25,
+  },
 ]
 
-/**
- * Overview chart: four rising columns, each filled from the bottom with the
- * share of the operation that still belongs to someone else. Decorative —
- * the detailed sections below carry the same information as text.
- */
+const PANIER_CENTS = 2000
+
+const euros = new Intl.NumberFormat('en-IE', {
+  style: 'currency',
+  currency: 'EUR',
+})
+
+function surPanier({ pourcentage, fixeCents }: Prelevement) {
+  return Math.round((PANIER_CENTS * pourcentage) / 100) + fixeCents
+}
+
+const sommaire = [
+  'The obstacle: a permission',
+  'What each one takes',
+  'Four steps',
+  'Eight documents to write',
+  'What we do not know',
+]
+
 function Palier() {
   return (
     <div aria-hidden="true">
-      {/* Desktop: rising columns sitting on a shared floor */}
       <div className="mt-20 hidden items-end gap-px border-b-2 border-bg sm:flex">
         {marches.map((marche) => (
           <div
@@ -202,7 +249,6 @@ function Palier() {
         ))}
       </div>
 
-      {/* Mobile: the same climb, read as growing indentation */}
       <div className="mt-16 sm:hidden">
         {marches.map((marche, i) => (
           <div
@@ -233,25 +279,35 @@ function Palier() {
 function PaiementPageEn() {
   return (
     <div>
-      {/* Opening */}
       <section className="border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
           <div className="grid gap-12 sm:grid-cols-12">
             <div className="sm:col-span-7">
-              <p className="label text-text/60">
-                Build — № 01 · Season 01
-              </p>
-              <h1 className="display-xl mt-6">Payments</h1>
+              <p className="label text-text/60">Project — № 01</p>
+              <h1 className="display-xl mt-6">
+                Collecting payments without a middleman
+              </h1>
               <p className="chapeau mt-10 max-w-2xl">
-                Taking money requires authorisation. We don't have it. Here are
-                the four steps that lead there, and what each one costs.
+                Today, a payment made with Lungor goes through Mollie: Mollie
+                holds the authorisation to collect, and takes its commission.
+                The project is for Lungor to obtain its own authorisation and
+                collect directly. Here are the four steps that lead there, and
+                what each one costs.
               </p>
-              <Link
-                to="/en/pot"
-                className="label mt-10 inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
-              >
-                <span aria-hidden>←</span> The projects
-              </Link>
+              <div className="mt-10 flex flex-wrap gap-6">
+                <Link
+                  to="/en/projets"
+                  className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
+                >
+                  <span aria-hidden>←</span> The projects
+                </Link>
+                <a
+                  href="https://lungor.fr"
+                  className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
+                >
+                  Lungor today <span aria-hidden>→</span>
+                </a>
+              </div>
             </div>
 
             <div className="flex flex-col justify-end sm:col-span-4 sm:col-start-9">
@@ -271,47 +327,127 @@ function PaiementPageEn() {
         </div>
       </section>
 
-      {/* The obstacle */}
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">The real obstacle</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
-            Taking money requires authorisation.
+            Taking payment requires permission.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Building a tool asks nobody's permission. Taking money does.
-              Payment is a regulated trade: to run it yourself you need a
-              status granted by the French prudential supervisor, the ACPR —
-              and that status cannot be obtained with code.
+              Building a tool asks no one's permission. Taking money does.
+              Payment is a regulated trade: to operate yourself, you need a
+              status granted by the Autorité de contrôle prudentiel et de
+              résolution, and that status is not obtained with code.
             </p>
             <p>
-              Which is why everyone goes through a middleman. It holds the
-              licence, it takes its cut, it writes the rules. The dependence
-              isn't technical — it is regulatory, and that is what makes it
-              last.
+              That is why everyone goes through a middleman. It holds the
+              licence, takes its cut, writes the rules. The dependency is not
+              technical, it is regulatory, and that is what makes it last.
             </p>
             <p>
-              Every means we want to reclaim is guarded by an authorisation.
-              This one is crossed in four moves.
+              Every means we want to take back is guarded by a permission. This
+              one is crossed in four steps.
             </p>
           </div>
         </div>
       </section>
 
-      {/* The staircase, seen from afar */}
+      <section className="border-t-2 border-text bg-warm">
+        <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
+          <p className="label text-text/60">The price of dependency</p>
+          <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
+            What each one takes.
+          </h2>
+          <p className="chapeau mt-8 max-w-2xl">
+            Stripe is the default choice, and for good reasons: it integrates
+            quickly and accepts almost every payment method. Here is what each
+            payment costs, according to public pricing.
+          </p>
+
+          <div className="mt-14 grid grid-cols-1 gap-px bg-text sm:grid-cols-2 lg:grid-cols-5">
+            {prelevements.map((prelevement) => (
+              <div
+                key={`${prelevement.qui}-${prelevement.moyen}`}
+                className="bg-bg p-6 sm:p-8"
+              >
+                <p className="label text-accent-primary">{prelevement.qui}</p>
+                <p className="mt-2 text-sm text-text/70">{prelevement.moyen}</p>
+                <p className="font-heading mt-6 whitespace-nowrap text-2xl leading-none">
+                  {prelevement.tarif}
+                </p>
+                <p className="mt-6 text-sm text-text/80">
+                  On {euros.format(PANIER_CENTS / 100)}:{' '}
+                  <strong>
+                    {euros.format(surPanier(prelevement) / 100)}
+                  </strong>
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="font-heading mt-16 max-w-4xl text-4xl uppercase leading-tight sm:text-6xl">
+            Imagine those commissions recovered to fund{' '}
+            <span className="text-bg">tomorrow's applications</span>.
+          </p>
+          <p className="chapeau mt-8 max-w-2xl">
+            Every payment leaves a few tens of cents to a middleman today.
+            Collected by Lungor, they would stay in the organisation and fund
+            what comes next.
+          </p>
+
+          <div className="prose-editorial mt-12 max-w-3xl text-text/85">
+            <p>
+              Wero is the European account-to-account payment initiative: money
+              goes from the customer's bank to the merchant's, without passing
+              through Visa or Mastercard. It belongs to EPI, a company owned by
+              sixteen European banks and providers, including BNP Paribas,
+              Crédit Agricole, Société Générale, Deutsche Bank and ING. The
+              percentage drops. But a merchant still reaches it through a
+              provider, which adds its commission and its fixed fee per
+              transaction.
+            </p>
+            <p>
+              The fixed fee is what weighs on small amounts, and it is the same
+              everywhere. Removing it means being the payment institution
+              yourself: that is the point of this project.
+            </p>
+          </div>
+
+          <p className="mt-10 max-w-3xl text-sm text-text/60">
+            Public pricing for France, recorded on 6 October 2026 from{' '}
+            <a href="https://stripe.com/fr/pricing" className="underline">
+              stripe.com/fr/pricing
+            </a>{' '}
+            and{' '}
+            <a href="https://www.mollie.com/fr/pricing" className="underline">
+              mollie.com/fr/pricing
+            </a>
+            . Excludes volume-negotiated pricing. The group that runs Wero
+            publishes no price list: the rate shown is Mollie's, our current
+            provider. EPI shareholders according to{' '}
+            <a href="https://www.epicompany.eu" className="underline">
+              epicompany.eu
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+
       <section className="border-t-2 border-text bg-text text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label opacity-70">Build — payments</p>
+          <p className="label opacity-70">
+            Project — collecting payments without a middleman
+          </p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
             Four steps,
             <br />
             climbed one at a time.
           </h2>
           <p className="chapeau mt-8 max-w-2xl opacity-90">
-            Each one removes a share of dependence. Each one already earns,
-            which pays for the next. None of them requires waiting until all
-            the money is there before starting.
+            Each removes a share of dependency. Each already earns, which pays
+            for the next. None requires waiting to have all the money before
+            starting.
           </p>
 
           <Palier />
@@ -322,7 +458,7 @@ function PaiementPageEn() {
                 aria-hidden
                 className="inline-block h-3 w-8 bg-accent-primary"
               />
-              The share that isn't ours yet
+              The share that is not yet ours
             </p>
             <p className="label bg-accent-primary px-3 py-1 text-bg">
               00 — today
@@ -331,7 +467,6 @@ function PaiementPageEn() {
         </div>
       </section>
 
-      {/* The staircase, step by step */}
       {marches.map((marche, i) => (
         <section key={marche.rang} className={accentClass[marche.accent]}>
           <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
@@ -353,9 +488,7 @@ function PaiementPageEn() {
                   </p>
                 </div>
                 <div className="mt-8">
-                  <p className="label opacity-60">
-                    What isn't ours
-                  </p>
+                  <p className="label opacity-60">What is not ours</p>
                   <div
                     className="mt-3 h-3 w-full border-2 border-current"
                     aria-hidden
@@ -396,42 +529,40 @@ function PaiementPageEn() {
         </section>
       ))}
 
-      {/* Lawyers, not capital */}
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">What reinvestment funds</p>
+          <p className="label text-accent-primary">What the reinvestment funds</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
             Lawyers, not capital.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Regulatory capital — the 125 000 € of the final step — is not an
-              expense. It is a sum frozen on the balance sheet, which the
-              regulator demands to see and which stays there. You don't spend
-              it, you place it.
+              The regulatory capital, the €125,000 of the last step, is not an
+              expense. It is a sum held on the balance sheet, which the
+              regulator requires to see and which stays there. It is not
+              consumed, it is set down.
             </p>
             <p>
-              The real spending lies elsewhere, and it is human. An
-              authorisation dossier is a body of written procedures, verifiable
-              and defensible before an authority that can summon the directors
-              and pull the business model apart. It is written with lawyers who
-              specialise in banking law, and maintained by a compliance officer
-              who doesn't leave once the file is submitted.
+              The real expense is elsewhere, and it is human. An authorisation
+              file is a set of written procedures, verifiable and defensible
+              before an authority that can question the directors and analyse
+              the business model in detail. It is written with lawyers
+              specialised in banking law, and maintained by a compliance
+              officer who does not leave once the file is submitted.
             </p>
           </div>
         </div>
       </section>
 
-      {/* The dossier */}
       <section className="border-t-2 border-text bg-warm">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
-          <p className="label text-text/60">The dossier</p>
+          <p className="label text-text/60">The file</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
             What has to be written.
           </h2>
           <p className="chapeau mt-8 max-w-2xl">
-            The contents of an authorisation dossier, as the regulator examines
-            it. This list is what our reinvestment pays for.
+            The detail of an authorisation file, as the regulator examines it.
+            This list is what our reinvestment pays for.
           </p>
 
           <div className="mt-16 grid grid-cols-1 gap-px bg-text sm:grid-cols-2">
@@ -449,44 +580,41 @@ function PaiementPageEn() {
           </div>
 
           <p className="mt-16 max-w-2xl text-base text-text/75">
-            Reviewing a complete dossier takes three months. The clock only
-            starts once the file is judged complete — the preparation itself
-            has no regulatory deadline. That is the part we fund.
+            Reviewing a complete file takes three months. The clock only starts
+            once the file is deemed complete; the preparation has no regulatory
+            deadline. That is the part we fund.
           </p>
         </div>
       </section>
 
-      {/* What we don't know */}
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">
-            What we don't know yet
-          </p>
+          <p className="label text-accent-primary">What we do not know yet</p>
           <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
-            The price isn't public.
+            The price is not public.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Neither the authorities nor the specialist firms publish a rate
-              card for guiding an authorisation dossier. The figure doesn't
-              exist in the open: it comes as a quote, case by case.
+              Neither the authorities nor the specialised firms publish a price
+              list for assisting with an authorisation file. The figure does not
+              exist in the open: it comes by quote, case by case.
             </p>
             <p>
-              So we won't put an amount on this page until we have our own. The
-              only figures shown here are the regulatory capital thresholds,
-              set by the French monetary and financial code. When the quotes
-              arrive, they will be published — like everything else.
+              So we will not put an amount on this page until we have our own.
+              The only figures shown here are the regulatory capital amounts,
+              set by the Monetary and Financial Code. When the quotes come in,
+              they will be published, like the rest.
             </p>
             <p>
               And we may never have to climb all four steps. Step 00 already
-              takes money. Each of the following ones gets decided the moment
-              it becomes worth more than the dependence it removes.
+              collects. Each of the next ones is decided when it becomes more
+              profitable than the dependency it removes.
             </p>
           </div>
 
           <div className="mt-12 flex flex-wrap gap-4">
             <Link
-              to="/en/pot"
+              to="/en/projets"
               className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
             >
               The projects <span aria-hidden>→</span>
@@ -495,7 +623,7 @@ function PaiementPageEn() {
               to="/en/outils"
               className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-text pb-1 hover:opacity-70"
             >
-              What we have built <span aria-hidden>→</span>
+              The applications that fund it <span aria-hidden>→</span>
             </Link>
           </div>
         </div>

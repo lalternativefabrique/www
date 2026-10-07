@@ -15,8 +15,8 @@ import type { ArticleCard } from './article-list'
 /** Routes that exist regardless of what has been published. */
 const STATIC_PATHS = [
   '/',
-  '/apps',
   '/outils',
+  '/projets',
   '/pot',
   '/paiement',
   '/blog',
@@ -28,8 +28,9 @@ const STATIC_PATHS = [
 
 const EN_STATIC_PATHS = [
   '/en',
-  '/en/apps',
   '/en/outils',
+  '/en/projets',
+  '/en/paiement',
   '/en/pot',
   '/en/a-propos',
   '/en/contact',
@@ -109,9 +110,9 @@ ${[...en]
 
   return `# L'Alternative Fabrique
 
-> Une revue et un ensemble d'outils sobres pour construire une alternative :
-> connaissance, technique, création, financement, communication. Chaque outil
-> est un organe, chaque article défend une position argumentée et vérifiable.
+> Une revue et un ensemble d'applications pour reprendre nos moyens de produire
+> en ligne : connaissance, technique, communication, financement. Utiliser une
+> application finance les projets suivants.
 
 ## Articles
 
@@ -120,8 +121,9 @@ ${frLines}
 ${enSection}## Pages
 
 - [Accueil](${SITE_URL}/)
-- [Les organes](${SITE_URL}/outils) — les outils et ce que chacun prend en charge
-- [Le pot commun](${SITE_URL}/pot) — le modèle de financement
+- [Les applications](${SITE_URL}/outils) — ce qui tourne déjà et ce que chacune prend en charge
+- [Les projets](${SITE_URL}/projets) — ce que les revenus des applications construisent
+- [Le financement](${SITE_URL}/pot) — le modèle de réinvestissement
 - [À propos](${SITE_URL}/a-propos)
 - [Contact](${SITE_URL}/contact)
 `

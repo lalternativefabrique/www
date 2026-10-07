@@ -5,7 +5,7 @@ export const Route = createFileRoute('/paiement')({
   component: PaiementPage,
   head: () =>
     seo({
-      title: "Le projet du paiement — L'Alternative Fabrique",
+      title: "Encaisser sans intermédiaire — L'Alternative Fabrique",
       description:
         "Encaisser demande une autorisation. Les quatre marches réglementaires qui mènent à opérer ses propres paiements, et ce que chacune coûte.",
       path: '/paiement',
@@ -42,7 +42,7 @@ const marches: Marche[] = [
     hauteur: 'h-40 sm:h-56 md:h-64',
     rangClass: 'text-6xl sm:text-7xl',
     quoi:
-      "L'encaissement passe par un prestataire de paiement déjà agréé. Nous ne détenons ni les coordonnées bancaires, ni l'identité des clients : tout reste chez lui.",
+      "C'est Lungor aujourd'hui. L'encaissement passe par un prestataire de paiement déjà agréé : nous ne détenons ni les coordonnées bancaires, ni l'identité des clients, tout reste chez lui.",
     ceQuOnGagne:
       "Le produit tourne, encaisse et se finance dès maintenant. Rien n'attend une autorisation.",
     ceQueCaCoute:
@@ -89,15 +89,15 @@ const marches: Marche[] = [
     capital: '125 000 €',
     capitalHint: 'Capital initial minimum',
     etat: 'ensuite',
-    dependance: 0,
+    dependance: 5,
     hauteur: 'h-88 sm:h-[26rem] md:h-[30rem]',
     rangClass: 'text-8xl sm:text-[10rem]',
     quoi:
       "Le régime complet, sans plafond de volume. Le capital n'est pas une dépense : il est immobilisé au bilan, exigé par le régulateur, et il y reste.",
     ceQuOnGagne:
-      "Plus aucune limite de volume, et un dispositif complet qui tient à l'échelle.",
+      "Plus aucune limite de volume, et la possibilité de demander un accès direct au réseau de virements de la Banque centrale européenne, sans banque intermédiaire.",
     ceQueCaCoute:
-      "Contrôle interne complet, fonctions de conformité permanentes, reporting continu au régulateur.",
+      "Contrôle interne complet, fonctions de conformité permanentes, reporting continu au régulateur. Et un lien bancaire qui ne disparaît pas : un établissement de paiement n'est pas une banque, les fonds des clients doivent rester sur un compte séparé dans un établissement de crédit.",
     accent: 'primary',
   },
 ]
@@ -159,8 +159,66 @@ const livrables: { titre: string; detail: string }[] = [
   },
 ]
 
+type Prelevement = {
+  qui: string
+  moyen: string
+  tarif: string
+  pourcentage: number
+  fixeCents: number
+}
+
+const prelevements: Prelevement[] = [
+  {
+    qui: 'Stripe',
+    moyen: 'Carte européenne standard',
+    tarif: '1,5 % + 0,25 €',
+    pourcentage: 1.5,
+    fixeCents: 25,
+  },
+  {
+    qui: 'Stripe',
+    moyen: 'Carte européenne premium',
+    tarif: '2,8 % + 0,25 €',
+    pourcentage: 2.8,
+    fixeCents: 25,
+  },
+  {
+    qui: 'Stripe',
+    moyen: 'Carte internationale',
+    tarif: '3,15 % + 0,25 €',
+    pourcentage: 3.15,
+    fixeCents: 25,
+  },
+  {
+    qui: 'Wero',
+    moyen: 'De compte à compte, via Mollie',
+    tarif: '0,90 % + 0,25 €',
+    pourcentage: 0.9,
+    fixeCents: 25,
+  },
+  {
+    qui: 'Virement SEPA',
+    moyen: 'De banque à banque, via Mollie',
+    tarif: '0,25 €',
+    pourcentage: 0,
+    fixeCents: 25,
+  },
+]
+
+const PANIER_CENTS = 2000
+
+const euros = new Intl.NumberFormat('fr-FR', {
+  style: 'currency',
+  currency: 'EUR',
+})
+
+function surPanier({ pourcentage, fixeCents }: Prelevement) {
+  return Math.round((PANIER_CENTS * pourcentage) / 100) + fixeCents
+}
+
 const sommaire = [
   "L'obstacle : une autorisation",
+  'Ce que chacun prélève',
   'Quatre marches',
   'Huit pièces à écrire',
   "Ce qu'on ne sait pas",
@@ -239,17 +297,30 @@ function PaiementPage() {
               <p className="label text-text/60">
                 Projet — № 01
               </p>
-              <h1 className="display-xl mt-6">Le paiement</h1>
+              <h1 className="display-xl mt-6">
+                Encaisser sans intermédiaire
+              </h1>
               <p className="chapeau mt-10 max-w-2xl">
-                Encaisser demande une autorisation. On ne l'a pas. Voici les
-                quatre marches qui y mènent, et ce que chacune coûte.
+                Aujourd'hui, un paiement fait avec Lungor passe par Mollie :
+                c'est Mollie qui a l'autorisation d'encaisser, et qui prélève
+                sa commission. Le projet est que Lungor obtienne sa propre
+                autorisation et encaisse directement. Voici les quatre
+                marches qui y mènent, et ce que chacune coûte.
               </p>
-              <Link
-                to="/pot"
-                className="label mt-10 inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
-              >
-                <span aria-hidden>←</span> Les projets
-              </Link>
+              <div className="mt-10 flex flex-wrap gap-6">
+                <Link
+                  to="/projets"
+                  className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
+                >
+                  <span aria-hidden>←</span> Les projets
+                </Link>
+                <a
+                  href="https://lungor.fr"
+                  className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
+                >
+                  Lungor aujourd'hui <span aria-hidden>→</span>
+                </a>
+              </div>
             </div>
 
             <div className="flex flex-col justify-end sm:col-span-4 sm:col-start-9">
@@ -298,10 +369,94 @@ function PaiementPage() {
         </div>
       </section>
 
+      <section className="border-t-2 border-text bg-warm">
+        <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
+          <p className="label text-text/60">Le prix de la dépendance</p>
+          <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
+            Ce que chacun prélève.
+          </h2>
+          <p className="chapeau mt-8 max-w-2xl">
+            Stripe est le choix par défaut, et pour de bonnes raisons : il
+            s'intègre vite et accepte presque tous les moyens de paiement. Voici ce que
+            coûte chaque paiement, d'après les tarifs publics.
+          </p>
+
+          <div className="mt-14 grid grid-cols-1 gap-px bg-text sm:grid-cols-2 lg:grid-cols-5">
+            {prelevements.map((prelevement) => (
+              <div
+                key={`${prelevement.qui}-${prelevement.moyen}`}
+                className="bg-bg p-6 sm:p-8"
+              >
+                <p className="label text-accent-primary">{prelevement.qui}</p>
+                <p className="mt-2 text-sm text-text/70">{prelevement.moyen}</p>
+                <p className="font-heading mt-6 whitespace-nowrap text-2xl leading-none">
+                  {prelevement.tarif}
+                </p>
+                <p className="mt-6 text-sm text-text/80">
+                  Sur {euros.format(PANIER_CENTS / 100)} :{' '}
+                  <strong>
+                    {euros.format(surPanier(prelevement) / 100)}
+                  </strong>
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="font-heading mt-16 max-w-4xl text-4xl uppercase leading-tight sm:text-6xl">
+            Imaginez ces commissions récupérées pour financer{' '}
+            <span className="text-bg">les applications de demain</span>.
+          </p>
+          <p className="chapeau mt-8 max-w-2xl">
+            Chaque paiement laisse aujourd'hui quelques dizaines de centimes à
+            un intermédiaire. Encaissés par Lungor, ils resteraient dans
+            l'organisation et financeraient la suite.
+          </p>
+
+          <div className="prose-editorial mt-12 max-w-3xl text-text/85">
+            <p>
+              Wero est l'initiative européenne de paiement de compte à
+              compte : l'argent va de la banque du client à celle du
+              marchand, sans passer par Visa ni Mastercard. Il appartient à
+              EPI, une société détenue par seize banques et prestataires
+              européens, dont BNP Paribas, Crédit Agricole, Société
+              Générale, Deutsche Bank et ING. Le pourcentage
+              baisse. Mais un marchand y accède encore par un prestataire,
+              qui ajoute sa commission et son forfait par transaction.
+            </p>
+            <p>
+              C'est le forfait qui pèse sur les petits montants, et il est
+              le même partout. Le supprimer suppose d'être soi-même
+              l'établissement de paiement : c'est l'objet de ce projet.
+            </p>
+          </div>
+
+          <p className="mt-10 max-w-3xl text-sm text-text/60">
+            Tarifs publics pour la France, relevés le 6 octobre 2026 sur{' '}
+            <a href="https://stripe.com/fr/pricing" className="underline">
+              stripe.com/fr/pricing
+            </a>{' '}
+            et{' '}
+            <a href="https://www.mollie.com/fr/pricing" className="underline">
+              mollie.com/fr/pricing
+            </a>
+            . Hors tarifs négociés au volume. Le groupement qui opère Wero
+            ne publie pas de grille : le tarif affiché est celui de Mollie,
+            notre prestataire actuel. Actionnaires d'EPI d'après{' '}
+            <a
+              href="https://www.epicompany.eu"
+              className="underline"
+            >
+              epicompany.eu
+            </a>
+            .
+          </p>
+        </div>
+      </section>
+
       {/* The staircase, seen from afar */}
       <section className="border-t-2 border-text bg-text text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label opacity-70">Projet — le paiement</p>
+          <p className="label opacity-70">Projet — encaisser sans intermédiaire</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
             Quatre marches,
             <br />
@@ -489,7 +644,7 @@ function PaiementPage() {
 
           <div className="mt-12 flex flex-wrap gap-4">
             <Link
-              to="/pot"
+              to="/projets"
               className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
             >
               Les projets <span aria-hidden>→</span>
@@ -498,7 +653,7 @@ function PaiementPage() {
               to="/outils"
               className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-text pb-1 hover:opacity-70"
             >
-              Les réalisations qui financent <span aria-hidden>→</span>
+              Les applications qui financent <span aria-hidden>→</span>
             </Link>
           </div>
         </div>
