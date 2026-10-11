@@ -107,6 +107,7 @@ services:
       LUNGOR_API_URL: http://core.lungor-production.internal/api/v1
       LUNGOR_APP_KEY: ${LUNGOR_APP_KEY}
       LUNGOR_DON_PLAN_ID: ${LUNGOR_DON_PLAN_ID}
+      LUNGOR_COSTS_SLUG: ${LUNGOR_COSTS_SLUG}
       PUBLIC_SITE_URL: https://lalternativefabrique.org
     resources:
       cpu: "1"

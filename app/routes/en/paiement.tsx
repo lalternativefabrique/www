@@ -301,6 +301,12 @@ function PaiementPageEn() {
                 >
                   <span aria-hidden>←</span> The projects
                 </Link>
+                <Link
+                  to="/en/costs"
+                  className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
+                >
+                  What our apps cost <span aria-hidden>→</span>
+                </Link>
                 <a
                   href="https://lungor.fr"
                   className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"

@@ -314,6 +314,12 @@ function PaiementPage() {
                 >
                   <span aria-hidden>←</span> Les projets
                 </Link>
+                <Link
+                  to="/couts"
+                  className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
+                >
+                  Ce que coûtent nos applications <span aria-hidden>→</span>
+                </Link>
                 <a
                   href="https://lungor.fr"
                   className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
