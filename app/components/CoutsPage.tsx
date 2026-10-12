@@ -7,11 +7,16 @@ const textes = {
     surtitre: 'Transparence',
     titre: 'Ce que coûtent nos applications',
     chapeau:
-      "Chaque mois, ce que la Fabrique dépense pour faire tourner ses applications : l'hébergement et les services du catalogue d'un côté, les modèles de langage de l'autre. Les chiffres viennent directement de Lungor.",
+      "Chaque mois, ce que la Fabrique dépense pour faire tourner ses applications : l'hébergement et les services payants d'un côté, l'IA de l'autre. Les chiffres viennent directement de Lungor.",
     mois: 'Mois',
-    catalogue: 'Catalogue',
-    llm: 'LLM',
+    catalogue: 'Infrastructure et services',
+    llm: 'IA',
     total: 'Total',
+    explication:
+      "Infrastructure et services : l'hébergement et les services payants, comptés à leur prix catalogue. IA : les appels aux modèles faits par les applications.",
+    poste: 'Poste',
+    montant: 'Montant',
+    parApplication: 'Par application',
     application: 'Application',
     aucuneApp: 'Aucune dépense enregistrée ce mois-ci.',
     indisponible: 'Les coûts ne sont pas encore publiés.',
@@ -24,11 +29,16 @@ const textes = {
     surtitre: 'Transparency',
     titre: 'What our apps cost',
     chapeau:
-      'Each month, what the Fabrique spends to run its apps: hosting and catalogue services on one side, language models on the other. The figures come straight from Lungor.',
+      'Each month, what the Fabrique spends to run its apps: hosting and paid services on one side, AI on the other. The figures come straight from Lungor.',
     mois: 'Month',
-    catalogue: 'Catalogue',
-    llm: 'LLM',
+    catalogue: 'Infrastructure & services',
+    llm: 'AI',
     total: 'Total',
+    explication:
+      'Infrastructure & services: hosting and paid services, counted at their catalogue price. AI: the model calls made by the apps.',
+    poste: 'Item',
+    montant: 'Amount',
+    parApplication: 'By app',
     application: 'App',
     aucuneApp: 'No spending recorded this month.',
     indisponible: 'Costs are not published yet.',
@@ -102,8 +112,41 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
               ))}
             </div>
 
-            {couts.apps.length ? (
+            <p className="mt-6 max-w-3xl text-text/70">{t.explication}</p>
+
+            {couts.items.length ? (
               <div className="mt-14 overflow-x-auto">
+                <table className="w-full border-2 border-text bg-bg text-left">
+                  <thead>
+                    <tr className="border-b-2 border-text">
+                      <th className="label p-4">{t.poste}</th>
+                      <th className="label p-4 text-right">{t.montant}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {couts.items.map((item) => (
+                      <tr key={`${item.name}|${item.category}|${item.app}`} className="border-t border-text/20">
+                        <td className="p-4">
+                          <span className="block">{item.name}</span>
+                          <span className="block text-sm text-text/60">
+                            {item.category} · {item.app}
+                          </span>
+                        </td>
+                        <td className="p-4 text-right font-medium tabular-nums">
+                          {montant(item.total_cents)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
+
+            {couts.apps.length ? (
+              <div className={couts.items.length ? 'mt-10 overflow-x-auto' : 'mt-14 overflow-x-auto'}>
+                {couts.items.length ? (
+                  <p className="label mb-4 text-text/60">{t.parApplication}</p>
+                ) : null}
                 <table className="w-full border-2 border-text bg-bg text-left">
                   <thead>
                     <tr className="border-b-2 border-text">

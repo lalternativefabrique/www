@@ -5,6 +5,8 @@ export type CoutsLigne = {
   total_cents: number
 }
 
+export type CoutsPoste = CoutsLigne & { category: string; app: string }
+
 export type Couts = {
   tenant: { name: string; slug: string }
   month: string
@@ -12,6 +14,7 @@ export type Couts = {
   currency: string
   totals: { catalog_cents: number; llm_cents: number; total_cents: number }
   apps: CoutsLigne[]
+  items: CoutsPoste[]
 }
 
 const MOIS = /^\d{4}-(0[1-9]|1[0-2])$/
@@ -36,6 +39,14 @@ function ligne(value: unknown): CoutsLigne | null {
   return { name: v.name, catalog_cents: catalog, llm_cents: llm, total_cents: total }
 }
 
+function poste(value: unknown): CoutsPoste | null {
+  const base = ligne(value)
+  if (!base) return null
+  const v = value as Record<string, unknown>
+  if (typeof v.category !== 'string' || typeof v.app !== 'string') return null
+  return { ...base, category: v.category, app: v.app }
+}
+
 export function parseCouts(value: unknown): Couts | null {
   if (!value || typeof value !== 'object') return null
   const v = value as Record<string, unknown>
@@ -54,7 +65,8 @@ export function parseCouts(value: unknown): Couts | null {
   }
   const totals = ligne({ name: '', ...(v.totals as object) })
   const apps = v.apps.map(ligne)
-  if (!totals || apps.some((a) => a === null)) return null
+  const items = Array.isArray(v.items) ? v.items.map(poste) : []
+  if (!totals || apps.some((a) => a === null) || items.some((i) => i === null)) return null
   return {
     tenant: { name: tenant.name, slug: tenant.slug },
     month,
@@ -66,6 +78,7 @@ export function parseCouts(value: unknown): Couts | null {
       total_cents: totals.total_cents,
     },
     apps: apps as CoutsLigne[],
+    items: items as CoutsPoste[],
   }
 }
 
