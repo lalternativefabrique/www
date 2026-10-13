@@ -4,17 +4,20 @@ import { formatMois, formatMontant, type Couts } from '@/lib/couts'
 const textes = {
   fr: {
     locale: 'fr-FR',
-    surtitre: 'Transparence',
-    titre: 'Ce que coûtent nos applications',
+    surtitre: '§ 01 — Nos coûts, à livre ouvert',
+    titre: 'Ce que coûte la Fabrique.',
     chapeau:
-      "Chaque mois, ce que la Fabrique dépense pour faire tourner ses applications : l'hébergement et les services payants d'un côté, l'IA de l'autre. Les chiffres viennent directement de Lungor.",
-    mois: 'Mois',
-    catalogue: 'Infrastructure et services',
-    llm: 'IA',
-    total: 'Total',
+      "Chaque mois, nous publions ce que coûtent nos applications pour tourner : serveurs, services payants, appels aux modèles d'IA. Ligne par ligne, sans arrondi flatteur.",
+    precision:
+      "Pas de chiffre d'affaires ici, pas de bénéfice : seulement le prix réel de l'outil. Les chiffres viennent directement de Lungor.",
+    mois: 'Période',
+    catalogue: 'A — Infrastructure & services',
+    llm: 'B — Intelligence artificielle',
+    total: 'A + B — Coût du mois',
+    totalCourt: 'Total',
     explication:
-      "Infrastructure et services : l'hébergement et les services payants, comptés à leur prix catalogue. IA : les appels aux modèles faits par les applications.",
-    poste: 'Poste',
+      "A. Hébergement et services payants, comptés au prix catalogue du fournisseur. B. Les appels aux modèles d'IA faits par nos applications, facturés à l'usage.",
+    poste: 'Le détail, poste par poste',
     montant: 'Montant',
     parApplication: 'Par application',
     application: 'Application',
@@ -26,17 +29,20 @@ const textes = {
   },
   en: {
     locale: 'en-GB',
-    surtitre: 'Transparency',
-    titre: 'What our apps cost',
+    surtitre: '§ 01 — Our costs, in the open',
+    titre: 'What the Fabrique costs.',
     chapeau:
-      'Each month, what the Fabrique spends to run its apps: hosting and paid services on one side, AI on the other. The figures come straight from Lungor.',
-    mois: 'Month',
-    catalogue: 'Infrastructure & services',
-    llm: 'AI',
-    total: 'Total',
+      'Each month we publish what it takes to run our apps: servers, paid services, AI model calls. Line by line, no flattering rounding.',
+    precision:
+      'No revenue here, no profit: only the real cost of the tools. The figures come straight from Lungor.',
+    mois: 'Period',
+    catalogue: 'A — Infrastructure & services',
+    llm: 'B — Artificial intelligence',
+    total: 'A + B — Monthly cost',
+    totalCourt: 'Total',
     explication:
-      'Infrastructure & services: hosting and paid services, counted at their catalogue price. AI: the model calls made by the apps.',
-    poste: 'Item',
+      'A. Hosting and paid services, counted at the provider’s catalogue price. B. The AI model calls made by our apps, billed by use.',
+    poste: 'Line by line',
     montant: 'Amount',
     parApplication: 'By app',
     application: 'App',
@@ -55,11 +61,12 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
 
   return (
     <div>
-      <section className="border-b-2 border-text">
+      <section className="border-b-[3px] border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label text-text/60">{t.surtitre}</p>
+          <p className="label text-accent-primary">{t.surtitre}</p>
           <h1 className="display-xl mt-6">{t.titre}</h1>
           <p className="chapeau mt-10 max-w-2xl">{t.chapeau}</p>
+          <p className="mt-5 max-w-2xl text-text/70">{t.precision}</p>
           <div className="mt-10 flex flex-wrap gap-6">
             <Link
               to={t.retour.to}
@@ -72,7 +79,7 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
       </section>
 
       {couts ? (
-        <section className="bg-warm">
+        <section>
           <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
             <form method="get" className="flex flex-wrap items-end gap-4">
               <label className="flex flex-col gap-2">
@@ -81,7 +88,7 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
                   name="mois"
                   defaultValue={couts.month}
                   onChange={(e) => e.currentTarget.form?.requestSubmit()}
-                  className="border-2 border-text bg-bg px-4 py-2"
+                  className="min-h-11 border-0 border-b-2 border-text bg-transparent py-2 pr-8 text-lg font-medium"
                 >
                   {(couts.months.length ? couts.months : [couts.month]).map((m) => (
                     <option key={m} value={m}>
@@ -97,42 +104,47 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
               </noscript>
             </form>
 
-            <div className="mt-10 grid grid-cols-1 gap-px bg-text sm:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 border-y border-text sm:grid-cols-3">
               {[
                 [t.catalogue, couts.totals.catalog_cents],
                 [t.llm, couts.totals.llm_cents],
                 [t.total, couts.totals.total_cents],
-              ].map(([label, cents]) => (
-                <div key={label} className="bg-bg p-6 sm:p-8">
-                  <p className="label text-accent-primary">{label}</p>
-                  <p className="font-heading mt-6 whitespace-nowrap text-4xl leading-none">
+              ].map(([label, cents], index) => (
+                <div
+                  key={label}
+                  className={`flex flex-col gap-10 py-7 sm:px-6 sm:first:pl-0 ${
+                    index === 2 ? 'bg-text px-6 text-bg sm:first:pl-6' : ''
+                  } ${index > 0 ? 'border-t border-text sm:border-l sm:border-t-0' : ''}`}
+                >
+                  <p className="label">{label}</p>
+                  <p className="whitespace-nowrap font-mono text-4xl font-medium leading-none tracking-tight">
                     {montant(cents as number)}
                   </p>
                 </div>
               ))}
             </div>
 
-            <p className="mt-6 max-w-3xl text-text/70">{t.explication}</p>
+            <p className="mt-5 max-w-3xl text-sm text-text/70">{t.explication}</p>
 
             {couts.items.length ? (
               <div className="mt-14 overflow-x-auto">
-                <table className="w-full border-2 border-text bg-bg text-left">
+                <table className="w-full border-t-[3px] border-text text-left">
                   <thead>
-                    <tr className="border-b-2 border-text">
-                      <th className="label p-4">{t.poste}</th>
-                      <th className="label p-4 text-right">{t.montant}</th>
+                    <tr className="border-b border-text">
+                      <th className="label p-4 pl-0">{t.poste}</th>
+                      <th className="label p-4 pr-0 text-right">{t.montant}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {couts.items.map((item) => (
                       <tr key={`${item.name}|${item.category}|${item.app}`} className="border-t border-text/20">
-                        <td className="p-4">
+                        <td className="p-4 pl-0">
                           <span className="block">{item.name}</span>
                           <span className="block text-sm text-text/60">
                             {item.category} · {item.app}
                           </span>
                         </td>
-                        <td className="p-4 text-right font-medium tabular-nums">
+                        <td className="p-4 pr-0 text-right font-mono font-medium">
                           {montant(item.total_cents)}
                         </td>
                       </tr>
@@ -145,24 +157,24 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
             {couts.apps.length ? (
               <div className={couts.items.length ? 'mt-10 overflow-x-auto' : 'mt-14 overflow-x-auto'}>
                 {couts.items.length ? (
-                  <p className="label mb-4 text-text/60">{t.parApplication}</p>
+                  <p className="label mb-4">{t.parApplication}</p>
                 ) : null}
-                <table className="w-full border-2 border-text bg-bg text-left">
+                <table className="w-full border-t-[3px] border-text text-left">
                   <thead>
-                    <tr className="border-b-2 border-text">
-                      <th className="label p-4">{t.application}</th>
+                    <tr className="border-b border-text">
+                      <th className="label p-4 pl-0">{t.application}</th>
                       <th className="label p-4 text-right">{t.catalogue}</th>
                       <th className="label p-4 text-right">{t.llm}</th>
-                      <th className="label p-4 text-right">{t.total}</th>
+                      <th className="label p-4 pr-0 text-right">{t.totalCourt}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {couts.apps.map((app) => (
                       <tr key={app.name} className="border-t border-text/20">
-                        <td className="p-4">{app.name}</td>
-                        <td className="p-4 text-right tabular-nums">{montant(app.catalog_cents)}</td>
-                        <td className="p-4 text-right tabular-nums">{montant(app.llm_cents)}</td>
-                        <td className="p-4 text-right font-medium tabular-nums">
+                        <td className="p-4 pl-0">{app.name}</td>
+                        <td className="p-4 text-right font-mono">{montant(app.catalog_cents)}</td>
+                        <td className="p-4 text-right font-mono">{montant(app.llm_cents)}</td>
+                        <td className="p-4 pr-0 text-right font-mono font-medium">
                           {montant(app.total_cents)}
                         </td>
                       </tr>
@@ -178,7 +190,7 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
       ) : (
         <section>
           <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-            <p className="font-heading text-3xl uppercase leading-tight">{t.indisponible}</p>
+            <p className="font-heading text-3xl leading-tight">{t.indisponible}</p>
             <p className="chapeau mt-6 text-text/80">{t.indisponibleDetail}</p>
           </div>
         </section>

@@ -96,9 +96,9 @@
 /* Headings in the admin read as the revue's, not as an app's. */
 .lalt-admin h1,
 .lalt-admin h2 {
-  font-family: 'Anton', system-ui, sans-serif;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
 }
 
 @theme inline {
@@ -128,14 +128,15 @@
  * Magazine-inspired, calm, never preachy.
  */
 :root {
-  --color-bg: #f5f1ea;
-  --color-text: #1a1a1a;
-  --color-accent-primary: #e63946;
-  --color-accent-secondary: #264653;
-  --color-warm: #f4a261;
+  --color-bg: #efede8;
+  --color-text: #141414;
+  --color-accent-primary: #d52b1e;
+  --color-accent-secondary: #141414;
+  --color-warm: #e4e1d9;
 
-  --font-heading: 'Anton', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Archivo', system-ui, sans-serif;
+  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 }
 
 @theme inline {
@@ -147,6 +148,7 @@
 
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
 html,
@@ -163,83 +165,49 @@ h2,
 h3,
 h4 {
   font-family: var(--font-heading);
-  letter-spacing: 0.005em;
+  font-weight: 800;
+  letter-spacing: -0.025em;
   line-height: 0.95;
-  text-transform: uppercase;
 }
 
-/* Editorial display: huge, tight, magazine-cover feel */
-/*
- * Cover title. 0.85 is a poster-tight leading that only works on a single
- * line: at 18vw the line box is shorter than the glyphs, so a second line
- * collides with the first — Anton's cap height plus the descender on Q leaves
- * no room. 0.92 keeps the lines locked together without letting them overlap.
- */
 .display-xxl {
   font-family: var(--font-heading);
+  font-weight: 800;
   font-size: clamp(4rem, 14vw, 11rem);
   line-height: 0.92;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  letter-spacing: -0.035em;
 }
 
 .display-xl {
   font-family: var(--font-heading);
+  font-weight: 800;
   font-size: clamp(3.5rem, 10vw, 8rem);
   line-height: 0.9;
-  letter-spacing: -0.005em;
-  text-transform: uppercase;
+  letter-spacing: -0.035em;
 }
 
 .display-lg {
   font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   font-size: clamp(2.5rem, 6vw, 5rem);
   line-height: 0.95;
-  text-transform: uppercase;
 }
 
-/*
- * Card title — sized against the viewport, not a fixed step.
- *
- * These titles are single unbreakable words (CONNAISSANCE, FINANCEMENT,
- * COMMUNICATION) sitting inside a padded card, so nothing rescues them when
- * they outgrow the box: one word cannot wrap, and there is no ellipsis on a
- * heading. At a fixed text-6xl (60px) the longest of them needed ~310px of a
- * 256px content box on a 320px screen and was simply sliced off by the screen
- * edge.
- *
- * The 11vw middle term is what actually does the work. Anton averages ~0.52em
- * per capital, so the widest word (COMMUNICATION, 13 glyphs) fits its card
- * while 11vw stays under ~38px at 320px — it resolves to 35px there, and 47px
- * at 430px. The 3.75rem ceiling reproduces the previous text-6xl exactly, so
- * nothing changes from `sm:` upward where the grid gives each card room.
- *
- * Applies to any word length, including ones added later — which a per-card
- * Tailwind step does not.
- */
 .display-card {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 11vw, 3.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: clamp(1.75rem, 9vw, 3.5rem);
   line-height: 1;
-  text-transform: uppercase;
 }
 
-/*
- * Same single-word titles, but in the /apps layout where each one sits in a
- * 7-of-12 column rather than a full-width card — so the ceiling has to be set
- * against that column, not the viewport.
- *
- * The previous sm:text-9xl (128px) needed ~865px for COMMUNICATION while the
- * column tops out at 695px, so it overflowed at *every* width including
- * desktop, not just on phones. 7vw capped at 6.25rem keeps the widest word
- * inside the column from 640px up (676px of 695px at the ceiling) and hands
- * back to the shared mobile ramp below that.
- */
 .display-column {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 7vw, 6.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: clamp(1.75rem, 6vw, 5.5rem);
   line-height: 1;
-  text-transform: uppercase;
 }
 
 /* Chapeau — the magazine standfirst paragraph */
@@ -290,9 +258,9 @@ h4 {
 
 /* Small caps nav label */
 .label {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }

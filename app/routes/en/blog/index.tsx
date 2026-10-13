@@ -59,7 +59,7 @@ function BlogIndexEn() {
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
           <div className="mx-auto max-w-4xl">
             <p className="label opacity-80">The point</p>
-            <p className="font-heading mt-8 text-4xl uppercase leading-tight sm:text-6xl">
+            <p className="font-heading mt-8 text-4xl leading-tight sm:text-6xl">
               « The record of what we build, the choices behind it and the
               ground covered. »
             </p>
@@ -96,7 +96,7 @@ function BlogIndexEn() {
                         <p className="label mt-2 text-text/50">{article.lecture}</p>
                       </div>
                       <div className="sm:col-span-9">
-                        <h2 className="font-heading text-3xl uppercase leading-tight group-hover:text-accent-primary sm:text-5xl">
+                        <h2 className="font-heading text-3xl leading-tight group-hover:text-accent-primary sm:text-5xl">
                           {article.titre}
                         </h2>
                         <p className="mt-4 max-w-2xl text-base text-text/75">

@@ -69,7 +69,7 @@ function AProposPageEn() {
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">The observation</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             We build on other people's ground.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
@@ -97,7 +97,7 @@ function AProposPageEn() {
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What we do</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Take those means back, one by one.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
@@ -137,7 +137,7 @@ function AProposPageEn() {
       <section className="border-t-2 border-text bg-warm">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label text-text/60">How to help us</p>
-          <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
             Imagine it with your help.
           </h2>
           <p className="chapeau mt-8 max-w-2xl">
@@ -148,7 +148,7 @@ function AProposPageEn() {
           <div className="mt-14 grid grid-cols-1 gap-px bg-text sm:grid-cols-2 lg:grid-cols-3">
             {aides.map((aide) => (
               <div key={aide.titre} className="bg-bg p-8 sm:p-10">
-                <p className="font-heading text-2xl uppercase leading-tight">
+                <p className="font-heading text-2xl leading-tight">
                   {aide.titre}
                 </p>
                 <p className="mt-4 text-base text-text/80">{aide.detail}</p>
@@ -178,7 +178,7 @@ function AProposPageEn() {
           <div className="grid gap-10 sm:grid-cols-12">
             <div className="sm:col-span-5">
               <p className="label opacity-70">Contact</p>
-              <p className="font-heading mt-6 text-5xl uppercase leading-none sm:text-7xl">
+              <p className="font-heading mt-6 text-5xl leading-none sm:text-7xl">
                 Write to us.
               </p>
             </div>

@@ -90,7 +90,7 @@ function LandingPageEn() {
                   >
                     {statutEn[application.statut]}
                   </p>
-                  <h3 className="font-heading mt-5 text-4xl uppercase leading-none">
+                  <h3 className="font-heading mt-5 text-4xl leading-none">
                     {application.name}
                   </h3>
                   <p className="mt-5 text-base text-text/75">
@@ -156,7 +156,7 @@ function LandingPageEn() {
                 className="bg-accent-secondary p-8 sm:p-10"
               >
                 <p className="label opacity-70">{etatEn[projet.etat]}</p>
-                <h3 className="font-heading mt-5 text-3xl uppercase leading-none sm:text-4xl">
+                <h3 className="font-heading mt-5 text-3xl leading-none sm:text-4xl">
                   {projet.nom}
                 </h3>
                 <p className="mt-5 text-base opacity-90">{projet.resume}</p>
@@ -210,7 +210,7 @@ function LandingPageEn() {
                 <p className="label text-text/45">
                   {String(index + 1).padStart(2, '0')}
                 </p>
-                <h3 className="font-heading mt-5 text-2xl uppercase leading-none">
+                <h3 className="font-heading mt-5 text-2xl leading-none">
                   {pilierEn[pilier.name]}
                 </h3>
                 <p className="mt-4 text-sm text-text/70">{pilier.phrase}</p>

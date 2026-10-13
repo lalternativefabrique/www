@@ -106,13 +106,13 @@ const mdxComponents = {
   Tableau,
   h2: (props: { children?: ReactNode }) => (
     <h2
-      className="font-heading mb-6 mt-16 text-3xl uppercase leading-tight sm:text-4xl"
+      className="font-heading mb-6 mt-16 text-3xl leading-tight sm:text-4xl"
       {...props}
     />
   ),
   h3: (props: { children?: ReactNode }) => (
     <h3
-      className="font-heading mb-4 mt-12 text-2xl uppercase leading-tight"
+      className="font-heading mb-4 mt-12 text-2xl leading-tight"
       {...props}
     />
   ),

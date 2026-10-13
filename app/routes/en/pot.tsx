@@ -52,7 +52,7 @@ function PotPageEn() {
       >
         <div className="mx-auto min-h-[calc(100svh-7rem)] w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label opacity-70">Direct contribution</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Fund what comes next.
           </h2>
 
@@ -81,7 +81,7 @@ function PotPageEn() {
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Funding</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             What exists funds what comes next.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
@@ -111,7 +111,7 @@ function PotPageEn() {
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Where the money goes</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Two projects under way.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
