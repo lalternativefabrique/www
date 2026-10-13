@@ -90,9 +90,19 @@ function LandingPageEn() {
                   >
                     {statutEn[application.statut]}
                   </p>
-                  <h3 className="font-heading mt-5 text-4xl leading-none">
-                    {application.name}
-                  </h3>
+                  <span className="mt-5 flex items-center gap-3">
+                    <img
+                      src={application.icone}
+                      alt=""
+                      width={40}
+                      height={40}
+                      loading="lazy"
+                      className="size-10 rounded-[22%]"
+                    />
+                    <h3 className="font-heading text-4xl leading-none">
+                      {application.name}
+                    </h3>
+                  </span>
                   <p className="mt-5 text-base text-text/75">
                     {application.resume}
                   </p>

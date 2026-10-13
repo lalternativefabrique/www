@@ -120,7 +120,17 @@ function LandingPage() {
                     {application.statut}
                   </span>
                 </span>
-                <h3 className="mt-4 text-3xl">{application.name}</h3>
+                <span className="mt-4 flex items-center gap-3">
+                  <img
+                    src={application.icone}
+                    alt=""
+                    width={40}
+                    height={40}
+                    loading="lazy"
+                    className="size-10 rounded-[22%]"
+                  />
+                  <h3 className="text-3xl">{application.name}</h3>
+                </span>
                 <p className="mt-3 text-text/75">{application.resume}</p>
               </>
             )
