@@ -55,6 +55,7 @@ export const adminCounts = createServerFn({ method: 'GET' }).handler(
     applications: number
     subscribers: number
     articles: number
+    comments: number
   }> => {
     const { requireAdmin } = await import('./admin-guard')
     if (!(await requireAdmin())) throw new Error(FORBIDDEN)
@@ -67,8 +68,11 @@ export const adminCounts = createServerFn({ method: 'GET' }).handler(
     // no row.
     const articles = (await loadArticles()).length
 
+    const { countPendingComments } = await import('./admin-comments')
+    const comments = await countPendingComments()
+
     if (!dbConfigured) {
-      return { pending: 0, applications: 0, subscribers: 0, articles }
+      return { pending: 0, applications: 0, subscribers: 0, articles, comments }
     }
 
     const rows = await query<{
@@ -87,6 +91,7 @@ export const adminCounts = createServerFn({ method: 'GET' }).handler(
       applications: Number(rows[0]?.applications ?? 0),
       subscribers: Number(rows[0]?.subscribers ?? 0),
       articles,
+      comments,
     }
   },
 )

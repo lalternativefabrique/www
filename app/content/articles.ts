@@ -40,6 +40,8 @@ type MetaFr = {
   dateRevision?: string
   lecture: string
   illustration?: Illustration
+  /** `false` closes the discussion under this piece. Open by default. */
+  commentaires?: boolean
 }
 
 /**

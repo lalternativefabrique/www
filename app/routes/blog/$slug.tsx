@@ -1,4 +1,5 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
+import { Commentaires } from '@/components/Commentaires'
 import { Inscription } from '@/components/Inscription'
 import { LectureAudio } from '@/components/LectureAudio'
 import { loadArticle } from '@/server/article-page'
@@ -140,6 +141,8 @@ function BlogArticle() {
           </div>
         </div>
       </section>
+
+      {article.commentaires ? <Commentaires slug={article.slug} /> : null}
 
       {/* Sign-up */}
       <section className="border-t-2 border-text">

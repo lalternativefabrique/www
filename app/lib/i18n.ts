@@ -52,6 +52,21 @@ export const chrome = {
       sending: 'Envoi…',
       errorLead: "L'inscription n'a pas fonctionné. Écrivez-nous à",
     },
+    comments: {
+      kicker: 'Discussion',
+      none: 'Aucun commentaire pour le moment.',
+      heading: (n: number) => (n === 1 ? 'Un commentaire' : `${n} commentaires`),
+      pendingTag: 'en attente de lecture',
+      signInLead:
+        "Pour répondre à ce texte, connectez-vous avec votre compte L'Alternative.",
+      signIn: 'Se connecter pour commenter',
+      writingAs: (name: string) => `Votre commentaire, signé ${name}`,
+      submit: 'Envoyer',
+      sending: 'Envoi…',
+      posted: "C'est reçu. Il sera publié après lecture.",
+      error: "L'envoi n'a pas fonctionné. Réessayez dans un instant.",
+      moderationNote: 'Les commentaires sont lus avant publication.',
+    },
   },
   en: {
     nav: [
@@ -84,6 +99,20 @@ export const chrome = {
       submit: 'Sign up',
       sending: 'Sending…',
       errorLead: 'Sign-up did not go through. Write to us at',
+    },
+    comments: {
+      kicker: 'Discussion',
+      none: 'No comments yet.',
+      heading: (n: number) => (n === 1 ? 'One comment' : `${n} comments`),
+      pendingTag: 'awaiting review',
+      signInLead: "To reply to this piece, sign in with your L'Alternative account.",
+      signIn: 'Sign in to comment',
+      writingAs: (name: string) => `Your comment, signed ${name}`,
+      submit: 'Send',
+      sending: 'Sending…',
+      posted: 'Received. It will appear once read.',
+      error: 'Sending did not go through. Try again in a moment.',
+      moderationNote: 'Comments are read before they are published.',
     },
   },
 } as const

@@ -15,7 +15,7 @@ function Dashboard() {
       <div>
         <h1 className="text-2xl font-semibold text-foreground">Tableau de bord</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          La revue, les candidatures et les inscriptions.
+          La revue, les candidatures, les inscriptions et la discussion.
         </p>
       </div>
 
@@ -24,6 +24,7 @@ function Dashboard() {
         <AdminKpi label="Candidatures reçues" value={stats.applications} />
         <AdminKpi label="Inscrits à la revue" value={stats.subscribers} />
         <AdminKpi label="Articles publiés" value={stats.articles} />
+        <AdminKpi label="Commentaires à lire" value={stats.comments} />
       </div>
 
       <div className="flex flex-wrap gap-3">
@@ -38,6 +39,12 @@ function Dashboard() {
           className="rounded-md border border-border px-4 py-2 text-sm text-foreground hover:bg-muted"
         >
           Lire les candidatures
+        </Link>
+        <Link
+          to="/admin/commentaires"
+          className="rounded-md border border-border px-4 py-2 text-sm text-foreground hover:bg-muted"
+        >
+          Lire les commentaires
         </Link>
       </div>
     </div>

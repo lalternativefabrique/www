@@ -31,6 +31,7 @@ const NAV = [
   { to: '/admin', label: 'Tableau de bord', exact: true },
   { to: '/admin/articles', label: 'Articles', exact: false },
   { to: '/admin/personnes', label: 'Personnes', exact: false },
+  { to: '/admin/commentaires', label: 'Commentaires', exact: false },
 ] as const
 
 function AdminShell() {
