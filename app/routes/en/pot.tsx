@@ -73,6 +73,12 @@ function PotPageEn() {
             >
               The applications that fund them <span aria-hidden>→</span>
             </Link>
+            <Link
+              to="/en/take-part"
+              className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-current pb-1 hover:opacity-70"
+            >
+              Our needs, in money and in skills <span aria-hidden>→</span>
+            </Link>
           </div>
         </div>
       </section>

@@ -24,6 +24,7 @@ export const chrome = {
     nav: [
       { to: '/projets', label: 'Projets' },
       { to: '/pot', label: 'Financement' },
+      { to: '/participer', label: 'Participer' },
       { to: '/blog', label: 'Revue' },
       { to: '/a-propos', label: 'À propos' },
     ],
@@ -57,6 +58,7 @@ export const chrome = {
     nav: [
       { to: '/en/projets', label: 'Projects' },
       { to: '/en/pot', label: 'Funding' },
+      { to: '/en/take-part', label: 'Take part' },
       { to: '/en/blog', label: 'Review' },
       { to: '/en/a-propos', label: 'About' },
     ],

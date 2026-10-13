@@ -20,6 +20,7 @@ const STATIC_PATHS = [
   '/pot',
   '/paiement',
   '/couts',
+  '/participer',
   '/blog',
   '/a-propos',
   '/contact',
@@ -34,6 +35,7 @@ const EN_STATIC_PATHS = [
   '/en/paiement',
   '/en/costs',
   '/en/pot',
+  '/en/take-part',
   '/en/a-propos',
   '/en/contact',
   '/en/blog',
@@ -126,6 +128,8 @@ ${enSection}## Pages
 - [Les applications](${SITE_URL}/outils) — ce qui tourne déjà et ce que chacune prend en charge
 - [Les projets](${SITE_URL}/projets) — ce que les revenus des applications construisent
 - [Le financement](${SITE_URL}/pot) — le modèle de réinvestissement
+- [Les coûts](${SITE_URL}/couts) — ce que les applications coûtent chaque mois
+- [Participer](${SITE_URL}/participer) — nos besoins financiers et en compétences
 - [À propos](${SITE_URL}/a-propos)
 - [Contact](${SITE_URL}/contact)
 `
