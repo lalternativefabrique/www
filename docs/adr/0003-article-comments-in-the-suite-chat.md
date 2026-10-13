@@ -36,12 +36,12 @@ admin already uses, through `@lalternative/auth`; a signed-in person without
 the admin role is a reader.
 
 **The server owns the tenant surface, the browser only reaches the rooms.**
-`chat-service.ts` holds a client_credentials client of urbangate (`www-core`,
-audience `chat`), opens the rooms on publish and moderates from `/admin`. The
+`chat-service.ts` holds the app key the chat service issued to the `www`
+tenant, opens the rooms on publish and moderates from `/admin`. The
 browser talks to the rooms surface through `/api/chat/*`, a relay that admits
 only the posts routes and attaches the reader's urbangate token from the
-Better Auth session. The token never reaches the browser, and the service
-token never leaves the server.
+Better Auth session. The token never reaches the browser, and the app key
+never leaves the server.
 
 **The article never waits for the chat.** The comments mount after hydration,
 ask the server for the room id, and read the posts themselves. The service
@@ -72,5 +72,5 @@ erasure (ADR 0016), not through this site. The legal notice must name the
 discussion and the account it requires.
 
 Running the site without `CHAT_URL` shows no comments and costs nothing else;
-`CHAT_CLIENT_SECRET` unset leaves the rooms unopened and the admin screen
-empty, which the screen says.
+`CHAT_KEY` unset leaves the rooms unopened and the admin screen empty, which
+the screen says.

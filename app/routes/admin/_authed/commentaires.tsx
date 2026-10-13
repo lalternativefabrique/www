@@ -26,7 +26,7 @@ function Commentaires() {
 
       {!configured ? (
         <p className="text-sm text-muted-foreground">
-          Le service de discussion n'est pas configuré (CHAT_URL, CHAT_CLIENT_SECRET).
+          Le service de discussion n'est pas configuré (CHAT_URL, CHAT_KEY).
         </p>
       ) : comments.length === 0 ? (
         <p className="text-sm text-muted-foreground">Rien à lire.</p>

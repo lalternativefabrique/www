@@ -1,7 +1,7 @@
 /**
  * The suite's chat service, which holds the comments under every article
- * (messag ADR 0016). This module is server-only: it carries the service
- * credentials and calls the tenant surface, which the browser never reaches.
+ * (messag ADR 0016). This module is server-only: it carries the tenant's app
+ * key and calls the tenant surface, which the browser never reaches.
  *
  * Nothing here is on an article's render path. The public page asks for a
  * room id after hydration and the reader's browser reads the posts itself
@@ -42,16 +42,11 @@ export type PendingPost = ChatPost & {
 }
 
 const url = process.env.CHAT_URL?.replace(/\/$/, '')
-const clientId = process.env.CHAT_CLIENT_ID ?? 'www-core'
-const clientSecret = process.env.CHAT_CLIENT_SECRET
-const issuer = (process.env.OIDC_ISSUER_URL ?? 'https://id.urbangate.dev').replace(
-  /\/$/,
-  '',
-)
+const key = process.env.CHAT_KEY
 
-/** The public reads need only the URL; the tenant surface needs the secret too. */
+/** The public reads need only the URL; the tenant surface needs the app key too. */
 export const chatConfigured = Boolean(url)
-export const chatTenantConfigured = Boolean(url && clientSecret)
+export const chatTenantConfigured = Boolean(url && key)
 
 export function chatUrl(): string {
   if (!url) throw new Error('CHAT_URL is not set.')
@@ -68,53 +63,16 @@ export class ChatError extends Error {
   }
 }
 
-let serviceToken: { value: string; expires: number } | undefined
-
-// Renewed this long before it expires, so a request in flight never carries a
-// token that lapses on the way.
-const RENEW_MARGIN_MS = 30_000
-
-async function token(): Promise<string> {
-  if (!clientSecret) throw new Error('CHAT_CLIENT_SECRET is not set.')
-  if (serviceToken && Date.now() + RENEW_MARGIN_MS < serviceToken.expires) {
-    return serviceToken.value
-  }
-
-  const form = new URLSearchParams({
-    grant_type: 'client_credentials',
-    audience: 'chat',
-  })
-  const res = await fetch(`${issuer}/oauth2/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${Buffer.from(
-        `${encodeURIComponent(clientId)}:${encodeURIComponent(clientSecret)}`,
-      ).toString('base64')}`,
-    },
-    body: form,
-    signal: AbortSignal.timeout(10_000),
-  })
-  if (!res.ok) {
-    throw new ChatError(res.status, `token endpoint answered ${res.status}`)
-  }
-  const body = (await res.json()) as { access_token: string; expires_in: number }
-  serviceToken = {
-    value: body.access_token,
-    expires: Date.now() + body.expires_in * 1000,
-  }
-  return body.access_token
-}
-
 async function tenant<T>(
   method: 'GET' | 'POST' | 'PUT',
   path: string,
   body?: unknown,
 ): Promise<T> {
+  if (!key) throw new Error('CHAT_KEY is not set.')
   const res = await fetch(`${chatUrl()}${path}`, {
     method,
     headers: {
-      Authorization: `Bearer ${await token()}`,
+      Authorization: `Bearer ${key}`,
       ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}),
     },
     body: body !== undefined ? JSON.stringify(body) : undefined,
