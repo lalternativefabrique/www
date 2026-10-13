@@ -94,6 +94,19 @@ export const applicationsEn: Application[] = [
     accent: 'paper',
   },
   {
+    name: 'Nakoda',
+    icone: '/images/apps/nakoda.png',
+    pilier: 'Technique',
+    statut: 'Bêta',
+    url: 'https://nakoda.club',
+    resume: 'Measure your apps’ audience and feedback.',
+    tagline: 'Know who comes, what works and what jams, without trackers.',
+    detail:
+      'Visits, sign-ups and user feedback, gathered per application. Bug reports go straight to Skalpai. The applications on this page are measured with it.',
+    pour: 'Software publishers and small teams',
+    accent: 'paper',
+  },
+  {
     name: "L'Alter",
     icone: '/images/apps/lalter.png',
     pilier: 'Connaissance',

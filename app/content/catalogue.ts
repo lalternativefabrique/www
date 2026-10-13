@@ -98,6 +98,19 @@ export const applications: Application[] = [
     accent: 'paper',
   },
   {
+    name: 'Nakoda',
+    icone: '/images/apps/nakoda.png',
+    pilier: 'Technique',
+    statut: 'Bêta',
+    url: 'https://nakoda.club',
+    resume: 'Mesurer l’audience et les retours de ses applications.',
+    tagline: 'Savoir qui vient, ce qui marche et ce qui coince, sans traqueur.',
+    detail:
+      "Visites, inscriptions et retours des utilisateurs, réunis par application. Les signalements de bugs partent directement vers Skalpai. Les applications de cette page s'y mesurent.",
+    pour: 'Éditeurs de logiciels et petites équipes',
+    accent: 'paper',
+  },
+  {
     name: "L'Alter",
     icone: '/images/apps/lalter.png',
     pilier: 'Connaissance',
