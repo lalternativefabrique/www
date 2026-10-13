@@ -38,11 +38,8 @@ export type ChatRoom = {
 }
 
 export type PendingPost = ChatPost & {
-  room_subject?: { kind: string; id: string }
-  room_title?: string
+  subject?: { kind: string; id: string }
 }
-
-export type PendingPage = { posts: PendingPost[]; next?: string }
 
 const url = process.env.CHAT_URL?.replace(/\/$/, '')
 const clientId = process.env.CHAT_CLIENT_ID ?? 'www-core'
@@ -167,11 +164,16 @@ export function ensureArticleRoom(
   return pending
 }
 
-export function listPendingPosts(cursor?: string): Promise<PendingPage> {
-  const qs = new URLSearchParams({ status: 'pending', limit: '100' })
-  if (cursor) qs.set('cursor', cursor)
-  return tenant<PendingPage>('GET', `/v1/tenant/posts?${qs}`)
+const PENDING_PAGE = 200
+
+/** Newest first; `before` is the created_at of the last post of the previous page. */
+export function listPendingPosts(before?: string): Promise<PendingPost[]> {
+  const qs = new URLSearchParams({ status: 'pending', limit: String(PENDING_PAGE) })
+  if (before) qs.set('before', before)
+  return tenant<PendingPost[]>('GET', `/v1/tenant/posts?${qs}`)
 }
+
+export const pendingPageFull = (page: PendingPost[]) => page.length === PENDING_PAGE
 
 export function moderatePost(
   room: string,

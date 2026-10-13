@@ -76,20 +76,16 @@ function Carte({ comment }: { comment: PendingComment }) {
           {new Date(comment.createdAt).toLocaleString('fr-FR')}
         </p>
       </div>
-      {comment.title || link ? (
+      {link ? (
         <p className="mt-1 text-sm text-muted-foreground">
           Sous{' '}
-          {link ? (
-            <Link
-              to="/admin/articles/$dir"
-              params={{ dir: link.dir }}
-              className="underline hover:text-foreground"
-            >
-              {comment.title || link.label}
-            </Link>
-          ) : (
-            comment.title
-          )}
+          <Link
+            to="/admin/articles/$dir"
+            params={{ dir: link.dir }}
+            className="underline hover:text-foreground"
+          >
+            {link.label}
+          </Link>
         </p>
       ) : null}
 

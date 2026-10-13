@@ -13,7 +13,6 @@ export type PendingComment = {
   createdAt: string
   /** `dir:locale` of the article, as the room's subject names it. */
   article: string
-  title: string
 }
 
 const FORBIDDEN = 'forbidden'
@@ -22,7 +21,7 @@ export async function countPendingComments(): Promise<number> {
   const { chatTenantConfigured, listPendingPosts } = await import('./chat-service')
   if (!chatTenantConfigured) return 0
   try {
-    return (await listPendingPosts()).posts.length
+    return (await listPendingPosts()).length
   } catch (err) {
     console.error('[comments] pending count', err)
     return 0
@@ -34,28 +33,31 @@ export const listPendingComments = createServerFn({ method: 'GET' }).handler(
     const { requireAdmin } = await import('./admin-guard')
     if (!(await requireAdmin())) throw new Error(FORBIDDEN)
 
-    const { chatTenantConfigured, listPendingPosts } = await import('./chat-service')
+    const { chatTenantConfigured, listPendingPosts, pendingPageFull } = await import(
+      './chat-service'
+    )
     if (!chatTenantConfigured) return { configured: false, comments: [] }
 
     const comments: PendingComment[] = []
-    let cursor: string | undefined
-    do {
-      const page = await listPendingPosts(cursor)
-      for (const p of page.posts) {
+    let before: string | undefined
+    for (;;) {
+      const page = await listPendingPosts(before)
+      for (const p of page) {
         comments.push({
           room: p.room,
           seq: p.seq,
           author: p.sender_handle,
           body: p.body,
           createdAt: p.created_at,
-          article: p.room_subject?.id ?? '',
-          title: p.room_title ?? '',
+          article: p.subject?.id ?? '',
         })
       }
-      cursor = page.next
-    } while (cursor)
+      if (!pendingPageFull(page)) break
+      before = page[page.length - 1]!.created_at
+    }
 
-    return { configured: true, comments }
+    // The queue reads oldest first: what has waited longest is read first.
+    return { configured: true, comments: comments.reverse() }
   },
 )
 
