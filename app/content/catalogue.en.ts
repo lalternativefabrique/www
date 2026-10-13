@@ -16,6 +16,7 @@ export const pilierEn: Record<Pilier, string> = {
 export const applicationsEn: Application[] = [
   {
     name: 'Synthiz',
+    icone: '/images/apps/synthiz.png',
     pilier: 'Connaissance',
     statut: 'Disponible',
     url: 'https://synthiz.com',
@@ -29,6 +30,7 @@ export const applicationsEn: Application[] = [
   },
   {
     name: 'Spore',
+    icone: '/images/apps/spore.png',
     pilier: 'Communication',
     statut: 'Disponible',
     url: 'https://sporee.fr',
@@ -41,6 +43,7 @@ export const applicationsEn: Application[] = [
   },
   {
     name: 'Partage',
+    icone: '/images/apps/partage.png',
     pilier: 'Communication',
     statut: 'Disponible',
     url: 'https://partagg.fr',
@@ -53,6 +56,7 @@ export const applicationsEn: Application[] = [
   },
   {
     name: 'Messag',
+    icone: '/images/apps/messag.png',
     pilier: 'Communication',
     statut: 'Bientôt',
     resume: 'Mail, calendar and contacts, on desktop and mobile.',
@@ -64,6 +68,7 @@ export const applicationsEn: Application[] = [
   },
   {
     name: 'Lungor',
+    icone: '/images/apps/lungor.png',
     pilier: 'Financement',
     statut: 'Bêta',
     url: 'https://lungor.fr',
@@ -77,6 +82,7 @@ export const applicationsEn: Application[] = [
   },
   {
     name: 'Skalpai',
+    icone: '/images/apps/skalpai.png',
     pilier: 'Technique',
     statut: 'Bêta',
     url: 'https://skalpai.dev',
@@ -89,6 +95,7 @@ export const applicationsEn: Application[] = [
   },
   {
     name: "L'Alter",
+    icone: '/images/apps/lalter.png',
     pilier: 'Connaissance',
     statut: 'Bêta',
     url: 'https://lalter.fr',

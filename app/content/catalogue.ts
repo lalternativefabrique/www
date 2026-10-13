@@ -4,6 +4,7 @@ export type Statut = 'Disponible' | 'Bêta' | 'Bientôt'
 
 export type Application = {
   name: string
+  icone: string
   pilier: Pilier
   statut: Statut
   url?: string
@@ -19,6 +20,7 @@ export type Application = {
 export const applications: Application[] = [
   {
     name: 'Synthiz',
+    icone: '/images/apps/synthiz.png',
     pilier: 'Connaissance',
     statut: 'Disponible',
     url: 'https://synthiz.com',
@@ -32,6 +34,7 @@ export const applications: Application[] = [
   },
   {
     name: 'Spore',
+    icone: '/images/apps/spore.png',
     pilier: 'Communication',
     statut: 'Disponible',
     url: 'https://sporee.fr',
@@ -44,6 +47,7 @@ export const applications: Application[] = [
   },
   {
     name: 'Partage',
+    icone: '/images/apps/partage.png',
     pilier: 'Communication',
     statut: 'Disponible',
     url: 'https://partagg.fr',
@@ -56,6 +60,7 @@ export const applications: Application[] = [
   },
   {
     name: 'Messag',
+    icone: '/images/apps/messag.png',
     pilier: 'Communication',
     statut: 'Bientôt',
     resume: 'Mail, agenda et contacts, sur ordinateur et mobile.',
@@ -67,6 +72,7 @@ export const applications: Application[] = [
   },
   {
     name: 'Lungor',
+    icone: '/images/apps/lungor.png',
     pilier: 'Financement',
     statut: 'Bêta',
     url: 'https://lungor.fr',
@@ -80,6 +86,7 @@ export const applications: Application[] = [
   },
   {
     name: 'Skalpai',
+    icone: '/images/apps/skalpai.png',
     pilier: 'Technique',
     statut: 'Bêta',
     url: 'https://skalpai.dev',
@@ -92,6 +99,7 @@ export const applications: Application[] = [
   },
   {
     name: "L'Alter",
+    icone: '/images/apps/lalter.png',
     pilier: 'Connaissance',
     statut: 'Bêta',
     url: 'https://lalter.fr',
