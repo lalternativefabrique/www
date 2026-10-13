@@ -25,6 +25,11 @@ const textes = {
     indisponible: 'Les coûts ne sont pas encore publiés.',
     indisponibleDetail: 'Revenez bientôt : cette page se remplira dès que Lungor les publiera.',
     retour: { to: '/paiement', label: 'Encaisser sans intermédiaire' },
+    participer: {
+      to: '/participer',
+      texte: "Ce tableau ne compte que les machines. Le reste, ce sont des métiers que nous n'avons pas tous.",
+      label: 'Nos besoins, en argent et en compétences',
+    },
     voir: 'Afficher',
   },
   en: {
@@ -50,6 +55,11 @@ const textes = {
     indisponible: 'Costs are not published yet.',
     indisponibleDetail: 'Check back soon: this page fills in as soon as Lungor publishes them.',
     retour: { to: '/en/paiement', label: 'Payments without a middleman' },
+    participer: {
+      to: '/en/take-part',
+      texte: 'This table only counts machines. The rest are trades we do not all have.',
+      label: 'Our needs, in money and in skills',
+    },
     voir: 'Show',
   },
 } as const
@@ -185,6 +195,16 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
             ) : (
               <p className="mt-14 text-text/70">{t.aucuneApp}</p>
             )}
+
+            <div className="mt-16 border-t-2 border-text pt-10">
+              <p className="max-w-2xl text-text/80">{t.participer.texte}</p>
+              <Link
+                to={t.participer.to}
+                className="label mt-6 inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
+              >
+                {t.participer.label} <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
         </section>
       ) : (

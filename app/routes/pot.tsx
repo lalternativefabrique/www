@@ -71,6 +71,12 @@ function PotPage() {
             >
               Les applications qui financent <span aria-hidden>→</span>
             </Link>
+            <Link
+              to="/participer"
+              className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-current pb-1 hover:opacity-70"
+            >
+              Nos besoins, en argent et en compétences <span aria-hidden>→</span>
+            </Link>
           </div>
         </div>
       </section>
