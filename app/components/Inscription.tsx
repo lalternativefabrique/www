@@ -50,7 +50,7 @@ export function Inscription({ compact = false }: { compact?: boolean }) {
       {!compact ? (
         <>
           <p className="label text-text/50">{t.kicker}</p>
-          <p className="font-heading mt-4 text-3xl uppercase leading-tight sm:text-4xl">
+          <p className="font-heading mt-4 text-3xl leading-tight sm:text-4xl">
             {t.heading}
           </p>
           <p className="mt-4 max-w-md text-base text-text/75">

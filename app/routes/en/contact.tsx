@@ -97,7 +97,7 @@ function ContactPageEn() {
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-24">
           {etat === 'ok' ? (
             <div>
-              <p className="font-heading text-4xl uppercase leading-tight text-accent-primary sm:text-5xl">
+              <p className="font-heading text-4xl leading-tight text-accent-primary sm:text-5xl">
                 Message received.
               </p>
               <p className="chapeau mt-6 text-text/80">
@@ -217,7 +217,7 @@ function ContactPageEn() {
           <div className="grid gap-10 sm:grid-cols-12">
             <div className="sm:col-span-5">
               <p className="label opacity-70">Take part</p>
-              <p className="font-heading mt-6 text-4xl uppercase leading-none sm:text-6xl">
+              <p className="font-heading mt-6 text-4xl leading-none sm:text-6xl">
                 The door is open.
               </p>
             </div>

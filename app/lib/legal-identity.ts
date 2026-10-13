@@ -53,7 +53,7 @@ export const LEGAL_CLASSNAMES = {
   title: 'display-xl',
   updated: 'label mt-6 text-text/60',
   section: 'mt-14',
-  sectionTitle: 'font-heading text-2xl uppercase leading-tight sm:text-3xl',
+  sectionTitle: 'font-heading text-2xl leading-tight sm:text-3xl',
   sectionBody: 'prose-editorial mt-6 text-text/85',
   link: 'underline underline-offset-2 hover:text-accent-primary',
   list: 'list-disc space-y-2 pl-5',

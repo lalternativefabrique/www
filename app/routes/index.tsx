@@ -40,215 +40,197 @@ export const Route = createFileRoute('/')({
   }),
 })
 
+function SectionHead({ titre, repere }: { titre: string; repere: string }) {
+  return (
+    <div className="flex flex-wrap items-baseline justify-between gap-4 border-b-[3px] border-text pb-3">
+      <h2 className="display-lg">{titre}</h2>
+      <span className="label">{repere}</span>
+    </div>
+  )
+}
+
+const lienTrait =
+  'label inline-flex w-fit items-center gap-2 border-b border-current pb-1 pt-3 hover:text-accent-primary'
+
 function LandingPage() {
   return (
-    <div>
-      <section className="border-b-2 border-text">
-        <div className="mx-auto w-full max-w-7xl px-6 pb-20 pt-12 sm:pb-28 sm:pt-16">
-          <p className="label text-accent-primary">01 — L'objectif</p>
-
-          <h1 className="display-xxl mt-8 w-fit sm:mt-10">
-            L'Alternative
-            <span className="block text-right text-[0.58em] leading-[0.95] text-accent-primary">
-              Fabrique
-            </span>
-          </h1>
-
-          <div className="mt-10 grid gap-10 sm:mt-14 sm:grid-cols-12">
-            <div className="sm:col-span-7">
-              <p className="chapeau">
-                Héberger, envoyer un email, publier, encaisser : nos moyens de
-                produire en ligne appartiennent à d'autres. Nous les reprenons
-                un par un, avec des applications que vous pouvez utiliser.
-              </p>
-              <Link
-                to="/outils"
-                className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-text bg-text px-6 py-3 text-bg hover:bg-accent-primary"
-              >
-                Voir les applications <span aria-hidden>→</span>
-              </Link>
-            </div>
-            <div className="sm:col-span-4 sm:col-start-9 sm:self-end">
-              <p className="label text-text/60">Le raisonnement</p>
-              <ul className="mt-3 space-y-1 text-base">
-                <li>— {applications.length} applications qui tournent</li>
-                <li>— Leurs revenus financent la suite</li>
-                <li>— {projetsEnCours.length} projets en cours</li>
-                <li>— Des idées ouvertes à proposition</li>
-              </ul>
-            </div>
+    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+      <section className="border-b-[3px] border-text pb-14 pt-16 sm:pt-20">
+        <p className="label text-accent-primary">§ 01 — L'objectif</p>
+        <h1 className="display-xxl mt-7">
+          L'Alternative
+          <br />
+          Fabrique<span className="text-accent-primary">.</span>
+        </h1>
+        <div className="mt-14 grid gap-10 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <p className="chapeau">
+              Héberger, envoyer un e-mail, publier, encaisser : ces outils du
+              quotidien appartiennent presque tous à quelques acteurs. Nous en
+              construisons des alternatives, une à une, que vous pouvez
+              utiliser dès aujourd'hui.
+            </p>
+            <Link
+              to="/outils"
+              className="mt-8 inline-flex min-h-11 w-fit items-center gap-3 bg-text px-6 font-semibold text-bg hover:bg-accent-primary"
+            >
+              Voir les applications <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <div className="border-t border-text pt-4 md:col-span-4 md:col-start-9 md:self-end">
+            <p className="label">Le principe</p>
+            <ol className="mt-3 grid grid-cols-[2.5rem_1fr] gap-y-2 font-mono text-sm">
+              {[
+                `${applications.length} applications en service`,
+                'Leurs revenus financent la suite',
+                `${projetsEnCours.length} projets en cours`,
+                'Des idées ouvertes à proposition',
+              ].map((ligne, index) => (
+                <li key={ligne} className="contents">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <span>{ligne}</span>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
 
-      <section className="border-b-2 border-text">
-        <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">02 — La preuve</p>
-          <div className="mt-6 grid gap-8 sm:grid-cols-12">
-            <h2 className="display-lg sm:col-span-7">
-              Des applications qui tournent.
-            </h2>
-            <p className="chapeau sm:col-span-5 sm:self-end">
-              Certaines sont ouvertes, d'autres en bêta, une arrive. Chacune
-              reprend un moyen précis.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-px bg-text sm:grid-cols-2 lg:grid-cols-3">
-            {applications.map((application) => {
-              const contenu = (
-                <>
-                  <p
-                    className={`label ${
+      <section className="pt-20 sm:pt-24">
+        <SectionHead titre="Des applications en service." repere="§ 02 — La preuve" />
+        <p className="mt-5 max-w-xl text-text/75">
+          Certaines sont ouvertes, d'autres en bêta, une arrive. Chacune
+          remplace un outil précis.
+        </p>
+        <div className="mt-10 grid border-t border-text sm:grid-cols-2 lg:grid-cols-3">
+          {applications.map((application, index) => {
+            const contenu = (
+              <>
+                <span className="label flex justify-between gap-3">
+                  <span className="text-text/60">
+                    A-{String(index + 1).padStart(2, '0')} · {application.pilier}
+                  </span>
+                  <span
+                    className={
                       application.statut === 'Disponible'
-                        ? 'text-accent-primary'
-                        : 'text-text/50'
-                    }`}
+                        ? 'bg-accent-primary px-1.5 text-bg'
+                        : 'border border-text px-1.5'
+                    }
                   >
                     {application.statut}
-                  </p>
-                  <h3 className="font-heading mt-5 text-4xl uppercase leading-none">
-                    {application.name}
-                  </h3>
-                  <p className="mt-5 text-base text-text/75">
-                    {application.resume}
-                  </p>
-                </>
-              )
-              return application.url ? (
-                <a
-                  key={application.name}
-                  href={application.url}
-                  className="bg-bg p-8 hover:bg-warm sm:p-10"
-                >
-                  {contenu}
-                </a>
-              ) : (
-                <article key={application.name} className="bg-bg p-8 sm:p-10">
-                  {contenu}
-                </article>
-              )
-            })}
-          </div>
-
-          <Link
-            to="/outils"
-            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
-          >
-            Le détail de chaque application <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </section>
-
-      <section className="border-b-2 border-text bg-text text-bg">
-        <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
-          <p className="label opacity-70">03 — Le mécanisme</p>
-          <h2 className="display-xl mt-6">
-            Utiliser, c'est{' '}
-            <span className="text-accent-primary">financer la suite</span>.
-          </h2>
-          <p className="chapeau mt-10 max-w-3xl opacity-90">
-            Grâce à une organisation commune, un seul financement fait vivre
-            toutes les applications. Ce que vous payez pour l'une finance
-            les autres : celles qui existent, celles en bêta, celles qui
-            arrivent et celles qui restent à imaginer.
-          </p>
-          <Link
-            to="/pot"
-            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-bg px-6 py-3 hover:bg-bg hover:text-text"
-          >
-            Comment le financement fonctionne <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </section>
-
-      <section className="bg-accent-secondary text-bg">
-        <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
-          <p className="label opacity-70">04 — Les projets</p>
-          <h2 className="display-lg mt-6">Ce que cet argent construit.</h2>
-          <div className="mt-14 grid gap-px bg-bg/40 sm:grid-cols-2">
-            {projets.map((projet) => (
-              <article
-                key={projet.nom}
-                className="bg-accent-secondary p-8 sm:p-10"
+                  </span>
+                </span>
+                <h3 className="mt-4 text-3xl">{application.name}</h3>
+                <p className="mt-3 text-text/75">{application.resume}</p>
+              </>
+            )
+            const classes = 'block border-b border-text/25 py-7 sm:pr-6'
+            return application.url ? (
+              <a
+                key={application.name}
+                href={application.url}
+                className={`${classes} hover:text-accent-primary`}
               >
-                <p className="label opacity-70">{projet.etat}</p>
-                <h3 className="font-heading mt-5 text-3xl uppercase leading-none sm:text-4xl">
-                  {projet.nom}
-                </h3>
-                <p className="mt-5 text-base opacity-90">{projet.resume}</p>
+                {contenu}
+              </a>
+            ) : (
+              <article key={application.name} className={classes}>
+                {contenu}
               </article>
-            ))}
+            )
+          })}
+        </div>
+        <Link to="/outils" className={`${lienTrait} mt-7`}>
+          Le détail de chaque application <span aria-hidden>→</span>
+        </Link>
+      </section>
+
+      <section className="mt-24 bg-text px-6 py-14 text-bg sm:mt-28 sm:px-14 sm:py-20">
+        <p className="label text-accent-primary">§ 03 — Le mécanisme</p>
+        <h2 className="display-xl mt-6">
+          Utiliser,
+          <br />
+          c'est financer la suite.
+        </h2>
+        <div className="mt-12 grid gap-8 md:grid-cols-12 md:items-end">
+          <p className="chapeau md:col-span-7">
+            Une seule structure fait vivre toutes les applications. Ce que vous
+            payez pour l'une finance les autres : celles en service, celles en
+            bêta, celles à venir.
+          </p>
+          <div className="flex flex-wrap gap-6 md:col-span-5">
+            <Link to="/pot" className={lienTrait}>
+              Comment ça fonctionne <span aria-hidden>→</span>
+            </Link>
+            <Link to="/couts" className={lienTrait}>
+              Nos coûts, à livre ouvert <span aria-hidden>→</span>
+            </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="pt-24 sm:pt-28">
+        <SectionHead titre="Ce que cet argent construit." repere="§ 04 — Les projets" />
+        <div className="grid gap-x-12 md:grid-cols-2">
+          {projets.map((projet, index) => (
+            <article key={projet.nom} className="border-b border-text/25 py-8">
+              <p className="label text-accent-primary">
+                P-{String(index + 1).padStart(2, '0')} · {projet.etat}
+              </p>
+              <h3 className="mt-4 text-3xl">{projet.nom}</h3>
+              <p className="mt-3 text-text/75">{projet.resume}</p>
+            </article>
+          ))}
+        </div>
+        <Link to="/projets" className={`${lienTrait} mt-7`}>
+          Voir les projets <span aria-hidden>→</span>
+        </Link>
+      </section>
+
+      <section className="mt-24 grid gap-8 border-y border-text border-t-[3px] py-12 sm:mt-28 md:grid-cols-2">
+        <div>
+          <p className="label">§ 05 — Les idées</p>
+          <h2 className="display-lg mt-5">La suite est ouverte.</h2>
+        </div>
+        <div className="flex flex-col justify-end gap-6">
+          <p className="chapeau">
+            Ce qui vient après n'est pas écrit. Un outil qui vous manque, une
+            dépendance qui vous pèse : proposez-le.
+          </p>
           <Link
             to="/projets"
-            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-bg px-6 py-3 hover:bg-bg hover:text-accent-secondary"
+            hash="idees"
+            className="inline-flex min-h-11 w-fit items-center gap-3 border-2 border-text px-6 font-semibold hover:bg-text hover:text-bg"
           >
-            Voir les projets <span aria-hidden>→</span>
+            Proposer une idée <span aria-hidden>→</span>
           </Link>
         </div>
       </section>
 
-      <section className="border-b-2 border-text bg-warm">
-        <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <div className="grid gap-10 sm:grid-cols-12">
-            <div className="sm:col-span-6">
-              <p className="label text-text/60">05 — Les idées</p>
-              <h2 className="display-lg mt-6">La suite est ouverte.</h2>
-            </div>
-            <div className="flex flex-col justify-end sm:col-span-6">
-              <p className="chapeau">
-                Ce qui vient après n'est pas écrit. Un moyen qui vous manque,
-                une dépendance qui vous coûte : proposez-le.
+      <section id="piliers" className="scroll-mt-6 pt-20 sm:pt-24">
+        <SectionHead titre="Quatre piliers." repere="Vue d'ensemble" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4">
+          {piliers.map((pilier, index) => (
+            <article key={pilier.name} className="border-b border-text/25 py-7 sm:pr-6">
+              <p className="font-mono text-4xl text-accent-primary">
+                {String(index + 1).padStart(2, '0')}
               </p>
-              <Link
-                to="/projets"
-                hash="idees"
-                className="label mt-8 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
-              >
-                Proposer une idée <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </div>
+              <h3 className="mt-3 text-2xl">{pilier.name}</h3>
+              <p className="mt-3 text-sm text-text/75">{pilier.phrase}</p>
+              <p className="label mt-4">
+                {applicationsDuPilier(pilier.name)
+                  .map((application) => application.name)
+                  .join(' · ')}
+              </p>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section id="piliers" className="scroll-mt-6 border-b-2 border-text">
-        <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">La vue d'ensemble</p>
-          <h2 className="display-lg mt-6">Quatre piliers.</h2>
-          <p className="chapeau mt-8 max-w-2xl">
-            Chaque application et chaque projet reprend l'un de ces quatre
-            moyens.
-          </p>
-          <div className="mt-12 grid gap-px bg-text sm:grid-cols-2 lg:grid-cols-4">
-            {piliers.map((pilier, index) => (
-              <article key={pilier.name} className="bg-bg p-6">
-                <p className="label text-text/45">
-                  {String(index + 1).padStart(2, '0')}
-                </p>
-                <h3 className="font-heading mt-5 text-2xl uppercase leading-none">
-                  {pilier.name}
-                </h3>
-                <p className="mt-4 text-sm text-text/70">{pilier.phrase}</p>
-                <p className="label mt-6 text-accent-primary">
-                  {applicationsDuPilier(pilier.name)
-                    .map((application) => application.name)
-                    .join(' · ')}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
+      <section className="mt-24 border-t border-text pb-20 pt-12 sm:mt-28">
+        <div className="max-w-3xl">
           <Inscription />
-          <Link
-            to="/blog"
-            className="label mt-10 inline-flex w-fit items-center gap-2 text-accent-primary hover:underline"
-          >
+          <Link to="/blog" className={`${lienTrait} mt-8`}>
             Lire la revue <span aria-hidden>→</span>
           </Link>
         </div>

@@ -6,7 +6,7 @@
  * component works on the cream background and on the dark footer without
  * shipping two assets. Text is drawn with textPath on two invisible arcs.
  *
- * Anton is the heading face used across the site; it is loaded by __root's
+ * Archivo is the heading face used across the site; it is loaded by __root's
  * Google Fonts link, so the SVG needs no font of its own.
  */
 
@@ -68,7 +68,7 @@ export function Logo({
         textAnchor="middle"
         dominantBaseline="central"
         fill="currentColor"
-        fontFamily="var(--font-heading), 'Anton', sans-serif"
+        fontFamily="var(--font-heading), 'Archivo', sans-serif"
         fontSize="86"
         letterSpacing="-1"
       >
@@ -78,7 +78,7 @@ export function Logo({
       {/* L'ALTERNATIVE — curved over the top */}
       <text
         fill="currentColor"
-        fontFamily="var(--font-heading), 'Anton', sans-serif"
+        fontFamily="var(--font-heading), 'Archivo', sans-serif"
         fontSize="21"
         letterSpacing="3.4"
       >
@@ -94,7 +94,7 @@ export function Logo({
        */}
       <text
         fill={accent}
-        fontFamily="var(--font-heading), 'Anton', sans-serif"
+        fontFamily="var(--font-heading), 'Archivo', sans-serif"
         fontSize="21"
         letterSpacing="5"
         dominantBaseline="hanging"

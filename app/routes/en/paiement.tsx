@@ -336,7 +336,7 @@ function PaiementPageEn() {
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">The real obstacle</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Taking payment requires permission.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
@@ -362,7 +362,7 @@ function PaiementPageEn() {
       <section className="border-t-2 border-text bg-warm">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label text-text/60">The price of dependency</p>
-          <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
             What each one takes.
           </h2>
           <p className="chapeau mt-8 max-w-2xl">
@@ -392,7 +392,7 @@ function PaiementPageEn() {
             ))}
           </div>
 
-          <p className="font-heading mt-16 max-w-4xl text-4xl uppercase leading-tight sm:text-6xl">
+          <p className="font-heading mt-16 max-w-4xl text-4xl leading-tight sm:text-6xl">
             Imagine those commissions recovered to fund{' '}
             <span className="text-bg">tomorrow's applications</span>.
           </p>
@@ -445,7 +445,7 @@ function PaiementPageEn() {
           <p className="label opacity-70">
             Project — collecting payments without a middleman
           </p>
-          <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
             Four steps,
             <br />
             climbed one at a time.
@@ -538,7 +538,7 @@ function PaiementPageEn() {
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What the reinvestment funds</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Lawyers, not capital.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
@@ -563,7 +563,7 @@ function PaiementPageEn() {
       <section className="border-t-2 border-text bg-warm">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label text-text/60">The file</p>
-          <h2 className="font-heading mt-6 max-w-3xl text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
             What has to be written.
           </h2>
           <p className="chapeau mt-8 max-w-2xl">
@@ -577,7 +577,7 @@ function PaiementPageEn() {
                 <p className="label text-text/50">
                   № {String(i + 1).padStart(2, '0')}
                 </p>
-                <p className="font-heading mt-3 text-2xl uppercase leading-tight">
+                <p className="font-heading mt-3 text-2xl leading-tight">
                   {item.titre}
                 </p>
                 <p className="mt-4 text-base text-text/80">{item.detail}</p>
@@ -596,7 +596,7 @@ function PaiementPageEn() {
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What we do not know yet</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             The price is not public.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">

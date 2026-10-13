@@ -144,7 +144,7 @@ function OutilsPage() {
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Ce qui les relie</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Utiliser, c'est financer la suite.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">

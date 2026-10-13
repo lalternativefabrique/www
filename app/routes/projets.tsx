@@ -58,7 +58,7 @@ function ProjetsPage() {
           <div className="grid gap-8 sm:grid-cols-12">
             <div className="sm:col-span-4">
               <p className="label text-accent-primary">Déjà réalisés</p>
-              <p className="font-heading mt-4 text-3xl uppercase leading-tight sm:text-4xl">
+              <p className="font-heading mt-4 text-3xl leading-tight sm:text-4xl">
                 {applications.length} applications tournent.
               </p>
               <Link
@@ -72,7 +72,7 @@ function ProjetsPage() {
               {applications.map((application) => {
                 const contenu = (
                   <>
-                    <span className="font-heading text-xl uppercase leading-none">
+                    <span className="font-heading text-xl leading-none">
                       {application.name}
                     </span>
                     <span className="label opacity-60">{application.statut}</span>
@@ -234,7 +234,7 @@ function ProjetsPage() {
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Qui paie</p>
-          <h2 className="font-heading mt-6 text-4xl uppercase leading-tight sm:text-5xl">
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Les applications financent les projets.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
