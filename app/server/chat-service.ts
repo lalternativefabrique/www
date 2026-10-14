@@ -116,7 +116,7 @@ export function ensureArticleRoom(
     pending = tenant<ChatRoom>(
       'PUT',
       `/v1/tenant/subjects/article/${key}/room`,
-      { policy: 'public', moderated: true, mode: 'standard', title },
+      { policy: 'public', moderated: true, mode: 'standard', title, guests: true },
     ).catch((err: unknown) => {
       rooms.delete(key)
       throw err
@@ -136,6 +136,19 @@ export function listPendingPosts(before?: string): Promise<PendingPost[]> {
 }
 
 export const pendingPageFull = (page: PendingPost[]) => page.length === PENDING_PAGE
+
+/** A comment left without an account: the chat holds it pending under the given name. */
+export function postGuestComment(
+  room: string,
+  name: string,
+  body: string,
+): Promise<ChatPost> {
+  return tenant<ChatPost>(
+    'POST',
+    `/v1/tenant/rooms/${encodeURIComponent(room)}/posts`,
+    { author: 'guest', name, body },
+  )
+}
 
 export function moderatePost(
   room: string,
