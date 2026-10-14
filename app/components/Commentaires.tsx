@@ -31,13 +31,17 @@ export function Commentaires({ slug }: { slug: string }) {
   const locale = useLocale()
   const t = chrome[locale].comments
   const [room, setRoom] = useState<string | undefined>()
+  const [signup, setSignup] = useState('')
   const [posts, setPosts] = useState<Post[] | undefined>()
 
   useEffect(() => {
     let cancelled = false
     commentsRoom({ data: { slug, lang: locale } })
       .then((res) => {
-        if (!cancelled && res) setRoom(res.room)
+        if (!cancelled && res) {
+          setRoom(res.room)
+          setSignup(res.signup)
+        }
       })
       .catch(() => {})
     return () => {
@@ -97,6 +101,7 @@ export function Commentaires({ slug }: { slug: string }) {
         <Formulaire
           room={room}
           slug={slug}
+          signup={signup}
           onPosted={(post) => setPosts((list) => [...(list ?? []), post])}
         />
       </div>
@@ -115,16 +120,19 @@ async function fetchPosts(room: string): Promise<Post[]> {
 function Formulaire({
   room,
   slug,
+  signup,
   onPosted,
 }: {
   room: string
   slug: string
+  signup: string
   onPosted: (post: Post) => void
 }) {
   const locale = useLocale()
   const t = chrome[locale].comments
   const { data: session, isPending } = authClient.useSession()
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [body, setBody] = useState('')
   const [website, setWebsite] = useState('')
   const [startedAt] = useState(() => Date.now())
@@ -138,12 +146,12 @@ function Formulaire({
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     const text = body.trim()
-    if (!text || (!signedIn && !name.trim())) return
+    if (!text || (!signedIn && (!name.trim() || !email.trim()))) return
     setEtat('envoi')
     try {
       const post = signedIn
         ? await postAsReader(room, text)
-        : await postAsGuest({ slug, lang: locale, name, body: text, website, startedAt })
+        : await postAsGuest({ slug, lang: locale, name, email, body: text, website, startedAt })
       onPosted(post)
       setBody('')
       setEtat('ok')
@@ -170,6 +178,20 @@ function Formulaire({
             onChange={(e) => setName(e.target.value)}
             className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
           />
+          <label htmlFor="commentaire-email" className="label mt-6 block text-text/60">
+            {t.emailLabel}
+          </label>
+          <input
+            id="commentaire-email"
+            type="email"
+            required
+            maxLength={254}
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
+          />
+          <p className="mt-2 text-sm text-text/60">{t.emailNote}</p>
           <div className="absolute -left-[9999px]" aria-hidden>
             <label htmlFor="commentaire-site">{t.websiteLabel}</label>
             <input
@@ -200,7 +222,11 @@ function Formulaire({
       <div className="mt-4 flex flex-wrap items-center gap-4">
         <button
           type="submit"
-          disabled={etat === 'envoi' || !body.trim() || (!signedIn && !name.trim())}
+          disabled={
+            etat === 'envoi' ||
+            !body.trim() ||
+            (!signedIn && (!name.trim() || !email.trim()))
+          }
           className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg disabled:opacity-50"
         >
           {etat === 'envoi' ? t.sending : t.submit}
@@ -213,6 +239,17 @@ function Formulaire({
               : t.moderationNote}
         </p>
       </div>
+      {etat === 'ok' && !signedIn && signup ? (
+        <div className="mt-8 border-2 border-text p-6">
+          <p className="font-heading text-2xl leading-tight">{t.signupLead}</p>
+          <a
+            href={`${signup}?return=${encodeURIComponent(window.location.href)}`}
+            className="label mt-5 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
+          >
+            {t.signup} <span aria-hidden>→</span>
+          </a>
+        </div>
+      ) : null}
       {!signedIn ? (
         <p className="mt-6 text-sm text-text/60">
           {t.signInLead}{' '}

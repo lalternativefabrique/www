@@ -72,7 +72,17 @@ function Carte({ comment }: { comment: PendingComment }) {
   return (
     <li className="rounded-lg border border-border bg-muted p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="font-medium text-foreground">{comment.author}</p>
+        <div>
+          <p className="font-medium text-foreground">{comment.author}</p>
+          {comment.contact ? (
+            <a
+              href={`mailto:${comment.contact}`}
+              className="text-sm text-muted-foreground underline hover:text-foreground"
+            >
+              {comment.contact}
+            </a>
+          ) : null}
+        </div>
         <p className="text-xs text-muted-foreground">
           {new Date(comment.createdAt).toLocaleString('fr-FR')}
         </p>

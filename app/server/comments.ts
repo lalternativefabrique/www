@@ -35,12 +35,26 @@ async function roomFor(slug: string, lang: Lang) {
   }
 }
 
+/** Where a commenter is invited to open a Messag account, the suite's mail. */
+const SIGNUP_URL = process.env.MESSAG_SIGNUP_URL ?? 'https://app.messag.eco/register'
+
 export const commentsRoom = createServerFn({ method: 'GET' })
   .inputValidator((d: { slug: string; lang: Lang }) => d)
-  .handler(async ({ data }): Promise<{ room: string } | undefined> => {
-    const room = await roomFor(data.slug, data.lang)
-    return room ? { room: room.id } : undefined
-  })
+  .handler(
+    async ({ data }): Promise<{ room: string; signup: string } | undefined> => {
+      const room = await roomFor(data.slug, data.lang)
+      return room ? { room: room.id, signup: SIGNUP_URL } : undefined
+    },
+  )
+
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function normalizeEmail(raw: string): string {
+  const email = raw.trim().toLowerCase()
+  // 254 is the maximum length of an address per RFC 5321.
+  if (email.length > 254 || !EMAIL.test(email)) return ''
+  return email
+}
 
 const MAX_NAME = 120
 const MAX_BODY = 8000
@@ -82,6 +96,8 @@ export type GuestPostInput = {
   slug: string
   lang: Lang
   name: string
+  /** Required: the collective must be able to answer the person. Never shown. */
+  email: string
   body: string
   /** Honeypot: a person never sees the field, a bot fills it. */
   website?: string
@@ -91,14 +107,19 @@ export type GuestPostInput = {
 
 export type GuestPostResult =
   | { ok: true; seq: number; name: string; body: string; createdAt: string }
-  | { ok: false; reason: 'missing-name' | 'missing-body' | 'unavailable' | 'rejected' }
+  | {
+      ok: false
+      reason: 'missing-name' | 'invalid-email' | 'missing-body' | 'unavailable' | 'rejected'
+    }
 
 export const postGuestComment = createServerFn({ method: 'POST' })
   .inputValidator((d: GuestPostInput) => d)
   .handler(async ({ data }): Promise<GuestPostResult> => {
     const name = data.name.trim().slice(0, MAX_NAME)
     const body = data.body.trim().slice(0, MAX_BODY)
+    const email = normalizeEmail(data.email)
     if (!name) return { ok: false, reason: 'missing-name' }
+    if (!email) return { ok: false, reason: 'invalid-email' }
     if (!body) return { ok: false, reason: 'missing-body' }
 
     // A bot gets the same answer as a person, and nothing is stored: refusing
@@ -116,7 +137,7 @@ export const postGuestComment = createServerFn({ method: 'POST' })
 
     try {
       const { postGuestComment: post } = await import('./chat-service')
-      const created = await post(room.id, name, body)
+      const created = await post(room.id, name, email, body)
       return {
         ok: true,
         seq: created.seq,

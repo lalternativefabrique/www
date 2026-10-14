@@ -35,8 +35,10 @@ comment then carries their urbangate identity, the same one as on every
 product. Both wait for a moderator. The guest path is what the collective
 asked for on 2026-10-14: a blog that demands an account before a reply loses
 the reply. Against bots it keeps a honeypot field, a minimum fill time and a
-per-address rate, and the moderation reads everything anyway; no email is
-asked for, so nothing personal is stored beyond the name the person chose.
+per-address rate, and the moderation reads everything anyway. An email is required and
+never published: the collective must be able to answer the person, and the
+chat holds it for the moderator alone. Once the comment is sent, the page
+offers a Messag account, the suite's own address.
 
 **The server owns the tenant surface, the browser only reaches the rooms.**
 `chat-service.ts` holds the app key the chat service issued to the `www`

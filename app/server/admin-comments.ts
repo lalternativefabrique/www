@@ -13,6 +13,8 @@ export type PendingComment = {
   createdAt: string
   /** `dir:locale` of the article, as the room's subject names it. */
   article: string
+  /** The guest's email; empty for a signed-in reader. */
+  contact: string
 }
 
 const FORBIDDEN = 'forbidden'
@@ -50,6 +52,7 @@ export const listPendingComments = createServerFn({ method: 'GET' }).handler(
           body: p.body,
           createdAt: p.created_at,
           article: p.subject?.id ?? '',
+          contact: p.contact ?? '',
         })
       }
       if (!pendingPageFull(page)) break
