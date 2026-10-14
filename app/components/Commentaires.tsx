@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react'
 import { startSso } from '@lalternative/auth/client'
 import { authClient } from '@/lib/auth-client'
 import { chrome, useLocale } from '@/lib/i18n'
-import { commentsRoom } from '@/server/comments'
+import { commentsRoom, postGuestComment } from '@/server/comments'
+import type { GuestPostInput } from '@/server/comments'
 
 /**
  * The discussion under an article, held by the suite's chat service.
  *
  * Mounted after hydration and silent when nothing answers: the article is the
- * page, the comments are a guest on it. Reading needs no account; writing
- * needs the suite's sign-in, and a post waits for a moderator before it shows.
+ * page, the comments are a guest on it. Nobody needs an account: a name is
+ * enough, the suite's sign-in is offered for those who have one, and every
+ * post waits for a moderator before it shows.
  */
 
 type Post = {
@@ -94,6 +96,7 @@ export function Commentaires({ slug }: { slug: string }) {
 
         <Formulaire
           room={room}
+          slug={slug}
           onPosted={(post) => setPosts((list) => [...(list ?? []), post])}
         />
       </div>
@@ -111,53 +114,37 @@ async function fetchPosts(room: string): Promise<Post[]> {
 
 function Formulaire({
   room,
+  slug,
   onPosted,
 }: {
   room: string
+  slug: string
   onPosted: (post: Post) => void
 }) {
   const locale = useLocale()
   const t = chrome[locale].comments
   const { data: session, isPending } = authClient.useSession()
+  const [name, setName] = useState('')
   const [body, setBody] = useState('')
+  const [website, setWebsite] = useState('')
+  const [startedAt] = useState(() => Date.now())
   const [etat, setEtat] = useState<Etat>('repos')
 
   if (isPending) return null
 
-  if (!session?.user) {
-    return (
-      <div className="mt-12">
-        <p className="text-base text-text/75">{t.signInLead}</p>
-        <button
-          type="button"
-          onClick={() =>
-            startSso(authClient, {
-              callbackURL: window.location.pathname,
-              errorCallbackURL: window.location.pathname,
-            })
-          }
-          className="label mt-6 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
-        >
-          {t.signIn} <span aria-hidden>→</span>
-        </button>
-      </div>
-    )
-  }
+  const signedIn = Boolean(session?.user)
+  const signature = session?.user ? session.user.name || session.user.email : name
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     const text = body.trim()
-    if (!text) return
+    if (!text || (!signedIn && !name.trim())) return
     setEtat('envoi')
     try {
-      const res = await fetch(`/api/chat/v1/rooms/${room}/posts`, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ body: text.slice(0, MAX_BODY) }),
-      })
-      if (!res.ok) throw new Error(`comments: ${res.status}`)
-      onPosted((await res.json()) as Post)
+      const post = signedIn
+        ? await postAsReader(room, text)
+        : await postAsGuest({ slug, lang: locale, name, body: text, website, startedAt })
+      onPosted(post)
       setBody('')
       setEtat('ok')
     } catch {
@@ -166,9 +153,37 @@ function Formulaire({
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-12">
-      <label htmlFor="commentaire" className="label text-text/60">
-        {t.writingAs(session.user.name || session.user.email)}
+    <form onSubmit={onSubmit} className="relative mt-12">
+      {signedIn ? (
+        <p className="label text-text/60">{t.writingAs(signature)}</p>
+      ) : (
+        <>
+          <label htmlFor="commentaire-nom" className="label text-text/60">
+            {t.nameLabel}
+          </label>
+          <input
+            id="commentaire-nom"
+            required
+            maxLength={120}
+            autoComplete="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
+          />
+          <div className="absolute -left-[9999px]" aria-hidden>
+            <label htmlFor="commentaire-site">{t.websiteLabel}</label>
+            <input
+              id="commentaire-site"
+              tabIndex={-1}
+              autoComplete="off"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </div>
+        </>
+      )}
+      <label htmlFor="commentaire" className="label mt-6 block text-text/60">
+        {t.bodyLabel}
       </label>
       <textarea
         id="commentaire"
@@ -185,7 +200,7 @@ function Formulaire({
       <div className="mt-4 flex flex-wrap items-center gap-4">
         <button
           type="submit"
-          disabled={etat === 'envoi' || !body.trim()}
+          disabled={etat === 'envoi' || !body.trim() || (!signedIn && !name.trim())}
           className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg disabled:opacity-50"
         >
           {etat === 'envoi' ? t.sending : t.submit}
@@ -198,6 +213,47 @@ function Formulaire({
               : t.moderationNote}
         </p>
       </div>
+      {!signedIn ? (
+        <p className="mt-6 text-sm text-text/60">
+          {t.signInLead}{' '}
+          <button
+            type="button"
+            onClick={() =>
+              startSso(authClient, {
+                callbackURL: window.location.pathname,
+                errorCallbackURL: window.location.pathname,
+              })
+            }
+            className="underline hover:text-accent-primary"
+          >
+            {t.signIn}
+          </button>
+        </p>
+      ) : null}
     </form>
   )
+}
+
+async function postAsReader(room: string, body: string): Promise<Post> {
+  const res = await fetch(`/api/chat/v1/rooms/${room}/posts`, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ body }),
+  })
+  if (!res.ok) throw new Error(`comments: ${res.status}`)
+  return (await res.json()) as Post
+}
+
+async function postAsGuest(input: GuestPostInput): Promise<Post> {
+  const res = await postGuestComment({ data: input })
+  if (!res.ok) throw new Error(res.reason)
+  return {
+    seq: res.seq,
+    sender_sub: '',
+    sender_handle: res.name,
+    body: res.body,
+    status: 'pending',
+    created_at: res.createdAt,
+  }
 }

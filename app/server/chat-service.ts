@@ -19,7 +19,7 @@ export type ChatPost = {
   sender_handle: string
   body: string
   status: 'published' | 'pending'
-  author: 'person' | 'agent' | 'system'
+  author: 'person' | 'guest' | 'agent' | 'system'
   imported: boolean
   created_at: string
 }
@@ -136,6 +136,19 @@ export function listPendingPosts(before?: string): Promise<PendingPost[]> {
 }
 
 export const pendingPageFull = (page: PendingPost[]) => page.length === PENDING_PAGE
+
+/** A comment left without an account: accepted only in a public moderated room, always pending. */
+export function postGuestComment(
+  room: string,
+  name: string,
+  body: string,
+): Promise<ChatPost> {
+  return tenant<ChatPost>(
+    'POST',
+    `/v1/tenant/rooms/${encodeURIComponent(room)}/posts`,
+    { author: 'guest', name, body },
+  )
+}
 
 export function moderatePost(
   room: string,

@@ -28,12 +28,15 @@ to the subject `article/<dir>:<locale>`: a reader of the English page must not
 land in a French thread. The room is `public` and `moderated`, in standard
 mode, since comments are public by nature.
 
-**Reading needs no account, writing needs the suite's sign-in.** A comment is
-signed by an urbangate identity, the same account as on every product. No
-anonymous name-and-email form: that is what the policy of the service decides,
-and the collective reads a name it can answer. The sign-in is the one the
-admin already uses, through `@lalternative/auth`; a signed-in person without
-the admin role is a reader.
+**Nobody needs an account to comment.** A name is enough: the form posts
+through this server, which signs the comment as a guest of the `www` tenant
+with its app key. A reader who has a suite account may sign in and the
+comment then carries their urbangate identity, the same one as on every
+product. Both wait for a moderator. The guest path is what the collective
+asked for on 2026-10-14: a blog that demands an account before a reply loses
+the reply. Against bots it keeps a honeypot field, a minimum fill time and a
+per-address rate, and the moderation reads everything anyway; no email is
+asked for, so nothing personal is stored beyond the name the person chose.
 
 **The server owns the tenant surface, the browser only reaches the rooms.**
 `chat-service.ts` holds the app key the chat service issued to the `www`
