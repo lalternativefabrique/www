@@ -41,7 +41,8 @@ function Commentaires() {
   )
 }
 
-function articleOf(article: string): { dir: string; label: string } | undefined {
+function articleOf(raw: string): { dir: string; label: string } | undefined {
+  const article = decodeURIComponent(raw)
   const sep = article.lastIndexOf(':')
   if (sep < 0) return undefined
   const dir = article.slice(0, sep)
