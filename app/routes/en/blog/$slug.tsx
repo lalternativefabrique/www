@@ -1,4 +1,5 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
+import { Commentaires } from '@/components/Commentaires'
 import { Inscription } from '@/components/Inscription'
 import { LectureAudio } from '@/components/LectureAudio'
 import { loadArticle } from '@/server/article-page'
@@ -136,6 +137,8 @@ function BlogArticleEn() {
           </div>
         </div>
       </section>
+
+      {article.commentaires ? <Commentaires slug={article.slug} /> : null}
 
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-16 sm:py-20">

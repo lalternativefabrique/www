@@ -95,6 +95,17 @@ export const publishArticle = createServerFn({ method: 'POST' })
       )
     }
 
+    const { chatTenantConfigured, ensureArticleRoom } = await import('./chat-service')
+    if (chatTenantConfigured && fr.meta.commentaires !== false) {
+      // Opening the rooms here spares the first reader the round trip; a
+      // failure is logged, not surfaced, since commentsRoom retries on read.
+      const rooms = [ensureArticleRoom(data.dir, 'fr', String(fr.meta.titre ?? ''))]
+      if (enMeta) rooms.push(ensureArticleRoom(data.dir, 'en', String(enMeta.titre ?? '')))
+      await Promise.all(rooms).catch((err: unknown) =>
+        console.error('[comments] rooms for', data.dir, err),
+      )
+    }
+
     return { ok: true, slug: String(fr.meta.slug), hasEn: Boolean(enMeta) }
   })
 

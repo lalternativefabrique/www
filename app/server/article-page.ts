@@ -40,6 +40,8 @@ export type ArticlePage = {
    * offers no player rather than a broken one.
    */
   audioSrc?: string
+  /** Whether the discussion under the piece is open. */
+  commentaires: boolean
 }
 
 export const loadArticle = createServerFn({ method: 'GET' })
@@ -93,5 +95,6 @@ export const loadArticle = createServerFn({ method: 'GET' })
       autreSlug: data.lang === 'en' ? fr.slug : fr.en?.slug,
       html,
       audioSrc: audio ? audioUrl(audio) : undefined,
+      commentaires: fr.commentaires !== false,
     }
   })
