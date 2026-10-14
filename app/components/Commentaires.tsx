@@ -239,35 +239,71 @@ function Formulaire({
               : t.moderationNote}
         </p>
       </div>
-      {etat === 'ok' && !signedIn && signup ? (
-        <div className="mt-8 border-2 border-text p-6">
-          <p className="font-heading text-2xl leading-tight">{t.signupLead}</p>
-          <a
-            href={`${signup}?return=${encodeURIComponent(window.location.href)}`}
-            className="label mt-5 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
-          >
-            {t.signup} <span aria-hidden>→</span>
-          </a>
-        </div>
-      ) : null}
       {!signedIn ? (
-        <p className="mt-6 text-sm text-text/60">
-          {t.signInLead}{' '}
-          <button
-            type="button"
-            onClick={() =>
-              startSso(authClient, {
-                callbackURL: window.location.pathname,
-                errorCallbackURL: window.location.pathname,
-              })
-            }
-            className="underline hover:text-accent-primary"
-          >
-            {t.signIn}
-          </button>
-        </p>
+        <CompteMessag signup={signup} afterPost={etat === 'ok'} />
       ) : null}
     </form>
+  )
+}
+
+/**
+ * The suite's sign-in, as the auth package's login screen offers it: sign in
+ * with a Messag account, or create one. Signing in goes through urbangate,
+ * where a Messag address is an account like any other.
+ */
+function CompteMessag({ signup, afterPost }: { signup: string; afterPost: boolean }) {
+  const locale = useLocale()
+  const t = chrome[locale].comments
+  const back = typeof window === 'undefined' ? '' : window.location.href
+  const register = signup
+    ? `${signup}?${new URLSearchParams({ return: back })}`
+    : undefined
+
+  return (
+    <div className="mt-10">
+      {afterPost ? (
+        <p className="font-heading text-2xl leading-tight">{t.signupLead}</p>
+      ) : (
+        <p className="label flex items-center gap-4 text-text/50">
+          <span className="h-px flex-1 bg-text/20" aria-hidden />
+          {t.or}
+          <span className="h-px flex-1 bg-text/20" aria-hidden />
+        </p>
+      )}
+      <button
+        type="button"
+        onClick={() =>
+          startSso(authClient, {
+            callbackURL: window.location.pathname,
+            errorCallbackURL: window.location.pathname,
+          })
+        }
+        className="label mt-5 inline-flex w-full items-center justify-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg sm:w-auto"
+      >
+        <svg
+          aria-hidden
+          viewBox="0 0 24 24"
+          className="size-4"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="m3 7 9 6 9-6" />
+        </svg>
+        {t.messagSignIn}
+      </button>
+      {register ? (
+        <p className="mt-4 text-sm text-text/60">
+          {t.noAccount}{' '}
+          <a href={register} className="underline hover:text-accent-primary">
+            {t.register}
+          </a>
+        </p>
+      ) : null}
+    </div>
   )
 }
 
