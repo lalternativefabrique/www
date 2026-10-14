@@ -160,6 +160,11 @@ function Formulaire({
     }
   }
 
+  const field =
+    'mt-3 block w-full border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary'
+  const button =
+    'label inline-flex items-center justify-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg disabled:opacity-50'
+
   return (
     <form onSubmit={onSubmit} className="relative mt-12">
       {signedIn ? (
@@ -170,28 +175,49 @@ function Formulaire({
           <label htmlFor="commentaire-email" className="label mt-6 block text-text/60">
             {t.emailLabel}
           </label>
-          <input
-            id="commentaire-email"
-            type="email"
-            required
-            maxLength={254}
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
-          />
-          <p className="mt-2 text-sm text-text/60">{t.emailNote}</p>
-          <label htmlFor="commentaire-nom" className="label mt-6 block text-text/60">
-            {t.nameLabel}
-          </label>
-          <input
-            id="commentaire-nom"
-            maxLength={120}
-            autoComplete="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
-          />
+          <div className="mt-3 flex flex-col sm:flex-row sm:items-stretch">
+            <input
+              id="commentaire-email"
+              type="email"
+              required
+              maxLength={254}
+              autoComplete="email"
+              placeholder={t.emailPlaceholder}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="block min-w-0 flex-1 border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary sm:border-r-0"
+            />
+            <span
+              className="label hidden items-center border-y-2 border-text px-4 text-text/50 sm:flex"
+              aria-hidden
+            >
+              {t.or}
+            </span>
+            <button
+              type="button"
+              onClick={() =>
+                startSso(authClient, {
+                  callbackURL: window.location.pathname,
+                  errorCallbackURL: window.location.pathname,
+                })
+              }
+              className="label mt-3 inline-flex items-center justify-center gap-3 border-2 border-text bg-text px-5 py-3 text-bg hover:bg-bg hover:text-text sm:mt-0"
+            >
+              <IconeEnveloppe />
+              {t.messagSignIn}
+            </button>
+          </div>
+          <p className="mt-3 text-sm text-text/60">
+            {t.emailNote} {t.noAccount}{' '}
+            {signup ? (
+              <a href={signup} className="underline hover:text-accent-primary">
+                {t.register}
+              </a>
+            ) : (
+              t.register
+            )}
+            {t.registerTail}
+          </p>
           <div className="absolute -left-[9999px]" aria-hidden>
             <label htmlFor="commentaire-site">{t.websiteLabel}</label>
             <input
@@ -204,103 +230,78 @@ function Formulaire({
           </div>
         </>
       )}
-      <label htmlFor="commentaire" className="label mt-6 block text-text/60">
+      <label htmlFor="commentaire" className="label mt-8 block text-text/60">
         {t.bodyLabel}
       </label>
       <textarea
         id="commentaire"
         required
-        rows={5}
+        rows={6}
         maxLength={MAX_BODY}
         value={body}
         onChange={(e) => {
           setBody(e.target.value)
           if (etat !== 'repos') setEtat('repos')
         }}
-        className="mt-3 block w-full border-2 border-text bg-bg px-4 py-3 text-base leading-relaxed text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
+        className={`${field} leading-relaxed`}
       />
-      <div className="mt-4 flex flex-wrap items-center gap-4">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 sm:items-end">
+        {signedIn ? (
+          <span />
+        ) : (
+          <div>
+            <label htmlFor="commentaire-nom" className="label block text-text/60">
+              {t.nameLabel}
+            </label>
+            <input
+              id="commentaire-nom"
+              maxLength={120}
+              autoComplete="name"
+              placeholder={t.namePlaceholder}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={field}
+            />
+          </div>
+        )}
         <button
           type="submit"
-          disabled={
-            etat === 'envoi' ||
-            !body.trim() ||
-            (!signedIn && !email.trim())
-          }
-          className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg disabled:opacity-50"
+          disabled={etat === 'envoi' || !body.trim() || (!signedIn && !email.trim())}
+          className={`${button} bg-text text-bg hover:bg-bg hover:text-text`}
         >
           {etat === 'envoi' ? t.sending : t.submit}
         </button>
-        <p className="text-sm text-text/60">
-          {etat === 'ok'
-            ? t.posted
-            : etat === 'erreur'
-              ? t.error
-              : t.moderationNote}
-        </p>
       </div>
-      {!signedIn ? (
-        <CompteMessag signup={signup} afterPost={etat === 'ok'} />
+      <p className="mt-4 text-sm text-text/60">
+        {etat === 'ok' ? t.posted : etat === 'erreur' ? t.error : t.moderationNote}
+      </p>
+      {etat === 'ok' && !signedIn && signup ? (
+        <div className="mt-8 border-2 border-text p-6">
+          <p className="font-heading text-2xl leading-tight">{t.signupLead}</p>
+          <a href={signup} className={`${button} mt-5 w-fit`}>
+            {t.register} <span aria-hidden>→</span>
+          </a>
+        </div>
       ) : null}
     </form>
   )
 }
 
-/**
- * The suite's sign-in, as the auth package's login screen offers it: sign in
- * with a Messag account, or create one. Signing in goes through urbangate,
- * where a Messag address is an account like any other.
- */
-function CompteMessag({ signup, afterPost }: { signup: string; afterPost: boolean }) {
-  const locale = useLocale()
-  const t = chrome[locale].comments
-  const register = signup || undefined
-
+function IconeEnveloppe() {
   return (
-    <div className="mt-10">
-      {afterPost ? (
-        <p className="font-heading text-2xl leading-tight">{t.signupLead}</p>
-      ) : (
-        <p className="label flex items-center gap-4 text-text/50">
-          <span className="h-px flex-1 bg-text/20" aria-hidden />
-          {t.or}
-          <span className="h-px flex-1 bg-text/20" aria-hidden />
-        </p>
-      )}
-      <button
-        type="button"
-        onClick={() =>
-          startSso(authClient, {
-            callbackURL: window.location.pathname,
-            errorCallbackURL: window.location.pathname,
-          })
-        }
-        className="label mt-5 inline-flex w-full items-center justify-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg sm:w-auto"
-      >
-        <svg
-          aria-hidden
-          viewBox="0 0 24 24"
-          className="size-4"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <rect x="3" y="5" width="18" height="14" rx="2" />
-          <path d="m3 7 9 6 9-6" />
-        </svg>
-        {t.messagSignIn}
-      </button>
-      {register ? (
-        <p className="mt-4 text-sm text-text/60">
-          {t.noAccount}{' '}
-          <a href={register} className="underline hover:text-accent-primary">
-            {t.register}
-          </a>
-        </p>
-      ) : null}
-    </div>
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      className="size-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
   )
 }
 
