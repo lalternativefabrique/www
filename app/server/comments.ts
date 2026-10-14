@@ -57,6 +57,8 @@ function normalizeEmail(raw: string): string {
 }
 
 const MAX_NAME = 120
+
+const ANONYMOUS: Record<Lang, string> = { fr: 'Anonyme', en: 'Anonymous' }
 const MAX_BODY = 8000
 
 // A form filled faster than this was not filled by a person.
@@ -95,7 +97,8 @@ function clientIp(): string {
 export type GuestPostInput = {
   slug: string
   lang: Lang
-  name: string
+  /** Shown beside the comment; empty means the person chose not to sign. */
+  name?: string
   /** Required: the collective must be able to answer the person. Never shown. */
   email: string
   body: string
@@ -109,16 +112,15 @@ export type GuestPostResult =
   | { ok: true; seq: number; name: string; body: string; createdAt: string }
   | {
       ok: false
-      reason: 'missing-name' | 'invalid-email' | 'missing-body' | 'unavailable' | 'rejected'
+      reason: 'invalid-email' | 'missing-body' | 'unavailable' | 'rejected'
     }
 
 export const postGuestComment = createServerFn({ method: 'POST' })
   .inputValidator((d: GuestPostInput) => d)
   .handler(async ({ data }): Promise<GuestPostResult> => {
-    const name = data.name.trim().slice(0, MAX_NAME)
+    const name = (data.name ?? '').trim().slice(0, MAX_NAME) || ANONYMOUS[data.lang]
     const body = data.body.trim().slice(0, MAX_BODY)
     const email = normalizeEmail(data.email)
-    if (!name) return { ok: false, reason: 'missing-name' }
     if (!email) return { ok: false, reason: 'invalid-email' }
     if (!body) return { ok: false, reason: 'missing-body' }
 

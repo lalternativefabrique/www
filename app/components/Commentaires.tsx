@@ -146,7 +146,7 @@ function Formulaire({
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     const text = body.trim()
-    if (!text || (!signedIn && (!name.trim() || !email.trim()))) return
+    if (!text || (!signedIn && !email.trim())) return
     setEtat('envoi')
     try {
       const post = signedIn
@@ -166,18 +166,7 @@ function Formulaire({
         <p className="label text-text/60">{t.writingAs(signature)}</p>
       ) : (
         <>
-          <label htmlFor="commentaire-nom" className="label text-text/60">
-            {t.nameLabel}
-          </label>
-          <input
-            id="commentaire-nom"
-            required
-            maxLength={120}
-            autoComplete="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
-          />
+          <p className="text-base text-text/75">{t.guestLead}</p>
           <label htmlFor="commentaire-email" className="label mt-6 block text-text/60">
             {t.emailLabel}
           </label>
@@ -192,6 +181,17 @@ function Formulaire({
             className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
           />
           <p className="mt-2 text-sm text-text/60">{t.emailNote}</p>
+          <label htmlFor="commentaire-nom" className="label mt-6 block text-text/60">
+            {t.nameLabel}
+          </label>
+          <input
+            id="commentaire-nom"
+            maxLength={120}
+            autoComplete="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
+          />
           <div className="absolute -left-[9999px]" aria-hidden>
             <label htmlFor="commentaire-site">{t.websiteLabel}</label>
             <input
@@ -225,7 +225,7 @@ function Formulaire({
           disabled={
             etat === 'envoi' ||
             !body.trim() ||
-            (!signedIn && (!name.trim() || !email.trim()))
+            (!signedIn && !email.trim())
           }
           className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg disabled:opacity-50"
         >
