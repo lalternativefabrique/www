@@ -91,7 +91,11 @@ async function tenant<T>(
   return (text ? JSON.parse(text) : undefined) as T
 }
 
-/** `article/<dir>:<locale>`: one thread per language, since a reader of the English page should not land in a French discussion. */
+/**
+ * `article/<dir>:<locale>`: one thread per language, since a reader of the
+ * English page should not land in a French discussion. Sent raw: the chat
+ * stores the path segment as received, and the admin splits it on the colon.
+ */
 export const subjectId = (dir: string, locale: Locale) => `${dir}:${locale}`
 
 const rooms = new Map<string, Promise<ChatRoom>>()
@@ -111,7 +115,7 @@ export function ensureArticleRoom(
   if (!pending) {
     pending = tenant<ChatRoom>(
       'PUT',
-      `/v1/tenant/subjects/article/${encodeURIComponent(key)}/room`,
+      `/v1/tenant/subjects/article/${key}/room`,
       { policy: 'public', moderated: true, mode: 'standard', title },
     ).catch((err: unknown) => {
       rooms.delete(key)
