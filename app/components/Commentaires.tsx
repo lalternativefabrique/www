@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { startSso } from '@lalternative/auth/client'
-import { authClient } from '@/lib/auth-client'
+import { authClient, startMessagSignIn } from '@/lib/auth-client'
 import { chrome, useLocale } from '@/lib/i18n'
 import { commentsRoom, postGuestComment } from '@/server/comments'
 import type { GuestPostInput } from '@/server/comments'
@@ -195,12 +194,7 @@ function Formulaire({
             </span>
             <button
               type="button"
-              onClick={() =>
-                startSso(authClient, {
-                  callbackURL: window.location.pathname,
-                  errorCallbackURL: window.location.pathname,
-                })
-              }
+              onClick={() => startMessagSignIn(window.location.pathname)}
               className="label mt-3 inline-flex items-center justify-center gap-3 border-2 border-text bg-text px-5 py-3 text-bg hover:bg-bg hover:text-text sm:mt-0"
             >
               <IconeEnveloppe />
