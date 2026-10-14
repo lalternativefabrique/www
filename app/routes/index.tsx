@@ -57,7 +57,7 @@ function LandingPage() {
     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
       <section className="border-b-[3px] border-text pb-14 pt-16 sm:pt-20">
         <p className="label text-accent-primary">§ 01 — L'objectif</p>
-        <h1 className="display-xxl mt-7">
+        <h1 className="display-xxl normal-case mt-7">
           L'Alternative
           <br />
           Fabrique<span className="text-accent-primary">.</span>

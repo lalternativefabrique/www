@@ -15,7 +15,7 @@ export function Header() {
           aria-label={t.home}
         >
           {/* Smaller on mobile so the nav keeps its room on a narrow bar. */}
-          <Logo size={56} className="h-14 w-14 sm:h-[68px] sm:w-[68px]" />
+          <Logo size={64} className="h-auto w-14 sm:w-[68px]" />
         </Link>
         <nav
           aria-label={t.mainNav}

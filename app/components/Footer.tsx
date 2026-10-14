@@ -11,7 +11,7 @@ export function Footer() {
       <div className="mx-auto w-full max-w-7xl px-6 py-12">
         <div className="grid gap-10 sm:grid-cols-12">
           <div className="sm:col-span-6">
-            <Logo size={96} className="h-24 w-24" />
+            <Logo size={96} className="h-auto w-24" />
             <p className="mt-6 max-w-sm text-base text-text/70">
               {t.footerTagline}
             </p>
