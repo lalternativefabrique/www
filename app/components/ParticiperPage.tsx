@@ -3,8 +3,8 @@ import { Link } from '@tanstack/react-router'
 const textes = {
   fr: {
     surtitre: 'Participer',
-    titre1: 'Seul, on va plus vite.',
-    titre2: 'Pour aller plus loin, il faut être plusieurs.',
+    titre1: 'Ce qui manque,',
+    titre2: 'construisons-le ensemble.',
     intro: [
       "Cinq applications tournent aujourd'hui : Synthiz, Partage, Spore, Messag et Lungor. Leur suivi est outillé. Nakoda recueille vos retours et mesure l'usage de toute la suite. Skalpai transforme chaque bug en ticket, teste, publie et déploie. Un retour envoyé depuis n'importe quelle application arrive au bon endroit, et un correctif atteint la production sans étape manuelle.",
       "Ce système fonctionne pour le code. Il ne fonctionne pour rien d'autre. Tenir les comptes, suivre le droit du paiement et de la consommation, prouver que les données sont protégées comme elles le sont, faire connaître les applications sans publicité : aucune de ces fonctions ne s'automatise. Chacune est un métier, et nous ne les avons pas tous.",
@@ -40,8 +40,8 @@ const textes = {
   },
   en: {
     surtitre: 'Take part',
-    titre1: 'Alone, you go faster.',
-    titre2: 'To go further, you need to be several.',
+    titre1: "What's missing,",
+    titre2: "let's build it together.",
     intro: [
       'Five applications run today: Synthiz, Partage, Spore, Messag and Lungor. Their upkeep is tooled. Nakoda collects your feedback and measures usage across the suite. Skalpai turns every bug into a ticket, tests, publishes and deploys. A report sent from any application lands in the right place, and a fix reaches production without a manual step.',
       'That system works for code. It works for nothing else. Keeping the books, following payment and consumer law, proving the data is protected the way it is, making the applications known without advertising: none of these functions can be automated. Each is a trade, and we do not have them all.',
