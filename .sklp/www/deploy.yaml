@@ -109,6 +109,10 @@ services:
       LUNGOR_DON_PLAN_ID: ${LUNGOR_DON_PLAN_ID}
       LUNGOR_COSTS_SLUG: ${LUNGOR_COSTS_SLUG}
       PUBLIC_SITE_URL: https://lalternativefabrique.org
+      # The discussion under the articles: rooms of the suite's chat service
+      # (docs/adr/0003). The key is the www tenant's, issued by the chat.
+      CHAT_URL: https://chat.messag.eco
+      CHAT_KEY: ${CHAT_KEY}
     resources:
       cpu: "1"
       memory: 1G
