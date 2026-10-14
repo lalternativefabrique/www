@@ -31,13 +31,17 @@ export function Commentaires({ slug }: { slug: string }) {
   const locale = useLocale()
   const t = chrome[locale].comments
   const [room, setRoom] = useState<string | undefined>()
+  const [signup, setSignup] = useState('')
   const [posts, setPosts] = useState<Post[] | undefined>()
 
   useEffect(() => {
     let cancelled = false
     commentsRoom({ data: { slug, lang: locale } })
       .then((res) => {
-        if (!cancelled && res) setRoom(res.room)
+        if (!cancelled && res) {
+          setRoom(res.room)
+          setSignup(res.signup)
+        }
       })
       .catch(() => {})
     return () => {
@@ -97,6 +101,7 @@ export function Commentaires({ slug }: { slug: string }) {
         <Formulaire
           room={room}
           slug={slug}
+          signup={signup}
           onPosted={(post) => setPosts((list) => [...(list ?? []), post])}
         />
       </div>
@@ -115,16 +120,19 @@ async function fetchPosts(room: string): Promise<Post[]> {
 function Formulaire({
   room,
   slug,
+  signup,
   onPosted,
 }: {
   room: string
   slug: string
+  signup: string
   onPosted: (post: Post) => void
 }) {
   const locale = useLocale()
   const t = chrome[locale].comments
   const { data: session, isPending } = authClient.useSession()
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [body, setBody] = useState('')
   const [website, setWebsite] = useState('')
   const [startedAt] = useState(() => Date.now())
@@ -138,12 +146,12 @@ function Formulaire({
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     const text = body.trim()
-    if (!text || (!signedIn && !name.trim())) return
+    if (!text || (!signedIn && !email.trim())) return
     setEtat('envoi')
     try {
       const post = signedIn
         ? await postAsReader(room, text)
-        : await postAsGuest({ slug, lang: locale, name, body: text, website, startedAt })
+        : await postAsGuest({ slug, lang: locale, name, email, body: text, website, startedAt })
       onPosted(post)
       setBody('')
       setEtat('ok')
@@ -158,12 +166,26 @@ function Formulaire({
         <p className="label text-text/60">{t.writingAs(signature)}</p>
       ) : (
         <>
-          <label htmlFor="commentaire-nom" className="label text-text/60">
+          <p className="text-base text-text/75">{t.guestLead}</p>
+          <label htmlFor="commentaire-email" className="label mt-6 block text-text/60">
+            {t.emailLabel}
+          </label>
+          <input
+            id="commentaire-email"
+            type="email"
+            required
+            maxLength={254}
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mt-3 block w-full max-w-md border-2 border-text bg-bg px-4 py-3 text-base text-text focus:outline-none focus:ring-2 focus:ring-accent-primary"
+          />
+          <p className="mt-2 text-sm text-text/60">{t.emailNote}</p>
+          <label htmlFor="commentaire-nom" className="label mt-6 block text-text/60">
             {t.nameLabel}
           </label>
           <input
             id="commentaire-nom"
-            required
             maxLength={120}
             autoComplete="name"
             value={name}
@@ -200,7 +222,11 @@ function Formulaire({
       <div className="mt-4 flex flex-wrap items-center gap-4">
         <button
           type="submit"
-          disabled={etat === 'envoi' || !body.trim() || (!signedIn && !name.trim())}
+          disabled={
+            etat === 'envoi' ||
+            !body.trim() ||
+            (!signedIn && !email.trim())
+          }
           className="label inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg disabled:opacity-50"
         >
           {etat === 'envoi' ? t.sending : t.submit}
@@ -214,23 +240,67 @@ function Formulaire({
         </p>
       </div>
       {!signedIn ? (
-        <p className="mt-6 text-sm text-text/60">
-          {t.signInLead}{' '}
-          <button
-            type="button"
-            onClick={() =>
-              startSso(authClient, {
-                callbackURL: window.location.pathname,
-                errorCallbackURL: window.location.pathname,
-              })
-            }
-            className="underline hover:text-accent-primary"
-          >
-            {t.signIn}
-          </button>
-        </p>
+        <CompteMessag signup={signup} afterPost={etat === 'ok'} />
       ) : null}
     </form>
+  )
+}
+
+/**
+ * The suite's sign-in, as the auth package's login screen offers it: sign in
+ * with a Messag account, or create one. Signing in goes through urbangate,
+ * where a Messag address is an account like any other.
+ */
+function CompteMessag({ signup, afterPost }: { signup: string; afterPost: boolean }) {
+  const locale = useLocale()
+  const t = chrome[locale].comments
+  const register = signup || undefined
+
+  return (
+    <div className="mt-10">
+      {afterPost ? (
+        <p className="font-heading text-2xl leading-tight">{t.signupLead}</p>
+      ) : (
+        <p className="label flex items-center gap-4 text-text/50">
+          <span className="h-px flex-1 bg-text/20" aria-hidden />
+          {t.or}
+          <span className="h-px flex-1 bg-text/20" aria-hidden />
+        </p>
+      )}
+      <button
+        type="button"
+        onClick={() =>
+          startSso(authClient, {
+            callbackURL: window.location.pathname,
+            errorCallbackURL: window.location.pathname,
+          })
+        }
+        className="label mt-5 inline-flex w-full items-center justify-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg sm:w-auto"
+      >
+        <svg
+          aria-hidden
+          viewBox="0 0 24 24"
+          className="size-4"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="m3 7 9 6 9-6" />
+        </svg>
+        {t.messagSignIn}
+      </button>
+      {register ? (
+        <p className="mt-4 text-sm text-text/60">
+          {t.noAccount}{' '}
+          <a href={register} className="underline hover:text-accent-primary">
+            {t.register}
+          </a>
+        </p>
+      ) : null}
+    </div>
   )
 }
 

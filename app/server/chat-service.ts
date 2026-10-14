@@ -39,6 +39,8 @@ export type ChatRoom = {
 
 export type PendingPost = ChatPost & {
   subject?: { kind: string; id: string }
+  /** The guest's email, held for the moderator only. */
+  contact?: string
 }
 
 const url = process.env.CHAT_URL?.replace(/\/$/, '')
@@ -141,12 +143,13 @@ export const pendingPageFull = (page: PendingPost[]) => page.length === PENDING_
 export function postGuestComment(
   room: string,
   name: string,
+  contact: string,
   body: string,
 ): Promise<ChatPost> {
   return tenant<ChatPost>(
     'POST',
     `/v1/tenant/rooms/${encodeURIComponent(room)}/posts`,
-    { author: 'guest', name, body },
+    { author: 'guest', name, contact, body },
   )
 }
 
