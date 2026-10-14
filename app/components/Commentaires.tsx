@@ -254,10 +254,7 @@ function Formulaire({
 function CompteMessag({ signup, afterPost }: { signup: string; afterPost: boolean }) {
   const locale = useLocale()
   const t = chrome[locale].comments
-  const back = typeof window === 'undefined' ? '' : window.location.href
-  const register = signup
-    ? `${signup}?${new URLSearchParams({ return: back })}`
-    : undefined
+  const register = signup || undefined
 
   return (
     <div className="mt-10">

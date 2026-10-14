@@ -35,8 +35,8 @@ async function roomFor(slug: string, lang: Lang) {
   }
 }
 
-/** Where a commenter is invited to open a Messag account, the suite's mail. */
-const SIGNUP_URL = process.env.MESSAG_SIGNUP_URL ?? 'https://messag.eco/register'
+/** Where a commenter without an account is sent: Messag's home, the suite's mail. */
+const SIGNUP_URL = process.env.MESSAG_SIGNUP_URL ?? 'https://messag.eco'
 
 export const commentsRoom = createServerFn({ method: 'GET' })
   .inputValidator((d: { slug: string; lang: Lang }) => d)
