@@ -32,7 +32,7 @@ function LandingPageEn() {
         <div className="mx-auto w-full max-w-7xl px-6 pb-20 pt-12 sm:pb-28 sm:pt-16">
           <p className="label text-accent-primary">01 — The goal</p>
 
-          <h1 className="display-xxl mt-8 w-fit sm:mt-10">
+          <h1 className="display-xxl normal-case mt-8 w-fit sm:mt-10">
             L'Alternative
             <span className="block text-right text-[0.58em] leading-[0.95] text-accent-primary">
               Fabrique
