@@ -2,6 +2,7 @@ export type CoutsLigne = {
   name: string
   catalog_cents: number
   llm_cents: number
+  staff_cents: number
   total_cents: number
 }
 
@@ -12,7 +13,7 @@ export type Couts = {
   month: string
   months: string[]
   currency: string
-  totals: { catalog_cents: number; llm_cents: number; total_cents: number }
+  totals: { catalog_cents: number; llm_cents: number; staff_cents: number; total_cents: number }
   apps: CoutsLigne[]
   items: CoutsPoste[]
 }
@@ -32,11 +33,12 @@ function ligne(value: unknown): CoutsLigne | null {
   const v = value as Record<string, unknown>
   const catalog = cents(v.catalog_cents)
   const llm = cents(v.llm_cents)
+  const staff = v.staff_cents === undefined ? 0 : cents(v.staff_cents)
   const total = cents(v.total_cents)
-  if (typeof v.name !== 'string' || catalog === null || llm === null || total === null) {
+  if (typeof v.name !== 'string' || catalog === null || llm === null || staff === null || total === null) {
     return null
   }
-  return { name: v.name, catalog_cents: catalog, llm_cents: llm, total_cents: total }
+  return { name: v.name, catalog_cents: catalog, llm_cents: llm, staff_cents: staff, total_cents: total }
 }
 
 function poste(value: unknown): CoutsPoste | null {
@@ -75,6 +77,7 @@ export function parseCouts(value: unknown): Couts | null {
     totals: {
       catalog_cents: totals.catalog_cents,
       llm_cents: totals.llm_cents,
+      staff_cents: totals.staff_cents,
       total_cents: totals.total_cents,
     },
     apps: apps as CoutsLigne[],
@@ -91,4 +94,20 @@ export function formatMois(month: string, locale: string): string {
   return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
     new Date(Date.UTC(y, m - 1, 1)),
   )
+}
+
+export type Besoin = { function: string; covers: string; expects: string }
+
+export function parseBesoins(value: unknown): Besoin[] | null {
+  if (!value || typeof value !== 'object') return null
+  const needs = (value as Record<string, unknown>).needs
+  if (!Array.isArray(needs)) return null
+  const out: Besoin[] = []
+  for (const n of needs) {
+    if (!n || typeof n !== 'object') return null
+    const { function: fn, covers, expects } = n as Record<string, unknown>
+    if (typeof fn !== 'string' || typeof covers !== 'string' || typeof expects !== 'string') return null
+    out.push({ function: fn, covers, expects })
+  }
+  return out
 }

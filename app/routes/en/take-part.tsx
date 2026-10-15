@@ -1,9 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ParticiperPage } from '@/components/ParticiperPage'
 import { seo } from '@/lib/seo'
+import { lireBesoins } from '@/server/couts'
 
 export const Route = createFileRoute('/en/take-part')({
-  component: () => <ParticiperPage lang="en" />,
+  loader: () => lireBesoins({ data: { lang: 'en' } }),
+  component: Page,
   head: () =>
     seo({
       title: "Take part — L'Alternative Fabrique",
@@ -13,3 +15,7 @@ export const Route = createFileRoute('/en/take-part')({
       alternate: { fr: '/participer', en: '/en/take-part' },
     }),
 })
+
+function Page() {
+  return <ParticiperPage besoins={Route.useLoaderData()} lang="en" />
+}

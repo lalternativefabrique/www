@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import type { Besoin } from '@/lib/couts'
 
 const textes = {
   fr: {
@@ -24,12 +25,6 @@ const textes = {
       texte:
         "Vous tenez une comptabilité, vous lisez des contrats, vous connaissez le RGPD ou les référentiels de sécurité, vous savez écrire ou expliquer. Une heure de votre métier vaut parfois plus qu'une semaine du nôtre. Nous cherchons des gens qui prennent une fonction, pas des mains de plus sur le code.",
       colonnes: ['Fonction', "Ce qu'elle couvre", 'Ce que nous attendons'],
-      fonctions: [
-        ['Finances et comptabilité', 'Comptes, TVA, suivi des encaissements', 'Un regard régulier, une fois par mois'],
-        ['Juridique', 'CGV/CGU, paiement, consommation, veille', 'Une relecture par trimestre, un avis quand la loi bouge'],
-        ['Conformité et certification', 'Registre RGPD, sous-traitants, normes reconnues', 'Préparer et tenir le dossier'],
-        ['Communication', 'Expliquer les applications, écrire, répondre', 'Du temps et de la plume'],
-      ],
       action: { to: '/contact', label: 'Rejoindre' },
     },
     limites: {
@@ -61,12 +56,6 @@ const textes = {
       texte:
         'You keep books, you read contracts, you know the GDPR or security frameworks, you can write or explain. An hour of your trade is sometimes worth a week of ours. We are looking for people who take on a function, not more hands on the code.',
       colonnes: ['Function', 'What it covers', 'What we expect'],
-      fonctions: [
-        ['Finance and accounting', 'Books, VAT, tracking receipts', 'A regular look, once a month'],
-        ['Legal', 'Terms of sale and use, payment, consumer law, monitoring', 'A review each quarter, an opinion when the law moves'],
-        ['Compliance and certification', 'GDPR register, processors, recognised standards', 'Preparing and keeping the file'],
-        ['Communication', 'Explaining the applications, writing, answering', 'Time and a pen'],
-      ],
       action: { to: '/en/contact', label: 'Join' },
     },
     limites: {
@@ -77,7 +66,7 @@ const textes = {
   },
 } as const
 
-export function ParticiperPage({ lang }: { lang: 'fr' | 'en' }) {
+export function ParticiperPage({ besoins, lang }: { besoins: Besoin[] | null; lang: 'fr' | 'en' }) {
   const t = textes[lang]
 
   return (
@@ -132,6 +121,7 @@ export function ParticiperPage({ lang }: { lang: 'fr' | 'en' }) {
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">{t.savoir.titre}</h2>
           <p className="chapeau mt-10 max-w-2xl">{t.savoir.texte}</p>
 
+          {besoins?.length ? (
           <div className="mt-14 overflow-x-auto">
             <table className="w-full border-t-[3px] border-text text-left">
               <thead>
@@ -144,16 +134,17 @@ export function ParticiperPage({ lang }: { lang: 'fr' | 'en' }) {
                 </tr>
               </thead>
               <tbody>
-                {t.savoir.fonctions.map(([fonction, couvre, attend]) => (
-                  <tr key={fonction} className="border-t border-text/20 align-top">
-                    <td className="p-4 pl-0 font-medium">{fonction}</td>
-                    <td className="p-4 text-text/80">{couvre}</td>
-                    <td className="p-4 pr-0 text-text/80">{attend}</td>
+                {besoins.map((b) => (
+                  <tr key={b.function} className="border-t border-text/20 align-top">
+                    <td className="p-4 pl-0 font-medium">{b.function}</td>
+                    <td className="p-4 text-text/80">{b.covers}</td>
+                    <td className="p-4 pr-0 text-text/80">{b.expects}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+          ) : null}
 
           <Link
             to={t.savoir.action.to}
