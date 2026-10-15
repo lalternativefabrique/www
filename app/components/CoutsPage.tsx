@@ -7,16 +7,17 @@ const textes = {
     surtitre: '§ 01 — Nos coûts, à livre ouvert',
     titre: 'Ce que coûte la Fabrique.',
     chapeau:
-      "Chaque mois, nous publions ce que coûtent nos applications pour tourner : serveurs, services payants, appels aux modèles d'IA. Ligne par ligne, sans arrondi flatteur.",
+      "Chaque mois, nous publions ce que coûtent nos applications pour tourner : serveurs, services payants, appels aux modèles d'IA, et les personnes que nous rémunérons pour tenir une fonction. Ligne par ligne, sans arrondi flatteur.",
     precision:
       "Pas de chiffre d'affaires ici, pas de bénéfice : seulement le prix réel de l'outil. Les chiffres viennent directement de Lungor.",
     mois: 'Période',
     catalogue: 'A — Infrastructure & services',
     llm: 'B — Intelligence artificielle',
-    total: 'A + B — Coût du mois',
+    staff: 'C — Intervenants',
+    total: 'A + B + C — Coût du mois',
     totalCourt: 'Total',
     explication:
-      "A. Hébergement et services payants, comptés au prix catalogue du fournisseur. B. Les appels aux modèles d'IA faits par nos applications, facturés à l'usage.",
+      "A. Hébergement et services payants, comptés au prix catalogue du fournisseur. B. Les appels aux modèles d'IA faits par nos applications, facturés à l'usage, regroupés par application. C. Les intervenants rémunérés, par fonction, sans nom.",
     poste: 'Le détail, poste par poste',
     montant: 'Montant',
     parApplication: 'Par application',
@@ -27,7 +28,7 @@ const textes = {
     retour: { to: '/paiement', label: 'Encaisser sans intermédiaire' },
     participer: {
       to: '/participer',
-      texte: "Ce tableau ne compte que les machines. Le reste, ce sont des métiers que nous n'avons pas tous.",
+      texte: "Ce tableau compte ce que nous payons. Le reste, ce sont des métiers que nous n'avons pas tous.",
       label: 'Nos besoins, en argent et en compétences',
     },
     voir: 'Afficher',
@@ -37,16 +38,17 @@ const textes = {
     surtitre: '§ 01 — Our costs, in the open',
     titre: 'What the Fabrique costs.',
     chapeau:
-      'Each month we publish what it takes to run our apps: servers, paid services, AI model calls. Line by line, no flattering rounding.',
+      'Each month we publish what it takes to run our apps: servers, paid services, AI model calls, and the people we pay to hold a function. Line by line, no flattering rounding.',
     precision:
       'No revenue here, no profit: only the real cost of the tools. The figures come straight from Lungor.',
     mois: 'Period',
     catalogue: 'A — Infrastructure & services',
     llm: 'B — Artificial intelligence',
-    total: 'A + B — Monthly cost',
+    staff: 'C — Paid contributors',
+    total: 'A + B + C — Monthly cost',
     totalCourt: 'Total',
     explication:
-      'A. Hosting and paid services, counted at the provider’s catalogue price. B. The AI model calls made by our apps, billed by use.',
+      'A. Hosting and paid services, counted at the provider’s catalogue price. B. The AI model calls made by our apps, billed by use, grouped by app. C. Paid contributors, by function, never by name.',
     poste: 'Line by line',
     montant: 'Amount',
     parApplication: 'By app',
@@ -57,7 +59,7 @@ const textes = {
     retour: { to: '/en/paiement', label: 'Payments without a middleman' },
     participer: {
       to: '/en/take-part',
-      texte: 'This table only counts machines. The rest are trades we do not all have.',
+      texte: 'This table counts what we pay for. The rest are trades we do not all have.',
       label: 'Our needs, in money and in skills',
     },
     voir: 'Show',
@@ -114,17 +116,18 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
               </noscript>
             </form>
 
-            <div className="mt-10 grid grid-cols-1 border-y border-text sm:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 border-y border-text sm:grid-cols-2 lg:grid-cols-4">
               {[
                 [t.catalogue, couts.totals.catalog_cents],
                 [t.llm, couts.totals.llm_cents],
+                [t.staff, couts.totals.staff_cents],
                 [t.total, couts.totals.total_cents],
               ].map(([label, cents], index) => (
                 <div
                   key={label}
                   className={`flex flex-col gap-10 py-7 sm:px-6 sm:first:pl-0 ${
-                    index === 2 ? 'bg-text px-6 text-bg sm:first:pl-6' : ''
-                  } ${index > 0 ? 'border-t border-text sm:border-l sm:border-t-0' : ''}`}
+                    index === 3 ? 'bg-text px-6 text-bg' : ''
+                  } ${index > 0 ? 'border-t border-text lg:border-l lg:border-t-0' : ''}`}
                 >
                   <p className="label">{label}</p>
                   <p className="whitespace-nowrap font-mono text-4xl font-medium leading-none tracking-tight">
@@ -175,6 +178,7 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
                       <th className="label p-4 pl-0">{t.application}</th>
                       <th className="label p-4 text-right">{t.catalogue}</th>
                       <th className="label p-4 text-right">{t.llm}</th>
+                      <th className="label p-4 text-right">{t.staff}</th>
                       <th className="label p-4 pr-0 text-right">{t.totalCourt}</th>
                     </tr>
                   </thead>
@@ -184,6 +188,7 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
                         <td className="p-4 pl-0">{app.name}</td>
                         <td className="p-4 text-right font-mono">{montant(app.catalog_cents)}</td>
                         <td className="p-4 text-right font-mono">{montant(app.llm_cents)}</td>
+                        <td className="p-4 text-right font-mono">{montant(app.staff_cents)}</td>
                         <td className="p-4 pr-0 text-right font-mono font-medium">
                           {montant(app.total_cents)}
                         </td>
