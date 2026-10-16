@@ -41,7 +41,7 @@ export const Route = createFileRoute('/outils')({
 })
 
 const accentClass: Record<Application['accent'], string> = {
-  primary: 'bg-accent-primary text-bg',
+  primary: 'bg-bg text-text border-y-4 border-accent-primary',
   secondary: 'bg-accent-secondary text-bg',
   warm: 'bg-warm text-text',
   paper: 'bg-bg text-text border-y-2 border-text',

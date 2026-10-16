@@ -55,10 +55,10 @@ function BlogIndexEn() {
         </div>
       </section>
 
-      <section className="bg-accent-primary text-bg">
+      <section className="bg-text text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
           <div className="mx-auto max-w-4xl">
-            <p className="label opacity-80">The point</p>
+            <p className="label text-accent-primary">The point</p>
             <p className="font-heading mt-8 text-4xl leading-tight sm:text-6xl">
               « The record of what we build, the choices behind it and the
               ground covered. »
