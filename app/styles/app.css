@@ -175,7 +175,7 @@ h4 {
   font-family: var(--font-heading);
   font-weight: 800;
   text-transform: uppercase;
-  font-size: clamp(4rem, 14vw, 11rem);
+  font-size: clamp(2.25rem, 11vw, 10rem);
   line-height: 0.92;
   letter-spacing: -0.035em;
 }
