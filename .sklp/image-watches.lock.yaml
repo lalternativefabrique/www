@@ -4,6 +4,6 @@
 # was live when. No deploy reads it: the node keeps a rolled image on
 # its own until deploy.yaml changes that service's tag. Editing this
 # file changes nothing: the next roll overwrites it.
-# last updated: 2026-10-16T11:04:13Z
+# last updated: 2026-10-16T16:04:10Z
 tags:
-  lalternative-www: "20261016-1100-41f2d130a5b8"
+  lalternative-www: "20261016-1559-96026e5a8fb6"
