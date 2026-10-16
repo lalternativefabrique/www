@@ -6,16 +6,23 @@ type LogoProps = {
 export function Logo({ size = 64, className }: LogoProps) {
   return (
     <svg
-      viewBox="0 0 104 48"
+      viewBox="0 0 358 284"
       width={size}
-      height={(size * 48) / 104}
+      height={(size * 284) / 358}
       className={className}
       role="img"
       aria-label="L'Alternative Fabrique"
     >
-      <path d="M0 48 L27 0 H43 L16 48 Z" fill="#2c5266" />
-      <path d="M30 48 L57 0 H73 L46 48 Z" fill="currentColor" />
-      <path d="M60 48 L87 0 H100 Q104 0 104 4 V44 Q104 48 100 48 Z" fill="#e2654f" />
+      <path d="M3 152 L104 94 Q108 92 108 97 V284 H7 Q3 284 3 280 Z" fill="#1c2733" />
+      <path
+        d="M72 154 L196 89 Q200 87 200 92 V129 L278 87 Q282 85 282 90 V284 H72 Z"
+        fill="#2b3b4e"
+      />
+      <path d="M174 212 H234 V284 H174 Z" fill="var(--color-bg)" />
+      <path
+        d="M285 36 L350 4 Q355 2 355 7 V280 Q355 284 351 284 H285 Z"
+        fill="var(--color-accent-primary)"
+      />
     </svg>
   )
 }
