@@ -59,6 +59,7 @@ export const applicationsEn: Application[] = [
     icone: '/images/apps/messag.png',
     pilier: 'Communication',
     statut: 'Bientôt',
+    url: 'https://messag.eco',
     resume: 'Mail, calendar and contacts, on desktop and mobile.',
     tagline: 'Your mailbox, without trackers.',
     detail:
