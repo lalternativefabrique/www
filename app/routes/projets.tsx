@@ -100,11 +100,11 @@ function ProjetsPage() {
         </div>
       </section>
 
-      <section id="reczi" className="scroll-mt-6 bg-accent-primary text-bg">
+      <section id="reczi" className="scroll-mt-6 bg-accent-secondary text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
           <div className="grid gap-10 sm:grid-cols-12">
             <div className="sm:col-span-5">
-              <p className="label opacity-70">Projet — en cours</p>
+              <p className="label text-accent-primary">Projet — en cours</p>
               <h2 className="display-card mt-6 sm:text-8xl">Reczi</h2>
               <p className="mt-6 text-lg font-medium">
                 Journalistes et créateurs indépendants
@@ -152,12 +152,12 @@ function ProjetsPage() {
 
       <section
         id="paiement"
-        className="scroll-mt-6 bg-accent-secondary text-bg"
+        className="scroll-mt-6 border-b-2 border-text bg-bg"
       >
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
           <div className="grid gap-10 sm:grid-cols-12">
             <div className="sm:col-span-5">
-              <p className="label opacity-70">Projet — en cours</p>
+              <p className="label text-accent-primary">Projet — en cours</p>
               <h2 className="display-card mt-6 sm:text-6xl">
                 Encaisser sans intermédiaire
               </h2>
@@ -193,7 +193,7 @@ function ProjetsPage() {
               </dl>
               <Link
                 to="/paiement"
-                className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-current px-6 py-3 hover:bg-bg hover:text-accent-secondary"
+                className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-text px-6 py-3 hover:bg-text hover:text-bg"
               >
                 Les quatre marches, en détail <span aria-hidden>→</span>
               </Link>

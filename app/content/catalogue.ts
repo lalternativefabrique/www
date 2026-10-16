@@ -63,6 +63,7 @@ export const applications: Application[] = [
     icone: '/images/apps/messag.png',
     pilier: 'Communication',
     statut: 'Bientôt',
+    url: 'https://messag.eco',
     resume: 'Mail, agenda et contacts, sur ordinateur et mobile.',
     tagline: 'Votre messagerie, sans mouchard.',
     detail:
