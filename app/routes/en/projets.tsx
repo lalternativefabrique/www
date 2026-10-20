@@ -24,9 +24,8 @@ function ProjetsPageEn() {
           <p className="label text-text/60">What is being built</p>
           <h1 className="display-xl mt-6">The projects</h1>
           <p className="chapeau mt-8 max-w-2xl">
-            Ten projects. Eight are ready, two are under way. None has
-            collected a single euro yet: the first to launch will fund the
-            others.
+            Ten projects. Eight are ready, two are under way. The first ones
+            fund the next.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <a

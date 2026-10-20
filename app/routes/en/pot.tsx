@@ -128,7 +128,7 @@ function PotPageEn() {
               Ten projects: eight ready, two under way. The money first pays
               for what keeps the ready applications running, hosting and
               maintenance, then the launch of the next ones, then the two
-              under way. The first to collect fund the others. The progress of
+              under way. The first ones fund the next. The progress of
               each is on the projects page.
             </p>
           </div>

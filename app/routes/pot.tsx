@@ -127,7 +127,7 @@ function PotPage() {
               Dix projets : huit prêts, deux en cours. L'argent paie d'abord
               ce qui fait tourner les applications prêtes, hébergement et
               maintenance, puis le lancement des suivantes, puis les deux en
-              cours. Les premières qui encaissent financent les autres.
+              cours. Les premiers financent les suivants.
               L'avancement de chacun se lit sur la page des projets.
             </p>
           </div>
