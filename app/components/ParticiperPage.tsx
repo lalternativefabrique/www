@@ -28,9 +28,9 @@ const textes = {
       action: { to: '/contact', label: 'Rejoindre' },
     },
     limites: {
-      titre: 'Ce que nous ne promettons pas',
+      titre: "Ce que nous proposons, et ce que nous visons",
       texte:
-        "Pas de salaire de marché aujourd'hui, pas de levée demain. Ce que nous proposons : un travail utile, des comptes ouverts, et une place dans les décisions pour ceux qui tiennent une fonction. Quand une fonction est couverte, nous l'écrivons ici.",
+        "Aujourd'hui, nous avons besoin de vos compétences sans pouvoir les rémunérer. Demain, les revenus des applications doivent permettre de salarier ceux qui tiennent une fonction, et d'ouvrir l'aventure à d'autres. En attendant : un travail utile, des comptes ouverts, et une place dans les décisions. Quand une fonction est couverte, nous l'écrivons ici.",
     },
   },
   en: {
@@ -59,9 +59,9 @@ const textes = {
       action: { to: '/en/contact', label: 'Join' },
     },
     limites: {
-      titre: 'What we do not promise',
+      titre: 'What we offer, and what we aim for',
       texte:
-        'No market salary today, no fundraising tomorrow. What we offer: useful work, open books, and a seat in decisions for those who hold a function. When a function is covered, we write it here.',
+        'Today we need your skills without being able to pay for them. Tomorrow, the revenue of the applications must let us employ those who hold a function, and open the venture to others. In the meantime: useful work, open books, and a seat in decisions. When a function is covered, we write it here.',
     },
   },
 } as const
