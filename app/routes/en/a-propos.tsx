@@ -8,7 +8,7 @@ export const Route = createFileRoute('/en/a-propos')({
     seo({
       title: "About — L'Alternative Fabrique",
       description:
-        "Why L'Alternative Fabrique exists, what it has already built, why its applications lighten digital tasks instead of holding attention, and how to help.",
+        "Why L'Alternative Fabrique exists, what it has already built, why its products are paid and investor-free, and how to help.",
       path: '/en/a-propos',
       locale: 'en',
       alternate: { fr: '/a-propos', en: '/en/a-propos' },
@@ -162,6 +162,86 @@ function AProposPageEn() {
             <p>
               What we want to give you back is time. For your work, and for
               the people around you.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="culture" className="scroll-mt-6 border-t-2 border-text">
+        <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
+          <p className="label text-accent-primary">What we stand for</p>
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
+            Independent, and paid to stay that way.
+          </h2>
+          <div className="prose-editorial mt-10 text-text/85">
+            <h3 className="font-heading mt-12 text-2xl">Why we do this</h3>
+            <p>
+              We build useful digital tools, sold at a fair price, that respect
+              the data and the independence of the people who use them.
+            </p>
+            <p>
+              We host them on infrastructure we control, in places we choose,
+              with technologies we can keep running over time.
+            </p>
+            <p>
+              Designing our software and infrastructure, training our skills,
+              mastering our technologies: this creates activity in France and
+              Europe, keeps know-how here and reduces our dependencies.
+            </p>
+
+            <h3 className="font-heading mt-12 text-2xl">Why it is paid</h3>
+            <p>
+              Our products are paid because we want to fund our work through
+              the services we sell, not by bringing investors into the
+              company.
+            </p>
+            <p>
+              A shareholder expects short-term returns, unrelated to how useful
+              a product is or what its users need. We prefer to decide based on
+              the long run and the quality of what we ship.
+            </p>
+            <p>
+              Subscriptions, API usage, donations and crowdfunding directly
+              support this approach.
+            </p>
+            <p>
+              A digital service has costs: infrastructure, compute, storage,
+              maintenance, development, human work. We cover them without
+              selling personal data or exploiting attention. The price reflects
+              the real cost, the usage and what each person can afford.
+            </p>
+
+            <h3 className="font-heading mt-12 text-2xl">Why profitability</h3>
+            <p>
+              We seek profitability because it pays for the work, lets us
+              invest, build reserves and develop new products.
+            </p>
+            <p>
+              Accumulated capital is not for personal enrichment. It serves the
+              company's ability to create, to last and to progressively master
+              its means of production.
+            </p>
+            <p>
+              We want to keep our products for the long term, without having
+              to sell them in order to grow.
+            </p>
+
+            <h3 className="font-heading mt-12 text-2xl">What we commit to</h3>
+            <p>
+              A lasting company, able to fund its development and master its
+              technologies, that helps strengthen digital and industrial
+              capacity in France and Europe.
+            </p>
+            <p>
+              Our economic success must let us keep creating, investing and
+              improving our tools, while contributing to the common good.
+            </p>
+            <p>
+              <strong>
+                Our priority is the long run and control of our means of
+                production, so that the tools we build stay in the service of
+                the people who use them.
+              </strong>
             </p>
           </div>
         </div>

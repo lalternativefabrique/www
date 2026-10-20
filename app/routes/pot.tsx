@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { Conviction } from '@/components/Conviction'
 import { Participation } from '@/components/Participation'
 import { seo } from '@/lib/seo'
 
@@ -112,6 +113,8 @@ function PotPage() {
           </div>
         </div>
       </section>
+
+      <Conviction index={6} />
 
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">

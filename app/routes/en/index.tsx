@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
   applicationsEn,
@@ -157,6 +158,8 @@ function LandingPageEn() {
         </div>
       </section>
 
+      <Conviction index={0} />
+
       <section className="bg-accent-secondary text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
           <p className="label opacity-70">04 — The projects</p>
@@ -207,6 +210,8 @@ function LandingPageEn() {
           </div>
         </div>
       </section>
+
+      <Conviction index={2} />
 
       <section id="pillars" className="scroll-mt-6 border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
