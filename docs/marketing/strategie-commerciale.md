@@ -8,16 +8,17 @@
 
 ## 1. Ce que nous vendons, état vérifié
 
-| App | Promesse en une ligne | Cible | Offre réelle (code) | On peut payer ? | Statut public à afficher |
+| App | Promesse en une ligne | Cible | Offre réelle (code) | Paiement | Statut public à afficher |
 |---|---|---|---|---|---|
-| **Partage** | Écrire un post une fois, le publier au bon moment sur chaque réseau | Indépendants qui écrivent eux-mêmes, devs solos, auto-entrepreneurs | Gratuit 10 publications/mois · Maker 9 € / 50 · Pro 19 € / 200 · Studio 49 € / 1000 (`partage/tenants/lungor.yaml`) | **Oui**, checkout Mollie via Lungor | Disponible |
-| **Synthiz** | Transcrire et résumer vidéos, podcasts, PDF, articles, puis retrouver la source exacte d'une idée des mois plus tard | Créateurs de contenu, étudiants, chercheurs, consultants, veilleurs | Free 20 synthèses/mois · Pro 300/mois, prix lu dans Lungor (migration `000110`) | **Oui**, checkout Lungor | Disponible, mais le CTA dit « Rejoindre la beta » |
-| **Spore** | Les e-mails transactionnels de votre application partent d'une infrastructure européenne que nous possédons | Développeurs backend, devs SaaS solos, équipes qui quittent SES ou Resend | Free / Pro / Max, prix et quotas lus dans Lungor, aucun chiffre dans le dépôt | **Oui**, checkout live (`useStartCheckout('pro')`) | Disponible, mais le hero dit « Get early access » |
-| **Messag** | Mail, agenda, contacts, drive et pages de rendez-vous, hébergés en France, avec Gmail et Outlook rapatriés dans une seule boîte | Indépendants et petits pros français : artisan, coiffeuse, consultante | Normal 0 € (10 Go, 2 domaines) · Pro 5 €/mois ou 50 €/an (50 Go, 10 domaines, 20 adresses de groupe, 5 pages de rendez-vous) | **Code oui**, copy non : la FAQ dit que le paiement Pro « n'est pas encore ouvert » | Inscription gratuite ouverte ; Pro ⚠️ à ouvrir |
+| **Partage** | Écrire un post une fois, le publier au bon moment sur chaque réseau | Indépendants qui écrivent eux-mêmes, devs solos, auto-entrepreneurs | Gratuit 10 publications/mois · Maker 9 € / 50 · Pro 19 € / 200 · Studio 49 € / 1000 (`partage/tenants/lungor.yaml`) | Checkout Mollie via Lungor câblé, **en mode test** | Disponible |
+| **Synthiz** | Transcrire et résumer vidéos, podcasts, PDF, articles, puis retrouver la source exacte d'une idée des mois plus tard | Créateurs de contenu, étudiants, chercheurs, consultants, veilleurs | Free 20 synthèses/mois · Pro 300/mois, prix lu dans Lungor (migration `000110`) | Checkout Lungor câblé, **en mode test** | Disponible, mais le CTA dit « Rejoindre la beta » |
+| **Spore** | Les e-mails transactionnels de votre application partent d'une infrastructure européenne que nous possédons | Développeurs backend, devs SaaS solos, équipes qui quittent SES ou Resend | Free / Pro / Max, prix et quotas lus dans Lungor, aucun chiffre dans le dépôt | Checkout câblé (`useStartCheckout('pro')`), **en mode test** | Disponible, mais le hero dit « Get early access » |
+| **Messag** | Mail, agenda, contacts, drive et pages de rendez-vous, hébergés en France, avec Gmail et Outlook rapatriés dans une seule boîte | Indépendants et petits pros français : artisan, coiffeuse, consultante | Normal 0 € (10 Go, 2 domaines) · Pro 5 €/mois ou 50 €/an (50 Go, 10 domaines, 20 adresses de groupe, 5 pages de rendez-vous) | Checkout câblé, **en mode test** ; la FAQ dit que le Pro « n'est pas encore ouvert » | Inscription gratuite ouverte ; Pro ⚠️ à ouvrir |
 
 Deux faits structurants :
 
-- **Les quatre applications ont un paiement câblé.** Le problème n'est pas l'encaissement, c'est que trois surfaces sur quatre disent le contraire de leur code (§ 4).
+- **Les quatre applications ont un paiement câblé, et aucune n'encaisse.** Lungor et les prestataires de paiement tournent en mode test partout : il n'y a pas encore eu un euro réel. Le premier chantier commercial n'est donc pas un post, c'est **passer la chaîne de paiement en production** sur l'application qui ouvre la rotation (§ 5), puis sur les autres au fil du cycle.
+- **Trois surfaces sur quatre disent le contraire de leur code** (§ 4).
 - **Aucune preuve sociale n'existe.** Ni client nommé, ni témoignage, ni chiffre d'usage. Les playbooks de Partage l'interdisent, et ils ont raison : on vend par démonstration jusqu'à ce qu'un client accepte d'être cité.
 
 ---
@@ -106,6 +107,8 @@ Le choix est fait : on construit la notoriété par les réseaux, avec Partage, 
 ### La rotation
 
 Un cycle de **trois semaines par application**, planifié comme une campagne Partage (objectif `acquisition` pour les applications achetables, `awareness` tant que le paiement n'est pas ouvert). Un texte de la revue par cycle, qui sert de pilier. Les trois autres applications ne se taisent pas : un dérivé `product_speaks` par semaine, sans raisonnement, sur leur propre compte.
+
+Prérequis par application, **avant** le slot promotionnel de sa troisième semaine : paiement en production (clé Mollie ou PayPlug live dans Lungor, un achat réel à 9 € fait par nous et remboursé, le reçu reçu). Tant que ce n'est pas fait, la campagne reste en objectif `awareness` et le CTA est l'inscription gratuite, pas le plan payant.
 
 | Semaines | Application en campagne | Pourquoi dans cet ordre |
 |---|---|---|
@@ -211,13 +214,14 @@ Débrief après **cinq** posts, jamais après un. Un post sans réponse est le r
 
 ## 8. Les sept premiers jours
 
-1. **J1** : saisir la stratégie de marque Partage dans Partage (§ 6). Publier le premier post du thème 1, dans la voix du fondateur, par Partage, LinkedIn et Bluesky. Quinze minutes d'édition, puis envoi.
-2. **J1** : corriger les trois lignes Partage du § 4 (Pro « 200 », X dans Gratuit, une seule phrase sur Meta). Une PR.
-3. **J2** : écrire le texte pilier de la revue, « Une matinée par semaine à nourrir des plateformes ». Publier à 80 %.
-4. **J3** : planifier la campagne Partage dans Partage, objectif acquisition, 3 semaines, avec le texte comme lien d'entrée. Corriger ce que le planificateur propose plutôt que repartir de zéro.
-5. **J3** : Synthiz : CTA « Commencer gratuitement », retirer « bêta ». ⚠️ Vérifier le catalogue Lungor et aligner www.
-6. **J5** : deuxième et troisième posts du thème 1 partis. Lettre de la revue envoyée par Spore aux inscrits, même s'ils sont peu.
-7. **J7** : débrief écrit en dix lignes : qui a répondu, quoi, ce qu'on change pour le thème 2. Saisir les stratégies Synthiz, Messag, Spore dans Partage.
+1. **J1** : passer le paiement de Partage en production dans Lungor et faire un achat réel de 9 €, remboursé ensuite. C'est le seul euro qui compte cette semaine.
+2. **J1** : saisir la stratégie de marque Partage dans Partage (§ 6). Publier le premier post du thème 1, dans la voix du fondateur, par Partage, LinkedIn et Bluesky. Quinze minutes d'édition, puis envoi.
+3. **J1** : corriger les trois lignes Partage du § 4 (Pro « 200 », X dans Gratuit, une seule phrase sur Meta). Une PR.
+4. **J2** : écrire le texte pilier de la revue, « Une matinée par semaine à nourrir des plateformes ». Publier à 80 %.
+5. **J3** : planifier la campagne Partage dans Partage, objectif acquisition, 3 semaines, avec le texte comme lien d'entrée. Corriger ce que le planificateur propose plutôt que repartir de zéro.
+6. **J3** : Synthiz : CTA « Commencer gratuitement », retirer « bêta ». ⚠️ Vérifier le catalogue Lungor et aligner www.
+7. **J5** : deuxième et troisième posts du thème 1 partis. Lettre de la revue envoyée par Spore aux inscrits, même s'ils sont peu.
+8. **J7** : débrief écrit en dix lignes : qui a répondu, quoi, ce qu'on change pour le thème 2. Saisir les stratégies Synthiz, Messag, Spore dans Partage.
 
 ---
 
@@ -225,6 +229,7 @@ Débrief après **cinq** posts, jamais après un. Un post sans réponse est le r
 
 - Le pourcentage réinvesti ⚠️.
 - L'ouverture du paiement Pro de Messag ⚠️.
+- L'ordre de passage en production des paiements : Partage d'abord, selon la rotation, sauf avis contraire.
 - Les prix Synthiz à afficher sur www ⚠️.
 - Le statut public de Messag ⚠️.
 
