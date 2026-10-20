@@ -40,7 +40,7 @@ const marches: Marche[] = [
     hauteur: 'h-40 sm:h-56 md:h-64',
     rangClass: 'text-6xl sm:text-7xl',
     quoi:
-      'This is Lungor today. Payments go through an already licensed payment provider: we hold neither bank details nor customer identities, everything stays with it.',
+      'This is where we stand today. Payments go through an already licensed payment provider: we hold neither bank details nor customer identities, everything stays with it.',
     ceQuOnGagne:
       'The product runs, collects and funds itself right now. Nothing waits for an authorisation.',
     ceQueCaCoute:
@@ -288,11 +288,11 @@ function PaiementPageEn() {
                 Collecting payments without a middleman
               </h1>
               <p className="chapeau mt-10 max-w-2xl">
-                Today, a payment made with Lungor goes through Mollie: Mollie
-                holds the authorisation to collect, and takes its commission.
-                The project is for Lungor to obtain its own authorisation and
-                collect directly. Here are the four steps that lead there, and
-                what each one costs.
+                When you pay for one of our applications, the money goes
+                through a payment provider, Mollie. It holds the authorisation
+                to collect, and takes a commission every time. The project is
+                to obtain our own authorisation and collect directly. Here are
+                the four steps that lead there, and what each one costs.
               </p>
               <div className="mt-10 flex flex-wrap gap-6">
                 <Link
@@ -311,7 +311,7 @@ function PaiementPageEn() {
                   href="https://lungor.fr"
                   className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
                 >
-                  Lungor today <span aria-hidden>→</span>
+                  Our payment tool <span aria-hidden>→</span>
                 </a>
               </div>
             </div>
@@ -398,7 +398,7 @@ function PaiementPageEn() {
           </p>
           <p className="chapeau mt-8 max-w-2xl">
             Every payment leaves a few tens of cents to a middleman today.
-            Collected by Lungor, they would stay in the organisation and fund
+            Collected by us, they would stay in the organisation and fund
             what comes next.
           </p>
 
