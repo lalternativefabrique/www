@@ -42,7 +42,7 @@ const marches: Marche[] = [
     hauteur: 'h-40 sm:h-56 md:h-64',
     rangClass: 'text-6xl sm:text-7xl',
     quoi:
-      "C'est Lungor aujourd'hui. L'encaissement passe par un prestataire de paiement déjà agréé : nous ne détenons ni les coordonnées bancaires, ni l'identité des clients, tout reste chez lui.",
+      "C'est notre situation aujourd'hui. L'encaissement passe par un prestataire de paiement déjà agréé : nous ne détenons ni les coordonnées bancaires, ni l'identité des clients, tout reste chez lui.",
     ceQuOnGagne:
       "Le produit tourne, encaisse et se finance dès maintenant. Rien n'attend une autorisation.",
     ceQueCaCoute:
@@ -301,11 +301,12 @@ function PaiementPage() {
                 Encaisser sans intermédiaire
               </h1>
               <p className="chapeau mt-10 max-w-2xl">
-                Aujourd'hui, un paiement fait avec Lungor passe par Mollie :
-                c'est Mollie qui a l'autorisation d'encaisser, et qui prélève
-                sa commission. Le projet est que Lungor obtienne sa propre
-                autorisation et encaisse directement. Voici les quatre
-                marches qui y mènent, et ce que chacune coûte.
+                Quand vous payez l'une de nos applications, l'argent passe par
+                un prestataire de paiement, Mollie. C'est lui qui a
+                l'autorisation d'encaisser, et qui prélève une commission à
+                chaque fois. Le projet est d'obtenir notre propre autorisation
+                et d'encaisser directement. Voici les quatre marches qui y
+                mènent, et ce que chacune coûte.
               </p>
               <div className="mt-10 flex flex-wrap gap-6">
                 <Link
@@ -324,7 +325,7 @@ function PaiementPage() {
                   href="https://lungor.fr"
                   className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:opacity-70"
                 >
-                  Lungor aujourd'hui <span aria-hidden>→</span>
+                  Notre outil d'encaissement <span aria-hidden>→</span>
                 </a>
               </div>
             </div>
@@ -414,7 +415,7 @@ function PaiementPage() {
           </p>
           <p className="chapeau mt-8 max-w-2xl">
             Chaque paiement laisse aujourd'hui quelques dizaines de centimes à
-            un intermédiaire. Encaissés par Lungor, ils resteraient dans
+            un intermédiaire. Encaissés par nous, ils resteraient dans
             l'organisation et financeraient la suite.
           </p>
 

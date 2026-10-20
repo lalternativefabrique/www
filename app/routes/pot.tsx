@@ -120,13 +120,15 @@ function PotPage() {
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Où va l'argent</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            Deux projets en cours.
+            Dans tous les projets.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Reczi, pour publier vidéos, articles et podcasts sans dépendre de
-              YouTube ni de Substack. Et Lungor, pour encaisser sans
-              intermédiaire. Leur avancement se lit sur une page à part.
+              Dix projets : huit prêts, deux en cours. L'argent paie d'abord
+              ce qui fait tourner les applications prêtes, hébergement et
+              maintenance, puis le lancement des suivantes, puis les deux en
+              cours. Les premiers financent les suivants.
+              L'avancement de chacun se lit sur la page des projets.
             </p>
           </div>
           <Link

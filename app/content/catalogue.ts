@@ -150,7 +150,7 @@ export const projets: Projet[] = [
     nom: 'Encaisser sans intermédiaire',
     etat: 'En cours',
     resume:
-      "Faire de Lungor un établissement de paiement autorisé, au lieu de dépendre de la licence d'un autre.",
+      "Obtenir notre propre autorisation d'encaisser, au lieu de dépendre de la licence d'un prestataire.",
   },
 ]
 

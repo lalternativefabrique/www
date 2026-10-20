@@ -22,8 +22,8 @@ function ProjetsPage() {
           <p className="label text-text/60">Ce qui se construit</p>
           <h1 className="display-xl mt-6">Les projets</h1>
           <p className="chapeau mt-8 max-w-2xl">
-            Deux projets sont en cours. Aucun n'est encore utilisable : ils
-            sont financés par les applications qui le sont.
+            Dix projets. Huit sont prêts, deux sont en cours. Les premiers
+            financent les suivants.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <a
