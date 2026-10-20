@@ -8,7 +8,7 @@ const textes = {
     titre2: 'construisons-le ensemble.',
     intro: [
       "Cinq applications tournent aujourd'hui : Synthiz, Partage, Spore, Messag et Lungor. Leur suivi est outillé. Nakoda recueille vos retours et mesure l'usage de toute la suite. Skalpai transforme chaque bug en ticket, teste, publie et déploie. Un retour envoyé depuis n'importe quelle application arrive au bon endroit, et un correctif atteint la production sans étape manuelle.",
-      "Ce système fonctionne pour le code. Il ne fonctionne pour rien d'autre. Tenir les comptes, suivre le droit du paiement et de la consommation, prouver que les données sont protégées comme elles le sont, faire connaître les applications sans publicité : aucune de ces fonctions ne s'automatise. Chacune est un métier, et nous ne les avons pas tous.",
+      "Le code, nous savons faire. Le reste, non. La comptabilité, le droit, la sécurité à prouver, la communication : ce sont des métiers, et nous avons besoin de ceux qui les exercent.",
       "Nous avons écarté la levée de fonds. Reste une voie plus lente et plus solide : une organisation partagée, où l'on entre par ce que l'on peut donner.",
     ],
     argent: {
@@ -28,9 +28,9 @@ const textes = {
       action: { to: '/contact', label: 'Rejoindre' },
     },
     limites: {
-      titre: "Ce que nous proposons, et ce que nous visons",
+      titre: 'Où nous allons',
       texte:
-        "Aujourd'hui, nous avons besoin de vos compétences sans pouvoir les rémunérer. Demain, les revenus des applications doivent permettre de salarier ceux qui tiennent une fonction, et d'ouvrir l'aventure à d'autres. En attendant : un travail utile, des comptes ouverts, et une place dans les décisions. Quand une fonction est couverte, nous l'écrivons ici.",
+        "Nous ne pouvons pas encore payer ces fonctions. Les revenus des applications doivent d'abord couvrir les coûts, puis permettre d'embaucher. Le but est une entreprise qui salarie les gens qui la font tourner. Aujourd'hui nous vous demandons du temps ; demain nous voulons pouvoir vous proposer un poste.",
     },
   },
   en: {
@@ -39,7 +39,7 @@ const textes = {
     titre2: "let's build it together.",
     intro: [
       'Five applications run today: Synthiz, Partage, Spore, Messag and Lungor. Their upkeep is tooled. Nakoda collects your feedback and measures usage across the suite. Skalpai turns every bug into a ticket, tests, publishes and deploys. A report sent from any application lands in the right place, and a fix reaches production without a manual step.',
-      'That system works for code. It works for nothing else. Keeping the books, following payment and consumer law, proving the data is protected the way it is, making the applications known without advertising: none of these functions can be automated. Each is a trade, and we do not have them all.',
+      'Code, we know how to do. The rest, we do not. Accounting, law, security we can prove, communication: these are trades, and we need the people who practise them.',
       'We ruled out raising funds. What remains is a slower, sturdier path: a shared organisation, which you enter by what you can give.',
     ],
     argent: {
@@ -59,9 +59,9 @@ const textes = {
       action: { to: '/en/contact', label: 'Join' },
     },
     limites: {
-      titre: 'What we offer, and what we aim for',
+      titre: 'Where we are going',
       texte:
-        'Today we need your skills without being able to pay for them. Tomorrow, the revenue of the applications must let us employ those who hold a function, and open the venture to others. In the meantime: useful work, open books, and a seat in decisions. When a function is covered, we write it here.',
+        'We cannot pay for these functions yet. The revenue of the applications must first cover the costs, then allow us to hire. The goal is a company that employs the people who keep it running. Today we ask for your time; tomorrow we want to be able to offer you a job.',
     },
   },
 } as const
