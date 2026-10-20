@@ -140,7 +140,7 @@ export const projetsEn: Projet[] = [
     nom: 'Collecting payments without a middleman',
     etat: 'En cours',
     resume:
-      "Make Lungor an authorised payment institution, instead of depending on someone else's licence.",
+      "Obtain our own authorisation to collect payments, instead of depending on a provider's licence.",
   },
 ]
 
