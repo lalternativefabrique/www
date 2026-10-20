@@ -188,9 +188,9 @@ function LandingPage() {
       <section className="pt-24 sm:pt-28">
         <SectionHead titre="Ce que cet argent construit." repere="§ 04 — Les projets" />
         <p className="mt-5 max-w-xl text-text/75">
-          D'abord faire tourner les applications existantes et les garder
-          indépendantes : hébergement, maintenance, aucun investisseur. Ensuite,
-          les projets suivants.
+          Des projets prêts, d'autres en cours. Les premiers qui encaissent
+          font tourner les autres et les gardent indépendants : hébergement,
+          maintenance, aucun investisseur.
         </p>
         <div className="grid gap-x-12 md:grid-cols-2">
           {projets.map((projet, index) => (

@@ -120,15 +120,14 @@ function PotPage() {
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Où va l'argent</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            Aux applications d'abord, aux chantiers ensuite.
+            Dans tous les projets.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Huit applications tournent. L'argent paie d'abord leur
-              hébergement et leur maintenance, et permet aux bêtas de sortir
-              de bêta. Il finance ensuite les deux chantiers ouverts : Reczi,
-              pour publier vidéos, articles et podcasts sans dépendre de
-              YouTube ni de Substack, et l'encaissement sans intermédiaire.
+              Dix projets : huit prêts, deux en cours. L'argent paie d'abord
+              ce qui fait tourner les applications prêtes, hébergement et
+              maintenance, puis le lancement des suivantes, puis les deux en
+              cours. Les premières qui encaissent financent les autres.
               L'avancement de chacun se lit sur la page des projets.
             </p>
           </div>

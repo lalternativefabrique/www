@@ -121,16 +121,15 @@ function PotPageEn() {
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Where the money goes</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            To the applications first, then to the open builds.
+            Into every project.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Eight applications run. The money first pays for their hosting
-              and maintenance, and lets the betas leave beta. It then funds the
-              two open builds: Reczi, to publish videos, articles and podcasts
-              without depending on YouTube or Substack, and collecting
-              payments without a middleman. The progress of each is on the
-              projects page.
+              Ten projects: eight ready, two under way. The money first pays
+              for what keeps the ready applications running, hosting and
+              maintenance, then the launch of the next ones, then the two
+              under way. The first to collect fund the others. The progress of
+              each is on the projects page.
             </p>
           </div>
           <Link

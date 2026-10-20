@@ -165,8 +165,9 @@ function LandingPageEn() {
           <p className="label opacity-70">04 — The projects</p>
           <h2 className="display-lg mt-6">What that money builds.</h2>
           <p className="chapeau mt-8 max-w-2xl opacity-90">
-            First, keeping the existing applications running and independent:
-            hosting, maintenance, no investor. Then, the next projects.
+            Some projects are ready, others under way. The first to collect
+            keep the others running and independent: hosting, maintenance, no
+            investor.
           </p>
           <div className="mt-14 grid gap-px bg-bg/40 sm:grid-cols-2">
             {projetsEn.map((projet) => (
