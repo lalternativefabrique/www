@@ -17,7 +17,7 @@
 
 Deux faits structurants :
 
-- **Les quatre applications ont un paiement câblé, et aucune n'encaisse.** Lungor et les prestataires de paiement tournent en mode test partout : il n'y a pas encore eu un euro réel. Le premier chantier commercial n'est donc pas un post, c'est **passer la chaîne de paiement en production** sur l'application qui ouvre la rotation (§ 5), puis sur les autres au fil du cycle.
+- **Les quatre applications ont un paiement câblé, et aucune n'encaisse.** Lungor et les prestataires de paiement tournent en mode test partout : il n'y a pas encore eu un euro réel. Le premier chantier commercial n'est donc pas un post, c'est **passer la chaîne de paiement en production** sur les quatre applications (§ 8, J1).
 - **Trois surfaces sur quatre disent le contraire de leur code** (§ 4).
 - **Aucune preuve sociale n'existe.** Ni client nommé, ni témoignage, ni chiffre d'usage. Les playbooks de Partage l'interdisent, et ils ont raison : on vend par démonstration jusqu'à ce qu'un client accepte d'être cité.
 
@@ -100,42 +100,49 @@ Et le point du plan de communication toujours ouvert : **le pourcentage réinves
 
 ---
 
-## 5. Le plan : notoriété par la publication, une application à la fois
+## 5. Le plan : lancement parallèle, quatre marques dans Partage
 
-Le choix est fait : on construit la notoriété par les réseaux, avec Partage, et on vend en direct depuis chaque application. La contrainte est une personne et quatre produits. La doctrine dit deux à trois slots par semaine ; on la respecte, donc **on tourne**.
+Décision du fondateur (2026-10-20) : les quatre applications sont prêtes et se lancent **en même temps**, chacune avec ses propres comptes, pour toucher large. La contrainte d'une seule personne est levée par l'outil : Partage porte une marque par application, une stratégie par marque, et son planificateur propose les campagnes. Le travail du fondateur est la relecture et la correction, pas la rédaction. Ordre de grandeur : huit à douze posts par semaine à relire, une heure par jour.
 
-### La rotation
+### Les comptes
 
-Un cycle de **trois semaines par application**, planifié comme une campagne Partage (objectif `acquisition` pour les applications achetables, `awareness` tant que le paiement n'est pas ouvert). Un texte de la revue par cycle, qui sert de pilier. Les trois autres applications ne se taisent pas : un dérivé `product_speaks` par semaine, sans raisonnement, sur leur propre compte.
+Un jeu de comptes par application, connectés à sa marque dans Partage. Le compte personnel du fondateur relaie et porte la Fabrique.
 
-Prérequis par application, **avant** le slot promotionnel de sa troisième semaine : paiement en production (clé Mollie ou PayPlug live dans Lungor, un achat réel à 9 € fait par nous et remboursé, le reçu reçu). Tant que ce n'est pas fait, la campagne reste en objectif `awareness` et le CTA est l'inscription gratuite, pas le plan payant.
-
-| Semaines | Application en campagne | Pourquoi dans cet ordre |
+| Marque | Réseaux | Pourquoi ceux-là |
 |---|---|---|
-| 1 à 3 | **Partage** | Chaque post publié est la démonstration du produit. Le texte pilier (le temps passé à nourrir les réseaux) porte aussi la culture de la Fabrique |
-| 4 à 6 | **Synthiz** | Paiement prêt, pages d'usage et comparatifs déjà écrits (NotebookLM, Notion AI, Readwise), la cible est aussi celle qui lit les posts de la semaine 1 à 3 |
-| 7 à 9 | **Messag** | Le hero est le meilleur des quatre. Condition : Pro ouvert, sinon objectif `awareness` et inscription gratuite |
-| 10 à 12 | **Spore** | Cible la plus étroite et la plus exigeante en preuve. On arrive avec dix semaines d'e-mails envoyés par Spore pour la lettre de la revue : c'est la preuve |
+| **Spore** | X, Bluesky, Dev.to, page LinkedIn | Devs : X et Bluesky pour la conversation, Dev.to pour les guides |
+| **Partage** | X, Bluesky, Dev.to, page LinkedIn | Mêmes réseaux ; chaque post est sa propre démo |
+| **Synthiz** | X, LinkedIn, Bluesky | Créateurs, étudiants, veilleurs : LinkedIn et X d'abord |
+| **Messag** | Facebook Page, Instagram, LinkedIn | Les pros locaux sont sur Facebook et Instagram. ⚠️ Nécessite une application Meta : Partage n'a pas d'app instance, il faut la créer une fois pour la Fabrique |
+| **La Fabrique** | Compte du fondateur : LinkedIn, Bluesky, X | Le pourquoi, le comment, et le lien vers Participer |
 
-Au terme du cycle, on recommence avec ce qu'on a appris, et on retire une application de la rotation si elle n'a produit ni inscription ni conversation en trois semaines d'exposition.
+### La méthode, celle de Partage
 
-### Le premier cycle, Partage, semaines 1 à 3
+Pour chaque marque : stratégie saisie (§ 6), puis une campagne de **3 semaines** planifiée dans Partage, objectif `awareness` tant que le paiement n'est pas en production, `acquisition` ensuite. On corrige ce que le planificateur propose, on ne repart pas de zéro. Deux à trois slots par semaine et par marque, jamais deux promos de suite, un texte pilier dans la revue par marque sur le cycle.
 
-Structure dictée par la doctrine : trois thèmes, chacun avec un angle discutable, trois slots par semaine, un slot promotionnel au plus, ouverture sur `educate`.
+Le planificateur a des défauts connus (`partage/docs/qa/campaigns-inside-strategy.md`) : il invente des superlatifs et des chiffres si la stratégie n'a pas d'évidence. La relecture vérifie trois choses : aucun chiffre qui ne soit dans les évidences, aucun « le seul », aucune fonctionnalité promise qui ne tourne pas.
 
-| Semaine | Thème | Angle (discutable) | Slots |
-|---|---|---|---|
-| 1 | Le coût d'une matinée de publication | Les réseaux ne sont pas des canaux de diffusion, ce sont des lieux de séjour, et leur modèle dépend de ce séjour | LinkedIn `educate` (le décompte des onglets, ce qu'on y perd) · Bluesky `opinion` (une phrase) · teaser vers le texte de la revue |
-| 2 | Écrire une fois, parler à chaque réseau | Un même texte collé sur quatre réseaux est pire que quatre absences : chaque réseau a une lecture | LinkedIn `demonstrate` (un brouillon, trois sorties, capture) · Dev.to `educate` (comment le profil de voix fonctionne, ses limites) · Bluesky `product_speaks` |
-| 3 | Ce que Partage ne fait pas | Un outil pour une personne qui écrit ne doit pas ressembler à Buffer | LinkedIn `compare` (ce que Buffer fait bien, où il cesse de convenir) · X `objection` (« encore un outil IA qui écrit à ma place ? ») · LinkedIn `promote` (le seul du cycle : le plan gratuit, dix publications, sans carte) |
+### Les thèmes d'ouverture, une marque par ligne
 
-Le texte de la revue qui sert de pilier : titre de travail **« Une matinée par semaine à nourrir des plateformes »**. Problème, pourquoi les outils existants (Buffer, Hootsuite, publier à la main) déçoivent pour une personne seule, le vrai problème (ce n'est pas publier, c'est rester), la réponse, les limites (quatre réseaux, pas de réponses, pas de vidéo, statistiques partielles), la suite naturelle.
+| Marque | Thème semaine 1 | Angle (discutable) |
+|---|---|---|
+| Spore | La seule brique de ton app que tu ne possèdes pas | Déléguer l'e-mail transactionnel, c'est déléguer sa réputation |
+| Partage | Une matinée par semaine à nourrir des plateformes | Les réseaux sont des lieux de séjour, pas des canaux |
+| Synthiz | Deux cents vidéos sauvegardées, aucune retrouvée | Sauvegarder n'est pas retenir |
+| Messag | Trois boîtes, deux agendas, un lien facturé à part | Un indépendant paie trois outils pour un seul métier |
+| Fabrique | Reprendre la maîtrise de nos outils | On participe peu à la conception des outils dont on dépend |
+
+### La vente directe, en parallèle : Messag vitrine
+
+Seul produit vendable à des non-devs sans audience : la **vitrine** (`messag/apps/core/profile`, ADR 0011). Page publique à son nom, prestations et horaires tirés des pages de rendez-vous, **demande de devis avec photos**, réservation, génération de la page depuis le site ou la fiche Google du pro, guide Google Business Profile. Incluse dans Pro, 5 €/mois. Limites : « Propulsé par Messag », pas de domaine personnalisé, pas d'avis.
+
+Le flux : préparer la page d'un pro listé publiquement avec le brief, l'appeler ou lui écrire avec le lien, « si elle vous sert, c'est 5 € par mois », noter chaque refus. Prospection B2B sur coordonnées publiques, droit d'opposition respecté. Métiers de départ : coiffure, artisans du bâtiment.
 
 ### Ce qu'on refuse
 
-- Quatre lancements simultanés. La stratégie générale le dit déjà : deux lancements en même temps, c'est zéro lancement.
-- Un calendrier de contenu à trente jours avant que le premier post soit parti.
-- Un chiffre, un superlatif, un témoignage qui n'existe pas. La doctrine Partage les refuse à la machine ; on se les refuse à la main.
+- Un chiffre, un superlatif, un témoignage qui n'existe pas. La doctrine Partage les refuse à la machine ; la relecture les refuse à la main.
+- Un slot promotionnel sur une application dont le paiement est encore en mode test.
+- Débriefer après un post. Après cinq, par marque.
 
 ---
 
@@ -214,14 +221,14 @@ Débrief après **cinq** posts, jamais après un. Un post sans réponse est le r
 
 ## 8. Les sept premiers jours
 
-1. **J1** : passer le paiement de Partage en production dans Lungor et faire un achat réel de 9 €, remboursé ensuite. C'est le seul euro qui compte cette semaine.
-2. **J1** : saisir la stratégie de marque Partage dans Partage (§ 6). Publier le premier post du thème 1, dans la voix du fondateur, par Partage, LinkedIn et Bluesky. Quinze minutes d'édition, puis envoi.
-3. **J1** : corriger les trois lignes Partage du § 4 (Pro « 200 », X dans Gratuit, une seule phrase sur Meta). Une PR.
-4. **J2** : écrire le texte pilier de la revue, « Une matinée par semaine à nourrir des plateformes ». Publier à 80 %.
-5. **J3** : planifier la campagne Partage dans Partage, objectif acquisition, 3 semaines, avec le texte comme lien d'entrée. Corriger ce que le planificateur propose plutôt que repartir de zéro.
-6. **J3** : Synthiz : CTA « Commencer gratuitement », retirer « bêta ». ⚠️ Vérifier le catalogue Lungor et aligner www.
-7. **J5** : deuxième et troisième posts du thème 1 partis. Lettre de la revue envoyée par Spore aux inscrits, même s'ils sont peu.
-8. **J7** : débrief écrit en dix lignes : qui a répondu, quoi, ce qu'on change pour le thème 2. Saisir les stratégies Synthiz, Messag, Spore dans Partage.
+1. **J1** : paiements en production dans Lungor pour les quatre applications ; un achat réel sur chacune, remboursé, reçu vérifié.
+2. **J1** : créer les comptes manquants (X, Bluesky, Dev.to, pages LinkedIn ; Facebook et Instagram pour Messag) et les connecter aux marques dans Partage. ⚠️ Application Meta à créer pour Facebook et Instagram.
+3. **J2** : saisir les cinq stratégies de marque (§ 6, plus la Fabrique) dans Partage.
+4. **J2** : premier post par marque, dans la voix de chaque marque, publié par Partage. Quinze minutes de relecture par post.
+5. **J3** : planifier les cinq campagnes de 3 semaines dans Partage, objectif `awareness`, à passer en `acquisition` dès que le paiement de la marque est en production. Corriger, ne pas réécrire.
+6. **J3 à J5** : Messag vitrine : préparer dix pages de pros avec le brief, appeler ou écrire. Noter chaque réponse.
+7. **J4** : corrections de copy du § 4, une PR par application.
+8. **J7** : débrief en dix lignes par marque : réponses, inscriptions, ce qu'on change pour la semaine 2. Lettre de la revue envoyée par Spore.
 
 ---
 
@@ -229,7 +236,7 @@ Débrief après **cinq** posts, jamais après un. Un post sans réponse est le r
 
 - Le pourcentage réinvesti ⚠️.
 - L'ouverture du paiement Pro de Messag ⚠️.
-- L'ordre de passage en production des paiements : Partage d'abord, selon la rotation, sauf avis contraire.
+- L'application Meta pour Facebook et Instagram : au nom de la Fabrique, ou une par application ⚠️.
 - Les prix Synthiz à afficher sur www ⚠️.
 - Le statut public de Messag ⚠️.
 
