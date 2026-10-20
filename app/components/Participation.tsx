@@ -32,13 +32,13 @@ function euros(cents: number, locale: 'fr' | 'en'): string {
 const copy = {
   fr: {
     kicker: 'Contribution directe',
-    titre: 'Financer un projet.',
+    titre: 'Nous soutenir.',
     chapeau:
-      "Vous pouvez contribuer sans acheter une solution dont vous n'avez pas l'usage. Ce n'est pas un don à une cause : votre contribution accélère directement les projets annoncés.",
+      "Pour nous soutenir, vous pouvez aussi faire un don, sans acheter une application dont vous n'avez pas l'usage. Il va directement à l'organisation qui fait tourner les applications.",
     entrees: [
       {
         dt: 'Ce que ça paie',
-        dd: "Les projets publiés, dans l'ordre annoncé. Aujourd'hui : le dossier d'agrément pour encaisser sans intermédiaire.",
+        dd: "Les applications déjà créées, pour qu'elles continuent de tourner. Notre indépendance, sans investisseur. Et les projets suivants, dans l'ordre annoncé.",
       },
       {
         dt: 'Ce que vous recevez',
@@ -78,13 +78,13 @@ const copy = {
   },
   en: {
     kicker: 'Direct contribution',
-    titre: 'Fund a project.',
+    titre: 'Support us.',
     chapeau:
-      'You can contribute without buying a solution you do not need. This is not a donation to a cause: your contribution directly accelerates the announced projects.',
+      'To support us, you can also make a donation, without buying an application you do not need. It goes directly to the organisation that keeps the applications running.',
     entrees: [
       {
         dt: 'What it pays for',
-        dd: 'The published projects, in the announced order. Today: the authorisation dossier for the payment project.',
+        dd: 'The applications already built, so they keep running. Our independence, with no investor. And the next projects, in the announced order.',
       },
       {
         dt: 'What you get',
