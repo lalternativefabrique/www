@@ -8,7 +8,7 @@ export const Route = createFileRoute('/en/a-propos')({
     seo({
       title: "About — L'Alternative Fabrique",
       description:
-        "Why L'Alternative Fabrique exists, what it has already built, and how to help: by using, sharing, supporting, proposing ideas and bringing skills.",
+        "Why L'Alternative Fabrique exists, what it has already built, why its applications lighten digital tasks instead of holding attention, and how to help.",
       path: '/en/a-propos',
       locale: 'en',
       alternate: { fr: '/a-propos', en: '/en/a-propos' },
@@ -68,27 +68,36 @@ function AProposPageEn() {
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">The observation</p>
+          <p className="label text-accent-primary">The vision</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            We build on other people's ground.
+            Taking back control of our tools.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Launching an online service takes almost nothing any more. A
-              host, an email-sending service, a platform to publish on, a
-              provider to collect payments: it all plugs together in an
-              afternoon.
+              We communicate, work, learn and create through digital tools
+              that have become indispensable to our daily lives.
             </p>
             <p>
-              The price shows up later. Each of these services sets its
-              prices, its rules and its limits, and can change them. As the
-              activity grows, you find that your means of producing belong to
-              others.
+              These tools are not mere services. They form part of the
+              infrastructure on which our activities, our businesses and our
+              exchanges rest.
             </p>
             <p>
-              These services are often excellent, and for many projects they
-              remain the right choice. The problem starts when you want to
-              last without depending on a decision taken elsewhere.
+              Yet we take little part in their design, or in the decisions
+              that shape how they evolve.
+            </p>
+            <p>
+              The point is not to rebuild everything, nor to do without what
+              exists. It is to regain the ability to design, produce and
+              evolve our own solutions.
+            </p>
+            <p>
+              <strong>
+                Rebuilding a digital industry means giving ourselves the means
+                to go further.
+              </strong>{' '}
+              Creating a technical and industrial base on which new projects,
+              new uses and new ideas can emerge.
             </p>
           </div>
         </div>
@@ -130,6 +139,30 @@ function AProposPageEn() {
             >
               See the projects <span aria-hidden>→</span>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t-2 border-text">
+        <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
+          <p className="label text-accent-primary">Our ambition</p>
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
+            Lighten your everyday digital tasks.
+          </h2>
+          <div className="prose-editorial mt-10 text-text/85">
+            <p>
+              Many applications are built to keep you inside: an endless feed,
+              notifications, counters. We do the opposite.
+            </p>
+            <p>
+              Our applications are built to get a task done, personal or
+              professional, then let you go. Publish a post, read your mail,
+              find a source, collect a payment: done quickly, and you move on.
+            </p>
+            <p>
+              What we want to give you back is time. For your work, and for
+              the people around you.
+            </p>
           </div>
         </div>
       </section>

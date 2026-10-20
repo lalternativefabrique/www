@@ -8,7 +8,7 @@ export const Route = createFileRoute('/a-propos')({
     seo({
       title: "À propos — L'Alternative Fabrique",
       description:
-        "Pourquoi L'Alternative Fabrique existe, ce qu'elle a déjà construit, et comment l'aider : par l'usage, le partage, le soutien, les idées et les compétences.",
+        "Pourquoi L'Alternative Fabrique existe, ce qu'elle a déjà construit, pourquoi ses applications allègent les tâches numériques au lieu de retenir l'attention, et comment l'aider.",
       path: '/a-propos',
     }),
 })
@@ -67,27 +67,37 @@ function AProposPage() {
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <p className="label text-accent-primary">Le constat</p>
+          <p className="label text-accent-primary">La vision</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            On construit chez les autres.
+            Reprendre la maîtrise de nos outils.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Lancer un service en ligne ne demande presque plus rien. Un
-              hébergeur, un service d'envoi d'emails, une plateforme pour
-              publier, un prestataire pour encaisser : tout se branche en une
-              après-midi.
+              Nous communiquons, travaillons, apprenons et créons à travers des
+              outils numériques devenus indispensables à notre quotidien.
             </p>
             <p>
-              Le prix se découvre plus tard. Chacun de ces services fixe ses
-              tarifs, ses règles et ses limites, et peut les changer. Quand
-              l'activité grandit, on s'aperçoit que ses moyens de produire
-              appartiennent à d'autres.
+              Ces outils ne sont pas de simples services. Ils constituent une
+              partie des infrastructures sur lesquelles reposent nos activités,
+              nos entreprises et nos échanges.
             </p>
             <p>
-              Ces services sont souvent excellents, et pour beaucoup de
-              projets ils restent le bon choix. Le problème commence quand on
-              veut durer sans dépendre d'une décision prise ailleurs.
+              Pourtant, nous participons peu à leur conception et aux
+              décisions qui déterminent leur évolution.
+            </p>
+            <p>
+              L'enjeu n'est pas de tout reconstruire, ni de se passer de ce qui
+              existe. Il est de retrouver la capacité de concevoir, de produire
+              et de faire évoluer nos propres solutions.
+            </p>
+            <p>
+              <strong>
+                Reconstruire une industrie numérique, c'est se donner les
+                moyens d'aller plus loin.
+              </strong>{' '}
+              Créer une base technique et industrielle sur laquelle pourront
+              naître de nouveaux projets, de nouveaux usages et de nouvelles
+              idées.
             </p>
           </div>
         </div>
@@ -129,6 +139,32 @@ function AProposPage() {
             >
               Voir les projets <span aria-hidden>→</span>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t-2 border-text">
+        <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
+          <p className="label text-accent-primary">Notre ambition</p>
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
+            Vous alléger les tâches numériques du quotidien.
+          </h2>
+          <div className="prose-editorial mt-10 text-text/85">
+            <p>
+              Beaucoup d'applications sont conçues pour qu'on y reste : un fil
+              sans fin, des notifications, des compteurs. Nous faisons
+              l'inverse.
+            </p>
+            <p>
+              Nos applications sont faites pour accomplir une tâche, personnelle
+              ou professionnelle, puis vous laisser partir. Publier un post,
+              lire son courrier, retrouver une source, encaisser un paiement :
+              vite fait, et vous passez à autre chose.
+            </p>
+            <p>
+              Ce que nous voulons vous rendre, c'est du temps. Pour votre
+              travail, et pour les gens autour de vous.
+            </p>
           </div>
         </div>
       </section>
