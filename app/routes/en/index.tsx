@@ -44,7 +44,9 @@ function LandingPageEn() {
               <p className="chapeau">
                 Hosting, sending an email, publishing, collecting a payment:
                 our means of producing online belong to others. We are taking
-                them back one by one, with applications you can use.
+                them back one by one, with applications you can use. They are
+                built to lighten your everyday digital tasks, not to hold your
+                attention.
               </p>
               <Link
                 to="/en/outils"

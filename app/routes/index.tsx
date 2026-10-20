@@ -68,7 +68,8 @@ function LandingPage() {
               Héberger, envoyer un e-mail, publier, encaisser : ces outils du
               quotidien appartiennent presque tous à quelques acteurs. Nous en
               construisons des alternatives, une à une, que vous pouvez
-              utiliser dès aujourd'hui.
+              utiliser dès aujourd'hui. Elles sont faites pour vous alléger les
+              tâches numériques du quotidien, pas pour retenir votre attention.
             </p>
             <Link
               to="/outils"
