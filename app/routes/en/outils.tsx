@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { Conviction } from '@/components/Conviction'
 import type { Application } from '@/content/catalogue'
 import { applicationsEn, pilierEn, statutEn } from '@/content/catalogue.en'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
@@ -144,6 +145,8 @@ function OutilsPageEn() {
           </section>
         )
       })}
+
+      <Conviction index={4} inverse />
 
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">

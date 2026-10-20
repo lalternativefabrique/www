@@ -8,7 +8,7 @@ export const Route = createFileRoute('/a-propos')({
     seo({
       title: "À propos — L'Alternative Fabrique",
       description:
-        "Pourquoi L'Alternative Fabrique existe, ce qu'elle a déjà construit, pourquoi ses applications allègent les tâches numériques au lieu de retenir l'attention, et comment l'aider.",
+        "Pourquoi L'Alternative Fabrique existe, ce qu'elle a déjà construit, pourquoi ses produits sont payants et sans investisseurs, et comment l'aider.",
       path: '/a-propos',
     }),
 })
@@ -164,6 +164,93 @@ function AProposPage() {
             <p>
               Ce que nous voulons vous rendre, c'est du temps. Pour votre
               travail, et pour les gens autour de vous.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="culture" className="scroll-mt-6 border-t-2 border-text">
+        <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
+          <p className="label text-accent-primary">Ce que nous croyons</p>
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
+            Indépendants, et payants pour le rester.
+          </h2>
+          <div className="prose-editorial mt-10 text-text/85">
+            <h3 className="font-heading mt-12 text-2xl">Pourquoi nous faisons ça</h3>
+            <p>
+              Nous construisons des outils numériques utiles, vendus à un prix
+              juste, qui respectent les données et l'indépendance de ceux qui
+              les utilisent.
+            </p>
+            <p>
+              Nous les hébergeons sur des infrastructures que nous contrôlons,
+              dans des lieux que nous choisissons, avec des technologies dont
+              nous garantissons le fonctionnement dans la durée.
+            </p>
+            <p>
+              Concevoir nos logiciels et nos infrastructures, former nos
+              compétences, maîtriser nos technologies : cela crée de l'activité
+              en France et en Europe, garde des savoir-faire ici et réduit nos
+              dépendances.
+            </p>
+
+            <h3 className="font-heading mt-12 text-2xl">Pourquoi c'est payant</h3>
+            <p>
+              Nos produits sont payants parce que nous voulons financer notre
+              activité par les services que nous vendons, pas par l'entrée
+              d'investisseurs au capital.
+            </p>
+            <p>
+              Un actionnaire attend un rendement à court terme, sans rapport
+              avec l'utilité d'un produit ni les besoins de ceux qui s'en
+              servent. Nous préférons prendre nos décisions en fonction du
+              temps long et de la qualité de ce que nous livrons.
+            </p>
+            <p>
+              Les abonnements, l'usage de nos API, les dons et le financement
+              participatif soutiennent directement cette démarche.
+            </p>
+            <p>
+              Un service numérique coûte : infrastructures, calcul, stockage,
+              maintenance, développement, travail humain. Nous couvrons ces
+              coûts sans vendre de données personnelles ni exploiter
+              l'attention. Le prix tient compte du coût réel, de l'usage et des
+              moyens de chacun.
+            </p>
+
+            <h3 className="font-heading mt-12 text-2xl">Pourquoi la rentabilité</h3>
+            <p>
+              Nous cherchons la rentabilité parce qu'elle permet de rémunérer
+              le travail, d'investir, de constituer des réserves et de
+              développer de nouveaux produits.
+            </p>
+            <p>
+              Le capital accumulé ne sert pas à l'enrichissement personnel. Il
+              sert la capacité de l'entreprise à créer, à tenir et à maîtriser
+              progressivement ses moyens de production.
+            </p>
+            <p>
+              Nous voulons garder nos produits sur le long terme, sans avoir à
+              les céder pour grandir.
+            </p>
+
+            <h3 className="font-heading mt-12 text-2xl">Ce que nous nous engageons à tenir</h3>
+            <p>
+              Une entreprise durable, capable de financer son développement et
+              de maîtriser ses technologies, qui participe au renforcement des
+              capacités numériques et industrielles en France et en Europe.
+            </p>
+            <p>
+              Notre réussite économique doit nous permettre de continuer à
+              créer, à investir et à améliorer nos outils, en contribuant au
+              bien commun.
+            </p>
+            <p>
+              <strong>
+                Notre priorité est le temps long et la maîtrise de nos moyens
+                de production, pour que les outils que nous construisons
+                restent au service de ceux qui les utilisent.
+              </strong>
             </p>
           </div>
         </div>

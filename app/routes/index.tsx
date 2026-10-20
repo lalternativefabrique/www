@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
   applications,
@@ -180,6 +181,10 @@ function LandingPage() {
         </div>
       </section>
 
+      <div className="mt-24 sm:mt-28">
+        <Conviction index={0} />
+      </div>
+
       <section className="pt-24 sm:pt-28">
         <SectionHead titre="Ce que cet argent construit." repere="§ 04 — Les projets" />
         <div className="grid gap-x-12 md:grid-cols-2">
@@ -217,6 +222,10 @@ function LandingPage() {
           </Link>
         </div>
       </section>
+
+      <div className="mt-24 sm:mt-28">
+        <Conviction index={2} />
+      </div>
 
       <section id="piliers" className="scroll-mt-6 pt-20 sm:pt-24">
         <SectionHead titre="Quatre piliers." repere="Vue d'ensemble" />
