@@ -43,27 +43,19 @@ function BlogIndexEn() {
   return (
     <div>
       <section className="border-b-2 border-text">
-        <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
+        <div className="mx-auto w-full max-w-7xl px-6 pb-10 pt-12 sm:pb-12 sm:pt-16">
           <p className="label text-text/60">The review</p>
-          <h1 className="display-xl mt-6">The review</h1>
+          <h1 className="display-lg mt-4">The review</h1>
+          <p className="chapeau mt-4 max-w-2xl text-text/75">
+            The record of what we build, the choices behind it and the ground
+            covered.
+          </p>
           <Link
             to="/blog"
-            className="label mt-8 inline-flex items-center gap-2 text-text/60 hover:text-accent-primary"
+            className="label mt-6 inline-flex items-center gap-2 text-text/60 hover:text-accent-primary"
           >
             Lire la revue en français <span aria-hidden>→</span>
           </Link>
-        </div>
-      </section>
-
-      <section className="bg-text text-bg">
-        <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
-          <div className="mx-auto max-w-4xl">
-            <p className="label text-accent-primary">The point</p>
-            <p className="font-heading mt-8 text-4xl leading-tight sm:text-6xl">
-              « The record of what we build, the choices behind it and the
-              ground covered. »
-            </p>
-          </div>
         </div>
       </section>
 

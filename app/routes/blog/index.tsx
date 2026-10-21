@@ -43,27 +43,18 @@ function BlogIndex() {
   return (
     <div>
       <section className="border-b-2 border-text">
-        <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
+        <div className="mx-auto w-full max-w-7xl px-6 pb-10 pt-12 sm:pb-12 sm:pt-16">
           <p className="label text-text/60">La revue — № 01</p>
-          <h1 className="display-xl mt-6">La revue</h1>
+          <h1 className="display-lg mt-4">La revue</h1>
+          <p className="chapeau mt-4 max-w-2xl text-text/75">
+            Le récit de ce que nous construisons, de nos choix et du chemin
+            parcouru.
+          </p>
         </div>
       </section>
 
-      <section className="bg-text text-bg">
-        <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
-          <div className="mx-auto max-w-4xl">
-            <p className="label text-accent-primary">Le propos</p>
-            <p className="font-heading mt-8 text-4xl leading-tight sm:text-6xl">
-              « Le récit de ce que nous construisons, de nos choix et du
-              chemin parcouru. »
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Articles */}
       <section>
-        <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
+        <div className="mx-auto w-full max-w-7xl px-6">
           <ul className="border-t-2 border-text">
             {articles.map((article) => (
               <li
