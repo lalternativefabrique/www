@@ -60,7 +60,7 @@ function BlogIndexEn() {
       </section>
 
       <section>
-        <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
+        <div className="mx-auto w-full max-w-7xl px-6">
           {articlesEn.length === 0 ? (
             <p className="text-text/70">
               No article has been translated yet.{' '}
