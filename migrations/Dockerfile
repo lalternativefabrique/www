@@ -37,7 +37,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build \
 # psql comes with it, for the one-shot cutover the Job applies before `up`.
 FROM alpine:3.21
 
-RUN apk add --no-cache ca-certificates postgresql17-client && \
+RUN apk upgrade --no-cache && \
+    apk add --no-cache ca-certificates postgresql17-client && \
     addgroup -g 65532 -S migrate && adduser -u 65532 -G migrate -S migrate
 
 COPY --from=builder /out/migrate /usr/local/bin/migrate
