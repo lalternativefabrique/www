@@ -2,7 +2,7 @@
 
 > Textes prêts à coller. C'est vous qui publiez : chacun de ces messages vous engage
 > publiquement sous votre nom.
-> URL à utiliser une fois le site en ligne : `https://lalternativefabrique.org/blog/faire-de-lia-en-france-en-2026`
+> URL à utiliser une fois le site en ligne : `https://lalter.org/blog/faire-de-lia-en-france-en-2026`
 > ⚠️ Ne rien publier tant que le site n'est pas déployé — un lien mort tue le post.
 
 ---
