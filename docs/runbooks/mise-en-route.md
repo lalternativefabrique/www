@@ -47,9 +47,9 @@ Tout ce que le pod lit vient de l'entrée SCW
 |---|---|
 | `POSTGRES_PASSWORD` | le rôle `lalter`, dont CNPG se sert pour bootstrapper |
 | `BETTER_AUTH_SECRET` | signature des sessions ; une valeur aléatoire longue |
-| `BETTER_AUTH_URL` | `https://lalternativefabrique.org` — les liens de connexion en sont dérivés |
+| `BETTER_AUTH_URL` | `https://lalter.org` — les liens de connexion en sont dérivés |
 | `SPORE_API_KEY` | voir l'étape 4 |
-| `SPORE_FROM` | `contact@lalternativefabrique.org` |
+| `SPORE_FROM` | `contact@lalter.org` |
 
 Elles arrivent dans le pod telles quelles ; seul `DATABASE_URL` est composé à
 partir de `POSTGRES_PASSWORD`. Ajouter une variable plus tard ne demande donc
@@ -85,7 +85,7 @@ Sans la ligne finale `=== migration job done ===`, l'exécution n'est pas allée
 L'authentification impose une adresse vérifiée : sans mail qui part, personne ne
 peut se connecter, y compris le premier administrateur.
 
-1. `POST /identities` avec `{"name": "lalternativefabrique.org"}` sur
+1. `POST /identities` avec `{"name": "lalter.org"}` sur
    `https://api.sporee.fr` — la réponse contient les enregistrements DNS à
    publier, dont le sélecteur DKIM qui n'est pas devinable à l'avance.
 2. Publier les enregistrements. **DKIM et SPF sont bloquants** ; DMARC et le
@@ -105,8 +105,8 @@ premier compte devient utilisable.
 ## Vérifier
 
 ```bash
-curl -s https://lalternativefabrique.org/healthz          # ok
-curl -s https://lalternativefabrique.org/llms.txt | head  # les articles du bucket
+curl -s https://lalter.org/healthz          # ok
+curl -s https://lalter.org/llms.txt | head  # les articles du bucket
 ```
 
 Un article publié depuis l'admin doit apparaître immédiatement dans

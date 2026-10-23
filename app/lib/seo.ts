@@ -7,11 +7,11 @@
  */
 
 /** Production origin, no trailing slash. Canonical and og:url are absolute. */
-export const SITE_URL = 'https://lalternativefabrique.org'
+export const SITE_URL = 'https://lalter.org'
 
 export const SITE_NAME = "L'Alternative Fabrique"
 
-export const CONTACT_EMAIL = 'contact@lalternativefabrique.org'
+export const CONTACT_EMAIL = 'contact@lalter.org'
 
 /** Default social card. Absolute URL — relative paths break on most crawlers. */
 export const OG_IMAGE = `${SITE_URL}/og-default.png`

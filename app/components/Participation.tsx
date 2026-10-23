@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useLocale } from '@/lib/i18n'
 import { bornes, creerDon } from '@/server/don'
 
-const CONTACT = 'contact@lalternativefabrique.org'
+const CONTACT = 'contact@lalter.org'
 
 const MONTANTS = [500, 1000, 2500, 5000]
 const DEFAUT = 2500

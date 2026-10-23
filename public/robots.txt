@@ -27,4 +27,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://lalternativefabrique.org/sitemap.xml
+Sitemap: https://lalter.org/sitemap.xml
