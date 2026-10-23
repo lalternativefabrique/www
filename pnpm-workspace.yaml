@@ -16,6 +16,7 @@ overrides:
   # Reached through the Spore SDK; the served image only ever calls it from
   # the server, but the scan reads it on disk all the same.
   axios: '>=1.20.0'
+  follow-redirects: '>=1.16.1'
   # Pulled by the TanStack Start serialisation layer.
   seroval: '>=1.6.3'
   # Build tooling shipped in the image.
