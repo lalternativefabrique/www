@@ -109,7 +109,7 @@ services:
       LUNGOR_DON_PLAN_ID: ${LUNGOR_DON_PLAN_ID}
       LUNGOR_COSTS_SLUG: ${LUNGOR_COSTS_SLUG}
       PUBLIC_SITE_URL: https://lalter.org
-      REDIRECTED_HOSTS: lalternativefabrique.org,www.lalternativefabrique.org
+      REDIRECTED_HOSTS: www.lalter.org,lalternativefabrique.org,www.lalternativefabrique.org
       # The discussion under the articles: rooms of the suite's chat service
       # (docs/adr/0003). The key is the www tenant's, issued by the chat.
       CHAT_URL: https://chat.messag.eco
@@ -142,7 +142,6 @@ spaces:
           kind: web
           security_headers: true
           compress: true
-          redirect_apex: true
         - service: www
           host: lalter.org
           path: /api/auth
