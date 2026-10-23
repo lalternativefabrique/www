@@ -44,10 +44,10 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-base">
               <li>
                 <a
-                  href="mailto:contact@lalternativefabrique.org"
+                  href="mailto:contact@lalter.org"
                   className="hover:text-accent-primary"
                 >
-                  contact@lalternativefabrique.org
+                  contact@lalter.org
                 </a>
               </li>
             </ul>

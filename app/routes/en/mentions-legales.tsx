@@ -15,7 +15,7 @@ export const Route = createFileRoute('/en/mentions-legales')({
     seo({
       title: "Legal notice — L'Alternative Fabrique",
       description:
-        'Publisher, hosting, intellectual property and personal data processing for lalternativefabrique.org.',
+        'Publisher, hosting, intellectual property and personal data processing for lalter.org.',
       path: '/en/mentions-legales',
       locale: 'en',
       alternate: { fr: '/mentions-legales', en: '/en/mentions-legales' },
@@ -34,7 +34,7 @@ function LegalNoticePageEn() {
     >
       <Section title="This site" classNames={LEGAL_CLASSNAMES}>
         <p>
-          lalternativefabrique.org introduces L'Alternative Fabrique, the tools
+          lalter.org introduces L'Alternative Fabrique, the tools
           it publishes and the review it edits. Each tool runs under its own
           name and its own domain, with its own terms: this notice covers this
           site, not the services described on it.

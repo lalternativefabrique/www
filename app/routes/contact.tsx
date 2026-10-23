@@ -19,7 +19,7 @@ export const Route = createFileRoute('/contact')({
  * stored, and read from the admin. A question is not — nothing here holds one,
  * so it goes to the mailbox rather than into a form that pretends to keep it.
  */
-const CONTACT = 'contact@lalternativefabrique.org'
+const CONTACT = 'contact@lalter.org'
 
 const motifs = [
   { value: 'participer', label: 'Je veux participer' },

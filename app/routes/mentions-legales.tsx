@@ -15,7 +15,7 @@ export const Route = createFileRoute('/mentions-legales')({
     seo({
       title: "Mentions légales — L'Alternative Fabrique",
       description:
-        "Éditeur, hébergement, propriété intellectuelle et traitement des données personnelles du site lalternativefabrique.org.",
+        "Éditeur, hébergement, propriété intellectuelle et traitement des données personnelles du site lalter.org.",
       path: '/mentions-legales',
       alternate: { fr: '/mentions-legales', en: '/en/mentions-legales' },
     }),
@@ -33,7 +33,7 @@ function MentionsLegalesPage() {
     >
       <Section title="Le site" classNames={LEGAL_CLASSNAMES}>
         <p>
-          lalternativefabrique.org présente L'Alternative Fabrique, les outils
+          lalter.org présente L'Alternative Fabrique, les outils
           qu'elle édite et la revue qu'elle publie. Chaque outil est exploité
           sous son propre nom et son propre domaine, avec ses propres
           conditions&nbsp;: les présentes mentions couvrent ce site, pas les

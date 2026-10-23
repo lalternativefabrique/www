@@ -16,6 +16,15 @@ import handler from './dist/server/server.js'
 const PORT = Number(process.env.PORT ?? 3000)
 const HOST = process.env.HOST ?? '0.0.0.0'
 const CLIENT_DIR = new URL('./dist/client/', import.meta.url).pathname
+const CANONICAL_ORIGIN = process.env.PUBLIC_SITE_URL
+  ? new URL(process.env.PUBLIC_SITE_URL).origin
+  : undefined
+const REDIRECTED_HOSTS = new Set(
+  (process.env.REDIRECTED_HOSTS ?? '')
+    .split(',')
+    .map((h) => h.trim().toLowerCase())
+    .filter(Boolean),
+)
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -63,6 +72,13 @@ const server = createServer(async (req, res) => {
     if (url.pathname === '/healthz') {
       res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' })
       res.end('ok')
+      return
+    }
+
+    const host = (req.headers.host ?? '').split(':')[0].toLowerCase()
+    if (CANONICAL_ORIGIN && REDIRECTED_HOSTS.has(host)) {
+      res.writeHead(301, { Location: CANONICAL_ORIGIN + url.pathname + url.search })
+      res.end()
       return
     }
 

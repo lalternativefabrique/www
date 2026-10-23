@@ -12,7 +12,7 @@ import { subscribe } from '@/server/submissions'
  * A failure falls back to the contact address rather than reporting success,
  * since the person has no other way to know their sign-up went nowhere.
  */
-const CONTACT = 'contact@lalternativefabrique.org'
+const CONTACT = 'contact@lalter.org'
 
 type Etat = 'repos' | 'envoi' | 'ok' | 'erreur'
 

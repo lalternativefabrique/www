@@ -31,7 +31,7 @@ const PATHS = {
 
 export const SITE_FR: Site = {
   product: SITE_NAME,
-  domain: 'lalternativefabrique.org',
+  domain: 'lalter.org',
   contactEmail: CONTACT_EMAIL,
   paths: PATHS,
 }
