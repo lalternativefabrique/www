@@ -75,7 +75,11 @@ const server = createServer(async (req, res) => {
       return
     }
 
-    const host = (req.headers.host ?? '').split(':')[0].toLowerCase()
+    // The front relay and the Space gateway both proxy the request, so the
+    // Host header that reaches us is rewritten; the visitor's host survives
+    // only in X-Forwarded-Host.
+    const forwarded = req.headers['x-forwarded-host']?.split(',')[0]
+    const host = (forwarded ?? req.headers.host ?? '').trim().split(':')[0].toLowerCase()
     if (CANONICAL_ORIGIN && REDIRECTED_HOSTS.has(host)) {
       res.writeHead(301, { Location: CANONICAL_ORIGIN + url.pathname + url.search })
       res.end()
