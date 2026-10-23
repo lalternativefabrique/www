@@ -7,7 +7,7 @@ metadata:
     # After the migrations (wave 1): the pods here read a schema the Job is
     # responsible for putting in place, and no longer migrate at boot.
     argocd.argoproj.io/sync-wave: "2"
-    link.argocd.argoproj.io/web: "https://lalternativefabrique.org"
+    link.argocd.argoproj.io/web: "https://lalter.org"
     # `sklp run publish` pushes an immutable YYYYMMDD-HHMM-sha tag; the updater
     # picks the newest build and writes it back to git, so a merged publish
     # rolls out without a manual bump here.

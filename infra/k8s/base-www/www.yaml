@@ -76,7 +76,7 @@ spec:
             # would guard a value the HTML publishes. The apex, not www — that
             # host redirects here.
             - name: BETTER_AUTH_URL
-              value: https://lalternativefabrique.org
+              value: https://lalter.org
             # The address the verification and sign-in mails come from. A
             # different domain from the site, and the one that has to be
             # verified in Spore for any of them to be delivered.
