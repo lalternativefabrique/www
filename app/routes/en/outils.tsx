@@ -99,11 +99,6 @@ function OutilsPageEn() {
                     <AppIcone application={application} size="lg" />
                     <h2 className="display-card sm:text-8xl">{application.name}</h2>
                   </div>
-                  {Demo ? (
-                    <div className="mt-10">
-                      <Demo locale="en" />
-                    </div>
-                  ) : null}
                 </div>
 
                 <div className="flex flex-col justify-end sm:col-span-7">
@@ -151,6 +146,11 @@ function OutilsPageEn() {
                   ) : null}
                 </div>
               </div>
+              {Demo ? (
+                <div className="mx-auto mt-14 max-w-5xl sm:mt-20">
+                  <Demo locale="en" />
+                </div>
+              ) : null}
             </div>
           </section>
         )
