@@ -1,11 +1,23 @@
 import type { Application } from '@/content/catalogue'
 
-export function AppIcone({ application }: { application: Application }) {
+const tailles = {
+  md: { px: 40, box: 'size-10', lettre: 'text-2xl' },
+  lg: { px: 96, box: 'size-16 sm:size-24', lettre: 'text-5xl' },
+}
+
+export function AppIcone({
+  application,
+  size = 'md',
+}: {
+  application: Application
+  size?: keyof typeof tailles
+}) {
+  const t = tailles[size]
   if (!application.icone) {
     return (
       <span
         aria-hidden
-        className="font-heading grid size-10 place-items-center rounded-[22%] bg-white text-2xl text-text"
+        className={`font-heading grid ${t.box} shrink-0 place-items-center rounded-[22%] bg-white ${t.lettre} text-text`}
       >
         {application.name.charAt(0)}
       </span>
@@ -15,10 +27,10 @@ export function AppIcone({ application }: { application: Application }) {
     <img
       src={application.icone}
       alt=""
-      width={40}
-      height={40}
+      width={t.px}
+      height={t.px}
       loading="lazy"
-      className="size-10 rounded-[22%]"
+      className={`${t.box} shrink-0 rounded-[22%]`}
     />
   )
 }

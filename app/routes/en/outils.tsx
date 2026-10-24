@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { AppIcone } from '@/components/AppIcone'
 import { Conviction } from '@/components/Conviction'
 import type { Application } from '@/content/catalogue'
 import { applicationsEn, pilierEn, statutEn } from '@/content/catalogue.en'
@@ -91,9 +92,10 @@ function OutilsPageEn() {
                     {String(i + 1).padStart(2, '0')} —{' '}
                     {statutEn[application.statut]}
                   </p>
-                  <h2 className="display-card mt-6 sm:text-8xl">
-                    {application.name}
-                  </h2>
+                  <div className="mt-6 flex items-center gap-5">
+                    <AppIcone application={application} size="lg" />
+                    <h2 className="display-card sm:text-8xl">{application.name}</h2>
+                  </div>
                 </div>
 
                 <div className="flex flex-col justify-end sm:col-span-7">
