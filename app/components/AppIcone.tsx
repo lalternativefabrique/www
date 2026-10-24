@@ -5,7 +5,7 @@ export function AppIcone({ application }: { application: Application }) {
     return (
       <span
         aria-hidden
-        className="font-heading grid size-10 place-items-center rounded-[22%] bg-text text-xl uppercase text-bg"
+        className="font-heading grid size-10 place-items-center rounded-[22%] bg-white text-2xl text-text"
       >
         {application.name.charAt(0)}
       </span>
