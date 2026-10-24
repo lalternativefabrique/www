@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { AppIcone } from '@/components/AppIcone'
 import { Conviction } from '@/components/Conviction'
+import { demos } from '@/components/demos'
 import type { Application } from '@/content/catalogue'
 import { applicationsEn, pilierEn, statutEn } from '@/content/catalogue.en'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
@@ -81,6 +82,7 @@ function OutilsPageEn() {
 
       {applicationsEn.map((application, i) => {
         const libelle = action(application)
+        const Demo = demos[application.name]
         return (
           <section
             key={application.name}
@@ -97,6 +99,11 @@ function OutilsPageEn() {
                     <AppIcone application={application} size="lg" />
                     <h2 className="display-card sm:text-8xl">{application.name}</h2>
                   </div>
+                  {Demo ? (
+                    <div className="mt-10">
+                      <Demo locale="en" />
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="flex flex-col justify-end sm:col-span-7">
