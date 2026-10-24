@@ -137,7 +137,7 @@ export const applications: Application[] = [
   },
   {
     name: 'Orbit',
-    icone: '/images/apps/orbit.png',
+    icone: '/images/apps/orbit.svg',
     pilier: 'Connaissance',
     statut: 'Bientôt',
     resume: "Son poste de travail, d'une seule pièce.",
