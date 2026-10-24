@@ -149,6 +149,7 @@ export const applications: Application[] = [
   },
   {
     name: 'ark',
+    icone: '/images/apps/ark.svg',
     pilier: 'Technique',
     statut: 'Bientôt',
     resume: "L'agent de code de L'Alter, sur ordinateur et en terminal.",
