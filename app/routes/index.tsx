@@ -152,36 +152,12 @@ function LandingPage() {
         </Link>
       </section>
 
-      <section className="mt-24 bg-text px-6 py-14 text-bg sm:mt-28 sm:px-14 sm:py-20">
-        <p className="label text-accent-primary">§ 03 — Le mécanisme</p>
-        <h2 className="display-xl mt-6">
-          Utiliser,
-          <br />
-          c'est financer la suite.
-        </h2>
-        <div className="mt-12 grid gap-8 md:grid-cols-12 md:items-end">
-          <p className="chapeau md:col-span-7">
-            Une seule structure fait vivre toutes les applications. Ce que vous
-            payez pour l'une finance les autres : celles en service, celles en
-            bêta, celles à venir.
-          </p>
-          <div className="flex flex-wrap gap-6 md:col-span-5">
-            <Link to="/pot" className={lienTrait}>
-              Comment ça fonctionne <span aria-hidden>→</span>
-            </Link>
-            <Link to="/couts" className={lienTrait}>
-              Nos coûts, à livre ouvert <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       <div className="mt-24 sm:mt-28">
-        <Conviction index={0} />
+        <Conviction />
       </div>
 
       <section className="pt-24 sm:pt-28">
-        <SectionHead titre="Ce que cet argent construit." repere="§ 04 — Les projets" />
+        <SectionHead titre="Ce que cet argent construit." repere="§ 03 — Les projets" />
         <p className="mt-5 max-w-xl text-text/75">
           Des projets prêts, d'autres en cours. Les premiers financent les
           suivants et les gardent indépendants : hébergement, maintenance,
@@ -205,7 +181,7 @@ function LandingPage() {
 
       <section className="mt-24 grid gap-8 border-y border-text border-t-[3px] py-12 sm:mt-28 md:grid-cols-2">
         <div>
-          <p className="label">§ 05 — Les idées</p>
+          <p className="label">§ 04 — Les idées</p>
           <h2 className="display-lg mt-5">La suite est ouverte.</h2>
         </div>
         <div className="flex flex-col justify-end gap-6">
@@ -222,10 +198,6 @@ function LandingPage() {
           </Link>
         </div>
       </section>
-
-      <div className="mt-24 sm:mt-28">
-        <Conviction index={2} />
-      </div>
 
       <section id="piliers" className="scroll-mt-6 pt-20 sm:pt-24">
         <SectionHead titre="Quatre piliers." repere="Vue d'ensemble" />

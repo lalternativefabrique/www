@@ -274,7 +274,7 @@ function ProjetsPage() {
         </div>
       </section>
 
-      <Conviction index={3} inverse />
+      <Conviction inverse />
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">

@@ -131,29 +131,7 @@ function LandingPageEn() {
         </div>
       </section>
 
-      <section className="border-b-2 border-text bg-text text-bg">
-        <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
-          <p className="label opacity-70">03 — The mechanism</p>
-          <h2 className="display-xl mt-6">
-            Using one{' '}
-            <span className="text-accent-primary">funds the next</span>.
-          </h2>
-          <p className="chapeau mt-10 max-w-3xl opacity-90">
-            Thanks to a shared organisation, a single stream of funding keeps
-            every application alive. What you pay for one funds the others:
-            those that exist, those in beta, those on their way and those
-            still to be imagined.
-          </p>
-          <Link
-            to="/en/pot"
-            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-bg px-6 py-3 hover:bg-bg hover:text-text"
-          >
-            How the funding works <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </section>
-
-      <Conviction index={0} />
+      <Conviction />
 
       <section className="bg-accent-secondary text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
@@ -210,8 +188,6 @@ function LandingPageEn() {
           </div>
         </div>
       </section>
-
-      <Conviction index={2} />
 
       <section id="pillars" className="scroll-mt-6 border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">

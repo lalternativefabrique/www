@@ -178,6 +178,18 @@ export type Projet = {
 
 export const projets: Projet[] = [
   {
+    nom: 'Orbit',
+    etat: 'En cours',
+    resume:
+      "Un poste de travail d'une seule pièce : vos sites, l'assistant, le courrier et vos notes dans une même fenêtre.",
+  },
+  {
+    nom: 'Cortext',
+    etat: 'En cours',
+    resume:
+      'Des agents prêts à brancher pour les entreprises. Ils font déjà tourner L’Alter, Synthiz, Partage et Skalpai.',
+  },
+  {
     nom: 'Reczi',
     etat: 'En cours',
     resume:

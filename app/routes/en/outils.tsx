@@ -156,7 +156,7 @@ function OutilsPageEn() {
         )
       })}
 
-      <Conviction index={4} inverse />
+      <Conviction inverse />
 
       <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">

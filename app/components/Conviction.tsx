@@ -29,27 +29,39 @@ const lien: Record<Locale, { to: string; label: string }> = {
   en: { to: '/en/a-propos', label: 'What we stand for' },
 }
 
-export function Conviction({
-  index,
-  inverse = false,
-}: {
-  index: number
-  inverse?: boolean
-}) {
+function Ligne({ phrases, cachee }: { phrases: ReadonlyArray<string>; cachee?: boolean }) {
+  return (
+    <ul
+      aria-hidden={cachee || undefined}
+      className="flex shrink-0 items-center gap-10 pr-10 motion-reduce:flex-wrap"
+    >
+      {phrases.map((phrase) => (
+        <li key={phrase} className="flex items-center gap-10 whitespace-nowrap">
+          <span className="font-heading text-3xl uppercase sm:text-5xl">{phrase}</span>
+          <span aria-hidden className="size-3 shrink-0 bg-accent-primary" />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export function Conviction({ inverse = false }: { inverse?: boolean }) {
   const locale = useLocale()
   const phrases = convictions[locale]
-  const phrase = phrases[index % phrases.length]
   const { to, label } = lien[locale]
   return (
     <aside
-      className={
-        inverse
-          ? 'border-y-2 border-text bg-text text-bg'
-          : 'border-y-2 border-text bg-warm'
-      }
+      className={`group overflow-hidden border-y-2 border-text py-8 sm:py-10 ${
+        inverse ? 'bg-text text-bg' : 'bg-warm'
+      }`}
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-end justify-between gap-6 px-6 py-12 sm:py-16">
-        <p className="display-card max-w-4xl normal-case">{phrase}</p>
+      <div className="flex w-max animate-[defile_60s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none">
+        <Ligne phrases={phrases} />
+        <span className="contents motion-reduce:hidden">
+          <Ligne phrases={phrases} cachee />
+        </span>
+      </div>
+      <div className="mx-auto mt-6 w-full max-w-7xl px-6">
         <Link
           to={to}
           hash="culture"

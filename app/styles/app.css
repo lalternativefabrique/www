@@ -277,3 +277,12 @@ h4 {
     transform: translateY(6px);
   }
 }
+
+@keyframes defile {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

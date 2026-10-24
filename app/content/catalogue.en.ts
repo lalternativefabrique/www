@@ -169,6 +169,18 @@ export const piliersEn: { name: Pilier; phrase: string }[] = [
 
 export const projetsEn: Projet[] = [
   {
+    nom: 'Orbit',
+    etat: 'En cours',
+    resume:
+      'A workstation in one piece: your sites, the assistant, your mail and your notes in a single window.',
+  },
+  {
+    nom: 'Cortext',
+    etat: 'En cours',
+    resume:
+      "Plug-and-play agents for businesses. They already run L'Alter, Synthiz, Partage and Skalpai.",
+  },
+  {
     nom: 'Reczi',
     etat: 'En cours',
     resume:
