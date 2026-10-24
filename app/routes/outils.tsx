@@ -42,10 +42,10 @@ export const Route = createFileRoute('/outils')({
 })
 
 const accentClass: Record<Application['accent'], string> = {
-  primary: 'bg-bg text-text border-y-4 border-accent-primary',
-  secondary: 'bg-accent-secondary text-bg',
-  warm: 'bg-warm text-text',
-  paper: 'bg-bg text-text border-y-2 border-text',
+  primary: 'bg-bg text-text border-b-4 border-accent-primary',
+  secondary: 'bg-accent-secondary text-bg border-b-2 border-text',
+  warm: 'bg-warm text-text border-b-2 border-text',
+  paper: 'bg-bg text-text border-b-2 border-text',
 }
 
 function action(application: Application) {
@@ -144,7 +144,7 @@ function OutilsPage() {
 
       <Conviction index={4} inverse />
 
-      <section className="border-t-2 border-text">
+      <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Ce qui les relie</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
