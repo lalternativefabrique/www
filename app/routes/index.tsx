@@ -1,9 +1,11 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { AppIcone } from '@/components/AppIcone'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
   applications,
   applicationsDuPilier,
+  enService,
   piliers,
   projets,
   projetsEnCours,
@@ -83,7 +85,7 @@ function LandingPage() {
             <p className="label">Le principe</p>
             <ol className="mt-3 grid grid-cols-[2.5rem_1fr] gap-y-2 font-mono text-sm">
               {[
-                `${applications.length} applications en service`,
+                `${enService.length} applications en service`,
                 'Leurs revenus financent la suite',
                 `${projetsEnCours.length} projets en cours`,
                 'Des idées ouvertes à proposition',
@@ -101,7 +103,7 @@ function LandingPage() {
       <section className="pt-20 sm:pt-24">
         <SectionHead titre="Des applications en service." repere="§ 02 — La preuve" />
         <p className="mt-5 max-w-xl text-text/75">
-          Certaines sont ouvertes, d'autres en bêta, une arrive. Chacune
+          Certaines sont ouvertes, d'autres en bêta, certaines arrivent. Chacune
           remplace un outil précis.
         </p>
         <div className="mt-10 grid border-t border-text sm:grid-cols-2 lg:grid-cols-3">
@@ -123,14 +125,7 @@ function LandingPage() {
                   </span>
                 </span>
                 <span className="mt-4 flex items-center gap-3">
-                  <img
-                    src={application.icone}
-                    alt=""
-                    width={40}
-                    height={40}
-                    loading="lazy"
-                    className="size-10 rounded-[22%]"
-                  />
+                  <AppIcone application={application} />
                   <h3 className="text-3xl">{application.name}</h3>
                 </span>
                 <p className="mt-3 text-text/75">{application.resume}</p>

@@ -4,7 +4,7 @@ export type Statut = 'Disponible' | 'Bêta' | 'Bientôt'
 
 export type Application = {
   name: string
-  icone: string
+  icone?: string
   pilier: Pilier
   statut: Statut
   url?: string
@@ -124,6 +124,39 @@ export const applications: Application[] = [
     pour: 'Toute personne qui veut déléguer sans confier sa vie à une grande plateforme',
     accent: 'secondary',
   },
+  {
+    name: 'Cortext',
+    pilier: 'Technique',
+    statut: 'Disponible',
+    resume: 'Déclarer et faire tourner des agents pour son équipe.',
+    tagline: 'Vos agents, déclarés et gardés chez vous.',
+    detail:
+      "La solution pour les entreprises : vous déclarez un agent, ses outils et ses clés, et il tourne. C'est Cortext qui fait déjà tourner les agents de L'Alter, Synthiz, Partage et Skalpai.",
+    pour: 'Entreprises et équipes qui veulent leurs propres agents',
+    accent: 'secondary',
+  },
+  {
+    name: 'Orbit',
+    pilier: 'Connaissance',
+    statut: 'Bientôt',
+    resume: "Son poste de travail, d'une seule pièce.",
+    tagline: "Vos sites, l'assistant, le courrier et vos notes dans une fenêtre.",
+    detail:
+      "Une application de bureau qui réunit les sites que vous utilisez, l'assistant, le courrier et vos notes. Station, son agent local, travaille sur votre machine et n'en sort pas. Nous l'utilisons déjà chaque jour.",
+    pour: 'Toute personne qui travaille sur ordinateur',
+    accent: 'primary',
+  },
+  {
+    name: 'ark',
+    pilier: 'Technique',
+    statut: 'Bientôt',
+    resume: "L'agent de code de L'Alter, sur ordinateur et en terminal.",
+    tagline: 'Un agent de code qui travaille sur votre machine.',
+    detail:
+      "Il lit, modifie et teste votre code là où il se trouve. Votre compte, votre modèle et votre mémoire restent ceux de L'Alter. Une partie du code de cette page a été écrite avec lui.",
+    pour: 'Développeurs',
+    accent: 'paper',
+  },
 ]
 
 export const piliers: { name: Pilier; phrase: string }[] = [
@@ -165,3 +198,11 @@ export function applicationsDuPilier(pilier: Pilier) {
 export function decompte(statut: Statut) {
   return applications.filter((application) => application.statut === statut).length
 }
+
+export const aFinaliser = applications.filter(
+  (application) => application.statut === 'Bientôt',
+)
+
+export const enService = applications.filter(
+  (application) => application.statut !== 'Bientôt',
+)

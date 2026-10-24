@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { AppIcone } from '@/components/AppIcone'
 import { Conviction } from '@/components/Conviction'
-import { applications } from '@/content/catalogue'
+import { aFinaliser, enService } from '@/content/catalogue'
 import { seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/projets')({
@@ -22,8 +23,9 @@ function ProjetsPage() {
           <p className="label text-text/60">Ce qui se construit</p>
           <h1 className="display-xl mt-6">Les projets</h1>
           <p className="chapeau mt-8 max-w-2xl">
-            Dix projets. Huit sont prêts, deux sont en cours. Les premiers
-            financent les suivants.
+            {enService.length} applications tournent, {aFinaliser.length} sont
+            à finaliser, d'autres projets suivent. Les premiers financent les
+            suivants.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <a
@@ -31,6 +33,12 @@ function ProjetsPage() {
               className="label inline-flex w-fit items-center gap-2 border-b-2 border-accent-primary pb-1 text-accent-primary hover:opacity-70"
             >
               Déjà réalisés <span aria-hidden>↓</span>
+            </a>
+            <a
+              href="#a-finaliser"
+              className="label inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:text-accent-primary"
+            >
+              À finaliser <span aria-hidden>↓</span>
             </a>
             <a
               href="#reczi"
@@ -60,7 +68,7 @@ function ProjetsPage() {
             <div className="sm:col-span-4">
               <p className="label text-accent-primary">Déjà réalisés</p>
               <p className="font-heading mt-4 text-3xl leading-tight sm:text-4xl">
-                {applications.length} applications tournent.
+                {enService.length} applications tournent.
               </p>
               <Link
                 to="/outils"
@@ -70,7 +78,7 @@ function ProjetsPage() {
               </Link>
             </div>
             <ul className="flex flex-wrap content-start gap-3 sm:col-span-8">
-              {applications.map((application) => {
+              {enService.map((application) => {
                 const contenu = (
                   <>
                     <span className="font-heading text-xl leading-none">
@@ -97,6 +105,40 @@ function ProjetsPage() {
                 )
               })}
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="a-finaliser" className="scroll-mt-6 border-b-2 border-text">
+        <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
+          <p className="label text-accent-primary">À finaliser</p>
+          <h2 className="display-card mt-6 sm:text-7xl">
+            Déjà au travail chez nous
+          </h2>
+          <p className="chapeau mt-8 max-w-2xl">
+            Avant d'ouvrir un outil, nous travaillons avec. Ceux-ci sont en fin de développement et servent déjà chaque jour à la Fabrique.
+          </p>
+          <div className="mt-12 grid gap-px border-2 border-text bg-text md:grid-cols-3">
+            {aFinaliser.map((application) => (
+              <article key={application.name} className="bg-bg p-8 sm:p-10">
+                <span className="flex items-center gap-3">
+                  <AppIcone application={application} />
+                  <h3 className="font-heading text-4xl leading-none">
+                    {application.name}
+                  </h3>
+                </span>
+                <p className="mt-5 text-lg font-medium">{application.tagline}</p>
+                <p className="mt-4 text-base text-text/80">{application.detail}</p>
+                {application.url && (
+                  <a
+                    href={application.url}
+                    className="label mt-6 inline-flex w-fit items-center gap-2 border-b-2 border-text pb-1 hover:text-accent-primary"
+                  >
+                    {new URL(application.url).host} <span aria-hidden>→</span>
+                  </a>
+                )}
+              </article>
+            ))}
           </div>
         </div>
       </section>

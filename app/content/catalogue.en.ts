@@ -120,6 +120,39 @@ export const applicationsEn: Application[] = [
     pour: 'Anyone who wants to delegate without handing their life to a large platform',
     accent: 'secondary',
   },
+  {
+    name: 'Cortext',
+    pilier: 'Technique',
+    statut: 'Disponible',
+    resume: 'Declare and run agents for your team.',
+    tagline: 'Your agents, declared and kept on your side.',
+    detail:
+      'The solution for businesses: you declare an agent, its tools and its keys, and it runs. Cortext already runs the agents of L\'Alter, Synthiz, Partage and Skalpai.',
+    pour: 'Companies and teams that want their own agents',
+    accent: 'secondary',
+  },
+  {
+    name: 'Orbit',
+    pilier: 'Connaissance',
+    statut: 'Bientôt',
+    resume: 'Your workstation, in one piece.',
+    tagline: 'Your sites, the assistant, your mail and your notes in one window.',
+    detail:
+      'A desktop application that brings together the sites you use, the assistant, your mail and your notes. Station, its local agent, works on your machine and never leaves it. We already use it every day.',
+    pour: 'Anyone who works on a computer',
+    accent: 'primary',
+  },
+  {
+    name: 'ark',
+    pilier: 'Technique',
+    statut: 'Bientôt',
+    resume: "L'Alter's code agent, on desktop and in the terminal.",
+    tagline: 'A code agent that works on your machine.',
+    detail:
+      "It reads, edits and tests your code where it lives. Your account, your model and your memory stay L'Alter's. Part of this page's code was written with it.",
+    pour: 'Developers',
+    accent: 'paper',
+  },
 ]
 
 export const piliersEn: { name: Pilier; phrase: string }[] = [
@@ -152,3 +185,11 @@ export const etatEn: Record<Projet['etat'], string> = {
 export function applicationsEnDuPilier(pilier: Pilier) {
   return applicationsEn.filter((application) => application.pilier === pilier)
 }
+
+export const aFinaliserEn = applicationsEn.filter(
+  (application) => application.statut === 'Bientôt',
+)
+
+export const enServiceEn = applicationsEn.filter(
+  (application) => application.statut !== 'Bientôt',
+)

@@ -1,9 +1,11 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { AppIcone } from '@/components/AppIcone'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
   applicationsEn,
   applicationsEnDuPilier,
+  enServiceEn,
   etatEn,
   pilierEn,
   piliersEn,
@@ -59,7 +61,7 @@ function LandingPageEn() {
             <div className="sm:col-span-4 sm:col-start-9 sm:self-end">
               <p className="label text-text/60">The reasoning</p>
               <ul className="mt-3 space-y-1 text-base">
-                <li>— {applicationsEn.length} applications running</li>
+                <li>— {enServiceEn.length} applications running</li>
                 <li>— Their revenue funds what comes next</li>
                 <li>— {projetsEn.length} projects under way</li>
                 <li>— Ideas open to proposals</li>
@@ -94,14 +96,7 @@ function LandingPageEn() {
                     {statutEn[application.statut]}
                   </p>
                   <span className="mt-5 flex items-center gap-3">
-                    <img
-                      src={application.icone}
-                      alt=""
-                      width={40}
-                      height={40}
-                      loading="lazy"
-                      className="size-10 rounded-[22%]"
-                    />
+                    <AppIcone application={application} />
                     <h3 className="font-heading text-4xl leading-none">
                       {application.name}
                     </h3>
