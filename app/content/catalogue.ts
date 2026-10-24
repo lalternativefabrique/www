@@ -129,7 +129,7 @@ export const applications: Application[] = [
     icone: '/images/apps/cortext.svg',
     pilier: 'Technique',
     statut: 'Bêta sur invitation',
-    url: 'https://cortext.lalter.fr',
+    url: 'https://cortext.lalter.fr/decouvrir',
     resume: 'Déclarer et faire tourner des agents pour son équipe.',
     tagline: 'Vos agents, déclarés et gardés chez vous.',
     detail:
