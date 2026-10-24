@@ -122,6 +122,7 @@ export const applicationsEn: Application[] = [
   },
   {
     name: 'Cortext',
+    icone: '/images/apps/cortext.svg',
     pilier: 'Technique',
     statut: 'Disponible',
     resume: 'Declare and run agents for your team.',
