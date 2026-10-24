@@ -4,6 +4,8 @@ import { useLocale, type Locale } from '@/lib/i18n'
 export const convictions: Record<Locale, ReadonlyArray<string>> = {
   fr: [
     "Pas d'investisseurs. Nos clients nous financent.",
+    'Tous nos outils se branchent entre eux.',
+    'Des briques compatibles, conçues pour se brancher partout.',
     'Le temps long plutôt que la croissance à tout prix.',
     'Reprendre nos outils de travail, un par un.',
     'Reconstruire une industrie numérique en France et en Europe.',
@@ -14,6 +16,8 @@ export const convictions: Record<Locale, ReadonlyArray<string>> = {
   ],
   en: [
     'No investors. Our customers fund us.',
+    'All our tools plug into each other.',
+    'Compatible building blocks, designed to plug in anywhere.',
     'The long run over growth at any price.',
     'Taking back our work tools, one by one.',
     'Rebuilding a digital industry in France and Europe.',
