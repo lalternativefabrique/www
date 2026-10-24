@@ -1,6 +1,6 @@
 export type Pilier = 'Connaissance' | 'Technique' | 'Communication' | 'Financement'
 
-export type Statut = 'Disponible' | 'Bêta' | 'Bientôt'
+export type Statut = 'Disponible' | 'Bêta' | 'Bêta sur invitation' | 'Bientôt'
 
 export type Application = {
   name: string
@@ -128,7 +128,8 @@ export const applications: Application[] = [
     name: 'Cortext',
     icone: '/images/apps/cortext.svg',
     pilier: 'Technique',
-    statut: 'Disponible',
+    statut: 'Bêta sur invitation',
+    url: 'https://cortext.lalter.fr',
     resume: 'Déclarer et faire tourner des agents pour son équipe.',
     tagline: 'Vos agents, déclarés et gardés chez vous.',
     detail:

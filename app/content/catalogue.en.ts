@@ -3,6 +3,7 @@ import type { Application, Pilier, Projet, Statut } from './catalogue'
 export const statutEn: Record<Statut, string> = {
   Disponible: 'Available',
   Bêta: 'Beta',
+  'Bêta sur invitation': 'Invite-only beta',
   Bientôt: 'Coming soon',
 }
 
@@ -124,7 +125,8 @@ export const applicationsEn: Application[] = [
     name: 'Cortext',
     icone: '/images/apps/cortext.svg',
     pilier: 'Technique',
-    statut: 'Disponible',
+    statut: 'Bêta sur invitation',
+    url: 'https://cortext.lalter.fr',
     resume: 'Declare and run agents for your team.',
     tagline: 'Your agents, declared and kept on your side.',
     detail:

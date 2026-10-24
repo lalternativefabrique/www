@@ -52,6 +52,7 @@ const accentClass: Record<Application['accent'], string> = {
 function action(application: Application) {
   if (application.statut === 'Disponible') return `Ouvrir ${application.name}`
   if (application.statut === 'Bêta') return 'Essayer la bêta'
+  if (application.statut === 'Bêta sur invitation') return 'Demander une invitation'
   return null
 }
 
