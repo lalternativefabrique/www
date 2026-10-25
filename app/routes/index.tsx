@@ -68,11 +68,11 @@ function LandingPage() {
         <div className="mt-14 grid gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
             <p className="chapeau">
-              Héberger, envoyer un e-mail, publier, encaisser : ces outils du
-              quotidien appartiennent presque tous à quelques acteurs. Nous en
-              construisons des alternatives, une à une, que vous pouvez
-              utiliser dès aujourd'hui. Elles sont faites pour vous alléger les
-              tâches numériques du quotidien, pas pour retenir votre attention.
+              Brique par brique, nous construisons les outils numériques
+              essentiels — messagerie, publication, paiement, hébergement — pour
+              bâtir une industrie indépendante. Nous choisissons des standards
+              éprouvés pour créer des services robustes, sobres et faits pour
+              durer.
             </p>
             <Link
               to="/outils"

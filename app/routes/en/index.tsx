@@ -45,11 +45,10 @@ function LandingPageEn() {
           <div className="mt-10 grid gap-10 sm:mt-14 sm:grid-cols-12">
             <div className="sm:col-span-7">
               <p className="chapeau">
-                Hosting, sending an email, publishing, collecting a payment:
-                our means of producing online belong to others. We are taking
-                them back one by one, with applications you can use. They are
-                built to lighten your everyday digital tasks, not to hold your
-                attention.
+                Brick by brick, we build the essential digital tools —
+                messaging, publishing, payments, hosting — to grow an
+                independent industry. We pick proven standards to make services
+                that are robust, frugal and built to last.
               </p>
               <Link
                 to="/en/outils"
