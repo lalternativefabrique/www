@@ -147,7 +147,7 @@ function OutilsPageEn() {
                 </div>
               </div>
               {Demo ? (
-                <div className="mx-auto mt-14 max-w-5xl sm:mt-20">
+                <div data-demo className="mx-auto mt-14 max-w-5xl sm:mt-20">
                   <Demo locale="en" />
                 </div>
               ) : null}
