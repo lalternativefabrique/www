@@ -160,6 +160,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  overflow-x: clip;
+}
+
 h1,
 h2,
 h3,

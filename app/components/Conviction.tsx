@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { useEffect, useRef } from 'react'
 import { useLocale, type Locale } from '@/lib/i18n'
 
 export const convictions: Record<Locale, ReadonlyArray<string>> = {
@@ -49,17 +50,48 @@ function Ligne({ phrases, cachee }: { phrases: ReadonlyArray<string>; cachee?: b
   )
 }
 
+function useScrollDrift() {
+  const piste = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = piste.current
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const moitie = el.scrollWidth / 2
+      const decalage = (el.getBoundingClientRect().top * 0.8) % moitie
+      el.style.transform = `translateX(${decalage - moitie}px)`
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+  return piste
+}
+
 export function Conviction({ inverse = false }: { inverse?: boolean }) {
   const locale = useLocale()
   const phrases = convictions[locale]
   const { to, label } = lien[locale]
+  const piste = useScrollDrift()
   return (
     <aside
-      className={`group overflow-hidden border-y-2 border-text py-8 sm:py-10 ${
+      className={`ml-[calc(50%-50vw)] w-screen overflow-hidden border-y-2 border-text py-8 sm:py-10 ${
         inverse ? 'bg-text text-bg' : 'bg-warm'
       }`}
     >
-      <div className="flex w-max animate-[defile_60s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none">
+      <div
+        ref={piste}
+        className="flex w-max will-change-transform motion-reduce:w-full"
+      >
         <Ligne phrases={phrases} />
         <span className="contents motion-reduce:hidden">
           <Ligne phrases={phrases} cachee />
