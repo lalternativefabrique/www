@@ -6,7 +6,7 @@ export const convictions: Record<Locale, ReadonlyArray<string>> = {
   fr: [
     'Reconstruire une industrie numérique indépendante, en commençant ici.',
     'Tous nos outils se branchent entre eux.',
-    "Le savoir est ouvert. Avec le web et l'IA, une petite équipe construit l'essentiel.",
+    'Nous puisons dans la plus belle bibliothèque du monde.',
     'Vos données ne sont pas le produit.',
     'Nos produits restent les nôtres.',
     "Pas d'investisseurs. Nos clients nous financent.",
@@ -16,7 +16,7 @@ export const convictions: Record<Locale, ReadonlyArray<string>> = {
   en: [
     'Rebuilding an independent digital industry, starting here.',
     'All our tools plug into each other.',
-    'Knowledge is open. With the web and AI, a small team builds the essentials.',
+    "We draw on the world's finest library.",
     'Your data is not the product.',
     'Our products stay ours.',
     'No investors. Our customers fund us.',
