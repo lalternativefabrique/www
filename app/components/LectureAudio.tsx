@@ -1,5 +1,5 @@
-import { useCallback } from 'react'
-import { speakSource, useVoicePlayback } from '@lalternative/vvaves-sdk-react'
+import { useCallback, useEffect, useRef } from 'react'
+import { speakSource, useReadAlong, useVoicePlayback } from '@lalternative/vvaves-sdk-react'
 import { signerLecture } from '@/server/lecture'
 
 const VITESSES = [1, 1.25, 1.5, 2, 0.75]
@@ -18,8 +18,14 @@ export function LectureAudio({ slug, lang = 'fr' }: { slug: string; lang?: 'fr' 
     return speakSource(lecture)
   }, [slug, lang])
 
-  const { state, toggle, position, buffered, duration, seek, skip, rate, setRate } =
-    useVoicePlayback(resolve)
+  const playback = useVoicePlayback(resolve)
+  const { state, toggle, position, buffered, duration, seek, skip, rate, setRate } = playback
+  const region = useRef<HTMLElement>(null)
+  const article = useRef<HTMLElement | null>(null)
+  useEffect(() => {
+    article.current = region.current?.closest('article') ?? null
+  }, [])
+  useReadAlong(playback, article)
 
   if (state === 'unavailable') return null
 
@@ -28,7 +34,7 @@ export function LectureAudio({ slug, lang = 'fr' }: { slug: string; lang?: 'fr' 
   const actif = state !== 'idle'
 
   return (
-    <section className="mt-10 border-2 border-text p-5" aria-label={t.region}>
+    <section ref={region} className="mt-10 border-2 border-text p-5" aria-label={t.region}>
       <p className="label text-text/60">{t.kicker}</p>
       <div className="mt-4 flex items-center gap-4">
         <button
