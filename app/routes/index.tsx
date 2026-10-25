@@ -1,4 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
+import { utilisateursDe } from '@/content/dependances'
 import { AppIcone } from '@/components/AppIcone'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
@@ -56,6 +58,8 @@ const lienTrait =
   'label inline-flex w-fit items-center gap-2 border-b border-current pb-1 pt-3 hover:text-accent-primary'
 
 function LandingPage() {
+  const [survolee, setSurvolee] = useState<string | null>(null)
+  const utilisatrices = survolee ? utilisateursDe(survolee) : []
   return (
     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
       <section className="border-b-[3px] border-text pb-14 pt-16 sm:pt-20">
@@ -113,8 +117,19 @@ function LandingPage() {
         </p>
         <div className="mt-10 grid border-t border-text sm:grid-cols-2 lg:grid-cols-3">
           {applications.map((application, index) => {
+            const utilisatrice = utilisatrices.includes(application.name)
+            const eteinte = survolee !== null && survolee !== application.name && !utilisatrice
             const contenu = (
               <>
+                <span
+                  aria-hidden
+                  className={`label absolute right-6 bottom-3 flex items-center gap-1.5 text-accent-primary transition-all duration-300 ${
+                    utilisatrice ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
+                  }`}
+                >
+                  <span className="size-1.5 animate-pulse bg-accent-primary" />
+                  utilise {survolee}
+                </span>
                 <span className="label flex justify-between gap-3">
                   <span className="text-text/60">
                     A-{String(index + 1).padStart(2, '0')} · {application.pilier}
@@ -136,17 +151,26 @@ function LandingPage() {
                 <p className="mt-3 text-text/75">{application.resume}</p>
               </>
             )
-            const classes = 'block border-b border-text/25 py-7 sm:pr-6'
+            const classes = `relative block border-b border-text/25 py-7 transition-all duration-300 sm:pr-6 ${
+              eteinte ? 'opacity-30' : ''
+            } ${utilisatrice ? '-translate-y-1' : ''}`
+            const survol = {
+              onMouseEnter: () => setSurvolee(application.name),
+              onMouseLeave: () => setSurvolee(null),
+              onFocus: () => setSurvolee(application.name),
+              onBlur: () => setSurvolee(null),
+            }
             return application.url ? (
               <a
                 key={application.name}
+                {...survol}
                 href={application.url}
                 className={`${classes} hover:text-accent-primary`}
               >
                 {contenu}
               </a>
             ) : (
-              <article key={application.name} className={classes}>
+              <article key={application.name} {...survol} className={classes}>
                 {contenu}
               </article>
             )
