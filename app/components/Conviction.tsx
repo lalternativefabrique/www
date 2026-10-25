@@ -10,7 +10,7 @@ export const convictions: Record<Locale, ReadonlyArray<string>> = {
     'Vous payez pour garder notre indépendance.',
     'Vos données ne sont pas le produit.',
     "Financé par l'usage, les dons et le financement participatif.",
-    'Nos produits ne seront jamais revendus.',
+    'Nos produits restent les nôtres.',
   ],
   en: [
     'No investors. Our customers fund us.',
@@ -19,8 +19,13 @@ export const convictions: Record<Locale, ReadonlyArray<string>> = {
     'You pay to keep us independent.',
     'Your data is not the product.',
     'Funded by use, donations and crowdfunding.',
-    'Our products will never be sold off.',
+    'Our products stay ours.',
   ],
+}
+
+const liensPhrase: Record<Locale, Partial<Record<number, string>>> = {
+  fr: { 0: '/pot' },
+  en: { 0: '/en/pot' },
 }
 
 const lien: Record<Locale, { to: string; label: string }> = {
@@ -101,7 +106,17 @@ export function Conviction({ inverse = false }: { inverse?: boolean }) {
             key={courante}
             className="mt-4 animate-[carte_0.45s_cubic-bezier(0.2,0.7,0.2,1)] font-heading text-2xl font-extrabold uppercase leading-[1.05] tracking-tight sm:text-[1.9rem]"
           >
-            {phrases[courante]}
+            {liensPhrase[locale][courante] ? (
+              <Link
+                to={liensPhrase[locale][courante]}
+                tabIndex={actif ? 0 : -1}
+                className="underline decoration-accent-primary decoration-4 underline-offset-[6px] hover:text-accent-primary"
+              >
+                {phrases[courante]}
+              </Link>
+            ) : (
+              phrases[courante]
+            )}
           </p>
           <div className="mt-6 flex items-center gap-4">
             <div className="h-0.5 flex-1 bg-current/15">
