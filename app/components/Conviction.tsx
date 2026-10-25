@@ -4,26 +4,26 @@ import { useLocale, type Locale } from '@/lib/i18n'
 
 export const convictions: Record<Locale, ReadonlyArray<string>> = {
   fr: [
-    "Pas d'investisseurs. Nos clients nous financent.",
+    'Reconstruire une industrie numérique indépendante, en commençant ici.',
     'Tous nos outils se branchent entre eux.',
-    'Reconstruire une industrie numérique en France et en Europe.',
-    'Vous payez pour garder notre indépendance.',
     'Vos données ne sont pas le produit.',
     'Nos produits restent les nôtres.',
+    "Pas d'investisseurs. Nos clients nous financent.",
+    'Vous payez pour garder notre indépendance.',
   ],
   en: [
-    'No investors. Our customers fund us.',
+    'Rebuilding an independent digital industry, starting here.',
     'All our tools plug into each other.',
-    'Rebuilding a digital industry in France and Europe.',
-    'You pay to keep us independent.',
     'Your data is not the product.',
     'Our products stay ours.',
+    'No investors. Our customers fund us.',
+    'You pay to keep us independent.',
   ],
 }
 
 const liensPhrase: Record<Locale, Partial<Record<number, string>>> = {
-  fr: { 0: '/pot' },
-  en: { 0: '/en/pot' },
+  fr: { 4: '/pot' },
+  en: { 4: '/en/pot' },
 }
 
 const lien: Record<Locale, { to: string; label: string }> = {
