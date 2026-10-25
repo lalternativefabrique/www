@@ -39,3 +39,4 @@ overrides:
 minimumReleaseAgeExclude:
   - '@lalternative/legal@0.1.0'
   - '@lalternative/auth'
+  - '@lalternative/vvaves-sdk-react'

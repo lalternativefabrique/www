@@ -319,3 +319,7 @@ h4 {
     filter: blur(4px);
   }
 }
+
+::highlight(vvaves-reading) {
+  background-color: color-mix(in srgb, var(--color-accent-primary) 18%, transparent);
+}

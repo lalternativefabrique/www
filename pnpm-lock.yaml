@@ -35,8 +35,8 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0
       '@lalternative/vvaves-sdk-react':
-        specifier: 0.4.0
-        version: 0.4.0(react@19.2.5)
+        specifier: 0.5.0
+        version: 0.5.0(react@19.2.5)
       '@mdx-js/mdx':
         specifier: ^3.1.1
         version: 3.1.1
@@ -460,8 +460,8 @@ packages:
   '@lalternative/spore-sdk@0.3.0':
     resolution: {integrity: sha512-FvRZ+k4GZxe1kvDHPvbhWeUhvVr8NmC3hckZcPobWDx1II/TaBoy9FXKt31rvHUYnB9KVR6jUWMAPX5Ki9Q12w==}
 
-  '@lalternative/vvaves-sdk-react@0.4.0':
-    resolution: {integrity: sha512-xZ7Qucx1icppcwr0LreFHvVgWb3X4T1J3v543hLFefeJhZQGJnoXAaJM1VHqJw4kVlNqARG5LGUKmIVgK6IJjQ==}
+  '@lalternative/vvaves-sdk-react@0.5.0':
+    resolution: {integrity: sha512-IHhcihyjCDtO0gnFGAxNvc7su9wEqyJJ+1kjcpsSOsuddUMu0LBMFfkEf28PXCnqD+Mhd+6lgPYmKekgZGaF2g==}
     peerDependencies:
       react: '>=18'
 
@@ -2865,7 +2865,7 @@ snapshots:
       - debug
       - supports-color
 
-  '@lalternative/vvaves-sdk-react@0.4.0(react@19.2.5)':
+  '@lalternative/vvaves-sdk-react@0.5.0(react@19.2.5)':
     dependencies:
       react: 19.2.5
 
