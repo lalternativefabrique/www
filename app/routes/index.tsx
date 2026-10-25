@@ -70,9 +70,12 @@ function LandingPage() {
             <p className="chapeau">
               Brique par brique, nous construisons les outils numériques
               essentiels — messagerie, publication, paiement, hébergement — pour
-              bâtir une industrie indépendante. Nous choisissons des standards
-              éprouvés pour créer des services robustes, sobres et faits pour
-              durer.
+              bâtir une industrie indépendante. Nous puisons dans des décennies
+              de{' '}
+              <Link to="/litterature" className="hover:text-accent-primary">
+                standards et de savoir-faire éprouvés
+              </Link>{' '}
+              pour les rendre robustes, sobres et durables.
             </p>
             <Link
               to="/outils"
@@ -99,6 +102,7 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
 
       <section className="pt-20 sm:pt-24">
         <SectionHead titre="Des applications en service." repere="§ 02 — La preuve" />

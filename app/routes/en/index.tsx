@@ -47,8 +47,11 @@ function LandingPageEn() {
               <p className="chapeau">
                 Brick by brick, we build the essential digital tools —
                 messaging, publishing, payments, hosting — to grow an
-                independent industry. We pick proven standards to make services
-                that are robust, frugal and built to last.
+                independent industry. We draw on decades of{' '}
+                <Link to="/en/literature" className="hover:text-accent-primary">
+                  proven standards and know-how
+                </Link>{' '}
+                to make them robust, frugal and lasting.
               </p>
               <Link
                 to="/en/outils"
