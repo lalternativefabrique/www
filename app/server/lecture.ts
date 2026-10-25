@@ -43,7 +43,7 @@ async function signerParVvaves(
 ): Promise<string | null> {
   const res = await fetch(`${base}/speak/sign`, {
     method: 'POST',
-    headers: { 'content-type': 'application/json', 'x-vvaves-key': key },
+    headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
     body: JSON.stringify({ text, scope: SCOPE, id, lang }),
   })
   if (!res.ok) {
