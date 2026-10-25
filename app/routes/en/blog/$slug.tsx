@@ -84,9 +84,7 @@ function BlogArticleEn() {
           <p className="label mt-8 text-text/50">
             {article.date} — {article.lecture} read
           </p>
-          {article.audioSrc ? (
-            <LectureAudio src={article.audioSrc} lang="en" />
-          ) : null}
+          <LectureAudio slug={article.slug} lang="en" />
           {article.autreSlug ? (
             <Link
               to="/blog/$slug"

@@ -39,7 +39,6 @@ export type ArticlePage = {
    * published before it was narrated, or whose reading failed — the page then
    * offers no player rather than a broken one.
    */
-  audioSrc?: string
   /** Whether the discussion under the piece is open. */
   commentaires: boolean
 }
@@ -69,9 +68,6 @@ export const loadArticle = createServerFn({ method: 'GET' })
       createElement(MdxProse, { corps, lang: data.lang }),
     )
 
-    const { findAudio, audioUrl } = await import('./article-audio')
-    const audio = await findAudio(fr.dir, data.lang)
-
     return {
       slug: data.lang === 'en' ? traduit!.slug : fr.slug,
       titre: traduit?.titre ?? fr.titre,
@@ -94,7 +90,6 @@ export const loadArticle = createServerFn({ method: 'GET' })
         : undefined,
       autreSlug: data.lang === 'en' ? fr.slug : fr.en?.slug,
       html,
-      audioSrc: audio ? audioUrl(audio) : undefined,
       commentaires: fr.commentaires !== false,
     }
   })
