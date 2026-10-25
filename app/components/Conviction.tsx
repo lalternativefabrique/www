@@ -9,7 +9,6 @@ export const convictions: Record<Locale, ReadonlyArray<string>> = {
     'Reconstruire une industrie numérique en France et en Europe.',
     'Vous payez pour garder notre indépendance.',
     'Vos données ne sont pas le produit.',
-    "Financé par l'usage, les dons et le financement participatif.",
     'Nos produits restent les nôtres.',
   ],
   en: [
@@ -18,7 +17,6 @@ export const convictions: Record<Locale, ReadonlyArray<string>> = {
     'Rebuilding a digital industry in France and Europe.',
     'You pay to keep us independent.',
     'Your data is not the product.',
-    'Funded by use, donations and crowdfunding.',
     'Our products stay ours.',
   ],
 }
