@@ -110,7 +110,7 @@ export function Conviction({ inverse = false }: { inverse?: boolean }) {
               <Link
                 to={liensPhrase[locale][courante]}
                 tabIndex={actif ? 0 : -1}
-                className="underline decoration-accent-primary decoration-4 underline-offset-[6px] hover:text-accent-primary"
+                className="hover:text-accent-primary"
               >
                 {phrases[courante]}
               </Link>
