@@ -6,24 +6,28 @@ export const convictions: Record<Locale, ReadonlyArray<string>> = {
   fr: [
     'Reconstruire une industrie numérique indépendante, en commençant ici.',
     'Tous nos outils se branchent entre eux.',
+    "Le savoir est ouvert. Avec le web et l'IA, une petite équipe construit l'essentiel.",
     'Vos données ne sont pas le produit.',
     'Nos produits restent les nôtres.',
     "Pas d'investisseurs. Nos clients nous financent.",
     'Vous payez pour garder notre indépendance.',
+    'Aidez-nous à continuer.',
   ],
   en: [
     'Rebuilding an independent digital industry, starting here.',
     'All our tools plug into each other.',
+    'Knowledge is open. With the web and AI, a small team builds the essentials.',
     'Your data is not the product.',
     'Our products stay ours.',
     'No investors. Our customers fund us.',
     'You pay to keep us independent.',
+    'Help us keep going.',
   ],
 }
 
 const liensPhrase: Record<Locale, Partial<Record<number, string>>> = {
-  fr: { 4: '/pot' },
-  en: { 4: '/en/pot' },
+  fr: { 2: '/litterature', 5: '/pot', 7: '/participer' },
+  en: { 2: '/en/literature', 5: '/en/pot', 7: '/en/take-part' },
 }
 
 const lien: Record<Locale, { to: string; label: string }> = {
