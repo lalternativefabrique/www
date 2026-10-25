@@ -1,233 +1,117 @@
 ---
 slug: coulisses-01-skalpai-le-socle
-titre: "Les coulisses, épisode 01 : Skalpai, du développement à la production"
-chapeau: "Au départ, nous voulions supprimer les allers-retours entre le poste de développement et la CI. Aujourd'hui, le même système construit, vérifie, publie, déploie et observe les applications de la Fabrique."
-metaDescription: "Skalpai est né pour réunir développement et CI dans un même environnement. Il relie désormais tout le parcours, du code jusqu'au déploiement."
+titre: "Les coulisses, épisode 01 : Skalpai, du développement au déploiement"
+chapeau: "Skalpai est né d'une ambition simple : disposer d'un seul système pour accompagner une application depuis son développement jusqu'à son déploiement. Nous avons commencé par l'environnement de développement, parce que c'était l'étape la plus immédiate. Mais la destination a toujours été la production."
+metaDescription: "Docker Compose, CI, Kubernetes, Argo CD, observabilité : pourquoi la Fabrique a construit Skalpai pour remplacer l'empilement d'outils par un seul système, du développement au déploiement."
 organe: Technique
 outil: Skalpai
 outilUrl: https://skalpai.dev
 date: 2026-10-25
-lecture: 7 min
+lecture: 6 min
 ---
 
-Quel développeur n'a jamais poussé un commit uniquement pour savoir si sa CI allait fonctionner ?
+## Combien d'outils faut-il pour mettre une application en ligne ?
 
-Modifier une ligne de configuration. Pousser. Attendre. Découvrir qu'une variable manque. Corriger. Pousser encore. Voir les tests passer, puis la construction échouer quelques minutes plus tard.
+J'ai longtemps utilisé Docker Compose pour développer localement, Testcontainers pour tester, GitHub Actions ou GitLab CI pour automatiser les vérifications, Tekton pour construire des pipelines, puis Kubernetes avec Skaffold pour rapprocher le développement de la production.
 
-À la fin, le code a peu changé.
+À cela venaient s'ajouter Argo CD pour les déploiements, Argo CD Image Updater pour suivre les nouvelles images, puis tous les outils nécessaires à l'observabilité : métriques, journaux, traces, alertes et suivi des erreurs.
 
-Tout ce qui l'entoure, en revanche, a occupé une partie de la journée.
+Et encore, je ne les cite pas tous.
 
-Mon rêve était de disposer d'un système unique pour accompagner une application pendant tout son parcours : développement, CI et, un jour, déploiement.
+Chacun de ces outils est utile. Certains sont même remarquables. Le problème n'était pas leur qualité, mais leur accumulation.
 
-Je n'ai pas commencé par le déploiement.
+Il fallait apprendre leurs conventions, maintenir leurs fichiers de configuration, gérer leurs mises à jour et comprendre pourquoi une application fonctionnait sur le poste de développement, échouait dans la CI, puis se comportait encore différemment en production.
 
-J'ai commencé par l'endroit où je perdais le plus de temps : la distance entre mon poste de travail et la CI.
+Une part croissante du travail ne consistait plus à construire les applications. Elle consistait à faire communiquer les outils chargés de les construire.
 
-## Le premier problème : découvrir trop tard ce qui ne fonctionne pas
+## Mettre fin à l'empilement
 
-Un environnement de développement et une CI sont souvent décrits deux fois.
+L'idée originale de Skalpai était déjà de couvrir tout le parcours :
 
-En local, il faut lancer l'application, la base de données, les migrations et les autres services nécessaires.
+> développer, tester, construire, publier, déployer et observer.
 
-Dans la CI, il faut reconstruire ce même environnement avec une autre configuration, d'autres commandes et parfois une autre manière d'attendre que les services soient prêts.
+Il ne s'agissait pas de créer un énième outil à ajouter à la chaîne. Il s'agissait de remplacer cette chaîne fragmentée par un système cohérent.
 
-Les deux descriptions finissent inévitablement par diverger.
+La même définition d'une application devait pouvoir servir partout. Le même environnement devait l'accompagner du premier lancement local jusqu'à la production. Une vérification réussie pendant le développement ne devait pas être entièrement réinventée dans un fichier de CI.
 
-Quelque chose fonctionne sur la machine du développeur, mais pas dans la CI. Une dépendance est disponible localement, mais absente du runner. Une base de données accepte déjà les connexions ici, mais démarre trop lentement là-bas.
+Skalpai devait supprimer autant que possible les traductions entre les différentes étapes.
 
-La CI devient alors un environnement que l'on ne peut réellement tester qu'après avoir poussé son code.
+## Commencer par le développement
 
-> modifier → pousser → attendre → lire l'erreur → recommencer
+Nous n'avons cependant pas tenté de tout construire simultanément.
 
-Skalpai est d'abord né pour raccourcir cette boucle.
+Nous avons commencé par le développement, parce que c'était le choix le plus pragmatique et le plus immédiatement utile.
 
-## Un même système pour le développement et la CI
+C'est là que la boucle est la plus courte. On modifie une application, on la lance, on observe le résultat, puis on recommence. Tout ralentissement dans cette boucle se répète plusieurs dizaines de fois par jour.
 
-L'idée initiale était simple : décrire les services et les vérifications dans le dépôt, puis pouvoir les exécuter de la même manière sur le poste de développement et sur un nœud de CI.
+C'était également le meilleur endroit pour éprouver les fondations du système. Avant de confier un déploiement à Skalpai, il fallait vérifier qu'il savait déjà lancer les mêmes services de manière fiable, reproductible et isolée sur une machine de développement.
 
-```
-sklp dev
-sklp run ci
-```
+Commencer par le développement ne réduisait donc pas l'ambition. C'était la première étape vers le déploiement.
 
-`sklp dev` lance l'application et ses dépendances. Il connaît leur ordre de démarrage, attend que chaque service soit réellement disponible et arrête proprement l'ensemble.
+## Un même socle pour le développement et la CI
 
-`sklp run ci` exécute les tests et les vérifications dans un environnement isolé. Il peut détecter les parties du projet qui ont changé et ne lancer que les étapes concernées.
+La première avancée concrète a été de rapprocher le développement et l'intégration continue.
 
-La CI ne commence donc plus nécessairement après le push.
+Le code n'avait plus à traverser deux mondes entièrement différents. Les services pouvaient être lancés dans un environnement commun, avec les mêmes dépendances et les mêmes règles d'exécution.
 
-Elle peut être exécutée localement, au moment où le contexte du changement est encore frais.
+Cette unité repose notamment sur les Spaces, la brique d'exécution de Skalpai. Un Space regroupe les services nécessaires à une application dans un environnement isolé. Il fournit un cadre commun au développement, aux tests et aux pipelines.
 
-> Ce qui sera vérifié plus tard par la CI distante peut déjà être mis à l'épreuve sur la machine où le code est écrit.
+La CI n'est alors plus une reconstitution approximative du poste de travail. Elle devient la continuité de ce qui a déjà été exécuté et vérifié localement.
 
-Cela ne supprime pas toutes les différences entre un ordinateur et un serveur distant.
+## Utiliser enfin la puissance de nos machines
 
-Cela retire celles que nous créions nous-mêmes en décrivant deux fois le même environnement.
+Les Mac équipés de processeurs Apple Silicon disposent aujourd'hui d'une puissance considérable. Pourtant, une grande partie de cette capacité reste inutilisée pendant que les développeurs attendent le résultat d'une CI distante.
 
-## La Space : conserver la même unité d'exécution
+Skalpai permet d'exécuter davantage de vérifications localement et de faire tourner plusieurs tâches en parallèle. Les erreurs apparaissent plus tôt, avant qu'un commit ne parte vers un serveur puis revienne avec un voyant rouge.
 
-Pour réunir le développement et la CI, il fallait une brique commune.
+Grâce à cette approche, j'ai considérablement augmenté ma capacité à tester, déployer et observer ce que je construis au quotidien.
 
-Cette brique est devenue la Space.
+Le gain ne vient pas seulement d'une exécution plus rapide. Il vient surtout de la disparition d'une partie des allers-retours et des différences entre environnements.
 
-Une Space est un environnement isolé qui réunit les services d'une application, leur réseau, leurs volumes, leurs dépendances et leur cycle de vie.
+## Du code à l'image publiée
 
-Elle s'appuie sur les standards OCI et sur runc, sans nécessiter de démon Docker. Les services disposent d'un réseau privé et peuvent se retrouver par leur nom.
+Une fois la continuité entre le développement et la CI établie, Skalpai a pu avancer vers l'étape suivante : produire un artefact prêt à être déployé.
 
-Une base de données appelée `postgres` reste `postgres`. Une migration attend que cette base soit prête. L'application attend que la migration soit terminée.
+Le système détermine les services concernés par une modification, lance leurs vérifications, construit les images nécessaires et les analyse avant leur publication dans un registre.
 
-Ces relations ne sont plus réinventées pour chaque environnement.
+L'objectif reste le même : ne pas demander au développeur de recoller lui-même chaque étape avec une nouvelle couche de scripts et de fichiers YAML.
 
-> La Space n'essaie pas de faire ressembler le développement à la production. Elle fournit une unité commune qui peut traverser les différentes étapes.
+Le pipeline n'est pas un monde séparé. Il prolonge le travail commencé localement.
 
-Au début, cette continuité reliait surtout le développement et la CI.
+## Et maintenant, le déploiement
 
-Elle allait progressivement devenir le socle du reste.
+Le déploiement faisait partie de la destination depuis l'origine. Il arrive après le développement et la CI parce qu'il devait reposer sur un socle déjà éprouvé.
 
-## Utiliser toute la puissance déjà présente sur nos bureaux
+Skalpai relie désormais les différentes étapes du parcours :
 
-Nos ordinateurs sont devenus de véritables machines de construction.
+> développement → tests → construction → analyse → publication → déploiement → observation
 
-Les Mac équipés de puces Apple Silicon de la série M disposent notamment de suffisamment de puissance pour faire fonctionner plusieurs environnements et plusieurs vérifications en parallèle.
+Une application peut traverser cette chaîne sans changer plusieurs fois de définition ni passer d'un assemblage d'outils à un autre.
 
-Il devenait difficile de justifier que toute cette capacité reste inutilisée pendant que nous attendions le résultat d'une machine distante.
+Ce travail est encore en cours. Skalpai ne prétend pas déjà remplacer chaque fonctionnalité de Docker, Podman, GitHub Actions, GitLab CI, Tekton, Kubernetes, Skaffold, Argo CD, Datadog, Grafana, New Relic ou Sentry.
 
-Skalpai permet de transformer cette puissance locale en capacité de test.
+Il propose autre chose : réduire le besoin de les assembler tous pour répondre aux besoins quotidiens d'un développeur indépendant ou d'une petite équipe.
 
-Plusieurs changements peuvent être vérifiés. Des services complets peuvent être démarrés dans des environnements isolés. Une pipeline peut être exécutée avant même que le code soit envoyé.
+## Louer l'infrastructure sans lui abandonner le système
 
-Grâce à cette approche, j'ai considérablement augmenté ma capacité à tester ce que je construis au quotidien.
+La Fabrique utilise nécessairement des serveurs, des réseaux et des registres fournis par des hébergeurs. Mais louer une infrastructure ne nous oblige pas à leur confier toute notre chaîne technique.
 
-Je peux essayer davantage, détecter plus tôt les erreurs et voir plus rapidement les conséquences d'une modification.
+Avec Skalpai, nous pouvons utiliser leurs ressources tout en conservant la maîtrise du système qui développe, vérifie et déploie nos applications.
 
-> Le gain ne vient pas uniquement de quelques minutes économisées sur une pipeline. Il vient du nombre d'idées que je peux réellement mettre à l'épreuve dans une journée.
+> Nous ne possédons pas les machines. Nous possédons la manière dont nos logiciels les traversent.
 
-Le poste de développement n'est plus seulement l'endroit où le code est écrit.
+Cette distinction est essentielle pour la Fabrique. Elle nous permet de changer de fournisseur plus facilement, de comprendre ce qui se passe à chaque étape et de ne pas reconstruire notre organisation autour des contraintes d'une seule plateforme.
 
-Il devient aussi le premier endroit où son parcours complet est vérifié.
+## Le socle de la Fabrique
 
-## Puis les applications ont dû être publiées
+Skalpai n'est pas né parce qu'il nous manquait un outil de plus.
 
-Réunir le développement et la CI répondait au premier besoin.
+Il est né parce que nous en utilisions déjà trop.
 
-Mais une fois le code vérifié, il fallait encore produire les images, analyser leur sécurité et les envoyer vers un registre.
+Son ambition, depuis le départ, est de réunir le développement, la CI et le déploiement dans un même système. Nous avons commencé par le développement parce que c'était le besoin le plus immédiat et le meilleur endroit pour construire des fondations solides.
 
-Cette étape répétait les mêmes difficultés : nouvelles commandes, nouvelle configuration et nouvelles occasions de publier quelque chose qui ne correspondait pas exactement au code validé.
+Aujourd'hui, ces fondations atteignent la production.
 
-Skalpai a donc prolongé le parcours.
+Les applications de la Fabrique peuvent être développées, testées, publiées et déployées à travers une chaîne que nous comprenons et que nous maîtrisons.
 
-> développer → vérifier → construire → analyser → publier
-
-Lors d'une publication, il détermine quels services sont réellement concernés par les modifications.
-
-Les images sont construites, analysées avant leur envoi, puis identifiées par un tag immuable lié au commit. Une image présentant une vulnérabilité bloquante n'atteint pas le registre.
-
-Le système refuse également certaines situations dangereuses : publier depuis la mauvaise branche, utiliser un arbre Git contenant des changements non enregistrés ou pousser une image dont l'origine ne pourra pas être retrouvée.
-
-L'objectif n'est pas de multiplier les règles.
-
-Il est d'arrêter les problèmes au dernier moment où leur correction coûte encore peu.
-
-## Le déploiement est venu ensuite
-
-Au début, Skalpai devait surtout accélérer la construction des applications.
-
-Puis ces applications sont devenues plus nombreuses. Elles ont commencé à dépendre les unes des autres. Les publier ne suffisait plus : il fallait les faire tourner, les relier et les mettre à jour sans reconstruire manuellement leur environnement à chaque fois.
-
-Le déploiement a donc rejoint le même système.
-
-Les services, leurs images, leurs ressources, leurs volumes, leurs routes et leurs conditions de disponibilité sont décrits dans le dépôt.
-
-Skalpai rapproche ensuite l'état réel de cet état attendu.
-
-```
-développer
-    ↓
-tester
-    ↓
-publier
-    ↓
-déployer
-    ↓
-observer
-```
-
-Ce parcours n'était pas entièrement présent au premier jour.
-
-Il s'est construit étape après étape, à mesure que les applications de la Fabrique en avaient besoin.
-
-Aujourd'hui, la même logique accompagne un changement depuis le poste de développement jusqu'à la production.
-
-## Louer des serveurs, pas toute la plateforme
-
-Nous louons nos serveurs, comme tout le monde.
-
-Ce que nous cherchons à conserver, c'est la maîtrise de la couche qui fait fonctionner nos applications dessus.
-
-Une plateforme entièrement gérée peut être très rapide à adopter. Mais chaque application ajoute alors une dépendance à ses règles, à ses prix et à ses limites.
-
-Un serveur reste remplaçable.
-
-Tant que le système qui décrit, déploie et observe les applications nous appartient, changer d'hébergeur reste un déménagement plutôt qu'une reconstruction complète.
-
-Cette indépendance ne consiste pas à tout réinventer.
-
-Skalpai utilise des standards comme les images OCI et OpenTelemetry. Il s'appuie sur des briques éprouvées. Ce que nous construisons nous-mêmes, c'est leur continuité et la manière dont elles servent notre parcours.
-
-## Une alternative à l'assemblage, pas à chaque outil
-
-Skalpai n'est pas simplement une alternative à Docker ou Podman.
-
-Ceux-ci exécutent des conteneurs.
-
-Il n'est pas non plus une copie de GitHub Actions, GitLab CI, Jenkins ou CircleCI. Ces plateformes savent très bien exécuter des pipelines.
-
-Il ne cherche pas davantage à reproduire toute la puissance de Kubernetes, ni toute la profondeur de Datadog ou de Grafana.
-
-Skalpai répond à une autre question :
-
-> Combien d'outils faut-il assembler avant qu'un développeur puisse simplement faire passer son application du code à la production ?
-
-Sa réponse est de proposer un parcours cohérent aux développeurs indépendants et aux petites équipes.
-
-Pas toutes les organisations possibles. Pas toutes les échelles.
-
-Un chemin compréhensible pour celles et ceux qui construisent et exploitent eux-mêmes leurs applications.
-
-## Ce que Skalpai fait aujourd'hui
-
-Skalpai a grandi avec les besoins de la Fabrique.
-
-Aujourd'hui :
-
-- il lance les environnements de développement ;
-- il exécute les pipelines localement ou sur des nœuds de CI ;
-- il construit uniquement les services concernés par un changement ;
-- il analyse les images avant leur publication ;
-- il déploie les applications dans des Spaces isolées ;
-- il relie les machines et les services ;
-- il collecte les logs, les métriques et les traces ;
-- il permet de retrouver les erreurs depuis l'interface ou le terminal.
-
-Toutes les applications de la Fabrique s'appuient désormais sur ce parcours.
-
-Skalpai n'a donc pas été construit en théorie avant elles.
-
-Il s'est construit avec elles.
-
-## Le véritable temps gagné
-
-Une CI plus rapide fait gagner quelques minutes.
-
-Une chaîne cohérente évite surtout des heures de duplication, d'attente et de diagnostic.
-
-Le gain se trouve dans l'environnement qui n'a pas besoin d'être décrit une seconde fois. Dans l'erreur découverte avant le push. Dans l'image vulnérable arrêtée avant le registre. Dans le déploiement rattaché à son commit. Dans le problème de production que l'on peut retrouver sans ouvrir quatre interfaces.
-
-Au départ, je voulais simplement arrêter de perdre du temps entre le développement et la CI.
-
-Aujourd'hui, Skalpai relie le développement, les tests, la publication, le déploiement et l'observation.
-
-> Skalpai est devenu le socle de la Fabrique non pas seulement parce qu'il a été construit en premier, mais parce que chaque application traverse désormais le chemin qu'il a ouvert.
-
-La suite des coulisses raconte ce que nous avons pu construire une fois ce chemin en place.
+C'est pour cela que Skalpai est devenu le premier épisode de cette histoire : avant de construire toutes les autres applications, il fallait construire le chemin qui leur permettrait d'exister.
