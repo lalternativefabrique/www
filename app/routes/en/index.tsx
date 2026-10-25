@@ -48,8 +48,9 @@ function LandingPageEn() {
                 Brick by brick, we build the essential digital tools —
                 messaging, publishing, payments, hosting — to grow an
                 independent industry. We draw on decades of{' '}
-                <Link to="/en/literature" className="hover:text-accent-primary">
+                <Link to="/en/literature" className="font-bold text-text hover:text-accent-primary">
                   proven standards and know-how
+                  <span aria-hidden className="text-accent-primary"> →</span>
                 </Link>{' '}
                 to make them robust, frugal and lasting.
               </p>

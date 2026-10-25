@@ -72,8 +72,9 @@ function LandingPage() {
               essentiels — messagerie, publication, paiement, hébergement — pour
               bâtir une industrie indépendante. Nous puisons dans des décennies
               de{' '}
-              <Link to="/litterature" className="hover:text-accent-primary">
+              <Link to="/litterature" className="font-bold text-text hover:text-accent-primary">
                 standards et de savoir-faire éprouvés
+                <span aria-hidden className="text-accent-primary"> →</span>
               </Link>{' '}
               pour les rendre robustes, sobres et durables.
             </p>
