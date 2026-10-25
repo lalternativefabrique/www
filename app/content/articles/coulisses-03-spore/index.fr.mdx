@@ -1,0 +1,112 @@
+---
+slug: coulisses-03-spore-donner-une-voix-aux-applications
+titre: "Les coulisses, épisode 03 : Spore, donner une voix aux applications"
+chapeau: "Une application ne peut pas seulement agir. Elle doit confirmer, informer et prévenir. Lorsque les premières applications de la Fabrique ont eu besoin d'envoyer leurs propres messages, les limites des services externes sont rapidement apparues. Spore est né pour reprendre cette fonction essentielle."
+metaDescription: "Confirmer, informer, prévenir : pourquoi la Fabrique a construit Spore, son infrastructure d'envoi d'e-mails commune, plutôt que de payer une API par application."
+organe: Communication
+outil: Spore
+outilUrl: https://sporee.fr
+date: 2026-10-25
+lecture: 6 min
+---
+
+Une application peut fonctionner parfaitement et rester muette.
+
+Un compte est créé, mais rien ne le confirme. Un paiement passe, mais aucun reçu n'arrive. Un mot de passe doit être réinitialisé, mais le lien n'est jamais envoyé. Une erreur survient, mais personne n'est prévenu.
+
+L'e-mail n'est pas un accessoire ajouté à la fin.
+
+C'est la capacité d'une application à s'exprimer : confirmer une action, transmettre une information et prévenir lorsqu'une attention est nécessaire.
+
+Sans cette capacité, la relation entre l'application et son utilisateur reste incomplète.
+
+## Les premières factures
+
+Avec les premières applications sont arrivés les premiers services externes à payer.
+
+Les API d'envoi d'e-mails sont très attirantes au départ. L'intégration est rapide, les premiers messages sont souvent gratuits et l'infrastructure semble disparaître derrière une simple requête.
+
+Pour un projet qui commence, c'est exactement ce qu'il faut.
+
+Puis le projet grandit.
+
+Les messages deviennent plus nombreux. Une deuxième application arrive, puis une troisième. Il faut ajouter des domaines, suivre de nouveaux quotas et passer aux offres payantes.
+
+Chaque application apporte alors son abonnement, sa console, sa clé d'API, ses limites et sa facture.
+
+Nous ne payions pas pour une nouvelle capacité. Nous repayions, application après application, pour leur permettre d'accomplir la même fonction : envoyer un message.
+
+## Gratuit jusqu'à devenir indispensable
+
+Le problème n'était pas que ces services fonctionnaient mal.
+
+Ils fonctionnaient justement très bien.
+
+Leur offre gratuite permettait de commencer rapidement. Mais une fois l'envoi d'e-mails intégré au cœur de l'application, changer de service devenait plus difficile.
+
+Ce qui n'était au départ qu'une commodité était devenu une dépendance.
+
+À chaque nouvelle application, nous pouvions recommencer : ouvrir un compte, configurer un domaine, intégrer une nouvelle API et accepter un nouveau tarif.
+
+Ou construire cette capacité une fois, puis la partager entre toutes les applications.
+
+C'est la voie que nous avons choisie.
+
+## Une infrastructure commune
+
+Spore est né pour donner aux applications de la Fabrique une infrastructure d'envoi commune.
+
+Une application lui confie un message. Spore s'occupe du domaine, de l'identité d'envoi, de la signature et de son acheminement.
+
+Synthiz peut envoyer un lien de connexion. Lungor, une facture. Nakoda, une alerte. Chaque nouvelle application bénéficie de la même capacité sans devoir reconstruire toute la chaîne.
+
+L'objectif n'est pas d'envoyer davantage d'e-mails.
+
+Il est de mieux envoyer ceux qui sont nécessaires au fonctionnement d'un service.
+
+> Une application qui ne peut pas parler dépend toujours de quelqu'un d'autre pour exister auprès de ses utilisateurs.
+
+## Envoyer est facile. Arriver est difficile.
+
+Construire un serveur capable d'expédier un message n'était que le début.
+
+Il fallait encore que ce message arrive.
+
+L'e-mail repose sur des standards ouverts : SMTP, SPF, DKIM, DMARC. En théorie, toute infrastructure qui respecte ces règles peut communiquer avec les autres.
+
+En pratique, quelques grands fournisseurs contrôlent l'essentiel des boîtes de réception. Ils évaluent les adresses IP, les domaines et les comportements d'envoi selon leurs propres règles.
+
+Une configuration correcte ne garantit donc pas la délivrabilité.
+
+Microsoft a un jour bloqué tout notre sous-réseau alors que notre réputation et notre configuration étaient propres. Pendant trois jours, nos messages ont été refusés avant même d'entrer.
+
+Cette difficulté n'a pas remis Spore en question. Elle a montré pourquoi il devait exister.
+
+Maîtriser son infrastructure d'envoi, ce n'est pas supprimer tous les intermédiaires. C'est comprendre la chaîne, mesurer ce qui se passe et pouvoir agir lorsqu'un message n'arrive plus.
+
+## Construire sur des règles ouvertes
+
+Spore ne repose pas sur une recette secrète.
+
+Son fonctionnement s'appuie sur les standards publics qui organisent la messagerie : transport des messages, signature des domaines, politiques d'authentification, retours d'erreur et réputation des expéditeurs.
+
+Nous rassemblons les textes que nous suivons dans notre [littérature technique](/litterature#delivrabilite).
+
+Deux articles prolongent cet épisode :
+
+- [Un service d'e-mail sobre, éthique et souverain](/blog/un-service-demail-sobre-ethique-et-souverain), sur les choix qui structurent Spore ;
+- [Le jour où Microsoft a bloqué tout notre sous-réseau](/blog/reputation-email-google-yahoo-microsoft), sur la réalité de la délivrabilité face aux grandes plateformes.
+
+## Une nouvelle capacité pour la Fabrique
+
+Skalpai avait donné aux applications un endroit où fonctionner.
+
+Synthiz avait donné forme au premier besoin.
+
+Spore leur a donné une voix.
+
+Désormais, chaque nouvelle application peut confirmer, informer et prévenir sans repartir de zéro ni ajouter une nouvelle dépendance.
+
+Mais une application ne doit pas seulement pouvoir parler. Pour durer, elle doit aussi pouvoir encaisser.
+
+Ce sera Lungor.

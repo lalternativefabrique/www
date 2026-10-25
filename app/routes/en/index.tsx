@@ -1,9 +1,12 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { AppIcone } from '@/components/AppIcone'
+import { Aider } from '@/components/Aider'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
   applicationsEn,
   applicationsEnDuPilier,
+  enServiceEn,
   etatEn,
   pilierEn,
   piliersEn,
@@ -43,11 +46,14 @@ function LandingPageEn() {
           <div className="mt-10 grid gap-10 sm:mt-14 sm:grid-cols-12">
             <div className="sm:col-span-7">
               <p className="chapeau">
-                Hosting, sending an email, publishing, collecting a payment:
-                our means of producing online belong to others. We are taking
-                them back one by one, with applications you can use. They are
-                built to lighten your everyday digital tasks, not to hold your
-                attention.
+                Brick by brick, we build the essential digital tools —
+                messaging, publishing, payments, hosting — to grow an
+                independent industry. We draw on decades of{' '}
+                <Link to="/en/literature" className="font-bold text-text hover:text-accent-primary">
+                  proven standards and know-how
+                  <span aria-hidden className="text-accent-primary"> →</span>
+                </Link>{' '}
+                to make them robust, frugal and lasting.
               </p>
               <Link
                 to="/en/outils"
@@ -59,7 +65,7 @@ function LandingPageEn() {
             <div className="sm:col-span-4 sm:col-start-9 sm:self-end">
               <p className="label text-text/60">The reasoning</p>
               <ul className="mt-3 space-y-1 text-base">
-                <li>— {applicationsEn.length} applications running</li>
+                <li>— {enServiceEn.length} applications running</li>
                 <li>— Their revenue funds what comes next</li>
                 <li>— {projetsEn.length} projects under way</li>
                 <li>— Ideas open to proposals</li>
@@ -94,14 +100,7 @@ function LandingPageEn() {
                     {statutEn[application.statut]}
                   </p>
                   <span className="mt-5 flex items-center gap-3">
-                    <img
-                      src={application.icone}
-                      alt=""
-                      width={40}
-                      height={40}
-                      loading="lazy"
-                      className="size-10 rounded-[22%]"
-                    />
+                    <AppIcone application={application} />
                     <h3 className="font-heading text-4xl leading-none">
                       {application.name}
                     </h3>
@@ -136,29 +135,13 @@ function LandingPageEn() {
         </div>
       </section>
 
-      <section className="border-b-2 border-text bg-text text-bg">
-        <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
-          <p className="label opacity-70">03 — The mechanism</p>
-          <h2 className="display-xl mt-6">
-            Using one{' '}
-            <span className="text-accent-primary">funds the next</span>.
-          </h2>
-          <p className="chapeau mt-10 max-w-3xl opacity-90">
-            Thanks to a shared organisation, a single stream of funding keeps
-            every application alive. What you pay for one funds the others:
-            those that exist, those in beta, those on their way and those
-            still to be imagined.
-          </p>
-          <Link
-            to="/en/pot"
-            className="label mt-10 inline-flex w-fit items-center gap-3 border-2 border-bg px-6 py-3 hover:bg-bg hover:text-text"
-          >
-            How the funding works <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </section>
+      <Aider
+        locale="en"
+        repere="And now"
+        titre="All this, with a handful of people. Imagine it with you."
+      />
 
-      <Conviction index={0} />
+      <Conviction />
 
       <section className="bg-accent-secondary text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
@@ -197,12 +180,13 @@ function LandingPageEn() {
           <div className="grid gap-10 sm:grid-cols-12">
             <div className="sm:col-span-6">
               <p className="label text-text/60">05 — The ideas</p>
-              <h2 className="display-lg mt-6">What comes next is open.</h2>
+              <h2 className="display-lg mt-6">What tool are you missing?</h2>
             </div>
             <div className="flex flex-col justify-end sm:col-span-6">
               <p className="chapeau">
-                What comes after is not written. A means you lack, a
-                dependency that costs you: propose it.
+                Our next applications come from you too. A tool you lack, a
+                dependency that weighs on you: propose it and we will look
+                into it.
               </p>
               <Link
                 to="/en/projets"
@@ -215,8 +199,6 @@ function LandingPageEn() {
           </div>
         </div>
       </section>
-
-      <Conviction index={2} />
 
       <section id="pillars" className="scroll-mt-6 border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">

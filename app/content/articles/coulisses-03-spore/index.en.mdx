@@ -1,0 +1,108 @@
+---
+slug: behind-the-scenes-03-spore-giving-applications-a-voice
+titre: "Behind the scenes, episode 03: Spore, giving applications a voice"
+chapeau: "An application cannot just act. It has to confirm, inform and warn. When the Fabrique's first applications needed to send their own messages, the limits of outside services showed up fast. Spore was born to take back that essential function."
+metaDescription: "Confirm, inform, warn: why the Fabrique built Spore, its shared email sending infrastructure, instead of paying for one API per application."
+organe: Communication
+---
+
+An application can work perfectly and stay silent.
+
+An account is created, but nothing confirms it. A payment goes through, but no receipt arrives. A password needs resetting, but the link is never sent. An error happens, but nobody is told.
+
+Email is not an accessory bolted on at the end.
+
+It is an application's ability to speak: to confirm an action, pass on information and warn when attention is needed.
+
+Without it, the relationship between the application and its user stays incomplete.
+
+## The first bills
+
+With the first applications came the first outside services to pay for.
+
+Email sending APIs are very appealing at first. Integration is quick, the first messages are often free and the infrastructure seems to vanish behind a single request.
+
+For a project that is starting out, that is exactly what you need.
+
+Then the project grows.
+
+Messages multiply. A second application arrives, then a third. You have to add domains, track new quotas and move to paid plans.
+
+Each application then brings its subscription, its console, its API key, its limits and its bill.
+
+We were not paying for a new capability. We were paying again, application after application, for them to perform the same function: sending a message.
+
+## Free until indispensable
+
+The problem was not that these services worked badly.
+
+They worked very well, in fact.
+
+Their free tier let us start fast. But once email sending sat at the heart of the application, switching service became harder.
+
+What started as a convenience had become a dependency.
+
+With every new application, we could start over: open an account, configure a domain, integrate a new API and accept a new price.
+
+Or build this capability once, then share it across every application.
+
+That is the path we chose.
+
+## A shared infrastructure
+
+Spore was born to give the Fabrique's applications a shared sending infrastructure.
+
+An application hands it a message. Spore takes care of the domain, the sending identity, the signature and the delivery.
+
+Synthiz can send a sign-in link. Lungor, an invoice. Nakoda, an alert. Every new application gets the same capability without rebuilding the whole chain.
+
+The aim is not to send more email.
+
+It is to send better the messages a service needs to work.
+
+> An application that cannot speak always depends on someone else to exist for its users.
+
+## Sending is easy. Arriving is hard.
+
+Building a server able to send a message was only the beginning.
+
+The message still had to arrive.
+
+Email rests on open standards: SMTP, SPF, DKIM, DMARC. In theory, any infrastructure that follows these rules can talk to the others.
+
+In practice, a few large providers control most inboxes. They judge IP addresses, domains and sending behaviour by their own rules.
+
+A correct setup does not guarantee deliverability.
+
+Microsoft once blocked our entire subnet while our reputation and setup were clean. For three days, our messages were refused before they even got in.
+
+That difficulty did not call Spore into question. It showed why it had to exist.
+
+Controlling your sending infrastructure does not mean removing every intermediary. It means understanding the chain, measuring what happens and being able to act when a message stops arriving.
+
+## Building on open rules
+
+Spore does not rest on a secret recipe.
+
+It works on the public standards that organise email: message transport, domain signing, authentication policies, error reporting and sender reputation.
+
+We gather the texts we follow in our [technical literature](/en/literature#deliverability).
+
+Two articles extend this episode:
+
+- [A frugal, ethical, sovereign email service](/en/blog/a-frugal-ethical-sovereign-email-service), on the choices behind Spore;
+- [The day Microsoft blocked our whole subnet](/en/blog/the-day-microsoft-blocked-our-whole-subnet), on what deliverability really looks like against the big platforms.
+
+## A new capability for the Fabrique
+
+Skalpai had given the applications somewhere to run.
+
+Synthiz had given shape to the first need.
+
+Spore gave them a voice.
+
+Now every new application can confirm, inform and warn without starting from scratch or adding a new dependency.
+
+But an application must not only be able to speak. To last, it must also be able to get paid.
+
+That will be Lungor.

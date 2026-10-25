@@ -114,7 +114,7 @@ function PotPage() {
         </div>
       </section>
 
-      <Conviction index={6} />
+      <Conviction />
 
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">

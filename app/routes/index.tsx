@@ -1,9 +1,13 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { AppIcone } from '@/components/AppIcone'
+import { CarteLiens } from '@/components/CarteLiens'
+import { Aider } from '@/components/Aider'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
   applications,
   applicationsDuPilier,
+  enService,
   piliers,
   projets,
   projetsEnCours,
@@ -66,11 +70,15 @@ function LandingPage() {
         <div className="mt-14 grid gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
             <p className="chapeau">
-              Héberger, envoyer un e-mail, publier, encaisser : ces outils du
-              quotidien appartiennent presque tous à quelques acteurs. Nous en
-              construisons des alternatives, une à une, que vous pouvez
-              utiliser dès aujourd'hui. Elles sont faites pour vous alléger les
-              tâches numériques du quotidien, pas pour retenir votre attention.
+              Brique par brique, nous construisons les outils numériques
+              essentiels — messagerie, publication, paiement, hébergement — pour
+              bâtir une industrie indépendante. Nous puisons dans des décennies
+              de{' '}
+              <Link to="/litterature" className="font-bold text-text hover:text-accent-primary">
+                standards et de savoir-faire éprouvés
+                <span aria-hidden className="text-accent-primary"> →</span>
+              </Link>{' '}
+              pour les rendre robustes, sobres et durables.
             </p>
             <Link
               to="/outils"
@@ -83,7 +91,7 @@ function LandingPage() {
             <p className="label">Le principe</p>
             <ol className="mt-3 grid grid-cols-[2.5rem_1fr] gap-y-2 font-mono text-sm">
               {[
-                `${applications.length} applications en service`,
+                `${enService.length} applications en service`,
                 'Leurs revenus financent la suite',
                 `${projetsEnCours.length} projets en cours`,
                 'Des idées ouvertes à proposition',
@@ -98,10 +106,11 @@ function LandingPage() {
         </div>
       </section>
 
+
       <section className="pt-20 sm:pt-24">
         <SectionHead titre="Des applications en service." repere="§ 02 — La preuve" />
         <p className="mt-5 max-w-xl text-text/75">
-          Certaines sont ouvertes, d'autres en bêta, une arrive. Chacune
+          Certaines sont ouvertes, d'autres en bêta, certaines arrivent. Chacune
           remplace un outil précis.
         </p>
         <div className="mt-10 grid border-t border-text sm:grid-cols-2 lg:grid-cols-3">
@@ -123,14 +132,7 @@ function LandingPage() {
                   </span>
                 </span>
                 <span className="mt-4 flex items-center gap-3">
-                  <img
-                    src={application.icone}
-                    alt=""
-                    width={40}
-                    height={40}
-                    loading="lazy"
-                    className="size-10 rounded-[22%]"
-                  />
+                  <AppIcone application={application} />
                   <h3 className="text-3xl">{application.name}</h3>
                 </span>
                 <p className="mt-3 text-text/75">{application.resume}</p>
@@ -152,41 +154,27 @@ function LandingPage() {
             )
           })}
         </div>
-        <Link to="/outils" className={`${lienTrait} mt-7`}>
-          Le détail de chaque application <span aria-hidden>→</span>
-        </Link>
-      </section>
-
-      <section className="mt-24 bg-text px-6 py-14 text-bg sm:mt-28 sm:px-14 sm:py-20">
-        <p className="label text-accent-primary">§ 03 — Le mécanisme</p>
-        <h2 className="display-xl mt-6">
-          Utiliser,
-          <br />
-          c'est financer la suite.
-        </h2>
-        <div className="mt-12 grid gap-8 md:grid-cols-12 md:items-end">
-          <p className="chapeau md:col-span-7">
-            Une seule structure fait vivre toutes les applications. Ce que vous
-            payez pour l'une finance les autres : celles en service, celles en
-            bêta, celles à venir.
-          </p>
-          <div className="flex flex-wrap gap-6 md:col-span-5">
-            <Link to="/pot" className={lienTrait}>
-              Comment ça fonctionne <span aria-hidden>→</span>
-            </Link>
-            <Link to="/couts" className={lienTrait}>
-              Nos coûts, à livre ouvert <span aria-hidden>→</span>
-            </Link>
-          </div>
+        <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <CarteLiens applications={applications} locale="fr" />
+          <Link to="/outils" className={lienTrait}>
+            Le détail de chaque application <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
 
+      <Aider
+        locale="fr"
+        repere="Et maintenant"
+        titre="Tout ça, à quelques-uns. Imaginez avec vous."
+        pleineLargeur
+      />
+
       <div className="mt-24 sm:mt-28">
-        <Conviction index={0} />
+        <Conviction />
       </div>
 
       <section className="pt-24 sm:pt-28">
-        <SectionHead titre="Ce que cet argent construit." repere="§ 04 — Les projets" />
+        <SectionHead titre="Ce que cet argent construit." repere="§ 03 — Les projets" />
         <p className="mt-5 max-w-xl text-text/75">
           Des projets prêts, d'autres en cours. Les premiers financent les
           suivants et les gardent indépendants : hébergement, maintenance,
@@ -210,13 +198,14 @@ function LandingPage() {
 
       <section className="mt-24 grid gap-8 border-y border-text border-t-[3px] py-12 sm:mt-28 md:grid-cols-2">
         <div>
-          <p className="label">§ 05 — Les idées</p>
-          <h2 className="display-lg mt-5">La suite est ouverte.</h2>
+          <p className="label">§ 04 — Les idées</p>
+          <h2 className="display-lg mt-5">Quel outil vous manque ?</h2>
         </div>
         <div className="flex flex-col justify-end gap-6">
           <p className="chapeau">
-            Ce qui vient après n'est pas écrit. Un outil qui vous manque, une
-            dépendance qui vous pèse : proposez-le.
+            Nos prochaines applications viennent aussi de vous. Un outil qui
+            vous manque, une dépendance qui vous pèse : proposez-le, nous
+            l'étudions.
           </p>
           <Link
             to="/projets"
@@ -227,10 +216,6 @@ function LandingPage() {
           </Link>
         </div>
       </section>
-
-      <div className="mt-24 sm:mt-28">
-        <Conviction index={2} />
-      </div>
 
       <section id="piliers" className="scroll-mt-6 pt-20 sm:pt-24">
         <SectionHead titre="Quatre piliers." repere="Vue d'ensemble" />

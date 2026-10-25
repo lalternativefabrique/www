@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-router'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { ScrollReveal } from '@/components/ScrollReveal'
 import appCss from '@/styles/app.css?url'
 
 export const Route = createRootRoute({
@@ -91,6 +92,7 @@ function RootContent() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollReveal chemin={pathname} />
     </div>
   )
 }

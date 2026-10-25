@@ -20,6 +20,8 @@ const STATIC_PATHS = [
   '/pot',
   '/paiement',
   '/couts',
+  '/litterature',
+  '/coulisses',
   '/participer',
   '/blog',
   '/a-propos',
@@ -34,6 +36,7 @@ const EN_STATIC_PATHS = [
   '/en/projets',
   '/en/paiement',
   '/en/costs',
+  '/en/literature',
   '/en/pot',
   '/en/take-part',
   '/en/a-propos',
@@ -130,6 +133,8 @@ ${enSection}## Pages
 - [Le financement](${SITE_URL}/pot) — le modèle de réinvestissement
 - [Les coûts](${SITE_URL}/couts) — ce que les applications coûtent chaque mois
 - [Participer](${SITE_URL}/participer) — nos besoins financiers et en compétences
+- [Les coulisses](${SITE_URL}/coulisses) — comment chaque application est née, dans l'ordre
+- [Littérature technique](${SITE_URL}/litterature) — les standards et sources sur lesquels nous construisons
 - [À propos](${SITE_URL}/a-propos)
 - [Contact](${SITE_URL}/contact)
 `

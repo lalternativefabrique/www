@@ -22,13 +22,17 @@ export function useLocale(): Locale {
 export const chrome = {
   fr: {
     nav: [
-      { to: '/projets', label: 'Projets' },
+      { to: '/coulisses', label: 'Les coulisses' },
       { to: '/pot', label: 'Financement' },
       { to: '/participer', label: 'Participer' },
       { to: '/blog', label: 'Revue' },
       { to: '/a-propos', label: 'À propos' },
     ],
     action: { to: '/outils', hash: undefined, label: 'Applications' },
+    more: [
+      { to: '/projets', label: 'Projets' },
+      { to: '/litterature', label: 'Littérature technique' },
+    ],
     home: "L'Alternative Fabrique — accueil",
     mainNav: 'Navigation principale',
     footerTagline:
@@ -89,6 +93,7 @@ export const chrome = {
       { to: '/en/a-propos', label: 'About' },
     ],
     action: { to: '/en/outils', hash: undefined, label: 'Applications' },
+    more: [{ to: '/en/literature', label: 'Technical literature' }],
     home: "L'Alternative Fabrique — home",
     mainNav: 'Main navigation',
     footerTagline:

@@ -20,7 +20,7 @@ export function Footer() {
           <div className="sm:col-span-3">
             <p className="label text-text/50">{t.navHeading}</p>
             <ul className="mt-4 space-y-2 text-base">
-              {t.nav.map((link) => (
+              {[...t.nav, ...t.more].map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className="hover:text-accent-primary">
                     {link.label}

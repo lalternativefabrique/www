@@ -10,7 +10,7 @@ export const Route = createFileRoute('/participer')({
     seo({
       title: "Participer — L'Alternative Fabrique",
       description:
-        "Une organisation partagée, où l'on entre par ce que l'on peut donner : de l'argent pour couvrir nos besoins financiers, ou son métier pour tenir une fonction.",
+        "Contribuer à L'Alternative Fabrique : financièrement, pour couvrir les coûts publiés des applications, ou par un conseil et une expertise ponctuels, librement choisis.",
       path: '/participer',
       alternate: { fr: '/participer', en: '/en/take-part' },
     }),

@@ -1,0 +1,108 @@
+---
+slug: behind-the-scenes-04-lungor-following-the-money
+titre: "Behind the scenes, episode 04: Lungor, following the money"
+chapeau: "An application's first payment opens a string of questions: how much is left after fees? Which subscription renewed? Which invoice must be issued? Lungor was born to make that revenue readable. In time, the ambition is also to take back part of the path the money travels."
+metaDescription: "Fees, subscriptions, invoices, payouts: why the Fabrique built Lungor to follow the money, and why collecting payments itself will come later."
+organe: Funding
+---
+
+When an application starts charging, everything changes.
+
+It is no longer enough to know how many people use it. You have to track payments, subscriptions, renewals, failures, refunds, invoices and the payouts actually received.
+
+A price shown as €5 does not automatically become €5 in the company's account.
+
+Several players stand in between.
+
+## Behind the "Pay" button
+
+Stripe has become one of the major players in online payments.
+
+Its name does not always appear at checkout. The user sees the site or app they are using, while Stripe provides, behind the scenes, the payment page, card handling, fraud prevention and the transfer of money.
+
+Integration is quick, and the service spares you building an extremely sensitive infrastructure yourself.
+
+But that simplicity has a price.
+
+In France, Stripe currently lists a fee of 1.5% + €0.25 for a payment made with a standard European Economic Area card ([Stripe's official pricing](https://stripe.com/fr/pricing)).
+
+That comes to roughly:
+
+- €0.33 on a €5 payment, or 6.5%;
+- €0.55 on a €20 payment, or 2.75%;
+- €1.75 on a €100 payment, or 1.75%.
+
+The fixed amount weighs especially heavily on small subscriptions.
+
+These fees pay for a real service: security, fraud, infrastructure, compliance and access to payment networks. But they also leave, for good, the company that built and sold the product.
+
+## What if part of it stayed in the Fabrique?
+
+L'Alternative Fabrique's model rests on a simple idea: the revenue of one application helps fund the next.
+
+In that model, every fraction of a payment counts.
+
+If part of the fee paid to an intermediary today could be operated by the Fabrique, it could pay for that infrastructure and then help fund future applications.
+
+Not everything would disappear. Card networks, banks, fraud prevention, compliance and technical operations all have a cost.
+
+So the aim is not to turn the whole fee into profit.
+
+It is to gradually take back the share that matches the service we are able to provide ourselves.
+
+## Why not collect payments directly today?
+
+Because writing code is not enough.
+
+Payments are a regulated activity. To provide certain payment services directly in France, you must notably obtain authorisation, hold the required capital and demonstrate governance, internal control, safeguarding of funds, risk management and anti-money-laundering measures ([conditions set out by the ACPR](https://acpr.banque-france.fr/fr/professionnels/lacpr-vous-accompagne/banque/creer-ma-societe/mes-procedures/etablissement-de-paiement-et-prestataire-de-service-dinformation-sur-les-comptes)).
+
+That is not within our reach yet.
+
+The horizon we have in mind is between 2028 and 2030. It is not a promised date, but a direction: move forward when revenue, skills and structure allow the steps to be taken seriously.
+
+In the meantime, payments keep going through an authorised provider. Today, that is Mollie.
+
+Lungor holds neither customers' bank details nor their payment identity. It builds the layer around the payment.
+
+## What Lungor does today
+
+Lungor is the applications' financial control centre.
+
+It brings together:
+
+- payments and the payouts actually received;
+- active subscriptions and their renewals;
+- reminders and failed payments;
+- invoices and VAT;
+- the revenue of each application;
+- the costs needed to run them.
+
+Lungor lets you follow the full path: what was invoiced, what the provider took, what was paid out and what is really left.
+
+This first step is essential.
+
+Before taking back a payment infrastructure, you have to understand precisely the flows that run through it.
+
+> You cannot take back control of money you cannot follow.
+
+## One step after another
+
+Today, Lungor makes revenue readable and orchestrates payments operated under a third party's licence.
+
+Tomorrow, it could become an agent of an authorised provider, then possibly hold its own simplified or full authorisation.
+
+Each step will only be taken when it costs less than the dependency it removes.
+
+The full project — the authorisations, requirements and known costs — is laid out on the page [Collecting payments without a middleman](/en/paiement).
+
+Skalpai had given the applications a foundation.
+
+Synthiz had organised their knowledge.
+
+Spore had given them a voice.
+
+Lungor now gives them a shared reading of their revenue — with the ambition, in time, of taking back the ability to collect payments too.
+
+What was still missing was an assistant able to keep track for the people who use these applications.
+
+That will be L'Alter.

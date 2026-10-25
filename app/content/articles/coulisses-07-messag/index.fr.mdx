@@ -1,0 +1,222 @@
+---
+slug: coulisses-07-messag-les-cles-d-un-assistant-independant
+titre: "Les coulisses, épisode 07 : Messag, les clés d'un assistant indépendant"
+chapeau: "Un assistant ne peut pas préparer un dossier, retrouver une pièce jointe ou surveiller une échéance s'il ne voit ni vos mails, ni votre agenda, ni vos fichiers. Messag est né pour créer ce lien sans le remettre entièrement à une grande plateforme."
+metaDescription: "Mails, agenda, contacts, fichiers : pourquoi la Fabrique construit Messag, un accès que vous contrôlez, pour qu'un assistant puisse vraiment aider sans dépendre de Google ou Microsoft."
+organe: Communication
+outil: Messag
+outilUrl: https://messag.eco
+date: 2026-10-25
+lecture: 11 min
+---
+
+Partage permettait aux applications de sortir de l'atelier et de se faire connaître.
+
+Mais publier ne suffit pas.
+
+Il faut ensuite pouvoir échanger, recevoir des documents, suivre des rendez-vous et retrouver ce qui a été décidé.
+
+Cette question en cachait une autre, plus importante encore : comment construire un assistant réellement indépendant s'il ne peut accéder ni à vos mails, ni à votre agenda, ni à vos fichiers ?
+
+Un assistant sans accès à votre vie numérique peut répondre à des questions.
+
+Il ne peut pas véritablement vous aider.
+
+C'est de cette limite qu'est né Messag.
+
+## Aider suppose de connaître la situation
+
+L'un des objectifs de L'Alter est de faire gagner du temps sur les tâches qui épuisent inutilement : suivre une démarche administrative, retrouver un justificatif, comprendre une demande, préparer une réponse, surveiller une échéance ou rappeler qu'un document manque.
+
+Ces difficultés concernent une part importante de la population.
+
+Le Défenseur des droits continue d'alerter sur les délais, l'absence de réponse, la complexité des démarches et une dématérialisation parfois mal accompagnée. Ces obstacles peuvent fragiliser l'accès aux droits et transformer une formalité en parcours d'endurance ([rapport annuel 2025 du Défenseur des droits](https://www.defenseurdesdroits.fr/rapport-annuel-dactivite-2025-1107)).
+
+Un assistant pourrait aider.
+
+Il pourrait retrouver le message qui demande une pièce complémentaire. Identifier la date limite. Repérer le justificatif dans les fichiers. Préparer une réponse. Inscrire un rendez-vous dans l'agenda et rappeler la prochaine étape.
+
+Mais pour accomplir tout cela, il lui faut du contexte.
+
+Et ce contexte se trouve principalement dans nos mails, nos calendriers, nos contacts et nos documents.
+
+## Où sont les mails ? Où sont les fichiers ?
+
+Pour beaucoup de personnes, la réponse tient en deux noms : Google et Microsoft.
+
+Les messages sont dans Gmail ou Outlook. Les rendez-vous dans Google Calendar ou Microsoft 365. Les documents dans Drive ou OneDrive. Les contacts se trouvent quelque part entre les deux.
+
+Ces services sont pratiques et profondément installés dans nos habitudes.
+
+Mais lorsqu'un autre outil souhaite accéder à ces informations avec l'accord de la personne, le passage devient beaucoup plus étroit.
+
+Google classe notamment certains accès à Gmail parmi ses autorisations restreintes. Une application doit faire vérifier son identité, justifier ses usages et, selon les données demandées, passer une évaluation de sécurité. La procédure annoncée pour les autorisations restreintes peut durer plusieurs semaines et une application non approuvée reste limitée ([exigences de vérification OAuth de Google](https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification)).
+
+Microsoft possède également son propre système de vérification des éditeurs. L'accès peut dépendre de l'enregistrement dans son programme partenaire, de la vérification de l'organisation et des politiques de consentement décidées par les administrateurs ([présentation de la vérification Microsoft](https://learn.microsoft.com/fr-fr/entra/identity-platform/publisher-verification-overview)).
+
+Ces protections répondent à un véritable problème de sécurité. Donner à n'importe quelle application un accès silencieux à une boîte mail serait évidemment dangereux.
+
+Mais elles produisent aussi un effet de pouvoir.
+
+> Les grandes plateformes ne conservent pas seulement les données. Elles décident également quelles applications peuvent les utiliser et à quelles conditions.
+
+Il serait excessif d'affirmer que chaque contrôle a été conçu pour maintenir un monopole. Mais il serait tout aussi naïf d'ignorer que ces procédures renforcent la position de ceux qui possèdent déjà les comptes, les données et les interfaces d'accès.
+
+La personne a le sentiment que ses messages lui appartiennent.
+
+Dans les faits, c'est souvent la plateforme qui garde la porte.
+
+## Il nous fallait notre propre porte
+
+Pour que L'Alter puisse devenir un assistant réellement indépendant, il ne suffisait pas de construire un meilleur modèle ou une nouvelle interface de conversation.
+
+Il fallait aussi construire le lien avec les informations nécessaires à son travail.
+
+Messag réunit le courrier, l'agenda, les contacts et les fichiers dans un même espace, accessible sur ordinateur comme sur mobile.
+
+Il peut accueillir une adresse Messag, mais aussi rassembler des comptes extérieurs comme Gmail, Outlook ou d'autres fournisseurs compatibles.
+
+L'objectif n'est pas d'enfermer de nouveau les informations ailleurs.
+
+L'objectif est de créer un point d'accès que la personne contrôle.
+
+> Messag n'est pas seulement une boîte mail. C'est le lien libre entre une personne, ses informations et les applications qu'elle choisit d'autoriser.
+
+## Un accès donné, limité et révocable
+
+Un assistant indépendant ne doit pas recevoir toutes les clés sans distinction.
+
+Messag est donc conçu autour d'autorisations précises.
+
+Une personne pourra, par exemple, permettre à L'Alter de :
+
+- lire une boîte mail déterminée ;
+- consulter son agenda ;
+- rechercher un contact ;
+- retrouver les métadonnées d'un fichier ;
+- préparer un brouillon sans pouvoir l'envoyer ;
+- ou envoyer un message uniquement lorsqu'une autorisation distincte lui a été accordée.
+
+Lire n'implique pas écrire. Préparer un brouillon n'implique pas l'envoyer. Accéder à une adresse professionnelle ne donne pas accès à la boîte personnelle.
+
+L'autorisation doit pouvoir être comprise, limitée et retirée.
+
+Cette séparation est essentielle. L'indépendance ne consiste pas à remplacer la confiance aveugle accordée à une grande plateforme par une confiance aveugle accordée à notre assistant.
+
+> Un assistant utile doit pouvoir agir. Un assistant digne de confiance doit savoir exactement jusqu'où il peut aller.
+
+Cette infrastructure de consentement est encore en construction. Elle représente cependant la condition nécessaire pour que les différentes applications de la Fabrique puissent coopérer sans s'approprier les données de la personne.
+
+## Connecter les comptes existants sans en devenir prisonnier
+
+L'indépendance ne signifie pas demander à tout le monde d'abandonner immédiatement son adresse actuelle.
+
+Une personne peut avoir utilisé la même adresse Gmail ou Outlook pendant quinze ans. Elle y reçoit ses factures, ses démarches, ses rendez-vous et les messages de ses proches.
+
+Messag doit donc servir de pont.
+
+Les comptes existants peuvent être connectés et présentés comme des comptes à part entière. Leurs messages sont rassemblés dans une interface commune, tandis que les réponses continuent de partir avec la bonne identité.
+
+Progressivement, une adresse Messag peut offrir une voie plus indépendante.
+
+Le changement n'a pas besoin d'être brutal pour être réel.
+
+## Lire un message sans prévenir son expéditeur
+
+L'indépendance passe aussi par des détails invisibles.
+
+De nombreux e-mails contiennent des images distantes minuscules. Lorsqu'elles sont chargées, le serveur de l'expéditeur apprend que le message a été ouvert. Il peut parfois connaître l'heure de consultation et l'adresse IP utilisée.
+
+Messag bloque ces images tant que la personne ne choisit pas de les afficher.
+
+Le simple fait d'ouvrir un message ne doit pas devenir une notification silencieuse envoyée à son expéditeur.
+
+Les contenus HTML sont également traités comme des contenus potentiellement hostiles : scripts désactivés, éléments dangereux retirés et affichage isolé.
+
+Une messagerie n'est pas seulement une liste de messages.
+
+C'est un endroit où arrivent chaque jour des contenus écrits par des inconnus.
+
+## Prévenir des arnaques sans prétendre décider à votre place
+
+L'e-mail reste l'une des principales portes d'entrée des tentatives d'hameçonnage et des arnaques.
+
+Un faux domaine peut ressembler au vrai. Le texte visible d'un lien peut masquer une autre destination. Une pièce jointe peut être présentée comme une facture ou un document administratif urgent.
+
+Messag doit pouvoir signaler ces indices avant que la personne agisse.
+
+C'est le rôle envisagé pour une brique comme ScanControl : examiner les liens, comparer le domaine affiché à la destination réelle, repérer certains caractères trompeurs, analyser les pièces jointes et rendre les signaux de risque compréhensibles.
+
+Cette protection n'est pas encore complète et elle ne devra jamais promettre l'infaillibilité.
+
+> Une alerte peut inviter à vérifier. Elle ne doit jamais transformer un message suspect en certitude automatique.
+
+L'objectif n'est pas que le système décide seul de ce qui est vrai. Il est qu'une personne dispose de davantage d'éléments avant de cliquer, répondre ou transmettre un document.
+
+## Pour les professionnels : une vitrine avant même le premier message
+
+Messag doit également servir aux professionnels qui ont besoin d'une présence simple en ligne.
+
+Beaucoup n'ont pas besoin d'un site complexe. Ils veulent présenter leur activité, expliquer leurs services, afficher leurs horaires, proposer une prise de rendez-vous et offrir un moyen de contact.
+
+Messag prévoit donc une page professionnelle publique : une vitrine facile à créer, rapide à publier et conçue pour être comprise par les moteurs de recherche.
+
+Les services proposés pourront être reliés directement aux pages de réservation. Une modification d'horaire, de durée ou de prix pourra apparaître automatiquement sur la vitrine, sans recopier les informations à plusieurs endroits.
+
+Le professionnel disposera alors d'un lien simple à placer dans sa bio :
+
+> Voici ce que je fais. Voici quand je suis disponible. Voici comment me contacter ou prendre rendez-vous.
+
+Cette vitrine ne remplacera pas tous les sites professionnels.
+
+Elle répond à un besoin plus direct : être trouvé, être compris et pouvoir être contacté sans devoir commencer par construire un site entier.
+
+Cette fonction est elle aussi en cours de construction. Elle prolonge néanmoins naturellement Messag : avant qu'une conversation commence, il faut pouvoir trouver la personne à qui l'on souhaite parler.
+
+## De la messagerie à l'espace de travail
+
+Au départ, Messag pouvait être présenté comme une alternative plus respectueuse pour lire ses courriers.
+
+Mais le besoin réel est plus large.
+
+Le courrier, l'agenda, les contacts, les fichiers, les conversations et les rendez-vous forment déjà un espace de travail. Ce sont les matières à partir desquelles nous organisons une grande partie de notre vie personnelle et professionnelle.
+
+Messag a donc vocation à devenir l'espace commun de la suite :
+
+- les messages et les rendez-vous viennent de Messag ;
+- les connaissances conservées viennent de Synthiz ;
+- les publications passent par Partage ;
+- la recherche s'étend avec Tornad ;
+- l'assistance et la mémoire viennent de L'Alter.
+
+Chaque application conserve son rôle. Messag leur offre un lieu commun et un système de consentement.
+
+Tornad, notre futur moteur de recherche, est un sujet bien trop vaste pour être détaillé ici. Il aura droit à son propre épisode.
+
+## Ce que Messag ne doit pas devenir
+
+Messag ne doit pas devenir une nouvelle plateforme qui absorbe tout et décide pour la personne.
+
+Il ne doit pas lire les messages pour alimenter un modèle sans autorisation. Il ne doit pas donner à un assistant davantage de pouvoir que nécessaire. Il ne doit pas prétendre reconnaître toutes les arnaques ni rendre chaque démarche administrative automatique.
+
+Et il ne doit pas rendre impossible le départ.
+
+L'objectif n'est pas de reconstruire un écosystème fermé à une plus petite échelle.
+
+L'objectif est de créer une infrastructure suffisamment ouverte pour que la personne puisse choisir ses outils et suffisamment sûre pour que ce choix ne mette pas toute sa vie numérique en danger.
+
+## Donner à l'assistant les moyens d'aider
+
+Partage nous permettait de parler publiquement.
+
+Messag ouvre maintenant un lien privé : recevoir, retrouver, organiser, répondre et transmettre.
+
+Sans cette brique, L'Alter resterait un assistant placé à côté de la vie quotidienne. Il pourrait donner des conseils, mais il faudrait encore lui copier chaque message, lui transmettre chaque fichier et lui rappeler chaque rendez-vous.
+
+Avec Messag, il peut progressivement devenir un assistant situé dans le bon contexte — uniquement là où la personne lui a permis d'entrer.
+
+> L'indépendance d'un assistant ne dépend pas seulement de son intelligence. Elle dépend aussi de sa capacité à accéder librement, avec votre consentement, aux informations dont vous avez besoin.
+
+Messag est né pour construire cet accès.
+
+La prochaine étape sera de voir ce qu'un assistant peut réellement en faire.

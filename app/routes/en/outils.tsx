@@ -1,5 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { AppIcone } from '@/components/AppIcone'
 import { Conviction } from '@/components/Conviction'
+import { demos } from '@/components/demos'
 import type { Application } from '@/content/catalogue'
 import { applicationsEn, pilierEn, statutEn } from '@/content/catalogue.en'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
@@ -45,15 +47,16 @@ export const Route = createFileRoute('/en/outils')({
 })
 
 const accentClass: Record<Application['accent'], string> = {
-  primary: 'bg-bg text-text border-y-4 border-accent-primary',
-  secondary: 'bg-accent-secondary text-bg',
-  warm: 'bg-warm text-text',
-  paper: 'bg-bg text-text border-y-2 border-text',
+  primary: 'bg-bg text-text border-b-4 border-accent-primary',
+  secondary: 'bg-accent-secondary text-bg border-b-2 border-text',
+  warm: 'bg-warm text-text border-b-2 border-text',
+  paper: 'bg-bg text-text border-b-2 border-text',
 }
 
 function action(application: Application) {
   if (application.statut === 'Disponible') return `Open ${application.name}`
   if (application.statut === 'Bêta') return 'Try the beta'
+  if (application.statut === 'Bêta sur invitation') return 'Ask for an invitation'
   return null
 }
 
@@ -79,6 +82,7 @@ function OutilsPageEn() {
 
       {applicationsEn.map((application, i) => {
         const libelle = action(application)
+        const Demo = demos[application.name]
         return (
           <section
             key={application.name}
@@ -91,9 +95,10 @@ function OutilsPageEn() {
                     {String(i + 1).padStart(2, '0')} —{' '}
                     {statutEn[application.statut]}
                   </p>
-                  <h2 className="display-card mt-6 sm:text-8xl">
-                    {application.name}
-                  </h2>
+                  <div className="mt-6 flex items-center gap-5">
+                    <AppIcone application={application} size="lg" />
+                    <h2 className="display-card sm:text-8xl">{application.name}</h2>
+                  </div>
                 </div>
 
                 <div className="flex flex-col justify-end sm:col-span-7">
@@ -141,14 +146,19 @@ function OutilsPageEn() {
                   ) : null}
                 </div>
               </div>
+              {Demo ? (
+                <div data-demo className="mx-auto mt-14 max-w-5xl sm:mt-20">
+                  <Demo locale="en" />
+                </div>
+              ) : null}
             </div>
           </section>
         )
       })}
 
-      <Conviction index={4} inverse />
+      <Conviction inverse />
 
-      <section className="border-t-2 border-text">
+      <section>
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What connects them</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">

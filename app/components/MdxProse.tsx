@@ -142,11 +142,17 @@ const mdxComponents = {
     />
   ),
   strong: (props: { children?: ReactNode }) => (
-    <strong className="font-medium text-text" {...props} />
+    <strong className="font-semibold text-text" {...props} />
   ),
   code: (props: { children?: ReactNode }) => (
     <code
       className="border border-text/20 bg-text/5 px-1.5 py-0.5 text-[0.9em]"
+      {...props}
+    />
+  ),
+  pre: (props: { children?: ReactNode }) => (
+    <pre
+      className="my-8 overflow-x-auto border-2 border-text bg-text px-5 py-4 font-mono text-sm leading-relaxed text-bg [&_code]:border-0 [&_code]:bg-transparent [&_code]:p-0 [&_code]:text-[1em] [&_code]:text-inherit"
       {...props}
     />
   ),

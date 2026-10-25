@@ -1,0 +1,218 @@
+---
+slug: behind-the-scenes-07-messag-the-keys-to-an-independent-assistant
+titre: "Behind the scenes, episode 07: Messag, the keys to an independent assistant"
+chapeau: "An assistant cannot prepare a file, find an attachment or watch a deadline if it sees neither your email, nor your calendar, nor your files. Messag was born to create that link without handing it entirely to a big platform."
+metaDescription: "Email, calendar, contacts, files: why the Fabrique is building Messag, an access point you control, so an assistant can truly help without depending on Google or Microsoft."
+organe: Communication
+---
+
+Partage let the applications leave the workshop and make themselves known.
+
+But publishing is not enough.
+
+You then need to be able to exchange, receive documents, follow appointments and find what was decided.
+
+That question hid another, even more important one: how do you build a truly independent assistant if it can access neither your email, nor your calendar, nor your files?
+
+An assistant with no access to your digital life can answer questions.
+
+It cannot really help you.
+
+Messag was born from that limit.
+
+## Helping means knowing the situation
+
+One of L'Alter's goals is to save time on tasks that wear people out for nothing: following an administrative procedure, finding a supporting document, understanding a request, preparing a reply, watching a deadline or flagging that a document is missing.
+
+These difficulties affect a large part of the population.
+
+France's Défenseur des droits keeps warning about delays, unanswered requests, complex procedures and a move online that is sometimes poorly supported. These obstacles can weaken access to rights and turn a formality into an endurance test ([2025 annual report of the Défenseur des droits](https://www.defenseurdesdroits.fr/rapport-annuel-dactivite-2025-1107)).
+
+An assistant could help.
+
+It could find the message asking for an extra document. Spot the deadline. Locate the supporting document in your files. Prepare a reply. Add an appointment to the calendar and remind you of the next step.
+
+But to do all that, it needs context.
+
+And that context lives mostly in our email, calendars, contacts and documents.
+
+## Where is the email? Where are the files?
+
+For many people, the answer comes down to two names: Google and Microsoft.
+
+Messages are in Gmail or Outlook. Appointments in Google Calendar or Microsoft 365. Documents in Drive or OneDrive. Contacts sit somewhere in between.
+
+These services are convenient and deeply rooted in our habits.
+
+But when another tool wants to access that information with the person's consent, the passage becomes much narrower.
+
+Google notably classes some Gmail access among its restricted scopes. An application must have its identity verified, justify its uses and, depending on the data requested, pass a security assessment. The process announced for restricted scopes can take several weeks, and an unapproved application stays limited ([Google OAuth verification requirements](https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification)).
+
+Microsoft also has its own publisher verification system. Access can depend on enrolment in its partner programme, verification of the organisation and consent policies set by administrators ([Microsoft publisher verification overview](https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview)).
+
+These protections answer a real security problem. Giving any application silent access to a mailbox would obviously be dangerous.
+
+But they also produce a power effect.
+
+> The big platforms do not only hold the data. They also decide which applications may use it and on what terms.
+
+It would be excessive to claim that every check was designed to preserve a monopoly. But it would be just as naive to ignore that these procedures strengthen the position of those who already own the accounts, the data and the access interfaces.
+
+People feel their messages belong to them.
+
+In practice, it is often the platform that guards the door.
+
+## We needed our own door
+
+For L'Alter to become a truly independent assistant, building a better model or a new chat interface was not enough.
+
+We also had to build the link to the information it needs to do its job.
+
+Messag brings email, calendar, contacts and files together in one space, available on desktop and mobile.
+
+It can host a Messag address, but also bring together outside accounts such as Gmail, Outlook or other compatible providers.
+
+The aim is not to lock the information away somewhere else again.
+
+The aim is to create an access point the person controls.
+
+> Messag is not just a mailbox. It is the free link between a person, their information and the applications they choose to authorise.
+
+## Access that is granted, limited and revocable
+
+An independent assistant must not receive every key indiscriminately.
+
+So Messag is designed around precise permissions.
+
+A person will be able, for example, to let L'Alter:
+
+- read a given mailbox;
+- view their calendar;
+- look up a contact;
+- find a file's metadata;
+- prepare a draft without being able to send it;
+- or send a message only when a separate permission has been granted.
+
+Reading does not imply writing. Preparing a draft does not imply sending it. Access to a work address does not give access to the personal mailbox.
+
+A permission must be understandable, limited and revocable.
+
+This separation is essential. Independence does not mean replacing blind trust in a big platform with blind trust in our assistant.
+
+> A useful assistant must be able to act. A trustworthy assistant must know exactly how far it may go.
+
+This consent infrastructure is still being built. It is nonetheless the necessary condition for the Fabrique's applications to work together without taking over the person's data.
+
+## Connecting existing accounts without being trapped by them
+
+Independence does not mean asking everyone to abandon their current address right away.
+
+Someone may have used the same Gmail or Outlook address for fifteen years. It is where they receive their bills, their paperwork, their appointments and messages from loved ones.
+
+So Messag has to act as a bridge.
+
+Existing accounts can be connected and shown as full accounts. Their messages are gathered in a shared interface, while replies keep going out under the right identity.
+
+Gradually, a Messag address can offer a more independent path.
+
+Change does not need to be abrupt to be real.
+
+## Reading a message without telling the sender
+
+Independence also comes down to invisible details.
+
+Many emails contain tiny remote images. When they load, the sender's server learns the message was opened. It can sometimes learn when it was read and the IP address used.
+
+Messag blocks these images until the person chooses to show them.
+
+Simply opening a message must not become a silent notification sent to its sender.
+
+HTML content is also treated as potentially hostile: scripts disabled, dangerous elements removed and rendering isolated.
+
+A mailbox is not just a list of messages.
+
+It is a place where content written by strangers arrives every day.
+
+## Warning about scams without deciding for you
+
+Email remains one of the main entry points for phishing and scams.
+
+A fake domain can look like the real one. The visible text of a link can hide another destination. An attachment can be presented as an invoice or an urgent administrative document.
+
+Messag must be able to flag these signs before the person acts.
+
+That is the role planned for a building block such as ScanControl: inspecting links, comparing the displayed domain with the real destination, spotting certain misleading characters, analysing attachments and making risk signals understandable.
+
+This protection is not complete yet and must never promise infallibility.
+
+> An alert can invite you to check. It must never turn a suspicious message into automatic certainty.
+
+The aim is not for the system to decide alone what is true. It is for a person to have more to go on before clicking, replying or passing on a document.
+
+## For professionals: a storefront before the first message
+
+Messag must also serve professionals who need a simple online presence.
+
+Many do not need a complex website. They want to present their business, explain their services, show their opening hours, offer booking and provide a way to get in touch.
+
+So Messag plans a public professional page: a storefront that is easy to create, quick to publish and designed to be understood by search engines.
+
+The services offered can be linked directly to booking pages. A change to opening hours, duration or price can appear automatically on the storefront, without copying the information in several places.
+
+The professional will then have a simple link to put in their bio:
+
+> Here is what I do. Here is when I am available. Here is how to contact me or book.
+
+This storefront will not replace every professional website.
+
+It meets a more direct need: being found, being understood and being reachable without having to start by building a whole site.
+
+This feature is also under construction. It nonetheless extends Messag naturally: before a conversation starts, you need to be able to find the person you want to talk to.
+
+## From mailbox to workspace
+
+At first, Messag could be presented as a more respectful alternative for reading your mail.
+
+But the real need is broader.
+
+Mail, calendar, contacts, files, conversations and appointments already form a workspace. They are the materials from which we organise much of our personal and professional lives.
+
+So Messag is meant to become the suite's shared space:
+
+- messages and appointments come from Messag;
+- kept knowledge comes from Synthiz;
+- posts go through Partage;
+- search extends with Tornad;
+- assistance and memory come from L'Alter.
+
+Each application keeps its role. Messag gives them a common place and a consent system.
+
+Tornad, our future search engine, is far too big a subject to cover here. It will get its own episode.
+
+## What Messag must not become
+
+Messag must not become a new platform that absorbs everything and decides for the person.
+
+It must not read messages to feed a model without permission. It must not give an assistant more power than necessary. It must not claim to recognise every scam or make every administrative procedure automatic.
+
+And it must not make leaving impossible.
+
+The aim is not to rebuild a closed ecosystem on a smaller scale.
+
+The aim is to create an infrastructure open enough for the person to choose their tools, and safe enough that this choice does not put their whole digital life at risk.
+
+## Giving the assistant the means to help
+
+Partage let us speak publicly.
+
+Messag now opens a private link: receiving, finding, organising, replying and passing on.
+
+Without this building block, L'Alter would remain an assistant sitting beside daily life. It could give advice, but you would still have to copy every message to it, send it every file and remind it of every appointment.
+
+With Messag, it can gradually become an assistant set in the right context — only where the person has allowed it in.
+
+> An assistant's independence does not depend only on its intelligence. It also depends on its ability to access, freely and with your consent, the information you need.
+
+Messag was born to build that access.
+
+The next step will be seeing what an assistant can really do with it.
