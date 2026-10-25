@@ -303,3 +303,11 @@ h4 {
   opacity: 1;
   transform: none;
 }
+
+@keyframes carte {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+    filter: blur(4px);
+  }
+}
