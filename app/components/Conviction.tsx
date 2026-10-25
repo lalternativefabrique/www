@@ -75,7 +75,7 @@ export function Conviction({ inverse = false }: { inverse?: boolean }) {
   const [survolee, setSurvolee] = useState(false)
   const dansLaZone = progression > 0 && progression < 1
   const actif = dansLaZone && (enMouvement || survolee)
-  const courante = Math.min(phrases.length - 1, Math.max(0, Math.floor(progression * phrases.length)))
+  const courante = Math.min(phrases.length - 1, Math.max(0, Math.floor(progression * (phrases.length + 1)) - 1))
   return (
     <div ref={scene} className="h-0 motion-reduce:hidden">
       <div
