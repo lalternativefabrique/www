@@ -1,0 +1,301 @@
+---
+slug: skalpai-from-development-to-production
+titre: "Skalpai: from development to production by way of CI"
+chapeau: "Which developer has never lost hours between their local environment, a temperamental CI, deployment and production logs? Skalpai was born from a personal dream: bringing that whole journey into one system."
+metaDescription: "Skalpai brings development, CI, publishing, deployment and observability together around one unit of execution: the Space."
+organe: Technique
+---
+
+Which developer has never spent hours fixing a CI?
+
+Change a line of YAML. Push a commit. Wait. Find out a variable is missing. Start again. Watch the tests pass, then the image build fail. Fix the image, rerun the pipeline and find out the deployment uses yet another configuration.
+
+In the end, the code has barely changed.
+
+Everything around it, on the other hand, has taken up the day.
+
+My dream was simple to state: a system able to handle development, CI, publishing, deployment and production monitoring.
+
+One journey. One logic. As few translations as possible between the steps.
+
+Skalpai was born from that dream.
+
+## The problem is not a lack of tools
+
+We already have excellent tools.
+
+[**Docker**](https://www.docker.com/) builds and runs containers. [**Docker Compose**](https://docs.docker.com/compose/) describes applications made of several services. [**Podman**](https://podman.io/) offers a daemonless container engine that runs without elevated privileges.
+
+[**GitHub Actions**](https://docs.github.com/en/actions), [**GitLab CI/CD**](https://docs.gitlab.com/ci/), [**Jenkins**](https://www.jenkins.io/) and [**CircleCI**](https://circleci.com/) run build and test pipelines.
+
+[**Kubernetes**](https://kubernetes.io/) orchestrates containerised applications at large scale. [**Nomad**](https://developer.hashicorp.com/nomad) schedules different kinds of workloads. [**Argo CD**](https://argo-cd.readthedocs.io/) reconciles Kubernetes deployments from Git.
+
+Finally, [**Datadog**](https://www.datadoghq.com/), [**Grafana**](https://grafana.com/), [**New Relic**](https://newrelic.com/) and [**Sentry**](https://sentry.io/) let you observe what happens once the application is running.
+
+Each one seriously solves part of the problem.
+
+The difficulty appears when they have to work together.
+
+> We do not lack tools. We lack continuity between them.
+
+The developer has to maintain a local environment, a container setup, a CI, a publishing system, deployment manifests, secrets, an image registry, a logging solution and a monitoring platform.
+
+Each tool has its own concepts, syntax, identifiers and errors.
+
+The work is no longer just building an application. You also have to maintain the whole chain that builds it.
+
+## The same application changes worlds several times
+
+In development, an application runs with certain services, certain ports and certain variables.
+
+In CI, it is rebuilt elsewhere. Its dependencies are recreated differently. The commands are rewritten into a pipeline.
+
+To publish it, a new configuration describes how to produce the image, scan it and push it to a registry.
+
+To deploy it, the application has to be translated once more into the language of the production platform.
+
+When it finally runs into a problem, the logs and traces live in another system, often cut off from the code and the deployment that produced them.
+
+Every hand-off adds a translation.
+
+And every translation can drift.
+
+The famous "it works on my machine" does not always come from the code. It often comes from the fact that the machine, the CI and production simply do not run the same thing in the same way.
+
+## What is Skalpai?
+
+Skalpai is a platform for solo developers and small teams who handle the whole journey of their applications: development, continuous integration, publishing, deployment and operations.
+
+Its command-line interface, `sklp`, describes and runs that journey from the project's repository.
+
+```
+sklp dev
+sklp run ci
+sklp run publish
+sklp logs --severity ERROR --since 1h
+```
+
+These commands are not four shortcuts in front of four unrelated systems.
+
+They rest on a single way of describing services, their dependencies, their start-up, their network and their readiness conditions.
+
+The heart of that continuity has a name: the Space.
+
+## The Space: our common unit
+
+A Space is an isolated environment in which one or more services can run together.
+
+It draws on several proven ideas:
+
+- the [**OCI**](https://opencontainers.org/) images used by Docker and Podman;
+- running containers with [**runc**](https://github.com/opencontainers/runc);
+- the grouping of services found in Kubernetes pods;
+- the declarative configuration of orchestration systems.
+
+But a Space is neither a renamed container nor a miniature Kubernetes.
+
+It brings together an environment's identity, its services, its private network, its volumes and its lifecycle. Services find each other by name and run without a Docker daemon, in a rootless runc environment.
+
+Above all, the same building block is used in development, in CI and at deployment.
+
+> The Space does not just try to reproduce production locally. It keeps the same unit of execution all along the journey.
+
+That is where time really starts being saved.
+
+A dependency that must be ready before the application is described once. A migration that must finish before start-up keeps the same role. The network, services and readiness conditions are no longer reinvented at every step.
+
+## Developing without rebuilding your infrastructure by hand
+
+With `sklp dev`, the repository describes the services needed for development: application, database, message queue, migrations or side tools.
+
+Skalpai knows their start-up order, waits for their readiness signals and shuts everything down cleanly.
+
+The goal is not just to replace a long command with a shorter one.
+
+The goal is for that description to carry on down the line.
+
+Development should no longer be a throwaway mock-up of what comes next. It becomes the first run of one and the same contract.
+
+## Running CI before and after the push
+
+Much of the time I lost to CI came from an absurd loop:
+
+> change → push → wait → read the error → start again
+
+With Skalpai, the pipeline belongs to the repository and can run locally before the push.
+
+It can work out which parts of the project changed, run only the relevant steps, prepare the services the tests need and keep a reproducible environment.
+
+CI no longer has to be reserved for a remote machine.
+
+With the power our computers have today — notably Macs with M-series [**Apple Silicon**](https://www.apple.com/mac/) chips — we already have enough to run several checks, and even several CIs, in parallel.
+
+Rather than letting that power sit idle between two changes, Skalpai turns it into testing capacity.
+
+Several hypotheses can be put to the test without waiting in turn for each remote pipeline.
+
+With this approach, I have considerably increased my ability to test, deploy and observe what I build every day.
+
+I can try more, spot earlier what does not work and see the consequences of a change much faster.
+
+> The gain does not only come from a faster CI. It comes from the number of ideas and changes I can actually put to the test in a day.
+
+The same pipeline can then run on a remote CI node. What was checked locally does not need to be reinvented once the code is pushed.
+
+That does not make tests infallible. It simply removes a pointless difference between what the developer can check and what the platform will check later.
+
+So Skalpai does not try to reproduce the full generality of GitHub Actions, GitLab CI/CD, Jenkins or CircleCI.
+
+It takes a narrower position: offering a defined journey to developers who have to ship their applications themselves.
+
+## Publishing only what changed
+
+Once CI passes, the images still have to be built and published.
+
+Skalpai detects the services affected by the repository's changes. It builds their images, scans them before pushing and gives them an immutable identifier tied to the commit.
+
+The sequence is deliberately strict:
+
+> build → scan → publish
+
+An image with a blocking vulnerability never reaches the registry. Publishing from the wrong branch or from a Git tree with uncommitted changes is refused.
+
+This is not about adding one more security dashboard.
+
+It is about stopping the problem at the last moment when fixing it still costs almost nothing.
+
+## Deploying without losing the link to the code
+
+Services, their resources, volumes, routes and readiness conditions are described in the repository.
+
+Deployment therefore starts from a versioned state rather than a string of manual commands nobody fully remembers.
+
+Here Skalpai brings together several ideas found in Docker Compose, Kubernetes, Nomad and Argo CD: declaring the desired state, reconciliation and tying the deployment to a version of the code.
+
+Two ideas from Argo CD served us especially well. Reconciliation: the state described in the repository becomes the real state, with no manual command. And image watching, found in [**Argo CD Image Updater**](https://argocd-image-updater.readthedocs.io/): when a new version of an image is published, the service concerned updates itself.
+
+We did not try to reinvent these mechanisms. We took what proved most effective in each of these tools and assembled it into one common system, deployable in every kind of environment: a development machine, a CI node or a production server.
+
+But the target is different.
+
+Skalpai was not designed to run the thousands of machines of a large organisation. It was built so that a solo developer does not have to adopt a large company's operating model to run a few applications seriously.
+
+## One machine, several applications, all isolated
+
+Skalpai does not only bring continuity. It also changes the financial equation.
+
+To run a few applications seriously, you often choose between two extremes. On one side, a Kubernetes cluster, which in practice needs at least three nodes before it hosts the first application. On the other, a server with Docker Compose, easy to set up, but where applications share far too much to be properly separated.
+
+Skalpai takes another path. A single virtual machine can host several Spaces, and each Space is fully isolated from the others: its services, network, volumes and secrets belong to it alone.
+
+Several applications can therefore share the same machine without seeing each other, without getting in each other's way and without paying for three servers to get started.
+
+## A backup before redundancy
+
+Our priority is not to multiply machines.
+
+It is backups.
+
+A redundant machine protects against a server failing. It does not protect against deleted data, a failed migration or a mistake faithfully copied to every replica.
+
+> A good backup is worth more than any redundant machine.
+
+Because everything is described in the repository, a lost infrastructure is not one to rebuild by hand. We can redeploy everything onto a new machine overnight, then restore the backed-up data.
+
+## The real problem: knowing when things go wrong
+
+An outage is not the worst case.
+
+The worst case is the outage nobody notices.
+
+An application can stop responding, a message queue can fill up, a backup can fail silently. As long as nobody is alerted, the problem grows.
+
+That is why alerting is at the heart of Skalpai. Before trying to make everything infallible, you first need to know, at the right moment, that something is wrong.
+
+## Finding production from the terminal
+
+Deploying is never the end of the journey.
+
+An application can respond too slowly, drop a connection, receive unexpected data or hit a problem that existed in no test.
+
+Skalpai collects logs, metrics and traces in the [**OpenTelemetry**](https://opentelemetry.io/) format, links them to projects and lets you consult them from its interface or from the terminal.
+
+```
+sklp logs --severity ERROR --since 30m
+```
+
+The goal is not to reproduce every feature of Datadog, Grafana, New Relic or Sentry.
+
+It is to keep the thread.
+
+Which code produced this error? Which version was deployed? Which pipeline built it? Which services were involved? What happened around the incident?
+
+Observability no longer arrives after everything else as a separate world. It extends the journey that started in the repository.
+
+## Is Skalpai an alternative to Docker or Podman?
+
+Not directly.
+
+Docker and Podman are container engines. Skalpai uses OCI standards and its own rootless runtime built on runc.
+
+The difference lies in scope: Skalpai does not stop at running a container. It links that execution to development, CI, publishing, deployment and production data.
+
+So it is more an alternative to assembling Docker or Podman with several other services than to either engine on its own.
+
+## Is Skalpai an alternative to Kubernetes or Nomad?
+
+Skalpai covers part of the orchestration needs, but does not pursue the same goal.
+
+Kubernetes and Nomad are designed to organise workloads on infrastructure that can reach a very large scale.
+
+Skalpai focuses first on independent developers and small teams. It favours an understandable journey, a small number of concepts and continuity between the development machine and production.
+
+If your organisation runs hundreds of services across many clusters, Kubernetes is probably still the better fit.
+
+If you want to ship a few applications without becoming the administrator of a whole platform, Skalpai explores another path.
+
+## Does Skalpai replace GitHub Actions, GitLab CI, Jenkins or CircleCI?
+
+Skalpai can handle a project's CI and publishing, locally as well as on remote nodes.
+
+Its main difference, however, is not having a YAML pipeline. All these tools already do that.
+
+The difference lies in the link with the other steps: the pipeline involves the same services, the same dependencies and the same unit of isolation as development and deployment.
+
+Skalpai thus tries to reduce round trips with a remote CI, not just move those round trips to another interface.
+
+## Is Skalpai an alternative to Datadog, Grafana, New Relic or Sentry?
+
+Skalpai collects and presents observability data, notably logs, metrics and traces.
+
+It does not yet claim to match the functional depth of specialised platforms built over many years.
+
+Its intended advantage lies elsewhere: production data lives in the same system as pipelines, deployments, projects and their diagnostics.
+
+For a solo developer, quickly finding the context of an error can be worth more than a hundred configurable screens.
+
+## What Skalpai does not aim to become
+
+Skalpai does not want to be a universal tool able to reproduce every possible organisation.
+
+It does not replace a provisioning tool like [**Terraform**](https://developer.hashicorp.com/terraform). It does not aim to become a generic build system like [**Bazel**](https://bazel.build/). It does not replace the developer's coding assistant. Nor does it claim that a small infrastructure has the same needs as a global platform.
+
+Its stance is deliberate:
+
+> A solo developer or a small team should be able to develop, check, publish, deploy and understand their applications without assembling a whole platform before they start.
+
+## Time saved is not just execution time
+
+A faster CI saves a few minutes.
+
+A coherent chain above all saves hours of diagnosis, duplication and maintenance.
+
+The gain lies in the configuration that does not need rewriting. In the problem reproduced locally before a push. In the vulnerable image stopped before the registry. In the deployment tied to its commit. In the production error found without opening four interfaces.
+
+Skalpai is still under construction. Some ambitions need time, real usage and confrontations that our own practice will never replace.
+
+But the system already runs the Fabrique's applications. We use it to develop, test, publish, deploy them and understand their errors.
+
+We started building Skalpai to stop wasting our own time.
+
+Now it is time to see how much it can save others.

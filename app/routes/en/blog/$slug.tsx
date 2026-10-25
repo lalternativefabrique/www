@@ -1,4 +1,5 @@
-import { Link, createFileRoute, notFound } from '@tanstack/react-router'
+import { Link, createFileRoute, notFound, redirect } from '@tanstack/react-router'
+import { articlesDeplaces } from '@/content/redirections'
 import { Commentaires } from '@/components/Commentaires'
 import { Inscription } from '@/components/Inscription'
 import { LectureAudio } from '@/components/LectureAudio'
@@ -8,6 +9,8 @@ import { ORGANIZATION, SITE_URL, absoluteUrl, jsonLd, seo } from '@/lib/seo'
 export const Route = createFileRoute('/en/blog/$slug')({
   component: BlogArticleEn,
   loader: async ({ params }) => {
+    const deplace = articlesDeplaces[params.slug]
+    if (deplace) throw redirect({ to: '/en/blog/$slug', params: { slug: deplace }, statusCode: 301 })
     // Date, tool and reading time are not translated: loadArticle reads them
     // off the French entry so the two versions can never state different facts.
     const article = await loadArticle({

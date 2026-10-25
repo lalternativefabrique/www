@@ -1,0 +1,112 @@
+---
+slug: coulisses-04-lungor-suivre-le-chemin-de-l-argent
+titre: "Les coulisses, épisode 04 : Lungor, suivre le chemin de l'argent"
+chapeau: "Le premier paiement d'une application ouvre une série de questions : combien reste-t-il après les commissions ? Quel abonnement a été renouvelé ? Quelle facture faut-il produire ? Lungor est né pour rendre ces revenus lisibles. À terme, l'ambition est aussi de reprendre une partie du chemin parcouru par l'argent."
+metaDescription: "Commissions, abonnements, factures, versements : pourquoi la Fabrique a construit Lungor pour suivre le chemin de l'argent, et pourquoi encaisser elle-même viendra plus tard."
+organe: Financement
+outil: Lungor
+outilUrl: https://lungor.fr
+date: 2026-10-25
+lecture: 6 min
+---
+
+Lorsqu'une application commence à facturer, tout change.
+
+Il ne suffit plus de savoir combien de personnes l'utilisent. Il faut suivre les paiements, les abonnements, les renouvellements, les échecs, les remboursements, les factures et les versements réellement reçus.
+
+Un prix affiché à 5 € ne devient pas automatiquement 5 € sur le compte de l'entreprise.
+
+Entre les deux, plusieurs acteurs interviennent.
+
+## Derrière le bouton « Payer »
+
+Stripe est devenu l'un des acteurs majeurs du paiement en ligne.
+
+Son nom n'apparaît pas toujours au moment de l'achat. L'utilisateur voit le site ou l'application qu'il utilise, tandis que Stripe fournit en arrière-plan la page de paiement, la gestion de la carte, la lutte contre la fraude et le transfert de l'argent.
+
+L'intégration est rapide et le service évite de construire soi-même une infrastructure extrêmement sensible.
+
+Mais cette simplicité a un prix.
+
+En France, Stripe affiche actuellement une commission de 1,5 % + 0,25 € pour un paiement réalisé avec une carte standard de l'Espace économique européen ([tarifs officiels de Stripe](https://stripe.com/fr/pricing)).
+
+Cela représente environ :
+
+- 0,33 € sur un paiement de 5 €, soit 6,5 % ;
+- 0,55 € sur un paiement de 20 €, soit 2,75 % ;
+- 1,75 € sur un paiement de 100 €, soit 1,75 %.
+
+Le montant fixe pèse particulièrement lourd sur les petits abonnements.
+
+Ces commissions rémunèrent un service réel : sécurité, fraude, infrastructure, conformité et accès aux réseaux de paiement. Mais elles quittent aussi définitivement l'entreprise qui a créé et vendu le produit.
+
+## Et si une partie restait dans la Fabrique ?
+
+Le modèle de L'Alternative Fabrique repose sur une idée simple : les revenus d'une application contribuent à financer la suivante.
+
+Dans ce modèle, chaque fraction du paiement compte.
+
+Si une partie de la commission aujourd'hui versée à un intermédiaire pouvait être opérée par la Fabrique, elle pourrait rémunérer cette infrastructure puis contribuer aux futures applications.
+
+Tout ne disparaîtrait pas pour autant. Les réseaux de cartes, les banques, la lutte contre la fraude, la conformité et l'exploitation technique ont un coût.
+
+L'objectif n'est donc pas de transformer toute la commission en bénéfice.
+
+Il est de reprendre progressivement la part qui correspond au service que nous sommes capables d'assurer nous-mêmes.
+
+## Pourquoi ne pas encaisser directement aujourd'hui ?
+
+Parce qu'écrire du code ne suffit pas.
+
+Le paiement est une activité réglementée. Pour fournir directement certains services de paiement en France, il faut notamment obtenir un agrément, disposer du capital nécessaire et démontrer une gouvernance, un contrôle interne, une protection des fonds, une gestion des risques et un dispositif de lutte contre le blanchiment ([conditions présentées par l'ACPR](https://acpr.banque-france.fr/fr/professionnels/lacpr-vous-accompagne/banque/creer-ma-societe/mes-procedures/etablissement-de-paiement-et-prestataire-de-service-dinformation-sur-les-comptes)).
+
+Ce n'est pas encore à notre portée.
+
+L'horizon envisagé se situe entre 2028 et 2030. Ce n'est pas une date promise, mais une direction : avancer lorsque les revenus, les compétences et la structure permettront de franchir les étapes sérieusement.
+
+En attendant, les paiements continuent de passer par un prestataire agréé. Aujourd'hui, il s'agit de Mollie.
+
+Lungor ne détient ni les coordonnées bancaires ni l'identité de paiement des clients. Il construit la couche située autour du paiement.
+
+## Ce que Lungor fait aujourd'hui
+
+Lungor est le centre de pilotage financier des applications.
+
+Il rassemble :
+
+- les paiements et les versements réellement reçus ;
+- les abonnements actifs et leurs renouvellements ;
+- les relances et les échecs de paiement ;
+- les factures et la TVA ;
+- les revenus de chaque application ;
+- les coûts nécessaires à leur fonctionnement.
+
+Lungor permet de suivre le chemin complet : ce qui a été facturé, ce que le prestataire a prélevé, ce qui a été versé et ce qu'il reste réellement.
+
+Cette première étape est indispensable.
+
+Avant de reprendre une infrastructure de paiement, il faut comprendre précisément les flux qui la traversent.
+
+> On ne reprend pas le contrôle de l'argent que l'on ne sait pas suivre.
+
+## Une marche après l'autre
+
+Aujourd'hui, Lungor rend les revenus lisibles et orchestre des paiements opérés sous la licence d'un tiers.
+
+Demain, il pourra devenir agent d'un prestataire agréé, puis éventuellement porter son propre agrément simplifié ou complet.
+
+Chaque étape sera franchie uniquement lorsqu'elle coûtera moins que la dépendance qu'elle permet de supprimer.
+
+Le projet complet — les autorisations, les exigences et les coûts connus — est détaillé sur la page [Encaisser sans intermédiaire](/paiement).
+
+Skalpai avait donné aux applications un socle.
+
+Synthiz avait organisé leurs connaissances.
+
+Spore leur avait donné une voix.
+
+Lungor leur donne désormais une lecture commune de leurs revenus — avec l'ambition, à terme, de reprendre aussi la capacité d'encaisser.
+
+Il manquait encore un assistant capable de garder le fil pour ceux qui utilisent ces applications.
+
+Ce sera L'Alter.

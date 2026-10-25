@@ -1,4 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { Aider } from '@/components/Aider'
+import { Participants } from '@/components/Participants'
 import { applications, projetsEnCours } from '@/content/catalogue'
 import { seo } from '@/lib/seo'
 
@@ -13,43 +15,10 @@ export const Route = createFileRoute('/a-propos')({
     }),
 })
 
-const aides = [
-  {
-    titre: 'Utiliser',
-    detail:
-      "Essayez une application. Si elle vous sert, votre abonnement finance toutes les autres.",
-  },
-  {
-    titre: 'Partager',
-    detail:
-      "Parlez-en autour de vous. Aujourd'hui, c'est ce qui nous manque le plus : être connus.",
-  },
-  {
-    titre: 'Soutenir',
-    detail:
-      "Une contribution financière, même modeste, nous donne la visibilité qui nous manque pour avancer.",
-  },
-  {
-    titre: 'Proposer',
-    detail:
-      "Une idée de projet, un besoin que personne ne couvre : la suite s'écrit avec vous.",
-  },
-  {
-    titre: 'Participer',
-    detail:
-      "Marketing, communication, administratif, juridique, comptabilité, développement : vos compétences font avancer plus vite que tout le reste.",
-  },
-  {
-    titre: 'Encourager',
-    detail:
-      "Un message, un retour, un mot de soutien. Cela compte plus qu'on ne le croit.",
-  },
-]
 
 function AProposPage() {
-  const ouvertes = applications.filter(
-    (application) => application.statut !== 'Bientôt',
-  ).length
+  const disponibles = applications.filter((a) => a.statut === 'Disponible').length
+  const betas = applications.filter((a) => a.statut === 'Bêta').length
 
   return (
     <div>
@@ -58,9 +27,9 @@ function AProposPage() {
           <p className="label text-text/60">La démarche</p>
           <h1 className="display-xl mt-6">À propos</h1>
           <p className="chapeau mt-10 max-w-2xl">
-            Une organisation encore petite, qui prouve qu'on peut reprendre
-            ses moyens de produire en ligne, et qui ne demande qu'à être
-            aidée.
+            Une organisation encore petite, qui pose les premières bases
+            d'une indépendance numérique et cherche celles et ceux qui
+            construiront la suite.
           </p>
         </div>
       </section>
@@ -107,19 +76,19 @@ function AProposPage() {
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Ce que nous faisons</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            Reprendre ces moyens, un par un.
+            Brique par brique.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              Nous construisons les applications qui remplacent ces
-              services. {ouvertes} sont utilisables aujourd'hui, en accès
-              libre ou en bêta, et {projetsEnCours.length} projets sont en cours.
+              Nous construisons des applications qui remplacent ces
+              services. {disponibles + betas} sont utilisables aujourd'hui —{' '}
+              {disponibles} disponibles et {betas} en bêta — et{' '}
+              {projetsEnCours.length} projets sont en cours.
             </p>
             <p>
-              Grâce à une organisation commune, un seul financement fait
-              vivre toutes les applications. Le revenu de l'une finance les
-              autres : celles qui existent, les bêtas, celles qui sont
-              prévues et celles qui restent à imaginer.
+              Une organisation commune relie toutes les applications. Les
+              revenus de celles qui existent contribuent à financer celles en
+              bêta, celles à venir et celles qui restent à imaginer.
             </p>
             <p>
               Nous ne vous demandons pas d'adhérer à une promesse. Essayez
@@ -147,7 +116,7 @@ function AProposPage() {
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Notre ambition</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            Vous alléger les tâches numériques du quotidien.
+            Alléger votre quotidien numérique.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
@@ -156,10 +125,11 @@ function AProposPage() {
               l'inverse.
             </p>
             <p>
-              Nos applications sont faites pour accomplir une tâche, personnelle
-              ou professionnelle, puis vous laisser partir. Publier un post,
-              lire son courrier, retrouver une source, encaisser un paiement :
-              vite fait, et vous passez à autre chose.
+              Nos applications sont conçues pour accomplir une tâche,
+              personnelle ou professionnelle, puis vous laisser partir.
+              Publier un texte, lire son courrier, retrouver une source ou
+              encaisser un paiement : vous faites ce que vous avez à faire,
+              puis vous passez à autre chose.
             </p>
             <p>
               Ce que nous voulons vous rendre, c'est du temps. Pour votre
@@ -188,7 +158,7 @@ function AProposPage() {
               nous garantissons le fonctionnement dans la durée.
             </p>
             <p>
-              Concevoir nos logiciels et nos infrastructures, former nos
+              Concevoir nos logiciels et nos infrastructures, développer nos
               compétences, maîtriser nos technologies : cela crée de l'activité
               en France et en Europe, garde des savoir-faire ici et réduit nos
               dépendances.
@@ -201,14 +171,14 @@ function AProposPage() {
               d'investisseurs au capital.
             </p>
             <p>
-              Un actionnaire attend un rendement à court terme, sans rapport
-              avec l'utilité d'un produit ni les besoins de ceux qui s'en
-              servent. Nous préférons prendre nos décisions en fonction du
-              temps long et de la qualité de ce que nous livrons.
+              Faire entrer des investisseurs peut imposer un rythme et des
+              objectifs éloignés de l'utilité du produit. Nous faisons un autre
+              choix : grandir au rythme de nos revenus et décider en fonction
+              du temps long.
             </p>
             <p>
-              Les abonnements, l'usage de nos API, les dons et le financement
-              participatif soutiennent directement cette démarche.
+              Les abonnements, l'usage de nos API, les contributions et le
+              financement participatif soutiennent directement cette démarche.
             </p>
             <p>
               Un service numérique coûte : infrastructures, calcul, stockage,
@@ -220,21 +190,13 @@ function AProposPage() {
 
             <h3 className="font-heading mt-12 text-2xl">Pourquoi la rentabilité</h3>
             <p>
-              Nous cherchons la rentabilité parce qu'elle permet de rémunérer
-              le travail, d'investir, de constituer des réserves et de
-              développer de nouveaux produits.
-            </p>
-            <p>
-              Le capital accumulé ne sert pas à l'enrichissement personnel. Il
-              sert la capacité de l'entreprise à créer, à tenir et à maîtriser
-              progressivement ses moyens de production.
-            </p>
-            <p>
-              Nous voulons garder nos produits sur le long terme, sans avoir à
-              les céder pour grandir.
+              Les bénéfices servent à rémunérer le travail, renforcer
+              l'entreprise et financer de nouvelles applications. Ils nous
+              donnent les moyens de construire dans la durée sans devoir céder
+              nos produits pour grandir.
             </p>
 
-            <h3 className="font-heading mt-12 text-2xl">Ce que nous nous engageons à tenir</h3>
+            <h3 className="font-heading mt-12 text-2xl">Nos engagements</h3>
             <p>
               Une entreprise durable, capable de financer son développement et
               de maîtriser ses technologies, qui participe au renforcement des
@@ -256,45 +218,9 @@ function AProposPage() {
         </div>
       </section>
 
-      <section className="border-t-2 border-text bg-warm">
-        <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
-          <p className="label text-text/60">Comment nous aider</p>
-          <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
-            Imaginez avec votre aide.
-          </h2>
-          <p className="chapeau mt-8 max-w-2xl">
-            Nous sommes peu nombreux, et nous prouvons qu'on peut déjà faire
-            beaucoup. Notre seule fragilité est le manque de visibilité
-            financière : nous venons de poser la base. Aidez-nous à la
-            dépasser.
-          </p>
-          <div className="mt-14 grid grid-cols-1 gap-px bg-text sm:grid-cols-2 lg:grid-cols-3">
-            {aides.map((aide) => (
-              <div key={aide.titre} className="bg-bg p-8 sm:p-10">
-                <p className="font-heading text-2xl leading-tight">
-                  {aide.titre}
-                </p>
-                <p className="mt-4 text-base text-text/80">{aide.detail}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 flex flex-wrap gap-4">
-            <Link
-              to="/contact"
-              className="label inline-flex w-fit items-center gap-3 border-2 border-text bg-text px-6 py-3 text-bg hover:bg-accent-primary"
-            >
-              Proposer votre aide <span aria-hidden>→</span>
-            </Link>
-            <Link
-              to="/pot"
-              hash="participer"
-              className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-text pb-1 hover:opacity-70"
-            >
-              Contribuer financièrement <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Participants locale="fr" />
+
+      <Aider locale="fr" />
 
       <section className="bg-text text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">

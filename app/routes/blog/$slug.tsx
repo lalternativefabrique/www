@@ -1,4 +1,5 @@
-import { Link, createFileRoute, notFound } from '@tanstack/react-router'
+import { Link, createFileRoute, notFound, redirect } from '@tanstack/react-router'
+import { articlesDeplaces } from '@/content/redirections'
 import { Commentaires } from '@/components/Commentaires'
 import { Inscription } from '@/components/Inscription'
 import { LectureAudio } from '@/components/LectureAudio'
@@ -14,6 +15,8 @@ import {
 export const Route = createFileRoute('/blog/$slug')({
   component: BlogArticle,
   loader: async ({ params }) => {
+    const deplace = articlesDeplaces[params.slug]
+    if (deplace) throw redirect({ to: '/blog/$slug', params: { slug: deplace }, statusCode: 301 })
     const article = await loadArticle({
       data: { slug: params.slug, lang: 'fr' },
     })

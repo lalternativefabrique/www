@@ -1,4 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { Aider } from '@/components/Aider'
+import { Participants } from '@/components/Participants'
 import { applicationsEn, projetsEn } from '@/content/catalogue.en'
 import { seo } from '@/lib/seo'
 
@@ -15,43 +17,10 @@ export const Route = createFileRoute('/en/a-propos')({
     }),
 })
 
-const aides = [
-  {
-    titre: 'Use',
-    detail:
-      'Try an application. If it serves you, your subscription funds all the others.',
-  },
-  {
-    titre: 'Share',
-    detail:
-      'Tell people around you. Today, that is what we lack most: being known.',
-  },
-  {
-    titre: 'Support',
-    detail:
-      'A financial contribution, even a modest one, gives us the visibility we lack to move forward.',
-  },
-  {
-    titre: 'Propose',
-    detail:
-      'An idea for a project, a need nobody covers: what comes next is written with you.',
-  },
-  {
-    titre: 'Take part',
-    detail:
-      'Marketing, communication, administration, legal, accounting, development: your skills move things faster than anything else.',
-  },
-  {
-    titre: 'Encourage',
-    detail:
-      'A message, some feedback, a word of support. It counts more than one would think.',
-  },
-]
 
 function AProposPageEn() {
-  const ouvertes = applicationsEn.filter(
-    (application) => application.statut !== 'Bientôt',
-  ).length
+  const disponibles = applicationsEn.filter((a) => a.statut === 'Disponible').length
+  const betas = applicationsEn.filter((a) => a.statut === 'Bêta').length
 
   return (
     <div>
@@ -60,8 +29,9 @@ function AProposPageEn() {
           <p className="label text-text/60">The approach</p>
           <h1 className="display-xl mt-6">About</h1>
           <p className="chapeau mt-10 max-w-2xl">
-            A still small organisation, proving that we can take back our
-            means of producing online, and asking only to be helped.
+            A still small organisation, laying the first foundations of
+            digital independence and looking for the people who will build
+            what comes next.
           </p>
         </div>
       </section>
@@ -107,19 +77,19 @@ function AProposPageEn() {
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What we do</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            Take those means back, one by one.
+            Brick by brick.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
-              We build the applications that replace those services.{' '}
-              {ouvertes} are usable today, openly or in beta, and{' '}
-              {projetsEn.length} projects are under way.
+              We build applications that replace those services.{' '}
+              {disponibles + betas} are usable today — {disponibles} available
+              and {betas} in beta — and {projetsEn.length} projects are under
+              way.
             </p>
             <p>
-              Thanks to a shared organisation, a single stream of funding keeps
-              every application alive. The revenue of one funds the others:
-              those that exist, the betas, those planned and those still to be
-              imagined.
+              A shared organisation links every application. The revenue of
+              those that exist helps fund those in beta, those to come and
+              those still to be imagined.
             </p>
             <p>
               We do not ask you to buy into a promise. Try an application: if
@@ -147,7 +117,7 @@ function AProposPageEn() {
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Our ambition</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
-            Lighten your everyday digital tasks.
+            Lighten your digital everyday.
           </h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
@@ -155,9 +125,10 @@ function AProposPageEn() {
               notifications, counters. We do the opposite.
             </p>
             <p>
-              Our applications are built to get a task done, personal or
-              professional, then let you go. Publish a post, read your mail,
-              find a source, collect a payment: done quickly, and you move on.
+              Our applications are designed to get a task done, personal or
+              professional, then let you go. Publish a text, read your mail,
+              find a source or collect a payment: you do what you came to do,
+              then you move on.
             </p>
             <p>
               What we want to give you back is time. For your work, and for
@@ -184,7 +155,7 @@ function AProposPageEn() {
               with technologies we can keep running over time.
             </p>
             <p>
-              Designing our software and infrastructure, training our skills,
+              Designing our software and infrastructure, developing our skills,
               mastering our technologies: this creates activity in France and
               Europe, keeps know-how here and reduces our dependencies.
             </p>
@@ -196,12 +167,12 @@ function AProposPageEn() {
               company.
             </p>
             <p>
-              A shareholder expects short-term returns, unrelated to how useful
-              a product is or what its users need. We prefer to decide based on
-              the long run and the quality of what we ship.
+              Bringing in investors can impose a pace and goals far from what
+              makes a product useful. We make another choice: grow at the pace
+              of our revenue and decide with the long run in mind.
             </p>
             <p>
-              Subscriptions, API usage, donations and crowdfunding directly
+              Subscriptions, API usage, contributions and crowdfunding directly
               support this approach.
             </p>
             <p>
@@ -213,20 +184,12 @@ function AProposPageEn() {
 
             <h3 className="font-heading mt-12 text-2xl">Why profitability</h3>
             <p>
-              We seek profitability because it pays for the work, lets us
-              invest, build reserves and develop new products.
-            </p>
-            <p>
-              Accumulated capital is not for personal enrichment. It serves the
-              company's ability to create, to last and to progressively master
-              its means of production.
-            </p>
-            <p>
-              We want to keep our products for the long term, without having
-              to sell them in order to grow.
+              Profits pay for the work, strengthen the company and fund new
+              applications. They give us the means to build over time without
+              having to sell our products in order to grow.
             </p>
 
-            <h3 className="font-heading mt-12 text-2xl">What we commit to</h3>
+            <h3 className="font-heading mt-12 text-2xl">Our commitments</h3>
             <p>
               A lasting company, able to fund its development and master its
               technologies, that helps strengthen digital and industrial
@@ -247,44 +210,9 @@ function AProposPageEn() {
         </div>
       </section>
 
-      <section className="border-t-2 border-text bg-warm">
-        <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
-          <p className="label text-text/60">How to help us</p>
-          <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
-            Imagine it with your help.
-          </h2>
-          <p className="chapeau mt-8 max-w-2xl">
-            We are few, and we are proving that a lot can already be done. Our
-            one fragility is the lack of financial visibility: we have just
-            laid the base. Help us get past it.
-          </p>
-          <div className="mt-14 grid grid-cols-1 gap-px bg-text sm:grid-cols-2 lg:grid-cols-3">
-            {aides.map((aide) => (
-              <div key={aide.titre} className="bg-bg p-8 sm:p-10">
-                <p className="font-heading text-2xl leading-tight">
-                  {aide.titre}
-                </p>
-                <p className="mt-4 text-base text-text/80">{aide.detail}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 flex flex-wrap gap-4">
-            <Link
-              to="/en/contact"
-              className="label inline-flex w-fit items-center gap-3 border-2 border-text bg-text px-6 py-3 text-bg hover:bg-accent-primary"
-            >
-              Offer your help <span aria-hidden>→</span>
-            </Link>
-            <Link
-              to="/en/pot"
-              hash="chip-in"
-              className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-text pb-1 hover:opacity-70"
-            >
-              Contribute financially <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Participants locale="en" />
+
+      <Aider locale="en" />
 
       <section className="bg-text text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">

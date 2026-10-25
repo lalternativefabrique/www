@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { AppIcone } from '@/components/AppIcone'
+import { Aider } from '@/components/Aider'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
@@ -133,6 +134,12 @@ function LandingPageEn() {
           </Link>
         </div>
       </section>
+
+      <Aider
+        locale="en"
+        repere="And now"
+        titre="All this, with a handful of people. Imagine it with you."
+      />
 
       <Conviction />
 

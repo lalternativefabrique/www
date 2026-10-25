@@ -1,104 +1,107 @@
 ---
 slug: scan-avant-le-registre
-titre: "Six failles critiques, arrêtées avant le registre"
-chapeau: "Un déploiement ordinaire refusé trois fois de suite par son propre scanner. Ce que ces refus ont trouvé, et pourquoi le seul moment utile pour arrêter une image vulnérable est celui où elle n'existe pas encore ailleurs."
+titre: "Le jour où notre sécurité a refusé la mise en ligne"
+chapeau: "Une application était prête à être publiée. Un contrôle automatique a découvert plusieurs failles graves dans les composants qui l'accompagnaient. La mise en ligne a été bloquée, les composants corrigés ou supprimés, et personne n'a jamais été exposé. C'est précisément ainsi que notre sécurité doit fonctionner."
+metaDescription: "Une mise en ligne bloquée deux fois par un contrôle de sécurité, des failles corrigées avant publication, aucun utilisateur exposé : pourquoi vérifier avant de publier."
 organe: Technique
 outil: Skalpai
 outilUrl: https://skalpai.dev
 date: 2026-09-01
-lecture: 6 min
+dateRevision: 2026-10-25
+lecture: 5 min
 ---
 
-`scan failed — push aborted`.
+Une application ne contient pas seulement le code que nous écrivons.
 
-Trois mots pour dire qu'une image venait d'être construite, examinée, jugée, et qu'elle n'irait pas plus loin. Elle existait sur la machine de build. Elle n'a jamais atteint le registre.
+Pour fonctionner, elle embarque aussi un système, des bibliothèques et différents programmes dont elle dépend. L'ensemble est regroupé dans une sorte de colis prêt à être installé sur un serveur. Dans le vocabulaire technique, ce colis s'appelle une image de conteneur.
 
-C'était un service ordinaire, un jour ordinaire : une passerelle HTTP qui interroge un moteur de recherche, extrait le texte d'une page, la rend dans un navigateur sans affichage, et lit un article à voix haute. Rien d'exotique. Le genre de brique qu'on déploie sans y penser.
+Avant qu'une image puisse être utilisée, elle est placée dans un espace de stockage appelé registre.
 
-Il a fallu trois tentatives pour la publier. Voici ce que les deux refus ont trouvé.
+Chez nous, une étape obligatoire sépare les deux :
 
-## Le premier refus : une faille sans correctif
+> Construire → vérifier → publier
 
-```
-gstreamer1.0-plugins-bad  CVE-2025-3887  HIGH
-  Installed Version: 1.24.2-1ubuntu4
-  Fixed Version:
-```
+Si le contrôle découvre une faille grave, la publication s'arrête.
 
-La colonne `Fixed Version` est vide. Ce n'est pas un oubli de l'affichage : Ubuntu n'a publié aucun correctif. Un dépassement de tampon dans l'analyseur H265 de GStreamer, exploitable en exécution de code à distance, et rien à installer pour le refermer.
+C'est ce qui s'est produit ce jour-là.
 
-Le réflexe habituel, à ce stade, est l'exception. On ajoute la référence à une liste d'exclusions, on écrit une ligne de justification, le scan passe, on publie. La faille reste dans l'image, mais elle a désormais un dossier administratif.
+## Premier refus : un composant inutile et vulnérable
 
-Sauf qu'une question plus intéressante se posait : à quoi sert GStreamer dans ce service ?
+L'application concernée remplissait plusieurs tâches simples : chercher une page, en extraire le texte et permettre de la lire ou de l'écouter.
 
-GStreamer, c'est le décodage vidéo du navigateur. Or ce service rend du HTML pour en extraire du texte. Il ne lit aucune vidéo, jamais. La dépendance était là parce qu'elle vient avec l'image de base — pas parce que quoi que ce soit l'utilise.
+Avant sa publication, le contrôle de sécurité a détecté une faille grave dans GStreamer, un composant utilisé pour décoder des contenus vidéo.
 
-```dockerfile
-RUN apt-get remove -y --purge \
-      gstreamer1.0-plugins-bad \
-      libgstreamer-plugins-bad1.0-0 \
-    && apt-get autoremove -y
-```
+Aucun correctif n'était encore disponible.
 
-Le navigateur démarre toujours, rend toujours les pages. La faille, elle, n'est plus là — pas ignorée, retirée.
+La solution la plus rapide aurait été d'autoriser exceptionnellement la publication. La faille aurait été connue et documentée, mais elle serait restée présente.
 
-> Une exception documente une vulnérabilité. Une suppression l'élimine. Ce ne sont pas deux degrés d'une même réponse.
+Nous avons préféré poser une autre question :
 
-## Le deuxième refus : nos propres dépendances
+> Pourquoi cette application contient-elle un décodeur vidéo alors qu'elle ne lit aucune vidéo ?
 
-Image reconstruite, GStreamer parti. Nouveau scan, nouveau refus. Cette fois les failles ne venaient plus du système, mais du binaire lui-même :
+GStreamer était fourni automatiquement avec le navigateur utilisé par l'application. Il n'était pas nécessaire à son fonctionnement.
 
-| Bibliothèque | Faille | Corrigé dans |
-|---|---|---|
-| `golang.org/x/net` | exécution de code via XSS (html) | 0.55.0 |
-| `golang.org/x/net` | contournement d'analyse HTML | 0.55.0 |
-| `golang.org/x/net` | déni de service HTTP/2 | 0.53.0 |
-| `golang.org/x/net` | élévation de privilèges (punycode) | 0.55.0 |
-| `golang.org/x/net` | déni de service DNS | 0.56.0 |
-| `golang.org/x/text` | déni de service sur UTF-8 invalide | 0.39.0 |
+Nous l'avons supprimé.
 
-Six failles classées HIGH. Aucune n'apparaissait dans le code du service : ce sont des dépendances indirectes, tirées par une bibliothèque d'extraction de texte, elle-même tirée par une bibliothèque de recherche. Personne ne les avait choisies. Personne ne les avait vues.
+L'application continuait de fonctionner normalement. La faille n'avait pas été masquée ni acceptée : le composant qui la contenait avait disparu.
 
-Et toutes avaient un correctif publié.
+## Deuxième refus : des failles cachées dans les dépendances
 
-```
-go get golang.org/x/net@v0.56.0 golang.org/x/text@v0.39.0
-```
+Une nouvelle version de l'application a été construite.
 
-Deux commandes. `Total: 0 (HIGH: 0, CRITICAL: 0)`. L'image est partie au registre.
+Le contrôle l'a de nouveau refusée.
 
-C'est l'asymétrie qui frappe. Ces six failles traînaient depuis des semaines dans un arbre de dépendances que personne ne lit — et leur correction a pris trente secondes. Ce qui manquait n'était ni la compétence, ni l'outil, ni le correctif. C'était le moment où quelqu'un regarde.
+Cette fois, il avait trouvé six failles graves dans des bibliothèques utilisées indirectement par l'application.
 
-## Pourquoi l'ordre des étapes décide de tout
+Nous ne les avions pas ajoutées nous-mêmes. Une bibliothèque en utilisait une autre, qui en utilisait encore une autre. C'est ainsi qu'un projet peut embarquer des composants dont personne ne connaît spontanément la présence.
 
-Un scanner de vulnérabilités n'a rien de rare. La plupart des chaînes de livraison en ont un. La différence tient à un détail qui n'en est pas un : **où il se trouve dans la séquence**.
+Les correctifs existaient déjà.
 
-```
-construire  →  scanner  →  publier
-```
+Une mise à jour a suffi à remplacer les versions vulnérables. Quelques minutes plus tard, une troisième image a été construite et contrôlée.
 
-Le scan est entre les deux, et il est bloquant. Une image jugée vulnérable n'atteint pas le registre — pas d'avertissement, pas de rapport à traiter plus tard, pas de tableau de bord qui s'allume en rouge. Elle n'existe simplement nulle part où quelqu'un pourrait la déployer.
+Elle ne contenait plus aucune faille classée grave ou critique.
 
-L'arrangement courant est l'inverse : on publie, puis on scanne ce qui est publié. Le rapport arrive après. Il rejoint une file d'attente. Pendant ce temps l'image est disponible, référencée, parfois déjà en production. Le correctif devient une opération de rattrapage — avec sa fenêtre d'exposition, sa coordination, son urgence.
+La publication a été autorisée.
 
-> Une image qui n'a jamais été poussée ne demande ni rollback, ni communication, ni fenêtre de maintenance. Elle demande un `apt-get remove` et deux `go get`.
+## Pourquoi la vérification doit avoir lieu avant
 
-Ce n'est pas une question de sévérité de l'outil. C'est une question d'endroit où le coût atterrit. Avant le registre, une faille coûte quelques minutes à un développeur qui a encore le contexte en tête. Après, elle coûte un incident.
+Le contrôle de sécurité n'est pas exceptionnel. Beaucoup d'entreprises analysent leurs applications.
 
-## Ce qui rend le refus supportable
+Ce qui change tout, c'est le moment auquel cette analyse intervient.
 
-Un scan bloquant n'est acceptable que si l'on peut agir. Trois conditions le rendent vivable.
+Si l'application est publiée avant d'être contrôlée, la version vulnérable devient disponible. Elle peut être installée, copiée ou déjà utilisée en production lorsque l'alerte arrive.
 
-- **Un seuil explicite.** Ici, HIGH et CRITICAL. Les niveaux inférieurs sont signalés, pas bloquants. Un scanner qui refuse tout est un scanner qu'on désactive au bout d'une semaine.
-- **Un correctif ou une porte de sortie.** Sur les huit failles rencontrées, six se corrigeaient par une mise à jour et deux par une suppression. Le blocage n'était jamais une impasse — il était une question à laquelle on pouvait répondre.
-- **Un étiquetage immuable.** Chaque image porte un tag date-empreinte, jamais `latest`. Une image scannée est une image identifiée : ce qui a été examiné est exactement ce qui tourne.
+Il faut alors organiser une correction, remplacer la version et vérifier où elle a été déployée. Une simple mise à jour devient une intervention urgente.
 
-Ces trois conditions manquantes, le blocage devient une nuisance qu'on contourne. Réunies, il devient ce qu'il doit être : le dernier endroit où une erreur coûte encore peu.
+Dans notre cas, la version vulnérable n'a jamais quitté la machine qui l'avait construite.
 
-## Ce que le troisième essai a réellement produit
+Elle n'a pas été publiée. Elle n'a pas été installée. Aucun utilisateur n'y a été exposé.
 
-L'image publiée ce jour-là ne contenait ni le décodeur vidéo dont le service n'avait pas l'usage, ni les six failles de ses dépendances indirectes. Elle n'a demandé aucun correctif d'urgence, aucun rollback, aucune note d'incident.
+La correction n'a donc demandé ni interruption du service, ni retour en arrière, ni communication de crise.
 
-Il ne s'est rien passé. C'est exactement le résultat recherché.
+## Bloquer seulement lorsque cela compte
 
-La sécurité d'une chaîne de livraison ne se mesure pas aux vulnérabilités qu'elle signale. Elle se mesure à celles qui n'ont jamais atteint un endroit d'où il aurait fallu les retirer.
+Un contrôle qui bloque constamment la publication finit par être contourné ou désactivé.
+
+Le nôtre applique donc une règle simple :
+
+- les failles graves et critiques bloquent la publication ;
+- les niveaux inférieurs sont signalés sans tout arrêter ;
+- chaque refus doit donner une information permettant d'agir ;
+- la version contrôlée doit être exactement celle qui sera publiée.
+
+Le contrôle n'est pas là pour produire un rapport supplémentaire.
+
+Il est là pour empêcher une version dangereuse d'aller plus loin.
+
+## Le meilleur incident est celui qui n'a jamais commencé
+
+Ce jour-là, aucune attaque n'a eu lieu. Aucun service n'est tombé. Aucun utilisateur n'a remarqué quoi que ce soit.
+
+Une application a simplement été refusée deux fois, corrigée, puis publiée proprement à la troisième tentative.
+
+Il ne s'est rien passé.
+
+C'était exactement le résultat recherché.
+
+> La sécurité ne se mesure pas seulement aux failles détectées. Elle se mesure surtout à celles qui n'ont jamais atteint les utilisateurs.

@@ -72,7 +72,7 @@ function OutilsPage() {
             to="/projets"
             className="label mt-8 inline-flex w-fit items-center gap-2 text-accent-primary hover:underline"
           >
-            Ce que votre usage finance <span aria-hidden>→</span>
+            Les projets que votre usage finance <span aria-hidden>→</span>
           </Link>
         </div>
       </section>

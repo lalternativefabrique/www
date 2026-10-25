@@ -11,7 +11,3 @@ export const utilise: Record<string, ReadonlyArray<string>> = {
   Nakoda: ['Skalpai', 'Spore'],
   ark: ["L'Alter"],
 }
-
-export function utilisateursDe(nom: string): ReadonlyArray<string> {
-  return Object.keys(utilise).filter((app) => utilise[app].includes(nom))
-}

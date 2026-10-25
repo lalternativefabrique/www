@@ -43,6 +43,19 @@ export const applicationsEn: Application[] = [
     accent: 'paper',
   },
   {
+    name: "L'Alter",
+    icone: '/images/apps/lalter.png',
+    pilier: 'Connaissance',
+    statut: 'Bêta',
+    url: 'https://lalter.fr',
+    resume: 'An assistant at your service.',
+    tagline: 'An assistant that keeps track for you.',
+    detail:
+      'It keeps what you entrust to it, searches the web, reminds you of what needs reminding. On the web, on desktop and on mobile. It is an assistant, not an oracle: it can be wrong, and its answers are meant to be checked.',
+    pour: 'Anyone who wants to delegate without handing their life to a large platform',
+    accent: 'secondary',
+  },
+  {
     name: 'Partage',
     icone: '/images/apps/partage.png',
     pilier: 'Communication',
@@ -67,19 +80,6 @@ export const applicationsEn: Application[] = [
       'Mail, calendar and contacts in one application, on desktop and mobile. Remote images stay blocked until you allow them: opening a message does not tell its sender.',
     pour: 'Anyone who wants to read their mail without being tracked',
     accent: 'paper',
-  },
-  {
-    name: "L'Alter",
-    icone: '/images/apps/lalter.png',
-    pilier: 'Connaissance',
-    statut: 'Bêta',
-    url: 'https://lalter.fr',
-    resume: 'An assistant at your service.',
-    tagline: 'An assistant that keeps track for you.',
-    detail:
-      'It keeps what you entrust to it, searches the web, reminds you of what needs reminding. On the web, on desktop and on mobile. It is an assistant, not an oracle: it can be wrong, and its answers are meant to be checked.',
-    pour: 'Anyone who wants to delegate without handing their life to a large platform',
-    accent: 'secondary',
   },
   {
     name: 'Orbit',
@@ -144,6 +144,17 @@ export const applicationsEn: Application[] = [
     detail:
       'Visits, sign-ups and user feedback, gathered per application. Bug reports go straight to Skalpai. The applications on this page are measured with it.',
     pour: 'Software publishers and small teams',
+    accent: 'paper',
+  },
+  {
+    name: 'Tornad',
+    pilier: 'Connaissance',
+    statut: 'Bientôt',
+    resume: 'Our search engine.',
+    tagline: 'Search the Web without being the target.',
+    detail:
+      "An independent search engine, to find information without your searches being used to profile you. It will also power search in L'Alter and Messag.",
+    pour: 'Everyone',
     accent: 'paper',
   },
   {

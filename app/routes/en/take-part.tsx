@@ -10,7 +10,7 @@ export const Route = createFileRoute('/en/take-part')({
     seo({
       title: "Take part — L'Alternative Fabrique",
       description:
-        'A shared organisation you enter by what you can give: money to cover our financial needs, or your trade to hold a function.',
+        "Contribute to L'Alternative Fabrique: financially, to cover the published costs of the applications, or through occasional advice and expertise, freely chosen.",
       path: '/en/take-part',
       alternate: { fr: '/participer', en: '/en/take-part' },
     }),

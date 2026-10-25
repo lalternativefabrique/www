@@ -7,15 +7,15 @@ const textes = {
     titre1: 'Ce qui manque,',
     titre2: 'construisons-le ensemble.',
     intro: [
-      "Cinq applications tournent aujourd'hui : Synthiz, Partage, Spore, Messag et Lungor. Leur suivi est outillé. Nakoda recueille vos retours et mesure l'usage de toute la suite. Skalpai transforme chaque bug en ticket, teste, publie et déploie. Un retour envoyé depuis n'importe quelle application arrive au bon endroit, et un correctif atteint la production sans étape manuelle.",
-      "Le code, nous savons faire. Le reste, non. La comptabilité, le droit, la sécurité à prouver, la communication : ce sont des métiers, et nous avons besoin de ceux qui les exercent.",
-      "Nous avons écarté la levée de fonds. Reste une voie plus lente et plus solide : une organisation partagée, où l'on entre par ce que l'on peut donner.",
+      'Plusieurs applications fonctionnent déjà. Elles reposent sur une base technique commune qui nous permet de recueillir les retours, de corriger les problèmes et de publier rapidement les améliorations.',
+      "Mais une entreprise ne se construit pas seulement avec du code. Comptabilité, droit, sécurité, communication : ce sont des métiers que nous ne voulons pas improviser. Nous avons besoin de celles et ceux qui les connaissent.",
+      "Nous avons choisi de ne pas lever de fonds. Nous avançons autrement : grâce aux revenus des applications, aux contributions financières et aux compétences que chacun peut ponctuellement apporter.",
     ],
     argent: {
-      label: "Donner de l'argent",
+      label: 'Contribuer financièrement',
       titre: 'Nos besoins financiers',
       texte:
-        "Ce que coûtent les applications est publié chaque mois, chiffre par chiffre, depuis Lungor. Une contribution couvre d'abord ces dépenses ; au-delà, elle finance les fonctions ci-dessous, dans l'ordre où elles sont nécessaires. Vous saurez à quoi elle a servi.",
+        "Les dépenses liées aux applications sont publiées chaque mois, chiffre par chiffre, dans Lungor. Les contributions servent d'abord à couvrir ces coûts. Au-delà, elles nous permettent de faire appel aux compétences dont le projet a besoin. Leur utilisation reste visible.",
       couts: { to: '/couts', label: 'Ce que coûtent nos applications' },
       action: { to: '/pot', hash: 'participer', label: 'Contribuer' },
     },
@@ -23,14 +23,16 @@ const textes = {
       label: 'Donner ce que vous savez',
       titre: 'Nos besoins en compétences',
       texte:
-        "Vous tenez une comptabilité, vous lisez des contrats, vous connaissez le RGPD ou les référentiels de sécurité, vous savez écrire ou expliquer. Une heure de votre métier vaut parfois plus qu'une semaine du nôtre. Nous cherchons des gens qui prennent une fonction, pas des mains de plus sur le code.",
+        "Vous savez tenir une comptabilité, lire un contrat, appliquer le RGPD, documenter une démarche de sécurité, écrire ou expliquer. Une heure d'expertise peut nous éviter des semaines d'erreurs. Nous cherchons des personnes capables d'éclairer un domaine et d'en prendre progressivement la responsabilité — pas simplement des mains supplémentaires pour écrire du code.",
       colonnes: ['Fonction', "Ce qu'elle couvre", 'Ce que nous attendons'],
-      action: { to: '/contact', label: 'Rejoindre' },
+      action: { to: '/contact', label: 'Proposer ma contribution' },
     },
     limites: {
       titre: 'Où nous allons',
-      texte:
-        "Nous ne pouvons pas encore payer ces fonctions. Les revenus des applications doivent d'abord couvrir les coûts, puis permettre d'embaucher. Le but est une entreprise qui salarie les gens qui la font tourner. Aujourd'hui nous vous demandons du temps ; demain nous voulons pouvoir vous proposer un poste.",
+      texte: [
+        'Nous ne pouvons pas encore créer ces postes. Pour le moment, nous recherchons des conseils, des regards extérieurs et des contributions ponctuelles, librement choisies.',
+        'Notre objectif est que les revenus des applications nous permettent progressivement de transformer ces besoins en emplois rémunérés. Une entreprise durable doit pouvoir payer celles et ceux qui la font vivre.',
+      ],
     },
   },
   en: {
@@ -38,15 +40,15 @@ const textes = {
     titre1: "What's missing,",
     titre2: "let's build it together.",
     intro: [
-      'Five applications run today: Synthiz, Partage, Spore, Messag and Lungor. Their upkeep is tooled. Nakoda collects your feedback and measures usage across the suite. Skalpai turns every bug into a ticket, tests, publishes and deploys. A report sent from any application lands in the right place, and a fix reaches production without a manual step.',
-      'Code, we know how to do. The rest, we do not. Accounting, law, security we can prove, communication: these are trades, and we need the people who practise them.',
-      'We ruled out raising funds. What remains is a slower, sturdier path: a shared organisation, which you enter by what you can give.',
+      'Several applications already run. They rest on a shared technical base that lets us collect feedback, fix problems and ship improvements quickly.',
+      'But a company is not built with code alone. Accounting, law, security, communication: these are trades we do not want to improvise. We need the people who know them.',
+      'We chose not to raise funds. We move forward another way: through the revenue of the applications, financial contributions and the skills anyone can bring from time to time.',
     ],
     argent: {
-      label: 'Give money',
+      label: 'Contribute financially',
       titre: 'Our financial needs',
       texte:
-        'What the applications cost is published every month, figure by figure, straight from Lungor. A contribution covers those expenses first; beyond that, it funds the functions below, in the order they are needed. You will know what it was used for.',
+        'The costs of the applications are published every month, figure by figure, in Lungor. Contributions first cover those costs. Beyond that, they let us call on the skills the project needs. How they are used stays visible.',
       couts: { to: '/en/costs', label: 'What our apps cost' },
       action: { to: '/en/pot', hash: 'chip-in', label: 'Contribute' },
     },
@@ -54,14 +56,16 @@ const textes = {
       label: 'Give what you know',
       titre: 'Our need for skills',
       texte:
-        'You keep books, you read contracts, you know the GDPR or security frameworks, you can write or explain. An hour of your trade is sometimes worth a week of ours. We are looking for people who take on a function, not more hands on the code.',
+        'You can keep books, read a contract, apply the GDPR, document a security approach, write or explain. An hour of expertise can save us weeks of mistakes. We are looking for people able to shed light on a field and gradually take responsibility for it — not just extra hands to write code.',
       colonnes: ['Function', 'What it covers', 'What we expect'],
-      action: { to: '/en/contact', label: 'Join' },
+      action: { to: '/en/contact', label: 'Offer my contribution' },
     },
     limites: {
       titre: 'Where we are going',
-      texte:
-        'We cannot pay for these functions yet. The revenue of the applications must first cover the costs, then allow us to hire. The goal is a company that employs the people who keep it running. Today we ask for your time; tomorrow we want to be able to offer you a job.',
+      texte: [
+        'We cannot create these positions yet. For now, we are looking for advice, outside perspectives and occasional contributions, freely chosen.',
+        'Our goal is for the revenue of the applications to gradually let us turn these needs into paid jobs. A lasting company must be able to pay the people who keep it alive.',
+      ],
     },
   },
 } as const
@@ -158,7 +162,11 @@ export function ParticiperPage({ besoins, lang }: { besoins: Besoin[] | null; la
       <section className="border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <h2 className="font-heading text-3xl leading-tight">{t.limites.titre}</h2>
-          <p className="chapeau mt-6 text-text/80">{t.limites.texte}</p>
+          {t.limites.texte.map((p) => (
+            <p key={p} className="chapeau mt-6 text-text/80">
+              {p}
+            </p>
+          ))}
         </div>
       </section>
     </div>

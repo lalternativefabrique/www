@@ -5,14 +5,14 @@ import { applications, type Pilier } from '@/content/catalogue'
 import { histoire } from '@/content/histoire'
 import { seo } from '@/lib/seo'
 
-export const Route = createFileRoute('/histoire')({
+export const Route = createFileRoute('/coulisses')({
   component: HistoirePage,
   head: () =>
     seo({
-      title: "Le carnet de la Fabrique — L'Alternative Fabrique",
+      title: "Les coulisses — L'Alternative Fabrique",
       description:
         "Comment la Fabrique a construit ses applications, une par une, depuis janvier 2026 : pourquoi Synthiz d'abord, puis Skalpai, Spore, Lungor, Partage, Messag, L'Alter, Nakoda et Orbit.",
-      path: '/histoire',
+      path: '/coulisses',
     }),
 })
 
@@ -42,20 +42,31 @@ function HistoirePage() {
   const maintenant = useMaintenant()
   const [choisie, setChoisie] = useState(histoire[0].app)
   const debut = new Date(histoire[0].date)
-  const fin = maintenant ?? new Date(histoire[histoire.length - 1].date)
+  const derniere = Math.max(...histoire.map((e) => new Date(e.date).getTime()))
+  const fin = new Date(derniere + 10 * JOUR)
   const origine = debut.getTime() - MARGE_AVANT
   const etendue = fin.getTime() + MARGE_APRES - origine
   const x = (date: Date) => ((date.getTime() - origine) / etendue) * 100
   const moisEcoules = Math.max(1, Math.round((fin.getTime() - debut.getTime()) / (JOUR * 30.4)))
+  const LARGEUR_CASE = 16
   const decalages = new Map<string, number>()
-  const dernierParPiste = new Map<string, { date: number; rang: number }>()
+  const occupation = new Map<string, Array<Array<[number, number]>>>()
   for (const e of histoire) {
     const pilier = applications.find((a) => a.name === e.app)?.pilier ?? 'Technique'
-    const date = new Date(e.date).getTime()
-    const avant = dernierParPiste.get(pilier)
-    const rang = avant && date - avant.date < 45 * JOUR ? (avant.rang + 1) % 2 : 0
+    const position = x(new Date(e.date))
+    const intervalle: [number, number] =
+      position > 70 ? [position - LARGEUR_CASE, position] : [position, position + LARGEUR_CASE]
+    const rangees = occupation.get(pilier) ?? []
+    let rang = rangees.findIndex((rangee) =>
+      rangee.every(([debutCase, finCase]) => intervalle[1] <= debutCase || intervalle[0] >= finCase),
+    )
+    if (rang === -1) {
+      rang = rangees.length
+      rangees.push([])
+    }
+    rangees[rang].push(intervalle)
+    occupation.set(pilier, rangees)
     decalages.set(e.app, rang)
-    dernierParPiste.set(pilier, { date, rang })
   }
   const commits = histoire.reduce((total, etape) => total + (etape.commits ?? 0), 0)
   const graduations: Date[] = []
@@ -69,11 +80,11 @@ function HistoirePage() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 pb-28 sm:px-6">
       <section className="border-b-[3px] border-text pb-14 pt-16 sm:pt-20">
-        <p className="label text-accent-primary">L'histoire</p>
+        <p className="label text-accent-primary">Les coulisses</p>
         <h1 className="display-xl mt-6">
-          Le carnet de
+          Les coulisses
           <br />
-          la Fabrique<span className="text-accent-primary">.</span>
+          de la Fabrique<span className="text-accent-primary">.</span>
         </h1>
         <p className="chapeau mt-8 max-w-2xl">
           Chaque application est née d'un manque. Voici dans quel ordre, et
@@ -137,7 +148,7 @@ function HistoirePage() {
                   style={{ left: `${x(d)}%` }}
                 />
               ))}
-              {maintenant ? (
+              {maintenant && x(maintenant) <= 100 ? (
                 <>
                   <span
                     aria-hidden
@@ -171,7 +182,6 @@ function HistoirePage() {
                       borderColor: pistes[Math.max(0, piste)].couleur,
                     }}
                   >
-                    <span aria-hidden className={`absolute top-full h-2 w-[2px] bg-current ${versLaFin ? '-right-[2px]' : '-left-[2px]'}`} />
                     {app?.icone ? <img src={app.icone} alt="" className="size-6 rounded-md" /> : null}
                     {e.app}
                   </button>

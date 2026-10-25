@@ -46,6 +46,19 @@ export const applications: Application[] = [
     accent: 'paper',
   },
   {
+    name: "L'Alter",
+    icone: '/images/apps/lalter.png',
+    pilier: 'Connaissance',
+    statut: 'Bêta',
+    url: 'https://lalter.fr',
+    resume: 'Un assistant à votre service.',
+    tagline: 'Un assistant qui garde le fil pour vous.',
+    detail:
+      "Il garde en mémoire ce que vous lui confiez, cherche sur le web, vous rappelle ce qui doit l'être. Sur le web, sur ordinateur et sur mobile. C'est un assistant, pas un oracle : il peut se tromper, et ses réponses se vérifient.",
+    pour: 'Toute personne qui veut déléguer sans confier sa vie à une grande plateforme',
+    accent: 'secondary',
+  },
+  {
     name: 'Partage',
     icone: '/images/apps/partage.png',
     pilier: 'Communication',
@@ -70,19 +83,6 @@ export const applications: Application[] = [
       "Mail, agenda et contacts dans une seule application, sur ordinateur et sur mobile. Les images distantes restent bloquées tant que vous ne les autorisez pas : ouvrir un message ne prévient pas son expéditeur.",
     pour: 'Toute personne qui veut lire son courrier sans être suivie',
     accent: 'paper',
-  },
-  {
-    name: "L'Alter",
-    icone: '/images/apps/lalter.png',
-    pilier: 'Connaissance',
-    statut: 'Bêta',
-    url: 'https://lalter.fr',
-    resume: 'Un assistant à votre service.',
-    tagline: 'Un assistant qui garde le fil pour vous.',
-    detail:
-      "Il garde en mémoire ce que vous lui confiez, cherche sur le web, vous rappelle ce qui doit l'être. Sur le web, sur ordinateur et sur mobile. C'est un assistant, pas un oracle : il peut se tromper, et ses réponses se vérifient.",
-    pour: 'Toute personne qui veut déléguer sans confier sa vie à une grande plateforme',
-    accent: 'secondary',
   },
   {
     name: 'Orbit',
@@ -147,6 +147,17 @@ export const applications: Application[] = [
     detail:
       "Visites, inscriptions et retours des utilisateurs, réunis par application. Les signalements de bugs partent directement vers Skalpai. Les applications de cette page s'y mesurent.",
     pour: 'Éditeurs de logiciels et petites équipes',
+    accent: 'paper',
+  },
+  {
+    name: 'Tornad',
+    pilier: 'Connaissance',
+    statut: 'Bientôt',
+    resume: 'Notre moteur de recherche.',
+    tagline: 'Chercher sur le Web sans être la cible.',
+    detail:
+      "Un moteur de recherche indépendant, pour trouver une information sans que votre recherche serve à vous profiler. Il alimentera aussi la recherche de L'Alter et de Messag.",
+    pour: 'Tout le monde',
     accent: 'paper',
   },
   {
