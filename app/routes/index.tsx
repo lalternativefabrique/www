@@ -187,12 +187,13 @@ function LandingPage() {
       <section className="mt-24 grid gap-8 border-y border-text border-t-[3px] py-12 sm:mt-28 md:grid-cols-2">
         <div>
           <p className="label">§ 04 — Les idées</p>
-          <h2 className="display-lg mt-5">La suite est ouverte.</h2>
+          <h2 className="display-lg mt-5">Quel outil vous manque ?</h2>
         </div>
         <div className="flex flex-col justify-end gap-6">
           <p className="chapeau">
-            Ce qui vient après n'est pas écrit. Un outil qui vous manque, une
-            dépendance qui vous pèse : proposez-le.
+            Nos prochaines applications viennent aussi de vous. Un outil qui
+            vous manque, une dépendance qui vous pèse : proposez-le, nous
+            l'étudions.
           </p>
           <Link
             to="/projets"

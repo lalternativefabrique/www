@@ -173,12 +173,13 @@ function LandingPageEn() {
           <div className="grid gap-10 sm:grid-cols-12">
             <div className="sm:col-span-6">
               <p className="label text-text/60">05 — The ideas</p>
-              <h2 className="display-lg mt-6">What comes next is open.</h2>
+              <h2 className="display-lg mt-6">What tool are you missing?</h2>
             </div>
             <div className="flex flex-col justify-end sm:col-span-6">
               <p className="chapeau">
-                What comes after is not written. A means you lack, a
-                dependency that costs you: propose it.
+                Our next applications come from you too. A tool you lack, a
+                dependency that weighs on you: propose it and we will look
+                into it.
               </p>
               <Link
                 to="/en/projets"
