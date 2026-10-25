@@ -25,7 +25,7 @@ export const applications: Application[] = [
     statut: 'Disponible',
     url: 'https://synthiz.com',
     resume: 'Retrouver et relier ses sources.',
-    tagline: 'Votre mémoire de travail, alimentée par vos sources.',
+    tagline: 'Retrouvez ce que vous avez appris.',
     detail:
       "Transcrivez vidéos, podcasts et documents, puis retrouvez, reliez et synthétisez ce que vous avez accumulé. Vos notes et vos sources restent les vôtres.",
     pour: 'Créateurs, chercheurs, consultants, veilleurs',
@@ -39,7 +39,7 @@ export const applications: Application[] = [
     statut: 'Disponible',
     url: 'https://sporee.fr',
     resume: 'Envoyer ses emails depuis une infrastructure indépendante.',
-    tagline: 'Vos emails partent de votre infrastructure.',
+    tagline: 'Vos e-mails sur une infrastructure maîtrisée.',
     detail:
       "Rattachez vos domaines, générez vos identités DKIM, publiez vos enregistrements DNS et envoyez. L'infrastructure SMTP nous appartient — vous ne louez pas une couche posée sur celle d'un autre.",
     pour: 'Équipes techniques qui envoient des emails transactionnels',
@@ -52,7 +52,7 @@ export const applications: Application[] = [
     statut: 'Disponible',
     url: 'https://partagg.fr',
     resume: 'Écrire un post une fois, le publier sur chaque réseau.',
-    tagline: 'Un brouillon, plusieurs réseaux, une date.',
+    tagline: 'Un brouillon, trois réseaux.',
     detail:
       "Rédigez un texte, adaptez-le au ton de chaque réseau selon un profil d'écriture que vous réglez, puis programmez sa sortie. Publie sur LinkedIn, Bluesky et Dev.to.",
     pour: 'Indépendants et petites équipes qui publient régulièrement',
@@ -65,7 +65,7 @@ export const applications: Application[] = [
     statut: 'Bientôt',
     url: 'https://messag.eco',
     resume: 'Mail, agenda et contacts, sur ordinateur et mobile.',
-    tagline: 'Votre messagerie, sans mouchard.',
+    tagline: 'Mail, agenda et contacts. Réunis.',
     detail:
       "Mail, agenda et contacts dans une seule application, sur ordinateur et sur mobile. Les images distantes restent bloquées tant que vous ne les autorisez pas : ouvrir un message ne prévient pas son expéditeur.",
     pour: 'Toute personne qui veut lire son courrier sans être suivie',
@@ -78,7 +78,7 @@ export const applications: Application[] = [
     statut: 'Bêta',
     url: 'https://lungor.fr',
     resume: 'Piloter les revenus de son logiciel.',
-    tagline: 'Les revenus de votre SaaS, enfin lisibles.',
+    tagline: 'Les revenus de votre logiciel, enfin lisibles.',
     detail:
       "Chiffre d'affaires, abonnements, relances et factures conformes, sur un seul tableau de bord. Lungor encaisse déjà les contributions de ce site. Il s'appuie sur des prestataires de paiement agréés : nous ne touchons ni vos coordonnées bancaires ni l'identité de vos clients.",
     pour: 'Développeurs solos et petites équipes qui éditent un SaaS',
@@ -92,7 +92,7 @@ export const applications: Application[] = [
     statut: 'Bêta',
     url: 'https://skalpai.dev',
     resume: 'Faire tourner et observer ses applications.',
-    tagline: 'Voir ce que font vos applications, sans y passer un budget.',
+    tagline: 'Vos applications, en production et sous vos yeux.',
     detail:
       "Observabilité et télémétrie pour vos services, avec le CLI sklp et le gestionnaire de toolchain skt. C'est le socle sur lequel tournent toutes les applications de cette page.",
     pour: 'Développeurs et petites équipes',
@@ -105,7 +105,7 @@ export const applications: Application[] = [
     statut: 'Bêta',
     url: 'https://nakoda.club',
     resume: 'Mesurer l’audience et les retours de ses applications.',
-    tagline: 'Savoir qui vient, ce qui marche et ce qui coince, sans traqueur.',
+    tagline: "Ce que font vos utilisateurs. Ce qu'ils vous disent.",
     detail:
       "Visites, inscriptions et retours des utilisateurs, réunis par application. Les signalements de bugs partent directement vers Skalpai. Les applications de cette page s'y mesurent.",
     pour: 'Éditeurs de logiciels et petites équipes',
@@ -118,7 +118,7 @@ export const applications: Application[] = [
     statut: 'Bêta',
     url: 'https://lalter.fr',
     resume: 'Un assistant à votre service.',
-    tagline: 'Un assistant qui se souvient et agit pour vous.',
+    tagline: 'Un assistant qui garde le fil pour vous.',
     detail:
       "Il garde en mémoire ce que vous lui confiez, cherche sur le web, vous rappelle ce qui doit l'être. Sur le web, sur ordinateur et sur mobile. C'est un assistant, pas un oracle : il peut se tromper, et ses réponses se vérifient.",
     pour: 'Toute personne qui veut déléguer sans confier sa vie à une grande plateforme',
