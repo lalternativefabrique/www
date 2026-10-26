@@ -34,7 +34,7 @@ function AProposPage() {
         </div>
       </section>
 
-      <section>
+      <section id="vision" className="scroll-mt-6">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">La vision</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
@@ -72,7 +72,7 @@ function AProposPage() {
         </div>
       </section>
 
-      <section className="border-t-2 border-text">
+      <section id="ce-que-nous-faisons" className="scroll-mt-6 border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Ce que nous faisons</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
@@ -112,7 +112,7 @@ function AProposPage() {
         </div>
       </section>
 
-      <section className="border-t-2 border-text">
+      <section id="ambition" className="scroll-mt-6 border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Notre ambition</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
@@ -222,7 +222,7 @@ function AProposPage() {
 
       <Aider locale="fr" />
 
-      <section className="bg-text text-bg">
+      <section id="contact" className="scroll-mt-6 bg-text text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-24 sm:py-32">
           <div className="grid gap-10 sm:grid-cols-12">
             <div className="sm:col-span-5">

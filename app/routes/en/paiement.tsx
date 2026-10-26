@@ -333,7 +333,7 @@ function PaiementPageEn() {
         </div>
       </section>
 
-      <section>
+      <section id="obstacle" className="scroll-mt-6">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">The real obstacle</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
@@ -359,7 +359,7 @@ function PaiementPageEn() {
         </div>
       </section>
 
-      <section className="border-t-2 border-text bg-warm">
+      <section id="dependency" className="scroll-mt-6 border-t-2 border-text bg-warm">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label text-text/60">The price of dependency</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
@@ -440,7 +440,7 @@ function PaiementPageEn() {
         </div>
       </section>
 
-      <section className="border-t-2 border-text bg-text text-bg">
+      <section id="project" className="scroll-mt-6 border-t-2 border-text bg-text text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
           <p className="label opacity-70">
             Project — collecting payments without a middleman
@@ -474,7 +474,7 @@ function PaiementPageEn() {
       </section>
 
       {marches.map((marche, i) => (
-        <section key={marche.rang} className={accentClass[marche.accent]}>
+        <section id={`step-${marche.rang}`} key={marche.rang} className={`scroll-mt-6 ${accentClass[marche.accent]}`}>
           <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
             <div className="grid gap-10 sm:grid-cols-12">
               <div className="sm:col-span-5">
@@ -535,7 +535,7 @@ function PaiementPageEn() {
         </section>
       ))}
 
-      <section className="border-t-2 border-text">
+      <section id="reinvestment" className="scroll-mt-6 border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What the reinvestment funds</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
@@ -560,7 +560,7 @@ function PaiementPageEn() {
         </div>
       </section>
 
-      <section className="border-t-2 border-text bg-warm">
+      <section id="file" className="scroll-mt-6 border-t-2 border-text bg-warm">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label text-text/60">The file</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
@@ -593,7 +593,7 @@ function PaiementPageEn() {
         </div>
       </section>
 
-      <section className="border-t-2 border-text">
+      <section id="unknowns" className="scroll-mt-6 border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What we do not know yet</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">

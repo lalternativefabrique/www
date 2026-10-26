@@ -85,7 +85,7 @@ function PotPageEn() {
       </section>
 
       {/* The thesis — why any of this exists */}
-      <section>
+      <section id="funding" className="scroll-mt-6">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Funding</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
@@ -117,7 +117,7 @@ function PotPageEn() {
 
       <Conviction />
 
-      <section className="border-t-2 border-text">
+      <section id="where-the-money-goes" className="scroll-mt-6 border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Where the money goes</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">

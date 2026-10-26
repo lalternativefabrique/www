@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { AppIcone } from '@/components/AppIcone'
+import { ancreApplication } from '@/content/catalogue'
 import { Conviction } from '@/components/Conviction'
 import { demos } from '@/components/demos'
 import type { Application } from '@/content/catalogue'
@@ -86,7 +87,8 @@ function OutilsPageEn() {
         return (
           <section
             key={application.name}
-            className={accentClass[application.accent]}
+            id={ancreApplication(application.name)}
+            className={`scroll-mt-6 ${accentClass[application.accent]}`}
           >
             <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
               <div className="grid gap-10 sm:grid-cols-12">
@@ -158,7 +160,7 @@ function OutilsPageEn() {
 
       <Conviction inverse />
 
-      <section>
+      <section id="what-connects-them" className="scroll-mt-6">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">What connects them</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">

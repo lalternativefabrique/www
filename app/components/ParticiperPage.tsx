@@ -12,6 +12,7 @@ const textes = {
       "Nous avons choisi de ne pas lever de fonds. Nous avançons autrement : grâce aux revenus des applications, aux contributions financières et aux compétences que chacun peut ponctuellement apporter.",
     ],
     argent: {
+      ancre: 'financer',
       label: 'Contribuer financièrement',
       titre: 'Nos besoins financiers',
       texte:
@@ -20,6 +21,7 @@ const textes = {
       action: { to: '/pot', hash: 'participer', label: 'Contribuer' },
     },
     savoir: {
+      ancre: 'competences',
       label: 'Donner ce que vous savez',
       titre: 'Nos besoins en compétences',
       texte:
@@ -28,6 +30,7 @@ const textes = {
       action: { to: '/contact', label: 'Proposer ma contribution' },
     },
     limites: {
+      ancre: 'ou-nous-allons',
       titre: 'Où nous allons',
       texte: [
         'Nous ne pouvons pas encore créer ces postes. Pour le moment, nous recherchons des conseils, des regards extérieurs et des contributions ponctuelles, librement choisies.',
@@ -45,6 +48,7 @@ const textes = {
       'We chose not to raise funds. We move forward another way: through the revenue of the applications, financial contributions and the skills anyone can bring from time to time.',
     ],
     argent: {
+      ancre: 'money',
       label: 'Contribute financially',
       titre: 'Our financial needs',
       texte:
@@ -53,6 +57,7 @@ const textes = {
       action: { to: '/en/pot', hash: 'chip-in', label: 'Contribute' },
     },
     savoir: {
+      ancre: 'skills',
       label: 'Give what you know',
       titre: 'Our need for skills',
       texte:
@@ -61,6 +66,7 @@ const textes = {
       action: { to: '/en/contact', label: 'Offer my contribution' },
     },
     limites: {
+      ancre: 'where-we-are-going',
       titre: 'Where we are going',
       texte: [
         'We cannot create these positions yet. For now, we are looking for advice, outside perspectives and occasional contributions, freely chosen.',
@@ -96,7 +102,7 @@ export function ParticiperPage({ besoins, lang }: { besoins: Besoin[] | null; la
         </div>
       </section>
 
-      <section className="border-y-2 border-text bg-accent-secondary text-bg">
+      <section id={t.argent.ancre} className="scroll-mt-6 border-y-2 border-text bg-accent-secondary text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label opacity-70">{t.argent.label}</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">{t.argent.titre}</h2>
@@ -119,7 +125,7 @@ export function ParticiperPage({ besoins, lang }: { besoins: Besoin[] | null; la
         </div>
       </section>
 
-      <section>
+      <section id={t.savoir.ancre} className="scroll-mt-6">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label text-text/60">{t.savoir.label}</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">{t.savoir.titre}</h2>
@@ -159,7 +165,7 @@ export function ParticiperPage({ besoins, lang }: { besoins: Besoin[] | null; la
         </div>
       </section>
 
-      <section className="border-t-2 border-text">
+      <section id={t.limites.ancre} className="scroll-mt-6 border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <h2 className="font-heading text-3xl leading-tight">{t.limites.titre}</h2>
           {t.limites.texte.map((p) => (
