@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { AppIcone } from '@/components/AppIcone'
 import { Aider } from '@/components/Aider'
+import { BadgeEurope } from '@/components/BadgeEurope'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
@@ -42,6 +43,7 @@ function LandingPageEn() {
               Fabrique
             </span>
           </h1>
+          <BadgeEurope locale="en" />
 
           <div className="mt-10 grid gap-10 sm:mt-14 sm:grid-cols-12">
             <div className="sm:col-span-7">

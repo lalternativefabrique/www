@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { AppIcone } from '@/components/AppIcone'
 import { CarteLiens } from '@/components/CarteLiens'
 import { Aider } from '@/components/Aider'
+import { BadgeEurope } from '@/components/BadgeEurope'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
@@ -67,6 +68,7 @@ function LandingPage() {
           <br />
           Fabrique<span className="text-accent-primary">.</span>
         </h1>
+        <BadgeEurope locale="fr" />
         <div className="mt-14 grid gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
             <p className="chapeau">
