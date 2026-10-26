@@ -67,6 +67,12 @@ function LandingPage() {
           <br />
           Fabrique<span className="text-accent-primary">.</span>
         </h1>
+        <Link
+          to="/paiement"
+          className="mt-8 inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 border-2 border-text px-4 py-2 hover:border-accent-primary"
+        >
+          <span className="label bg-accent-primary px-1.5 text-bg">100 % européen</span>
+        </Link>
         <div className="mt-14 grid gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
             <p className="chapeau">
