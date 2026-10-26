@@ -8,10 +8,7 @@
 apps:
   - slug: www
     name: La Fabrique
-    credentials:
-      - provider: mollie
-        secret_ref: env:FABRIQUE_MOLLIE_API_KEY
-
+    provider: mollie
     # One plan, no subscription: a contribution is a single payment whose
     # amount the contributor states. app/server/don.ts opens the checkout on
     # this plan's id (LUNGOR_DON_PLAN_ID) and clamps to the same bounds.
