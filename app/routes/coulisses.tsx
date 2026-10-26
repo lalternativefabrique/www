@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AppIcone } from '@/components/AppIcone'
 import { applications, type Pilier } from '@/content/catalogue'
 import { histoire } from '@/content/histoire'
@@ -41,6 +41,16 @@ function useMaintenant() {
 function HistoirePage() {
   const maintenant = useMaintenant()
   const [choisie, setChoisie] = useState(histoire[0].app)
+  const recit = useRef<HTMLElement>(null)
+  const montrer = (app: string) => {
+    setChoisie(app)
+    requestAnimationFrame(() => {
+      const haut = recit.current?.getBoundingClientRect().top
+      if (haut !== undefined && haut > window.innerHeight * 0.6) {
+        recit.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    })
+  }
   const debut = new Date(histoire[0].date)
   const derniere = Math.max(...histoire.map((e) => new Date(e.date).getTime()))
   const fin = new Date(derniere + 10 * JOUR)
@@ -104,8 +114,12 @@ function HistoirePage() {
             <dd className="mt-1">{commits.toLocaleString('fr-FR')}</dd>
           </div>
           <div>
-            <dt className="label text-text/60">Investisseurs</dt>
-            <dd className="mt-1">0</dd>
+            <dt className="label text-text/60">Investissement participatif</dt>
+            <dd className="mt-1">
+              <Link to="/pot" className="underline decoration-accent-primary underline-offset-4 hover:text-accent-primary">
+                démarre
+              </Link>
+            </dd>
           </div>
         </dl>
       </section>
@@ -170,7 +184,7 @@ function HistoirePage() {
                   <button
                     key={e.app}
                     type="button"
-                    onClick={() => setChoisie(e.app)}
+                    onClick={() => montrer(e.app)}
                     onMouseEnter={() => setChoisie(e.app)}
                     aria-pressed={actif}
                     className={`absolute flex items-center ${versLaFin ? '-translate-x-full' : ''} gap-2 rounded-lg border-2 bg-bg px-2 py-1.5 text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
@@ -207,7 +221,7 @@ function HistoirePage() {
         </p>
       </section>
 
-      <article key={etape.app} className="mt-12 grid animate-[carte_0.45s_cubic-bezier(0.2,0.7,0.2,1)] gap-8 border-t-[3px] border-text pt-10 md:grid-cols-12">
+      <article ref={recit} key={etape.app} className="mt-12 scroll-mt-6 grid animate-[carte_0.45s_cubic-bezier(0.2,0.7,0.2,1)] gap-8 border-t-[3px] border-text pt-10 md:grid-cols-12">
         <div className="md:col-span-4">
           <p className="label text-accent-primary">
             Épisode {String(rang + 1).padStart(2, '0')} · {jour.format(new Date(etape.date))}
