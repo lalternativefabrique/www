@@ -50,7 +50,8 @@ export function Aider({
   const t = textes[locale]
   return (
     <section
-      className={`border-t-2 border-text bg-warm ${pleineLargeur ? 'ml-[calc(50%-50vw)] w-screen border-b-2' : ''}`}
+      id={locale === 'fr' ? 'aider' : 'help'}
+      className={`scroll-mt-6 border-t-2 border-text bg-warm ${pleineLargeur ? 'ml-[calc(50%-50vw)] w-screen border-b-2' : ''}`}
     >
       <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
         <p className="label text-text/60">{repere ?? t.repere}</p>

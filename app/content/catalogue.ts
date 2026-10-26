@@ -233,3 +233,7 @@ export const aFinaliser = applications.filter(
 export const enService = applications.filter(
   (application) => application.statut !== 'Bientôt',
 )
+
+export function ancreApplication(nom: string) {
+  return nom.toLowerCase().replace(/[^a-z0-9]/g, '')
+}

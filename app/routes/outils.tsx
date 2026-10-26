@@ -2,7 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { AppIcone } from '@/components/AppIcone'
 import { Conviction } from '@/components/Conviction'
 import { demos } from '@/components/demos'
-import { applications, type Application } from '@/content/catalogue'
+import { ancreApplication, applications, type Application } from '@/content/catalogue'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
 
 const outilsSeo = seo({
@@ -83,7 +83,8 @@ function OutilsPage() {
         return (
           <section
             key={application.name}
-            className={accentClass[application.accent]}
+            id={ancreApplication(application.name)}
+            className={`scroll-mt-6 ${accentClass[application.accent]}`}
           >
             <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
               <div className="grid gap-10 sm:grid-cols-12">
@@ -154,7 +155,7 @@ function OutilsPage() {
 
       <Conviction inverse />
 
-      <section>
+      <section id="ce-qui-les-relie" className="scroll-mt-6">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">Ce qui les relie</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
