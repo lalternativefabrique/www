@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { Conviction } from '@/components/Conviction'
 import { Participation } from '@/components/Participation'
 import { seo } from '@/lib/seo'
+import { LienSection } from '@/components/LienSection'
 
 export const Route = createFileRoute('/en/pot')({
   component: PotPageEn,
@@ -55,7 +56,7 @@ function PotPageEn() {
           <p className="label opacity-70">Direct contribution</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Fund what comes next.
-          </h2>
+          <LienSection ancre="chip-in" /></h2>
 
           <div className="mt-12">
             <Participation />
@@ -90,7 +91,7 @@ function PotPageEn() {
           <p className="label text-accent-primary">Funding</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             What exists funds what comes next.
-          </h2>
+          <LienSection ancre="funding" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               The simplest way to fund what comes next is to use an
@@ -122,7 +123,7 @@ function PotPageEn() {
           <p className="label text-accent-primary">Where the money goes</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Into every project.
-          </h2>
+          <LienSection ancre="where-the-money-goes" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Ten projects: eight ready, two under way. The money first pays

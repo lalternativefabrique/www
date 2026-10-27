@@ -4,6 +4,7 @@ import { Conviction } from '@/components/Conviction'
 import { demos } from '@/components/demos'
 import { ancreApplication, applications, type Application } from '@/content/catalogue'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
+import { LienSection } from '@/components/LienSection'
 
 const outilsSeo = seo({
   title: "Les applications — L'Alternative Fabrique",
@@ -94,7 +95,7 @@ function OutilsPage() {
                   </p>
                   <div className="mt-6 flex items-center gap-5">
                     <AppIcone application={application} size="lg" />
-                    <h2 className="display-card sm:text-8xl">{application.name}</h2>
+                    <h2 className="display-card sm:text-8xl">{application.name}<LienSection ancre={ancreApplication(application.name)} /></h2>
                   </div>
                 </div>
 
@@ -160,7 +161,7 @@ function OutilsPage() {
           <p className="label text-accent-primary">Ce qui les relie</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Utiliser, c'est financer la suite.
-          </h2>
+          <LienSection ancre="ce-qui-les-relie" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Grâce à une organisation commune, un seul financement fait

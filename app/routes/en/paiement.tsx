@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { seo } from '@/lib/seo'
+import { LienSection } from '@/components/LienSection'
 
 export const Route = createFileRoute('/en/paiement')({
   component: PaiementPageEn,
@@ -338,7 +339,7 @@ function PaiementPageEn() {
           <p className="label text-accent-primary">The real obstacle</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Taking payment requires permission.
-          </h2>
+          <LienSection ancre="obstacle" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Building a tool asks no one's permission. Taking money does.
@@ -364,7 +365,7 @@ function PaiementPageEn() {
           <p className="label text-text/60">The price of dependency</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
             What each one takes.
-          </h2>
+          <LienSection ancre="dependency" /></h2>
           <p className="chapeau mt-8 max-w-2xl">
             Stripe is the default choice, and for good reasons: it integrates
             quickly and accepts almost every payment method. Here is what each
@@ -449,7 +450,7 @@ function PaiementPageEn() {
             Four steps,
             <br />
             climbed one at a time.
-          </h2>
+          <LienSection ancre="project" /></h2>
           <p className="chapeau mt-8 max-w-2xl opacity-90">
             Each removes a share of dependency. Each already earns, which pays
             for the next. None requires waiting to have all the money before
@@ -478,7 +479,7 @@ function PaiementPageEn() {
           <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
             <div className="grid gap-10 sm:grid-cols-12">
               <div className="sm:col-span-5">
-                <p className="label opacity-70">{etatLabel[marche.etat]}</p>
+                <p className="label opacity-70">{etatLabel[marche.etat]}<LienSection ancre={`step-${marche.rang}`} /></p>
                 <p
                   className={`font-heading mt-6 leading-none ${marche.rangClass}`}
                 >
@@ -540,7 +541,7 @@ function PaiementPageEn() {
           <p className="label text-accent-primary">What the reinvestment funds</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Lawyers, not capital.
-          </h2>
+          <LienSection ancre="reinvestment" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               The regulatory capital, the €125,000 of the last step, is not an
@@ -565,7 +566,7 @@ function PaiementPageEn() {
           <p className="label text-text/60">The file</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
             What has to be written.
-          </h2>
+          <LienSection ancre="file" /></h2>
           <p className="chapeau mt-8 max-w-2xl">
             The detail of an authorisation file, as the regulator examines it.
             This list is what our reinvestment pays for.
@@ -598,7 +599,7 @@ function PaiementPageEn() {
           <p className="label text-accent-primary">What we do not know yet</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             The price is not public.
-          </h2>
+          <LienSection ancre="unknowns" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Neither the authorities nor the specialised firms publish a price

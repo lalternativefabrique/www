@@ -6,6 +6,7 @@ import { demos } from '@/components/demos'
 import type { Application } from '@/content/catalogue'
 import { applicationsEn, pilierEn, statutEn } from '@/content/catalogue.en'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
+import { LienSection } from '@/components/LienSection'
 
 const outilsSeo = seo({
   title: "The applications — L'Alternative Fabrique",
@@ -99,7 +100,7 @@ function OutilsPageEn() {
                   </p>
                   <div className="mt-6 flex items-center gap-5">
                     <AppIcone application={application} size="lg" />
-                    <h2 className="display-card sm:text-8xl">{application.name}</h2>
+                    <h2 className="display-card sm:text-8xl">{application.name}<LienSection ancre={ancreApplication(application.name)} /></h2>
                   </div>
                 </div>
 
@@ -165,7 +166,7 @@ function OutilsPageEn() {
           <p className="label text-accent-primary">What connects them</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Using one funds the next.
-          </h2>
+          <LienSection ancre="what-connects-them" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Thanks to a shared organisation, a single stream of funding keeps

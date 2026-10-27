@@ -3,6 +3,7 @@ import { Aider } from '@/components/Aider'
 import { Participants } from '@/components/Participants'
 import { applicationsEn, projetsEn } from '@/content/catalogue.en'
 import { seo } from '@/lib/seo'
+import { LienSection } from '@/components/LienSection'
 
 export const Route = createFileRoute('/en/a-propos')({
   component: AProposPageEn,
@@ -41,7 +42,7 @@ function AProposPageEn() {
           <p className="label text-accent-primary">The vision</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Taking back control of our tools.
-          </h2>
+          <LienSection ancre="vision" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               We communicate, work, learn and create through digital tools
@@ -78,7 +79,7 @@ function AProposPageEn() {
           <p className="label text-accent-primary">What we do</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Brick by brick.
-          </h2>
+          <LienSection ancre="what-we-do" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               We build applications that replace those services.{' '}
@@ -118,7 +119,7 @@ function AProposPageEn() {
           <p className="label text-accent-primary">Our ambition</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Lighten your digital everyday.
-          </h2>
+          <LienSection ancre="ambition" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Many applications are built to keep you inside: an endless feed,
@@ -143,7 +144,7 @@ function AProposPageEn() {
           <p className="label text-accent-primary">What we stand for</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Independent, and paid to stay that way.
-          </h2>
+          <LienSection ancre="culture" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <h3 className="font-heading mt-12 text-2xl">Why we do this</h3>
             <p>

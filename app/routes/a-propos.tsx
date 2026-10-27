@@ -3,6 +3,7 @@ import { Aider } from '@/components/Aider'
 import { Participants } from '@/components/Participants'
 import { applications, projetsEnCours } from '@/content/catalogue'
 import { seo } from '@/lib/seo'
+import { LienSection } from '@/components/LienSection'
 
 export const Route = createFileRoute('/a-propos')({
   component: AProposPage,
@@ -39,7 +40,7 @@ function AProposPage() {
           <p className="label text-accent-primary">La vision</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Reprendre la maîtrise de nos outils.
-          </h2>
+          <LienSection ancre="vision" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Nous communiquons, travaillons, apprenons et créons à travers des
@@ -77,7 +78,7 @@ function AProposPage() {
           <p className="label text-accent-primary">Ce que nous faisons</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Brique par brique.
-          </h2>
+          <LienSection ancre="ce-que-nous-faisons" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Nous construisons des applications qui remplacent ces
@@ -117,7 +118,7 @@ function AProposPage() {
           <p className="label text-accent-primary">Notre ambition</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Alléger votre quotidien numérique.
-          </h2>
+          <LienSection ancre="ambition" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Beaucoup d'applications sont conçues pour qu'on y reste : un fil
@@ -144,7 +145,7 @@ function AProposPage() {
           <p className="label text-accent-primary">Ce que nous croyons</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Indépendants, et payants pour le rester.
-          </h2>
+          <LienSection ancre="culture" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <h3 className="font-heading mt-12 text-2xl">Pourquoi nous faisons ça</h3>
             <p>

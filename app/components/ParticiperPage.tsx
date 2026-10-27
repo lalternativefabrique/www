@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import type { Besoin } from '@/lib/couts'
+import { LienSection } from '@/components/LienSection'
 
 const textes = {
   fr: {
@@ -105,7 +106,7 @@ export function ParticiperPage({ besoins, lang }: { besoins: Besoin[] | null; la
       <section id={t.argent.ancre} className="scroll-mt-6 border-y-2 border-text bg-accent-secondary text-bg">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label opacity-70">{t.argent.label}</p>
-          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">{t.argent.titre}</h2>
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">{t.argent.titre}<LienSection ancre={t.argent.ancre} /></h2>
           <p className="chapeau mt-10 max-w-2xl">{t.argent.texte}</p>
           <div className="mt-12 flex flex-wrap gap-4">
             <Link
@@ -128,7 +129,7 @@ export function ParticiperPage({ besoins, lang }: { besoins: Besoin[] | null; la
       <section id={t.savoir.ancre} className="scroll-mt-6">
         <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
           <p className="label text-text/60">{t.savoir.label}</p>
-          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">{t.savoir.titre}</h2>
+          <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">{t.savoir.titre}<LienSection ancre={t.savoir.ancre} /></h2>
           <p className="chapeau mt-10 max-w-2xl">{t.savoir.texte}</p>
 
           {besoins?.length ? (
@@ -167,7 +168,7 @@ export function ParticiperPage({ besoins, lang }: { besoins: Besoin[] | null; la
 
       <section id={t.limites.ancre} className="scroll-mt-6 border-t-2 border-text">
         <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-          <h2 className="font-heading text-3xl leading-tight">{t.limites.titre}</h2>
+          <h2 className="font-heading text-3xl leading-tight">{t.limites.titre}<LienSection ancre={t.limites.ancre} /></h2>
           {t.limites.texte.map((p) => (
             <p key={p} className="chapeau mt-6 text-text/80">
               {p}
