@@ -6,6 +6,7 @@ import { BadgeEurope } from '@/components/BadgeEurope'
 import { Conviction } from '@/components/Conviction'
 import { Inscription } from '@/components/Inscription'
 import {
+  ancreApplication,
   applications,
   applicationsDuPilier,
   enService,
@@ -13,6 +14,7 @@ import {
   projets,
   projetsEnCours,
 } from '@/content/catalogue'
+import { LienSection } from '@/components/LienSection'
 import { ORGANIZATION, SITE_URL, jsonLd, seo } from '@/lib/seo'
 
 const homeSeo = seo({
@@ -46,10 +48,13 @@ export const Route = createFileRoute('/')({
   }),
 })
 
-function SectionHead({ titre, repere }: { titre: string; repere: string }) {
+function SectionHead({ titre, repere, ancre }: { titre: string; repere: string; ancre?: string }) {
   return (
     <div className="flex flex-wrap items-baseline justify-between gap-4 border-b-[3px] border-text pb-3">
-      <h2 className="display-lg">{titre}</h2>
+      <h2 className="display-lg">
+        {titre}
+        {ancre && <LienSection ancre={ancre} />}
+      </h2>
       <span className="label">{repere}</span>
     </div>
   )
@@ -109,8 +114,8 @@ function LandingPage() {
       </section>
 
 
-      <section className="pt-20 sm:pt-24">
-        <SectionHead titre="Des applications en service." repere="§ 02 — La preuve" />
+      <section id="applications" className="scroll-mt-6 pt-20 sm:pt-24">
+        <SectionHead titre="Des applications en service." repere="§ 02 — La preuve" ancre="applications" />
         <p className="mt-5 max-w-xl text-text/75">
           Certaines sont ouvertes, d'autres en bêta, certaines arrivent. Chacune
           remplace un outil précis.
@@ -140,17 +145,18 @@ function LandingPage() {
                 <p className="mt-3 text-text/75">{application.resume}</p>
               </>
             )
-            const classes = 'block border-b border-text/25 py-7 sm:pr-6'
+            const classes = 'block scroll-mt-6 border-b border-text/25 py-7 sm:pr-6'
             return application.url ? (
               <a
                 key={application.name}
+                id={ancreApplication(application.name)}
                 href={application.url}
                 className={`${classes} hover:text-accent-primary`}
               >
                 {contenu}
               </a>
             ) : (
-              <article key={application.name} className={classes}>
+              <article key={application.name} id={ancreApplication(application.name)} className={classes}>
                 {contenu}
               </article>
             )
@@ -220,7 +226,7 @@ function LandingPage() {
       </section>
 
       <section id="piliers" className="scroll-mt-6 pt-20 sm:pt-24">
-        <SectionHead titre="Quatre piliers." repere="Vue d'ensemble" />
+        <SectionHead titre="Quatre piliers." repere="Vue d'ensemble" ancre="piliers" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4">
           {piliers.map((pilier, index) => (
             <article key={pilier.name} className="border-b border-text/25 py-7 sm:pr-6">
