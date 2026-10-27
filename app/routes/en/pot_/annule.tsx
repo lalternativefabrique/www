@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { seo } from '@/lib/seo'
 
-export const Route = createFileRoute('/en/pot/annule')({
+export const Route = createFileRoute('/en/pot_/annule')({
   component: CancelledPage,
   head: () =>
     seo({
