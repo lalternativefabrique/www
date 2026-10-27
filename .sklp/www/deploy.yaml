@@ -95,6 +95,7 @@ services:
       OIDC_ISSUER_URL: https://id.urbangate.dev
       OIDC_CLIENT_ID: www-admin
       OIDC_CLIENT_SECRET: ${URBANGATE_CLIENT_SECRET}
+      SPORE_API_KEY: ${SPORE_API_KEY}
       SPORE_FROM: noreply@lalter.org
       TTS_URL: http://piper.piper-production.internal
       VVAVES_URL: http://app.vvaves-production.internal
@@ -110,6 +111,7 @@ services:
       LUNGOR_APP_KEY: ${LUNGOR_APP_KEY}
       LUNGOR_DON_PLAN_ID: ${LUNGOR_DON_PLAN_ID}
       LUNGOR_COSTS_SLUG: ${LUNGOR_COSTS_SLUG}
+      LUNGOR_WEBHOOK_SECRET: ${LUNGOR_WEBHOOK_SECRET}
       PUBLIC_SITE_URL: https://lalter.org
       REDIRECTED_HOSTS: www.lalter.org,lalternativefabrique.org,www.lalternativefabrique.org
       # The discussion under the articles: rooms of the suite's chat service

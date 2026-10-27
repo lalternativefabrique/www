@@ -20,3 +20,11 @@ apps:
         amount_open_ended: true
         min_amount_cents: 100
         max_amount_cents: 500000
+
+    # The signing secret is printed once by `lungor provision` and goes to
+    # LUNGOR_WEBHOOK_SECRET on the node; it never lives here.
+    webhooks:
+      - url: https://lalter.org/api/webhooks/lungor
+        description: www thank-you mail
+        events:
+          - subscription.activated
