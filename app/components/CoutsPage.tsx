@@ -32,6 +32,23 @@ const textes = {
       label: 'Nos besoins, en argent et en compétences',
     },
     voir: 'Afficher',
+    donne: {
+      surtitre: 'Hors du total — ce qui n’est pas payé',
+      titre: 'Travail donné ce mois-ci',
+      jours: (n: number) => `${n.toLocaleString('fr-FR')} jour${n >= 2 ? 's' : ''} d’intervention`,
+      joursCourt: (n: number) => `${n.toLocaleString('fr-FR')} jour${n >= 2 ? 's' : ''}`,
+      valeur: (taux: string) => `Valorisé au tarif d’un freelance, ${taux} par jour`,
+      texte:
+        'Une seule personne conçoit, développe et fait tourner la Fabrique, sans se rémunérer. Ce montant n’est pas une dépense : c’est ce que coûterait ce travail s’il était payé, et ce que vos dons permettraient un jour de financer.',
+    },
+    sansIA: {
+      chapeau:
+        "Chaque mois, nous publions ce que coûtent nos applications pour tourner : serveurs, services payants, outils, et les personnes que nous rémunérons pour tenir une fonction. Ligne par ligne, sans arrondi flatteur.",
+      staff: 'B — Intervenants',
+      total: 'A + B — Coût du mois',
+      explication:
+        'A. Hébergement, services payants et outils, dont nos abonnements d’agents de code, comptés au prix catalogue du fournisseur. B. Les intervenants rémunérés, par fonction, sans nom.',
+    },
   },
   en: {
     locale: 'en-GB',
@@ -63,11 +80,32 @@ const textes = {
       label: 'Our needs, in money and in skills',
     },
     voir: 'Show',
+    donne: {
+      surtitre: 'Outside the total — what is not paid',
+      titre: 'Work given this month',
+      jours: (n: number) => `${n.toLocaleString('en-GB')} day${n === 1 ? '' : 's'} of work`,
+      joursCourt: (n: number) => `${n.toLocaleString('en-GB')} day${n === 1 ? '' : 's'}`,
+      valeur: (taux: string) => `Valued at a freelance rate of ${taux} per day`,
+      texte:
+        'One person designs, builds and runs the Fabrique, unpaid. This amount is not a spending: it is what this work would cost if it were paid, and what your donations could one day fund.',
+    },
+    sansIA: {
+      chapeau:
+        'Each month we publish what it takes to run our apps: servers, paid services, tools, and the people we pay to hold a function. Line by line, no flattering rounding.',
+      staff: 'B — Paid contributors',
+      total: 'A + B — Monthly cost',
+      explication:
+        'A. Hosting, paid services and tools, coding-agent subscriptions included, counted at the provider’s catalogue price. B. Paid contributors, by function, never by name.',
+    },
   },
 } as const
 
 export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | 'en' }) {
   const t = textes[lang]
+  const avecIA = couts?.llmPublic ?? true
+  const l = avecIA
+    ? { chapeau: t.chapeau, staff: t.staff, total: t.total, explication: t.explication }
+    : t.sansIA
   const montant = (cents: number) =>
     formatMontant(cents, couts?.currency ?? 'EUR', t.locale)
 
@@ -77,7 +115,7 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">{t.surtitre}</p>
           <h1 className="display-xl mt-6">{t.titre}</h1>
-          <p className="chapeau mt-10 max-w-2xl">{t.chapeau}</p>
+          <p className="chapeau mt-10 max-w-2xl">{l.chapeau}</p>
           <p className="mt-5 max-w-2xl text-text/70">{t.precision}</p>
           <div className="mt-10 flex flex-wrap gap-6">
             <Link
@@ -116,28 +154,63 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
               </noscript>
             </form>
 
-            <div className="mt-10 grid grid-cols-1 border-y border-text sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                [t.catalogue, couts.totals.catalog_cents],
-                [t.llm, couts.totals.llm_cents],
-                [t.staff, couts.totals.staff_cents],
-                [t.total, couts.totals.total_cents],
-              ].map(([label, cents], index) => (
+            <div
+              className={`mt-10 grid grid-cols-1 border-y border-text sm:grid-cols-2 ${
+                avecIA ? 'lg:grid-cols-4' : 'lg:grid-cols-3'
+              }`}
+            >
+              {(
+                [
+                  [t.catalogue, couts.totals.catalog_cents],
+                  ...(avecIA ? [[t.llm, couts.totals.llm_cents]] : []),
+                  [l.staff, couts.totals.staff_cents],
+                  [l.total, couts.totals.total_cents],
+                ] as [string, number][]
+              ).map(([label, cents], index, cartes) => (
                 <div
                   key={label}
                   className={`flex flex-col gap-10 py-7 sm:px-6 sm:first:pl-0 ${
-                    index === 3 ? 'bg-text px-6 text-bg' : ''
+                    index === cartes.length - 1 ? 'bg-text px-6 text-bg' : ''
                   } ${index > 0 ? 'border-t border-text lg:border-l lg:border-t-0' : ''}`}
                 >
                   <p className="label">{label}</p>
                   <p className="whitespace-nowrap font-mono text-4xl font-medium leading-none tracking-tight">
-                    {montant(cents as number)}
+                    {montant(cents)}
                   </p>
                 </div>
               ))}
             </div>
 
-            <p className="mt-5 max-w-3xl text-sm text-text/70">{t.explication}</p>
+            <p className="mt-5 max-w-3xl text-sm text-text/70">{l.explication}</p>
+
+            {couts.travailDonne ? (
+              <div className="mt-10 grid gap-8 border-2 border-dashed border-text p-6 sm:grid-cols-12 sm:p-8">
+                <div className="sm:col-span-5">
+                  <p className="label text-text/70">{t.donne.surtitre}</p>
+                  <p className="mt-4 font-heading text-2xl leading-tight">{t.donne.titre}</p>
+                  <p className="mt-6 font-mono text-4xl font-medium leading-none tracking-tight">
+                    ≈ {montant(couts.travailDonne.value_cents)}
+                  </p>
+                  <p className="mt-3 text-sm text-text/70">
+                    {t.donne.jours(couts.travailDonne.days)} ·{' '}
+                    {t.donne.valeur(montant(couts.travailDonne.day_rate_cents))}
+                  </p>
+                </div>
+                <div className="sm:col-span-6 sm:col-start-7">
+                  {couts.travailDonne.roles.length ? (
+                    <ul className="border-t border-text">
+                      {couts.travailDonne.roles.map((role) => (
+                        <li key={role.name} className="flex justify-between border-b border-text/20 py-3">
+                          <span>{role.name}</span>
+                          <span className="font-mono">{t.donne.joursCourt(role.days)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  <p className="mt-6 text-text/80">{t.donne.texte}</p>
+                </div>
+              </div>
+            ) : null}
 
             {couts.items.length ? (
               <div className="mt-14 overflow-x-auto">
@@ -177,8 +250,8 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
                     <tr className="border-b border-text">
                       <th className="label p-4 pl-0">{t.application}</th>
                       <th className="label p-4 text-right">{t.catalogue}</th>
-                      <th className="label p-4 text-right">{t.llm}</th>
-                      <th className="label p-4 text-right">{t.staff}</th>
+                      {avecIA ? <th className="label p-4 text-right">{t.llm}</th> : null}
+                      <th className="label p-4 text-right">{l.staff}</th>
                       <th className="label p-4 pr-0 text-right">{t.totalCourt}</th>
                     </tr>
                   </thead>
@@ -187,7 +260,9 @@ export function CoutsPage({ couts, lang }: { couts: Couts | null; lang: 'fr' | '
                       <tr key={app.name} className="border-t border-text/20">
                         <td className="p-4 pl-0">{app.name}</td>
                         <td className="p-4 text-right font-mono">{montant(app.catalog_cents)}</td>
-                        <td className="p-4 text-right font-mono">{montant(app.llm_cents)}</td>
+                        {avecIA ? (
+                          <td className="p-4 text-right font-mono">{montant(app.llm_cents)}</td>
+                        ) : null}
                         <td className="p-4 text-right font-mono">{montant(app.staff_cents)}</td>
                         <td className="p-4 pr-0 text-right font-mono font-medium">
                           {montant(app.total_cents)}
