@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { MerciDon } from '@/components/MerciDon'
 import { seo } from '@/lib/seo'
 
-export const Route = createFileRoute('/pot/merci')({
+export const Route = createFileRoute('/pot_/merci')({
   component: MerciPage,
   head: () =>
     seo({

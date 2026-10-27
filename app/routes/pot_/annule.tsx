@@ -1,7 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { seo } from '@/lib/seo'
 
-export const Route = createFileRoute('/pot/annule')({
+export const Route = createFileRoute('/pot_/annule')({
   component: AnnulePage,
   head: () =>
     seo({
