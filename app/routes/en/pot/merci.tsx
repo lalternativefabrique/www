@@ -1,4 +1,5 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
+import { MerciDon } from '@/components/MerciDon'
 import { seo } from '@/lib/seo'
 
 export const Route = createFileRoute('/en/pot/merci')({
@@ -14,38 +15,5 @@ export const Route = createFileRoute('/en/pot/merci')({
 })
 
 function ThanksPage() {
-  return (
-    <section className="bg-accent-secondary text-bg">
-      <div className="mx-auto w-full max-w-3xl px-6 py-20 sm:py-28">
-        <p className="label opacity-70">Done</p>
-        <h1 tabIndex={-1} className="display-xl mt-6 focus:outline-none">
-          Thank you for contributing.
-        </h1>
-        <div className="prose-editorial mt-10 opacity-90">
-          <p>
-            Your contribution is recorded. An invoice is issued: write to us
-            if you would like to receive it.
-          </p>
-          <p>
-            It will fund the published projects in the announced order. What is
-            funded, and what is not yet, stays written on this page.
-          </p>
-        </div>
-        <div className="mt-12 flex flex-wrap gap-4">
-          <Link
-            to="/en/pot"
-            className="label inline-flex w-fit items-center gap-3 border-2 border-current px-6 py-3 hover:bg-bg hover:text-accent-secondary"
-          >
-            See the projects <span aria-hidden>→</span>
-          </Link>
-          <Link
-            to="/en/paiement"
-            className="label inline-flex w-fit items-center gap-2 self-center border-b-2 border-current pb-1 hover:opacity-70"
-          >
-            The payment project, in detail <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </div>
-    </section>
-  )
+  return <MerciDon locale="en" />
 }

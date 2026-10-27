@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getCookie, setCookie } from "@tanstack/react-start/server";
 
 /**
  * Contributions to the pot, collected through Lungor.
@@ -92,13 +93,54 @@ export const creerDon = createServerFn({ method: "POST" })
       return { ok: false as const, reason: "refused" satisfies Echec };
     }
 
-    const body = (await res.json()) as { redirect_url?: string };
+    const body = (await res.json()) as {
+      redirect_url?: string;
+      session_id?: string;
+    };
     if (!body.redirect_url) {
       console.error("lungor checkout returned no redirect url");
       return { ok: false as const, reason: "refused" satisfies Echec };
     }
 
+    if (body.session_id) {
+      setCookie(SESSION_COOKIE, body.session_id, {
+        httpOnly: true,
+        secure: true,
+        // Lax still rides the top-level redirect back from the payment page.
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24,
+      });
+    }
+
     return { ok: true as const, redirectURL: body.redirect_url };
   });
+
+const SESSION_COOKIE = "don_session";
+
+export type StatutDon = "paid" | "pending" | "failed" | "unknown";
+
+export const lireStatutDon = createServerFn({ method: "GET" }).handler(
+  async (): Promise<StatutDon> => {
+    const sessionID = getCookie(SESSION_COOKIE);
+    if (!donConfigured || !sessionID) return "unknown";
+
+    const res = await fetch(
+      `${apiURL!.replace(/\/$/, "")}/finance/checkout/${encodeURIComponent(sessionID)}`,
+      { headers: { authorization: `Bearer ${apiKey}` } },
+    );
+    if (!res.ok) {
+      console.error("lungor checkout read failed", res.status);
+      return "unknown";
+    }
+
+    const body = (await res.json()) as { status?: string; paid?: boolean };
+    if (body.paid) return "paid";
+    if (body.status === "pending" || body.status === "redirected") {
+      return "pending";
+    }
+    return "failed";
+  },
+);
 
 export const bornes = { minCents: MIN_CENTS, maxCents: MAX_CENTS };
