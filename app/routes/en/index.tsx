@@ -14,6 +14,8 @@ import {
   projetsEn,
   statutEn,
 } from '@/content/catalogue.en'
+import { LienSection } from '@/components/LienSection'
+import { ancreApplication } from '@/content/catalogue'
 import { seo } from '@/lib/seo'
 
 const homeSeo = seo({
@@ -77,11 +79,14 @@ function LandingPageEn() {
         </div>
       </section>
 
-      <section className="border-b-2 border-text">
+      <section id="applications" className="scroll-mt-6 border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">02 — The proof</p>
           <div className="mt-6 grid gap-8 sm:grid-cols-12">
-            <h2 className="display-lg sm:col-span-7">Applications that run.</h2>
+            <h2 className="display-lg sm:col-span-7">
+              Applications that run.
+              <LienSection ancre="applications" />
+            </h2>
             <p className="chapeau sm:col-span-5 sm:self-end">
               Some are open, some in beta, one is on its way. Each takes back
               one specific means.
@@ -115,13 +120,18 @@ function LandingPageEn() {
               return application.url ? (
                 <a
                   key={application.name}
+                  id={ancreApplication(application.name)}
                   href={application.url}
-                  className="bg-bg p-8 hover:bg-warm sm:p-10"
+                  className="scroll-mt-6 bg-bg p-8 hover:bg-warm sm:p-10"
                 >
                   {contenu}
                 </a>
               ) : (
-                <article key={application.name} className="bg-bg p-8 sm:p-10">
+                <article
+                  key={application.name}
+                  id={ancreApplication(application.name)}
+                  className="scroll-mt-6 bg-bg p-8 sm:p-10"
+                >
                   {contenu}
                 </article>
               )
@@ -205,7 +215,10 @@ function LandingPageEn() {
       <section id="pillars" className="scroll-mt-6 border-b-2 border-text">
         <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:py-28">
           <p className="label text-accent-primary">The overview</p>
-          <h2 className="display-lg mt-6">Four pillars.</h2>
+          <h2 className="display-lg mt-6">
+            Four pillars.
+            <LienSection ancre="pillars" />
+          </h2>
           <p className="chapeau mt-8 max-w-2xl">
             Every application and every project takes back one of these four
             means.
