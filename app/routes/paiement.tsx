@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { seo } from '@/lib/seo'
+import { LienSection } from '@/components/LienSection'
 
 export const Route = createFileRoute('/paiement')({
   component: PaiementPage,
@@ -353,7 +354,7 @@ function PaiementPage() {
           <p className="label text-accent-primary">L'obstacle réel</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Encaisser demande une autorisation.
-          </h2>
+          <LienSection ancre="obstacle" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Fabriquer un outil ne demande la permission de personne.
@@ -381,7 +382,7 @@ function PaiementPage() {
           <p className="label text-text/60">Le prix de la dépendance</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
             Ce que chacun prélève.
-          </h2>
+          <LienSection ancre="dependance" /></h2>
           <p className="chapeau mt-8 max-w-2xl">
             Stripe est le choix par défaut, et pour de bonnes raisons : il
             s'intègre vite et accepte presque tous les moyens de paiement. Voici ce que
@@ -468,7 +469,7 @@ function PaiementPage() {
             Quatre marches,
             <br />
             franchies une à une.
-          </h2>
+          <LienSection ancre="projet" /></h2>
           <p className="chapeau mt-8 max-w-2xl opacity-90">
             Chacune supprime une part de dépendance. Chacune rapporte déjà, ce
             qui paie la suivante. Aucune ne demande d'attendre d'avoir tout
@@ -498,7 +499,7 @@ function PaiementPage() {
           <div className="mx-auto w-full max-w-7xl px-6 py-16 sm:py-24">
             <div className="grid gap-10 sm:grid-cols-12">
               <div className="sm:col-span-5">
-                <p className="label opacity-70">{etatLabel[marche.etat]}</p>
+                <p className="label opacity-70">{etatLabel[marche.etat]}<LienSection ancre={`marche-${marche.rang}`} /></p>
                 <p
                   className={`font-heading mt-6 leading-none ${marche.rangClass}`}
                 >
@@ -563,7 +564,7 @@ function PaiementPage() {
           <p className="label text-accent-primary">Ce que finance le réinvestissement</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Des juristes, pas du capital.
-          </h2>
+          <LienSection ancre="reinvestissement" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Le capital réglementaire — les 125 000 € de la dernière marche —
@@ -590,7 +591,7 @@ function PaiementPage() {
           <p className="label text-text/60">Le dossier</p>
           <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
             Ce qu'il faut écrire.
-          </h2>
+          <LienSection ancre="dossier" /></h2>
           <p className="chapeau mt-8 max-w-2xl">
             Le détail d'un dossier d'agrément, tel que le régulateur l'examine.
             C'est cette liste que notre réinvestissement paie.
@@ -626,7 +627,7 @@ function PaiementPage() {
           </p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Le prix n'est pas public.
-          </h2>
+          <LienSection ancre="inconnues" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Ni les autorités ni les cabinets spécialisés ne publient de

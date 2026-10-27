@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { Conviction } from '@/components/Conviction'
 import { Participation } from '@/components/Participation'
 import { seo } from '@/lib/seo'
+import { LienSection } from '@/components/LienSection'
 
 export const Route = createFileRoute('/pot')({
   component: PotPage,
@@ -53,7 +54,7 @@ function PotPage() {
           <p className="label opacity-70">Contribution directe</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Financer la suite.
-          </h2>
+          <LienSection ancre="participer" /></h2>
 
           <div className="mt-12">
             <Participation />
@@ -88,7 +89,7 @@ function PotPage() {
           <p className="label text-accent-primary">Le financement</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Ce qui existe finance ce qui vient.
-          </h2>
+          <LienSection ancre="financement" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               La façon la plus simple de financer la suite est d'utiliser une
@@ -121,7 +122,7 @@ function PotPage() {
           <p className="label text-accent-primary">Où va l'argent</p>
           <h2 className="font-heading mt-6 text-4xl leading-tight sm:text-5xl">
             Dans tous les projets.
-          </h2>
+          <LienSection ancre="ou-va-l-argent" /></h2>
           <div className="prose-editorial mt-10 text-text/85">
             <p>
               Dix projets : huit prêts, deux en cours. L'argent paie d'abord

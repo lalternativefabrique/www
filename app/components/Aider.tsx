@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import type { Locale } from '@/lib/i18n'
+import { LienSection } from '@/components/LienSection'
 
 const textes = {
   fr: {
@@ -57,7 +58,7 @@ export function Aider({
         <p className="label text-text/60">{repere ?? t.repere}</p>
         <h2 className="font-heading mt-6 max-w-3xl text-4xl leading-tight sm:text-5xl">
           {titre ?? t.titre}
-        </h2>
+        <LienSection ancre={locale === 'fr' ? 'aider' : 'help'} /></h2>
         <p className="chapeau mt-8 max-w-2xl">{t.chapeau}</p>
         <div className="mt-14 grid grid-cols-1 gap-px bg-text sm:grid-cols-2 lg:grid-cols-3">
           {t.aides.map((aide) => (
