@@ -8,11 +8,20 @@ export type CoutsLigne = {
 
 export type CoutsPoste = CoutsLigne & { category: string; app: string }
 
+export type TravailDonne = {
+  days: number
+  day_rate_cents: number
+  value_cents: number
+  roles: { name: string; days: number }[]
+}
+
 export type Couts = {
   tenant: { name: string; slug: string }
   month: string
   months: string[]
   currency: string
+  llmPublic: boolean
+  travailDonne: TravailDonne | null
   totals: { catalog_cents: number; llm_cents: number; staff_cents: number; total_cents: number }
   apps: CoutsLigne[]
   items: CoutsPoste[]
@@ -49,6 +58,21 @@ function poste(value: unknown): CoutsPoste | null {
   return { ...base, category: v.category, app: v.app }
 }
 
+function travailDonne(value: unknown): TravailDonne | null {
+  if (!value || typeof value !== 'object') return null
+  const v = value as Record<string, unknown>
+  const rate = cents(v.day_rate_cents)
+  const total = cents(v.value_cents)
+  if (typeof v.days !== 'number' || v.days <= 0 || rate === null || total === null) return null
+  const roles = Array.isArray(v.roles)
+    ? v.roles.filter(
+        (r): r is { name: string; days: number } =>
+          !!r && typeof r.name === 'string' && typeof r.days === 'number',
+      )
+    : []
+  return { days: v.days, day_rate_cents: rate, value_cents: total, roles }
+}
+
 export function parseCouts(value: unknown): Couts | null {
   if (!value || typeof value !== 'object') return null
   const v = value as Record<string, unknown>
@@ -74,6 +98,8 @@ export function parseCouts(value: unknown): Couts | null {
     month,
     months: v.months.filter((m): m is string => moisValide(m) !== undefined),
     currency: v.currency,
+    llmPublic: v.llm_public !== false,
+    travailDonne: travailDonne(v.volunteer),
     totals: {
       catalog_cents: totals.catalog_cents,
       llm_cents: totals.llm_cents,
