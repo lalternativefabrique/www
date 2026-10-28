@@ -106,6 +106,9 @@ export const publishArticle = createServerFn({ method: 'POST' })
       )
     }
 
+    const { announce, articlePaths } = await import('./indexnow')
+    void announce(articlePaths(String(fr.meta.slug), enMeta ? String(enMeta.slug) : undefined))
+
     return { ok: true, slug: String(fr.meta.slug), hasEn: Boolean(enMeta) }
   })
 

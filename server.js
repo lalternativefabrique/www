@@ -61,6 +61,16 @@ function staticFile(pathname) {
   return undefined
 }
 
+/**
+ * The host the visitor asked for. The sklp front relays requests with the
+ * public name in X-Forwarded-Host; the Host header then names the node.
+ */
+function publicHost(req) {
+  const forwarded = req.headers['x-forwarded-host']
+  const raw = (Array.isArray(forwarded) ? forwarded[0] : forwarded)?.split(',')[0] ?? req.headers.host ?? ''
+  return raw.trim().split(':')[0].toLowerCase()
+}
+
 const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`)
@@ -75,7 +85,7 @@ const server = createServer(async (req, res) => {
       return
     }
 
-    const host = (req.headers.host ?? '').split(':')[0].toLowerCase()
+    const host = publicHost(req)
     if (CANONICAL_ORIGIN && REDIRECTED_HOSTS.has(host)) {
       res.writeHead(301, { Location: CANONICAL_ORIGIN + url.pathname + url.search })
       res.end()

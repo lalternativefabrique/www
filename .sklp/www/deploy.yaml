@@ -114,6 +114,7 @@ services:
       LUNGOR_WEBHOOK_SECRET: ${LUNGOR_WEBHOOK_SECRET}
       PUBLIC_SITE_URL: https://lalter.org
       REDIRECTED_HOSTS: www.lalter.org,lalternativefabrique.org,www.lalternativefabrique.org
+      INDEXNOW_KEY: f61c51aa905aab8c0f4be0aaec5f95b7
       # The discussion under the articles: rooms of the suite's chat service
       # (docs/adr/0003). The key is the www tenant's, issued by the chat.
       CHAT_URL: https://chat.messag.eco
