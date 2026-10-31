@@ -34,11 +34,6 @@ export type ArticlePage = {
   autreSlug?: string
   /** The body, server-rendered. */
   html: string
-  /**
-   * The spoken version, when the bucket holds one. Absent for an article
-   * published before it was narrated, or whose reading failed — the page then
-   * offers no player rather than a broken one.
-   */
   /** Whether the discussion under the piece is open. */
   commentaires: boolean
 }
