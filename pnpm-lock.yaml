@@ -29,8 +29,8 @@ importers:
         specifier: ^0.13.3
         version: 0.13.3(better-auth@1.7.14(@tanstack/react-start@1.168.60(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown@1.2.15)(rollup@4.60.3)(vite@8.3.5(@types/node@22.19.17)(jiti@2.7.0)(yaml@2.9.0)))(pg@8.23.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@lalternative/editor':
-        specifier: ^0.15.0
-        version: 0.15.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: ^0.15.1
+        version: 0.15.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@lalternative/legal':
         specifier: ^0.1.0
         version: 0.1.0(react@19.2.5)
@@ -455,8 +455,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@lalternative/editor@0.15.0':
-    resolution: {integrity: sha512-TFU46CHgMUXMQJVkWqXnk89RRHbDctHzCaiym3oWuK5bcKLbheGdIVGa+/SMIl2StxbAU3eM3XVs5yXLMnKxIQ==}
+  '@lalternative/editor@0.15.1':
+    resolution: {integrity: sha512-ZDbzdUVIxaOplnqobCSHrO8+HV6LP8GMVK7Kz4E4UlvSFQqsEqtbnxEK7z+P5J8aqcKASMqbSqxBaiUAk0+HSw==}
     peerDependencies:
       '@tiptap/core': '>=3.0.0'
       '@tiptap/pm': '>=3.0.0'
@@ -2877,7 +2877,7 @@ snapshots:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
 
-  '@lalternative/editor@0.15.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@lalternative/editor@0.15.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       '@mdx-js/mdx': 3.1.1
       react: 19.2.5
