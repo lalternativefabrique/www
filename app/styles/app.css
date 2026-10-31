@@ -1,3 +1,4 @@
+@import '@lalternative/editor/article.css';
 @import "tailwindcss";
 
 /*
@@ -320,6 +321,9 @@ h4 {
   }
 }
 
-::highlight(vvaves-reading) {
-  background-color: color-mix(in srgb, var(--color-accent-primary) 18%, transparent);
+:root {
+  --article-accent: var(--color-accent-primary);
+  --article-text: var(--color-text);
+  --article-on-text: var(--color-bg);
+  --article-radius: 0;
 }
